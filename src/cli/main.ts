@@ -3,6 +3,7 @@ import {RibbitError,EXACT_LIMITS,SEMANTIC_LIMITS} from '../engine/records/index.
 const argv=process.argv.slice(2);
 const administrative=['providers','profiles','models','route','commands','types','extensions','init','completions','setup','doctor'];
 function help(name?:string,manifest= name?builtins[name]:undefined,actionName='run'){
+ if(name==='flow'){console.log('Usage: ribbit flow plan|run FILE [runtime flags]\n       ribbit flow plan|run [runtime flags] -- COMMAND [args] :: COMMAND [args]\n\nPlan validates references and shows args, routes, effects and boundaries without inference.\nUse --profile as a flow default, segment --profile to override, or --force-profile to replace all routes.');return;}
  if(name&&manifest){const action=manifest.actions[actionName];console.log(`ribbit ${name} — ${action.description}\n\n${action.bindings.map(b=>`  --${b.flag}${b.type==='boolean'?'':` <${b.type}>`}${b.repeated?' (repeatable)':''}${b.positional!==undefined?' (positional)':''}`).join('\n')}\n\nInput: ${action.inputKind}; output: ${action.outputKind}.\nRuntime: --input auto|text|lines|jsonl|records, --output records|jsonl|text|json,\n--file PATH, --profile NAME, --provider NAME, --model NAME, --stats, --error-format json.\n`);return;}
  console.log(`Ribbit — Small commands. Big hops.\n\nUsage: ribbit COMMAND [arguments]\n\nCommands:\n  ${Object.keys(builtins).join(', ')}\n\nManagement:\n  ${administrative.join(', ')}, run, flow\n\nUse ribbit COMMAND --help or ribbit types describe @ribbit/COMMAND --json.`);
 }

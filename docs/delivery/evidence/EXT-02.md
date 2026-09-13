@@ -1,14 +1,12 @@
-# EXT-02 — Implementation under review
+# EXT-02 — Accepted
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+Integrator review, 2026-09-13. EXT-01, SDK-01 and CORE-02 accepted.
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Built-ins and installed actions use shared dispatch | PASS | Both dispatch through executeAction; built-in and extension suites |
+| Arbitrary exceptions sanitized | PASS | Error contains no supplied private marker |
+| Stream cancellation and cleanup | PASS | Pending next rejects on abort; iterator return requested; early break closes generator |
+| Output schema validated | PASS | SDK value and partial-stream invalid-output tests |
 
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Verification: `bun test tests/extensions tests/sdk tests/execution`. Cancellation stops awaiting noncooperative async work; it cannot forcibly terminate arbitrary synchronous trusted TypeScript or undo its side effects. No such isolation is claimed.

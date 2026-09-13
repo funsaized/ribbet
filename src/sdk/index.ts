@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Budget } from '../engine/execution/index.ts';
+import { Budget, abortable, cancellable } from '../engine/execution/index.ts';
 import { RibbitError, isJson } from '../engine/records/index.ts';
 export { z, Budget, RibbitError };
 export { recordSchema, jsonValueSchema } from '../engine/records/index.ts';
@@ -49,18 +49,18 @@ export async function executeAction(action: Action, input: unknown, args: unknow
   const parsedArgs = parse(action.args, args, 'args'), parsedConfig = parse(action.config, config, 'config');
   const inputSchema = action.input;
   async function* validatedInput(source: AsyncIterable<unknown>) {
-    for await (const item of source) { ctx.budget.check(); yield parse(inputSchema, item, 'input'); }
+    for await (const item of cancellable(source, ctx.signal)) { ctx.budget.check(); yield parse(inputSchema, item, 'input'); }
   }
   if (action.mode === 'records' && !(input && typeof (input as AsyncIterable<unknown>)[Symbol.asyncIterator] === 'function')) throw new RibbitError(2, 'Record action requires an async iterable', 'input');
   const parsedInput = action.mode === 'records' ? validatedInput(input as AsyncIterable<unknown>) : parse(inputSchema, input, 'input');
   let result: unknown;
-  try { result = await action.execute({ input: parsedInput, args: parsedArgs, config: parsedConfig }, ctx); }
+  try { result = await abortable(Promise.resolve(action.execute({ input: parsedInput, args: parsedArgs, config: parsedConfig }, ctx)), ctx.signal); }
   catch (error) { if (error instanceof RibbitError) throw error; throw new RibbitError(5, 'Extension execution failed (details redacted)'); }
   if (action.mode === 'value') return parse(action.output, result, 'output', 5);
   if (!result || typeof (result as AsyncIterable<unknown>)[Symbol.asyncIterator] !== 'function') throw new RibbitError(5, 'Streaming action did not return an async iterable');
   return (async function* () {
     try {
-      for await (const item of result as AsyncIterable<unknown>) {
+      for await (const item of cancellable(result as AsyncIterable<unknown>, ctx.signal)) {
         ctx.budget.check();
         const output = parse(action.output, item, 'output', 5);
         if (action.mode === 'text-stream' && typeof output !== 'string') throw new RibbitError(5, 'Text stream must emit strings');

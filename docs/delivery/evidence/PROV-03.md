@@ -53,3 +53,5 @@ The LM Studio portion is now resolved: the user's desktop install serves the dow
 Qwen2.5-0.5B-Instruct model; see provider-lmstudio-live.json and the integrated evidence.
 Hosted endpoint conformance is still blocked pending the owner's endpoint/model and
 API-key environment-variable name. Do not treat a local compatible server as hosted evidence.
+
+Owner decision at checkpoint: use LM Studio's OpenAI-compatible endpoint now; the owner will test a hosted OpenAI key later. State is owner-DEFERRED for that hosted portion, not a failed or implicitly waived conformance claim.

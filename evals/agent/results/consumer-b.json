@@ -1,0 +1,54 @@
+{
+  "evaluation": "Independent consumer B; only supplied public docs and scaffold inspected",
+  "environment": {
+    "cwd": "/tmp/ribbit-consumer-b",
+    "XDG_CONFIG_HOME": "/tmp/ribbit-consumer-b/config",
+    "XDG_DATA_HOME": "/tmp/ribbit-consumer-b/data"
+  },
+  "tasks": [
+    {
+      "task": 6,
+      "judgment": "pass",
+      "evidence": "Saved flow planned successfully and returned [{\"name\":\"A\"}].",
+      "limitations": [],
+      "trace_path": "/tmp/ribbit-consumer-b/trace.jsonl"
+    },
+    {
+      "task": 7,
+      "judgment": "pass",
+      "evidence": "Live LM Studio qwen2.5-0.5b-instruct CLI extract returned {\"title\":\"Review proposal\",\"owner\":null}, matching fixture. No mock provider used.",
+      "limitations": [
+        "First sandbox attempt could not reach provider; authorized escalation succeeded. One small fixture is not general quality proof."
+      ],
+      "trace_path": "/tmp/ribbit-consumer-b/trace.jsonl"
+    },
+    {
+      "task": 8,
+      "judgment": "pass",
+      "evidence": "Unqualified greeting fails ambiguity exit 2; project:greeting returns Project Ada?; global:greeting returns Global Ada!.",
+      "limitations": [],
+      "trace_path": "/tmp/ribbit-consumer-b/trace.jsonl"
+    },
+    {
+      "task": 9,
+      "judgment": "pass",
+      "evidence": "Scaffold fixture passed, extension installed, source changed to uppercase; stale run rejected exit 3; explicit extensions add rebuilt; execution returns Project ADA?.",
+      "limitations": [
+        "Scaffold nested path fails misleadingly if parent missing; mkdir parent works. Tried extensions rebuild (undocumented) and received unknown operation; error directs extensions add."
+      ],
+      "trace_path": "/tmp/ribbit-consumer-b/trace.jsonl"
+    },
+    {
+      "task": 10,
+      "judgment": "pass",
+      "evidence": "find with *.txt then sort --by path --type string and take 1 selected real a.txt. Complete record equality proves ID/source/annotations preservation.",
+      "limitations": [
+        "sort --by path alone fails required type instead of defaulting; explicit --type string works. Failed downstream empty-header run retained."
+      ],
+      "trace_path": "/tmp/ribbit-consumer-b/trace.jsonl"
+    }
+  ],
+  "trace_path": "/tmp/ribbit-consumer-b/trace.jsonl",
+  "command_count": 31,
+  "failures_retained": 10
+}

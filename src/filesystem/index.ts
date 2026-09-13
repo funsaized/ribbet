@@ -15,7 +15,7 @@ export async function walk(root:string,options:WalkOptions={},log:(s:string)=>vo
   const real=await realpath(dir);if(visited.has(real)){log(`Skipped symlink cycle: ${dir}`);omitted++;return;}visited.add(real);
   if(!options.outsideRoot){const rel=relative(boundary,real);if(rel==='..'||rel.startsWith('..'+sep)||resolve(boundary,rel)!==real){log(`Skipped outside-root link: ${dir}`);omitted++;return;}}
   const base=relative(absolute,dir);let added=false;
-  if(!options.noIgnore){const matcher=ignore();for(const name of ['.gitignore','.ribbitignore']){try{matcher.add(await readFile(join(dir,name),'utf8'));}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e;}}stack.push({base,matcher});added=true;}
+  if(!options.noIgnore){const matcher=ignore();for(const name of ['.gitignore','.ribbitignore']){try{matcher.add(await textFile(join(dir,name),Math.min(maxBytes,1024*1024)));}catch(e){if(e instanceof RibbitError&&e.code===7){try{await stat(join(dir,name));}catch(missing){if((missing as NodeJS.ErrnoException).code==='ENOENT')continue;}}throw e;}}stack.push({base,matcher});added=true;}
   try{
    for(const entry of(await readdir(dir,{withFileTypes:true})).sort((a,b)=>a.name<b.name?-1:a.name>b.name?1:0)){
     const path=join(dir,entry.name),rel=relative(absolute,path);
@@ -34,7 +34,7 @@ export async function walk(root:string,options:WalkOptions={},log:(s:string)=>vo
      }
      if(include)records.push({id:String(records.length+1),value:value as unknown as RecordValue['value'],source:{path},annotations:{}});
     }
-    if(directory&&(options.recursive??false)&&depth<(options.depth??Infinity)){if(meta.isSymbolicLink()&&!options.follow)continue;await visit(path,depth+1);}
+    if(directory&&(options.recursive??false)&&depth<(options.depth??Infinity)){if(meta.isSymbolicLink()&&!options.follow)continue;try{await visit(path,depth+1);}catch(e){if(options.onReadError==='skip'&&(!(e instanceof RibbitError)||e.code===7)){omitted++;log(`Skipped unreadable directory: ${path}`);}else throw e;}}
    }
   }finally{if(added)stack.pop();}
  }

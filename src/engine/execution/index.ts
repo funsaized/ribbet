@@ -86,3 +86,36 @@ export async function writeOutput(chunks: AsyncIterable<string>, sink: { write(c
     throw new RibbitError(7, `Output write failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
+
+/** Await cooperative work while allowing the invocation to stop waiting on abort. */
+export async function abortable<T>(work: PromiseLike<T>, signal: AbortSignal): Promise<T> {
+  if (signal.aborted) throw signal.reason;
+  let remove = () => {};
+  const cancelled = new Promise<never>((_, reject) => {
+    const onAbort = () => reject(signal.reason);
+    signal.addEventListener('abort', onAbort, { once: true });
+    remove = () => signal.removeEventListener('abort', onAbort);
+  });
+  try { return await Promise.race([work, cancelled]); }
+  finally { remove(); }
+}
+
+/** Close iterators on early exit without letting an uncooperative return block cancellation. */
+export async function* cancellable<T>(source: AsyncIterable<T>, signal: AbortSignal): AsyncGenerator<T> {
+  const iterator = source[Symbol.asyncIterator]();
+  let complete = false;
+  try {
+    while (true) {
+      if (signal.aborted) throw signal.reason;
+      const part = await abortable(iterator.next(), signal);
+      if (part.done) { complete = true; return; }
+      yield part.value;
+    }
+  } finally {
+    if (!complete && iterator.return) {
+      const closing = Promise.resolve().then(() => iterator.return!());
+      if (signal.aborted) void closing.catch(() => {});
+      else await abortable(closing, signal);
+    }
+  }
+}

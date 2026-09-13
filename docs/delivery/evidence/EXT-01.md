@@ -1,14 +1,13 @@
-# EXT-01 — Implementation under review
+# EXT-01 — Accepted
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+Integrator review, 2026-09-13. Prerequisites SDK-02 and CORE-02 accepted.
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Uninstalled source does not execute implicitly | PASS | Explicit installer only; discovery import-marker regression |
+| Ordinary invocation does not download code | PASS | Installed echo executes with fetch disabled |
+| Changed source requires explicit rebuild | PASS | Lifecycle test and independent consumer task 9 |
+| Failed add preserves prior usable installation | PASS | Failed type-check preserves registry/artifact, restore and run |
+| Removal retains user source | PASS | Lifecycle test |
 
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Verification: `bun test tests/extensions`, package smoke and independent consumer traces. Metadata inspection covers help, types, named commands, route, plan and all three shell completions with an import sentinel and forbidden fetch. Runtime artifacts are immutable hash-checked bundles. Trusted extension execution is not sandboxing.

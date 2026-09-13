@@ -5,7 +5,7 @@ import {resolveInvocation} from '../src/definitions/index.ts';
 import {runInvocation,routeFor} from '../src/engine/runtime/index.ts';
 import {Budget} from '../src/sdk/index.ts';
 if(process.env.RIBBIT_RUN_LIVE_EVAL!=='1')throw new Error('Set RIBBIT_RUN_LIVE_EVAL=1 to authorize local evaluation requests');
-const config=await loadConfig(),route=routeFor(await resolveInvocation('ask'),config)!;
+const config=await loadConfig();if(process.env.RIBBIT_EVAL_PROFILE)config.default={profile:process.env.RIBBIT_EVAL_PROFILE};const route=routeFor(await resolveInvocation('ask'),config)!;
 if(!['127.0.0.1','localhost','[::1]'].includes(new URL(route.endpoint.baseUrl).hostname))throw new Error('This evaluation runner requires a loopback provider');
 const fixtures=JSON.parse(await readFile('evals/datasets/core.json','utf8')) as any[];
 if(fixtures.length!==250||new Set(fixtures.map(f=>f.id)).size!==250)throw new Error('Invalid fixture count or duplicate IDs');
@@ -23,4 +23,4 @@ function macroF1(command:string){const rows=attempts.filter(r=>r.command===comma
 const extraction=attempts.filter(r=>r.command==='extract');const fieldCorrectness=extraction.reduce((n,r)=>n+Object.keys(r.expected).filter(k=>r.actual?.[k]===r.expected[k]).length,0)/(extraction.length*3);
 const scores={filterMacroF1:macroF1('filter'),classifyMacroF1:macroF1('classify'),extractionFieldCorrectness:fieldCorrectness};
 const report={schemaVersion:1,date:new Date().toISOString(),model:route.model,provider:route.provider,runtime:Bun.version,cpu:cpus()[0].model,scores,coreThresholdsPass:Object.values(scores).every(s=>s>=.9),releasePass:false,unverified:['independent label review','rubric family scores','model digest/quantization capture','candidate comparison'],attempts};
-await writeFile('evals/results/latest.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({...report,attempts:attempts.length},null,2));process.exitCode=1;
+await writeFile('evals/results/'+route.model.replace(/[^a-zA-Z0-9_-]/g,'_')+'.json',JSON.stringify(report,null,2)+'\n');await writeFile('evals/results/latest.json',JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({...report,attempts:attempts.length},null,2));process.exitCode=1;

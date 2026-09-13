@@ -27,3 +27,5 @@ Each task writes docs/delivery/evidence/ID.md. Index status is authoritative; in
 ## Integration amendment, 2026-09-13
 
 The owner explicitly directed continued full-backlog implementation after the live-provider blocker and authorized builds, tests and commits. The integrator is preparing connected implementation and verification across adjacent CLI/SDK/flow/package paths before final gate acceptance. Tasks under review may therefore contain implementation while an external predecessor remains blocked. This amendment permits preparation, not acceptance: hosted conformance, independent agent exercises, semantic quality and real-user pilots remain required. Original PRD/backlog source documents are preserved; discovered example ambiguities are recorded in maintained contracts and user docs.
+
+At the owner's end-of-day checkpoint, DEFERRED denotes an explicitly postponed owner test (currently hosted OpenAI credentials). It does not remove a required release gate. REVIEW includes implemented work with unresolved audits and measured gates awaiting prerequisite acceptance.

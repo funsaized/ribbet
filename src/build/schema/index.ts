@@ -1,15 +1,18 @@
-import Ajv2020 from 'ajv/dist/2020.js';
+import type Ajv2020 from 'ajv/dist/2020.js';
+import * as compiled from '../../generated/validators.ts';
+import {hash,stable} from '../../sdk/manifest/index.ts';
 import { RibbitError, isJson } from '../../engine/records/index.ts';
 import type { JsonSchema } from '../../sdk/manifest/index.ts';
-const ajv = new Ajv2020({allErrors:true,useDefaults:true,strict:false});
+let ajv:Ajv2020|undefined;
+function compiler(){return ajv??=new (require('ajv/dist/2020.js').default)({allErrors:true,useDefaults:true,strict:false});}
 const cache = new WeakMap<object,ReturnType<Ajv2020['compile']>>();
 export function validateJson(schema: JsonSchema, value: unknown, location='args', code=2): any {
   if (!isJson(value)) throw new RibbitError(code,'Expected finite JSON',location);
-  let validator=cache.get(schema);
-  try { if(!validator){validator=ajv.compile(schema);cache.set(schema,validator);} }
+  let validator=cache.get(schema)??(compiled as Record<string,any>)['v'+hash(stable(schema))];
+  try { if(!validator){validator=compiler().compile(schema);cache.set(schema,validator);} }
   catch {throw new RibbitError(2,'Unsupported or invalid JSON Schema',location);}
   const copy=structuredClone(value);
-  if(!validator(copy)) throw new RibbitError(code,ajv.errorsText(validator.errors,{separator:'; '}),location);
+  if(!validator(copy)) throw new RibbitError(code,validator.errors?.map((e:any)=>`${e.instancePath||location} ${e.message}`).join('; ')??'Schema validation failed',location);
   return copy;
 }
 export function validateExternalSchema(schema: unknown): asserts schema is JsonSchema {
@@ -28,7 +31,7 @@ export function validateExternalSchema(schema: unknown): asserts schema is JsonS
     seen.delete(node);
   }
   visit(schema);
-  try{ajv.compile(schema as object);}catch{throw new RibbitError(2,'Invalid JSON Schema');}
+  try{compiler().compile(schema as object);}catch{throw new RibbitError(2,'Invalid JSON Schema');}
 }
 import { z } from 'zod';
 export function schemaToZod(schema: JsonSchema): z.ZodType<any> {

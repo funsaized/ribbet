@@ -1,0 +1,306 @@
+{
+  "reviewer": "a",
+  "source": "blind.json only",
+  "rows": [
+    {
+      "id": "filter-12",
+      "expected": true,
+      "reason": "Reports a connection timeout contacting a database, matching network timeout criterion."
+    },
+    {
+      "id": "filter-79",
+      "expected": false,
+      "reason": "Successful local file processing reports no network failure."
+    },
+    {
+      "id": "filter-24",
+      "expected": true,
+      "reason": "Reports a connection timeout contacting a database, matching network timeout criterion."
+    },
+    {
+      "id": "filter-29",
+      "expected": false,
+      "reason": "Successful connection is neither a failed connection nor a timeout."
+    },
+    {
+      "id": "filter-47",
+      "expected": false,
+      "reason": "Successful local file processing reports no network failure."
+    },
+    {
+      "id": "filter-48",
+      "expected": true,
+      "reason": "Reports a connection timeout contacting a database, matching network timeout criterion."
+    },
+    {
+      "id": "filter-53",
+      "expected": false,
+      "reason": "Successful connection is neither a failed connection nor a timeout."
+    },
+    {
+      "id": "filter-42",
+      "expected": true,
+      "reason": "Remote refusal explicitly reports a failed network connection."
+    },
+    {
+      "id": "filter-6",
+      "expected": true,
+      "reason": "Remote refusal explicitly reports a failed network connection."
+    },
+    {
+      "id": "filter-46",
+      "expected": true,
+      "reason": "Remote refusal explicitly reports a failed network connection."
+    },
+    {
+      "id": "filter-50",
+      "expected": true,
+      "reason": "Remote refusal explicitly reports a failed network connection."
+    },
+    {
+      "id": "filter-26",
+      "expected": true,
+      "reason": "Remote refusal explicitly reports a failed network connection."
+    },
+    {
+      "id": "filter-69",
+      "expected": false,
+      "reason": "Successful connection is neither a failed connection nor a timeout."
+    },
+    {
+      "id": "filter-88",
+      "expected": true,
+      "reason": "Reports a connection timeout contacting a database, matching network timeout criterion."
+    },
+    {
+      "id": "filter-17",
+      "expected": false,
+      "reason": "Successful connection is neither a failed connection nor a timeout."
+    },
+    {
+      "id": "filter-20",
+      "expected": true,
+      "reason": "Reports a connection timeout contacting a database, matching network timeout criterion."
+    },
+    {
+      "id": "filter-7",
+      "expected": false,
+      "reason": "Successful local file processing reports no network failure."
+    },
+    {
+      "id": "filter-63",
+      "expected": false,
+      "reason": "Successful local file processing reports no network failure."
+    },
+    {
+      "id": "filter-18",
+      "expected": true,
+      "reason": "Remote refusal explicitly reports a failed network connection."
+    },
+    {
+      "id": "filter-51",
+      "expected": false,
+      "reason": "Successful local file processing reports no network failure."
+    },
+    {
+      "id": "classify-62",
+      "expected": "praise",
+      "reason": "Positive evaluation of interface quality and usability."
+    },
+    {
+      "id": "classify-54",
+      "expected": "praise",
+      "reason": "Positive evaluation of interface quality and usability."
+    },
+    {
+      "id": "classify-15",
+      "expected": "unknown",
+      "reason": "No substantive feedback supports bug, feature or praise."
+    },
+    {
+      "id": "classify-90",
+      "expected": "praise",
+      "reason": "Positive evaluation of interface quality and usability."
+    },
+    {
+      "id": "classify-32",
+      "expected": "bug",
+      "reason": "Application crash caused by Save is reported malfunction."
+    },
+    {
+      "id": "classify-92",
+      "expected": "bug",
+      "reason": "Application crash caused by Save is reported malfunction."
+    },
+    {
+      "id": "classify-10",
+      "expected": "praise",
+      "reason": "Positive evaluation of interface quality and usability."
+    },
+    {
+      "id": "classify-85",
+      "expected": "feature",
+      "reason": "Requests a new export capability."
+    },
+    {
+      "id": "classify-39",
+      "expected": "unknown",
+      "reason": "No substantive feedback supports bug, feature or praise."
+    },
+    {
+      "id": "classify-47",
+      "expected": "unknown",
+      "reason": "No substantive feedback supports bug, feature or praise."
+    },
+    {
+      "id": "classify-67",
+      "expected": "unknown",
+      "reason": "No substantive feedback supports bug, feature or praise."
+    },
+    {
+      "id": "classify-27",
+      "expected": "unknown",
+      "reason": "No substantive feedback supports bug, feature or praise."
+    },
+    {
+      "id": "classify-58",
+      "expected": "praise",
+      "reason": "Positive evaluation of interface quality and usability."
+    },
+    {
+      "id": "classify-26",
+      "expected": "praise",
+      "reason": "Positive evaluation of interface quality and usability."
+    },
+    {
+      "id": "classify-79",
+      "expected": "unknown",
+      "reason": "No substantive feedback supports bug, feature or praise."
+    },
+    {
+      "id": "classify-65",
+      "expected": "feature",
+      "reason": "Requests a new export capability."
+    },
+    {
+      "id": "classify-74",
+      "expected": "praise",
+      "reason": "Positive evaluation of interface quality and usability."
+    },
+    {
+      "id": "classify-5",
+      "expected": "feature",
+      "reason": "Requests a new export capability."
+    },
+    {
+      "id": "classify-37",
+      "expected": "feature",
+      "reason": "Requests a new export capability."
+    },
+    {
+      "id": "classify-44",
+      "expected": "bug",
+      "reason": "Application crash caused by Save is reported malfunction."
+    },
+    {
+      "id": "extract-29",
+      "expected": {
+        "title": "Review item 29",
+        "owner": "Person 29",
+        "due": "2026-10-02"
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-30",
+      "expected": {
+        "title": "Review item 30",
+        "owner": null,
+        "due": null
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-31",
+      "expected": {
+        "title": "Review item 31",
+        "owner": "Person 31",
+        "due": "2026-10-04"
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-21",
+      "expected": {
+        "title": "Review item 21",
+        "owner": "Person 21",
+        "due": null
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-2",
+      "expected": {
+        "title": "Review item 2",
+        "owner": "Person 2",
+        "due": "2026-10-03"
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-33",
+      "expected": {
+        "title": "Review item 33",
+        "owner": "Person 33",
+        "due": null
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-11",
+      "expected": {
+        "title": "Review item 11",
+        "owner": "Person 11",
+        "due": "2026-10-12"
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-16",
+      "expected": {
+        "title": "Review item 16",
+        "owner": "Person 16",
+        "due": "2026-10-17"
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-0",
+      "expected": {
+        "title": "Review item 0",
+        "owner": null,
+        "due": null
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    },
+    {
+      "id": "extract-28",
+      "expected": {
+        "title": "Review item 28",
+        "owner": "Person 28",
+        "due": "2026-10-01"
+      },
+      "reason": "Title is explicitly stated; owner and due are copied from labeled facts when present and null when explicitly absent. Sentence-ending periods are delimiters."
+    }
+  ],
+  "concerns": [
+    "All sampled filter examples repeat just four sentences except service numbers; classify examples likewise repeat four sentences except ticket numbers. This measures template recognition more than broad semantic generalization.",
+    "Development and held-out examples visibly share exact language templates. Row separation alone does not prevent template leakage; generalization claims need distinct held-out phrasing and scenarios.",
+    "Extract inputs use rigid labeled fields and explicit missingness phrases; there are no sampled conflicting dates/owners, indirect references, missing titles or freeform task descriptions.",
+    "Sampled labels are clear, but the set lacks negation, mixed positive/negative feedback, hypothetical failures, recovered outages and ambiguous feature-versus-bug cases.",
+    "Numbers embedded in IDs and texts may permit shortcuts in a synthetic dataset. Labels here were inferred exclusively from the substantive input language."
+  ],
+  "ambiguities": [
+    "Minor extraction boundary convention: interpret final sentence periods as punctuation rather than part of title/owner/date. No material semantic label ambiguities in these 50 examples."
+  ]
+}

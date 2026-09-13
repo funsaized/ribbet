@@ -11,12 +11,13 @@ import {OllamaAdapter} from '../../providers/ollama/index.ts';
 import {CompatibleAdapter} from '../../providers/openai-compatible/index.ts';
 import {listInstalled,removeInstalled} from '../../extensions/install/index.ts';
 const booleanFlags=new Set(['json','probe','yes']);
-export function options(tokens:string[],allowed:string[]){const flags:Record<string,any>={},positionals:string[]=[];for(let i=0;i<tokens.length;i++){const token=tokens[i];if(token.startsWith('--')){const eq=token.indexOf('='),name=token.slice(2,eq<0?undefined:eq);if(!allowed.includes(name)&&name!=='json')throw new RibbitError(2,`Unknown management flag --${name}`);if(name in flags)throw new RibbitError(2,`Duplicate management flag --${name}`);if(booleanFlags.has(name))flags[name]=true;else{const value=eq<0?tokens[++i]:token.slice(eq+1);if(value===undefined)throw new RibbitError(2,`--${name} requires a value`);flags[name]=value;}}else positionals.push(token);}return{flags,positionals};}
+export function options(tokens:string[],allowed:string[]){const flags:Record<string,any>={},positionals:string[]=[];for(let i=0;i<tokens.length;i++){const token=tokens[i];if(token.startsWith('--')){const eq=token.indexOf('='),name=token.slice(2,eq<0?undefined:eq);if(!allowed.includes(name)&&name!=='json'&&name!=='error-format')throw new RibbitError(2,`Unknown management flag --${name}`);if(name in flags)throw new RibbitError(2,`Duplicate management flag --${name}`);if(booleanFlags.has(name))flags[name]=true;else{const value=eq<0?tokens[++i]:token.slice(eq+1);if(value===undefined)throw new RibbitError(2,`--${name} requires a value`);flags[name]=value;}}else positionals.push(token);}return{flags,positionals};}
 async function saveConfig(value:unknown){const config=configSchema.parse(value),path=configPath();await mkdir(dirname(path),{recursive:true,mode:0o700});const temp=path+'.'+crypto.randomUUID()+'.tmp';await writeFile(temp,stringify(config),{mode:0o600,flag:'wx'});await rename(temp,path);return config;}
 export function respond(value:unknown,json:boolean){console.log(json?JSON.stringify({schemaVersion:1,...value as object}):typeof value==='string'?value:JSON.stringify(value,null,2));}
 export const ADMIN=new Set(['providers','profiles','models','route','commands','types','extensions','init','completions','setup','doctor']);
 export async function admin(command:string,tokens:string[]):Promise<void>{
  const {flags:f,positionals:p}=options(tokens,['type','base-url','default-model','api-key-env','capabilities','provider','model','profile','temperature','max-output-tokens','timeout','probe','agent','yes']);
+ if(f['error-format']&&!['json','text'].includes(f['error-format']))throw new RibbitError(2,'Unknown error format');
  const operation=p[0]??'list',name=p[1],json=!!f.json;
  const result=(value:unknown)=>respond(value,json);
  if(command==='completions'){
@@ -29,7 +30,7 @@ export async function admin(command:string,tokens:string[]):Promise<void>{
  if(command==='types'||command==='commands'){
   if(operation==='list'){result(command==='types'?{types:await types()}:{commands:[...Object.keys(builtins),...(await definitions()).map(d=>`${d.scope}:${d.value.name}`)]});return;}
   if(!name)throw new RibbitError(2,'A name is required');
-  if(command==='types'){if(operation!=='describe')throw new RibbitError(2,'Use types list or describe');const type=(await types()).find(t=>t.type===name);if(!type)throw new RibbitError(2,'Unknown type');result({type});return;}
+  if(command==='types'){if(operation!=='describe')throw new RibbitError(2,'Use types list or describe');const type=(await types()).find(t=>t.type===name);if(!type)throw new RibbitError(2,'Unknown type; use a scoped ID such as @ribbit/take or run types list');result({type});return;}
   if(!['describe','validate'].includes(operation))throw new RibbitError(2,'Use list, describe or validate');
   const invocation=await resolveInvocation(name);result({name,valid:true,type:invocation.manifest,action:invocation.action,defaults:invocation.args,config:invocation.config});return;
  }

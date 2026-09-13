@@ -2,8 +2,9 @@ import { readFile, open, stat } from 'node:fs/promises';
 import { RibbitError, type Json, type RecordValue } from '../engine/records/index.ts';
 import { schemaToZod } from '../build/schema/index.ts';
 export function pathParts(path:string): (string|number)[]{
-  if(!/^[A-Za-z_$][\w$]*(?:(?:\.[A-Za-z_$][\w$]*)|(?:\[(?:0|[1-9]\d*)\]))*$/.test(path))throw new RibbitError(2,`Invalid field path: ${path}`);
-  const parts=[...path.matchAll(/[A-Za-z_$][\w$]*|\d+/g)].map(m=>/^\d+$/.test(m[0])?Number(m[0]):m[0]);
+  if(!/^[A-Za-z_$][\w$-]*(?:(?:\.[A-Za-z_$][\w$-]*)|(?:\[(?:0|[1-9]\d*)\]))*$/.test(path))throw new RibbitError(2,`Invalid field path: ${path}`);
+  const parts=[...path.matchAll(/[A-Za-z_$][\w$-]*|\d+/g)].map(m=>/^\d+$/.test(m[0])?Number(m[0]):m[0]);
+  if(parts.some(p=>typeof p==='number'&&(!Number.isSafeInteger(p)||p>1000000)))throw new RibbitError(6,'Field array index exceeds supported bounds');
   if(parts.some(p=>['__proto__','constructor','prototype'].includes(String(p))))throw new RibbitError(2,'Unsafe field path');return parts;
 }
 export function field(value:unknown,path:string,missing:'error'|'null'='error'):Json{
@@ -19,7 +20,7 @@ export async function textFile(path:string,maxBytes=8*1024*1024):Promise<string>
     const chunks:Buffer[]=[];let total=0;
     for(;;){const buffer=Buffer.alloc(Math.min(65536,maxBytes-total+1));const {bytesRead}=await handle.read(buffer);if(!bytesRead)break;total+=bytesRead;if(total>maxBytes)throw new RibbitError(6,'File exceeds byte limit',path);chunks.push(buffer.subarray(0,bytesRead));}
     const bytes=Buffer.concat(chunks);if(bytes.includes(0))throw new RibbitError(2,'Binary input is unsupported',path);
-    try{return new TextDecoder('utf-8',{fatal:true}).decode(bytes);}catch{throw new RibbitError(2,'Malformed UTF-8 file',path);}
+    try{return new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(bytes);}catch{throw new RibbitError(2,'Malformed UTF-8 file',path);}
   }catch(error){if(error instanceof RibbitError)throw error;throw new RibbitError(7,'Cannot read file',path);}finally{await handle?.close();}
 }
 export async function externalSchema(path:string){let parsed;try{parsed=JSON.parse(await textFile(path));}catch(error){if(error instanceof RibbitError)throw error;throw new RibbitError(2,'Invalid JSON schema file',path);}return schemaToZod(parsed);}
