@@ -38,3 +38,7 @@ All inference for the current test path uses `http://127.0.0.1:1234/v1` (LM Stud
 - `local-qwen`: existing Ollama Qwen3.5:9b retained for reuse, but owner directed current evaluations through LM Studio.
 
 The final [checkpoint evidence](evidence/CHECKPOINT-20260913.md) records process shutdown and model setup. Start LM Studio desktop/server deliberately tomorrow; nothing should be left evaluating overnight. The original user-owned Ollama service is not ours to terminate.
+
+## Additional quick screen
+
+The owner subsequently requested and received an executed Qwen3.8 27B screen: [QUICK_SCREEN_TO_REVIEW.md](../../QUICK_SCREEN_TO_REVIEW.md). Three ~7K-token retrieval cases and 30 labeled cases passed, with a 3017 MiB minimum sampled free VRAM. This does not close the release quality gate or establish FP16-cache equivalence. Model and screen processes were stopped afterward.

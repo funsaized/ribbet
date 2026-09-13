@@ -25,3 +25,5 @@ The model is left unloaded at the end of this session. The first load and an Ope
 ## Quick follow-up screen
 
 Allow roughly 5–10 minutes, depending on prompt processing speed: three retrieval prompts near 7K tokens with distinct known answers at the beginning, middle and end, followed by 30 existing labeled filter/classify/extract examples. Record correctness, time to first token, total latency and minimum free VRAM. Repeat failures with FP16 KV only after its memory estimate passes the reserve guard. Compare identical prompts and sampling settings; a single stochastic difference does not establish a cache defect. This screens the configured 8K context, not 112K capability or release quality. Stop and unload if headroom drops below 2 GiB.
+
+The follow-up screen was executed: see [QUICK_SCREEN_TO_REVIEW.md](../QUICK_SCREEN_TO_REVIEW.md) for results and timing. It took 13.75 minutes of request time, longer than the initial estimate. All 33 checks passed with at least 3017 MiB sampled free VRAM.
