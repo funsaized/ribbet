@@ -1,0 +1,139 @@
+{
+  "model": "ribbit/qwen38-27b-desktop-8k",
+  "base": [
+    {
+      "key": "unsloth/qwen3.8-27b-gguf",
+      "sources": [
+        {
+          "type": "huggingface",
+          "user": "unsloth",
+          "repo": "Qwen3.8-27B-GGUF"
+        }
+      ]
+    }
+  ],
+  "config": {
+    "load": {
+      "fields": [
+        {
+          "key": "llm.load.contextLength",
+          "value": 8192
+        },
+        {
+          "key": "llm.load.llama.autoFit",
+          "value": false
+        },
+        {
+          "key": "llm.load.llama.acceleration.offloadRatio",
+          "value": 0.4
+        },
+        {
+          "key": "load.gpuStrictVramCap",
+          "value": true
+        },
+        {
+          "key": "llm.load.numParallelSessions",
+          "value": 1
+        },
+        {
+          "key": "llm.load.llama.evalBatchSize",
+          "value": 128
+        },
+        {
+          "key": "llm.load.llama.physicalBatchSize",
+          "value": 128
+        },
+        {
+          "key": "llm.load.llama.flashAttention",
+          "value": true
+        },
+        {
+          "key": "llm.load.llama.keepModelInMemory",
+          "value": false
+        },
+        {
+          "key": "llm.load.llama.tryMmap",
+          "value": true
+        },
+        {
+          "key": "llm.load.llama.kCacheQuantizationType",
+          "value": {
+            "checked": true,
+            "value": "q4_0"
+          }
+        },
+        {
+          "key": "llm.load.llama.vCacheQuantizationType",
+          "value": {
+            "checked": true,
+            "value": "q4_0"
+          }
+        }
+      ]
+    },
+    "operation": {
+      "fields": [
+        {
+          "key": "llm.prediction.temperature",
+          "value": 0.6
+        },
+        {
+          "key": "llm.prediction.topKSampling",
+          "value": 20
+        },
+        {
+          "key": "llm.prediction.topPSampling",
+          "value": {
+            "checked": true,
+            "value": 0.95
+          }
+        },
+        {
+          "key": "llm.prediction.minPSampling",
+          "value": {
+            "checked": true,
+            "value": 0
+          }
+        },
+        {
+          "key": "llm.prediction.repeatPenalty",
+          "value": {
+            "checked": true,
+            "value": 1
+          }
+        },
+        {
+          "key": "llm.prediction.llama.presencePenalty",
+          "value": {
+            "checked": true,
+            "value": 0
+          }
+        },
+        {
+          "key": "llm.prediction.llama.cpuThreads",
+          "value": 8
+        }
+      ]
+    }
+  },
+  "metadataOverrides": {
+    "domain": "llm",
+    "displayName": "Qwen3.8 27B Desktop 8K",
+    "architectures": [
+      "qwen35"
+    ],
+    "compatibilityTypes": [
+      "gguf"
+    ],
+    "paramsStrings": [
+      "27B"
+    ],
+    "minMemoryUsageBytes": 14252845984,
+    "contextLengths": [
+      8192
+    ],
+    "vision": false,
+    "reasoning": true,
+    "trainedForToolUse": true
+  }
+}

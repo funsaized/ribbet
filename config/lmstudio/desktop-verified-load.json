@@ -1,0 +1,41 @@
+{
+  "autoFit": false,
+  "gpu": {
+    "splitStrategy": "evenly",
+    "disabledGpus": [],
+    "ratio": 0.4,
+    "numCpuExpertLayersRatio": "off"
+  },
+  "gpuStrictVramCap": true,
+  "maxParallelPredictions": 1,
+  "useUnifiedKvCache": true,
+  "offloadKVCacheToGpu": true,
+  "contextLength": 8192,
+  "ropeFrequencyBase": false,
+  "ropeFrequencyScale": false,
+  "evalBatchSize": 128,
+  "physicalBatchSize": 128,
+  "flashAttention": true,
+  "contextCheckpoints": 32,
+  "reasoningBudgetMessage": "",
+  "speculativeDraftMtp": true,
+  "speculativeDraftSimple": false,
+  "speculativeDraftModel": "",
+  "speculativeDraftMaxTokens": 3,
+  "speculativeDraftMinTokens": 0,
+  "speculativeDraftMinContinueProbability": 0,
+  "keepModelInMemory": false,
+  "seed": false,
+  "useFp16ForKVCache": true,
+  "tryMmap": true,
+  "tryDirectIO": false,
+  "llamaCppArgumentsOverride": {
+    "enabled": false,
+    "disabledParameters": [],
+    "overrideParameters": [],
+    "excludeAllConfig": false
+  },
+  "numExperts": 0,
+  "llamaKCacheQuantizationType": "q4_0",
+  "llamaVCacheQuantizationType": "q4_0"
+}

@@ -27,3 +27,13 @@ The model is left unloaded at the end of this session. The first load and an Ope
 Allow roughly 5–10 minutes, depending on prompt processing speed: three retrieval prompts near 7K tokens with distinct known answers at the beginning, middle and end, followed by 30 existing labeled filter/classify/extract examples. Record correctness, time to first token, total latency and minimum free VRAM. Repeat failures with FP16 KV only after its memory estimate passes the reserve guard. Compare identical prompts and sampling settings; a single stochastic difference does not establish a cache defect. This screens the configured 8K context, not 112K capability or release quality. Stop and unload if headroom drops below 2 GiB.
 
 The follow-up screen was executed: see [QUICK_SCREEN_TO_REVIEW.md](../QUICK_SCREEN_TO_REVIEW.md) for results and timing. It took 13.75 minutes of request time, longer than the initial estimate. All 33 checks passed with at least 3017 MiB sampled free VRAM.
+
+## Desktop entry
+
+The original download appears as **Qwen3.8 27B UD**. “No loaded models” means it is on disk but not occupying inference memory.
+
+A configured local model entry is now installed at `~/.lmstudio/hub/models/ribbit/qwen38-27b-desktop-8k/` and appears as **Qwen38 27B Desktop 8k** (`ribbit/qwen38-27b-desktop-8k`). Select this entry for desktop chats. It reuses the existing GGUF; there is no second weights download. Its [model definition](../config/lmstudio/model.yaml) saves the tested load settings and sampling defaults including eight CPU threads. This follows LM Studio's [model.yaml configuration mechanism](https://lmstudio.ai/docs/app/modelyaml).
+
+A load with no SDK configuration overrides verified 8192 context, .4 offload, strict VRAM cap, Q4 K/V, Flash Attention, one slot and 128-token batches. See [observed load config](../config/lmstudio/desktop-verified-load.json). The verification instance was unloaded afterward. The desktop remains open; its temporary HTTP server was stopped. The desktop entry does not run the launcher's extra pre/post-load 2 GiB checks; keep other GPU workloads in mind and use the guarded launcher when those checks are wanted. Existing chat-level overrides can supersede sampling defaults.
+
+The standalone headless CLI can conflict with the desktop's service authentication during ownership changes. Use the CLI bundled with the running desktop when working on its service, and avoid starting a competing llmster instance.
