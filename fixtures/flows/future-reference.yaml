@@ -1,0 +1,11 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: invalid-future
+steps:
+  - id: first
+    command: take
+    args: {count: 1}
+    input: {$ref: steps.later.output}
+  - id: later
+    command: take
+    args: {count: 1}

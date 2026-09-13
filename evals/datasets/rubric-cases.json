@@ -1,0 +1,3752 @@
+[
+  {
+    "id": "rank-0",
+    "split": "development",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 0: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 0: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 0: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-1",
+    "split": "development",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 1: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 1: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 1: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-2",
+    "split": "development",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 2: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 2: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 2: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-3",
+    "split": "development",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 3: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 3: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 3: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-4",
+    "split": "development",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 4: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 4: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 4: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-5",
+    "split": "development",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 5: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 5: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 5: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-6",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 6: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 6: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 6: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-7",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 7: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 7: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 7: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-8",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 8: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 8: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 8: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-9",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 9: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 9: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 9: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-10",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 10: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 10: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 10: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-11",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 11: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 11: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 11: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-12",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 12: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 12: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 12: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-13",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 13: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 13: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 13: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-14",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 14: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 14: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 14: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-15",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 15: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 15: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 15: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-16",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 16: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 16: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 16: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-17",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 17: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 17: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 17: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-18",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 18: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 18: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 18: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-19",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 19: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 19: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 19: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-20",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 20: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 20: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 20: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-21",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 21: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 21: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 21: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-22",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 22: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 22: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 22: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-23",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 23: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 23: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 23: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-24",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 24: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 24: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 24: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-25",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 25: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 25: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 25: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-26",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 26: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 26: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 26: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-27",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 27: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 27: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 27: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-28",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 28: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 28: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 28: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "rank-29",
+    "split": "held-out",
+    "command": "rank",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 29: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 29: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 29: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-0",
+    "split": "development",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 0: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 0: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 0: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-1",
+    "split": "development",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 1: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 1: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 1: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-2",
+    "split": "development",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 2: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 2: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 2: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-3",
+    "split": "development",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 3: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 3: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 3: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-4",
+    "split": "development",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 4: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 4: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 4: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-5",
+    "split": "development",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 5: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 5: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 5: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-6",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 6: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 6: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 6: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-7",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 7: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 7: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 7: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-8",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 8: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 8: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 8: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-9",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 9: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 9: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 9: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-10",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 10: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 10: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 10: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-11",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 11: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 11: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 11: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-12",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 12: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 12: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 12: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-13",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 13: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 13: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 13: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-14",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 14: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 14: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 14: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-15",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 15: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 15: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 15: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-16",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 16: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 16: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 16: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-17",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 17: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 17: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 17: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-18",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 18: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 18: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 18: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-19",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 19: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 19: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 19: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-20",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 20: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 20: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 20: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-21",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 21: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 21: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 21: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-22",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 22: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 22: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 22: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-23",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 23: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 23: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 23: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-24",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 24: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 24: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 24: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-25",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 25: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 25: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 25: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-26",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 26: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 26: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 26: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-27",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 27: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 27: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 27: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-28",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 28: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 28: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 28: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "group-29",
+    "split": "held-out",
+    "command": "group",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 29: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 29: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 29: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-0",
+    "split": "development",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 0: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 0: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 0: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-1",
+    "split": "development",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 1: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 1: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 1: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-2",
+    "split": "development",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 2: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 2: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 2: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-3",
+    "split": "development",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 3: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 3: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 3: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-4",
+    "split": "development",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 4: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 4: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 4: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-5",
+    "split": "development",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 5: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 5: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 5: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-6",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 6: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 6: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 6: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-7",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 7: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 7: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 7: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-8",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 8: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 8: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 8: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-9",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 9: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 9: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 9: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-10",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 10: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 10: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 10: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-11",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 11: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 11: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 11: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-12",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 12: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 12: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 12: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-13",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 13: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 13: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 13: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-14",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 14: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 14: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 14: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-15",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 15: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 15: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 15: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-16",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 16: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 16: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 16: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-17",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 17: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 17: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 17: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-18",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 18: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 18: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 18: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-19",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 19: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 19: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 19: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-20",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 20: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 20: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 20: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-21",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 21: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 21: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 21: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-22",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 22: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 22: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 22: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-23",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 23: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 23: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 23: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-24",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 24: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 24: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 24: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-25",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 25: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 25: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 25: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-26",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 26: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 26: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 26: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-27",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 27: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 27: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 27: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-28",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 28: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 28: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 28: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "reduce-29",
+    "split": "held-out",
+    "command": "reduce",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 29: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 29: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 29: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-0",
+    "split": "development",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 0: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 0: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 0: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-1",
+    "split": "development",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 1: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 1: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 1: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-2",
+    "split": "development",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 2: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 2: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 2: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-3",
+    "split": "development",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 3: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 3: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 3: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-4",
+    "split": "development",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 4: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 4: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 4: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-5",
+    "split": "development",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 5: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 5: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 5: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-6",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 6: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 6: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 6: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-7",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 7: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 7: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 7: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-8",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 8: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 8: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 8: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-9",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 9: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 9: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 9: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-10",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 10: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 10: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 10: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-11",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 11: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 11: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 11: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-12",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 12: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 12: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 12: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-13",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 13: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 13: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 13: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-14",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 14: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 14: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 14: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-15",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 15: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 15: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 15: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-16",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 16: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 16: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 16: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-17",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 17: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 17: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 17: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-18",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 18: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 18: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 18: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-19",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 19: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 19: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 19: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-20",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 20: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 20: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 20: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-21",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 21: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 21: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 21: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-22",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 22: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 22: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 22: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-23",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 23: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 23: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 23: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-24",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 24: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 24: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 24: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-25",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 25: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 25: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 25: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-26",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 26: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 26: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 26: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-27",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 27: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 27: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 27: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-28",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 28: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 28: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 28: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "compare-29",
+    "split": "held-out",
+    "command": "compare",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 29: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 29: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 29: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-0",
+    "split": "development",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 0: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 0: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 0: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-1",
+    "split": "development",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 1: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 1: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 1: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-2",
+    "split": "development",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 2: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 2: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 2: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-3",
+    "split": "development",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 3: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 3: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 3: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-4",
+    "split": "development",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 4: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 4: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 4: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-5",
+    "split": "development",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 5: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 5: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 5: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-6",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 6: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 6: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 6: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-7",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 7: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 7: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 7: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-8",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 8: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 8: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 8: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-9",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 9: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 9: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 9: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-10",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 10: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 10: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 10: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-11",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 11: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 11: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 11: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-12",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 12: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 12: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 12: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-13",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 13: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 13: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 13: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-14",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 14: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 14: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 14: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-15",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 15: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 15: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 15: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-16",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 16: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 16: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 16: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-17",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 17: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 17: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 17: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-18",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 18: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 18: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 18: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-19",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 19: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 19: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 19: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-20",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 20: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 20: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 20: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-21",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 21: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 21: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 21: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-22",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 22: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 22: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 22: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-23",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 23: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 23: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 23: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-24",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 24: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 24: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 24: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-25",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 25: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 25: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 25: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-26",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 26: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 26: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 26: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-27",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 27: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 27: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 27: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-28",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 28: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 28: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 28: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  },
+  {
+    "id": "explain-29",
+    "split": "held-out",
+    "command": "explain",
+    "evidence": [
+      {
+        "id": "a",
+        "value": "Incident 29: confirmed outage blocks all customers."
+      },
+      {
+        "id": "b",
+        "value": "Incident 29: optional cosmetic improvement."
+      },
+      {
+        "id": "c",
+        "value": "Incident 29: customer impact is not known."
+      }
+    ],
+    "rubric": [
+      "Preserves all stated facts and uncertainty.",
+      "Does not invent causes, remedies already performed, or evidence.",
+      "Prioritizes the confirmed outage when ranking; partitions each record exactly once when grouping.",
+      "Output is relevant to the requested task and identifies supporting evidence."
+    ]
+  }
+]

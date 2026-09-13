@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-13T21:47:54.007Z",
+  "platform": "linux",
+  "arch": "x64",
+  "cpu": "AMD Ryzen 9 5900XT 16-Core Processor",
+  "ramBytes": 33556295680,
+  "runtime": "1.4.0",
+  "help": {
+    "n": 30,
+    "p50Ms": 105.90880900000002,
+    "p95Ms": 109.38297600000033
+  },
+  "version": {
+    "n": 30,
+    "p50Ms": 105.39270300000044,
+    "p95Ms": 109.49685599999975
+  },
+  "take": {
+    "n": 30,
+    "p50Ms": 177.58543500000087,
+    "p95Ms": 182.4651529999992
+  },
+  "checks": {
+    "startup": false
+  },
+  "unverified": [
+    "100k incremental RSS",
+    "extension invocation overhead",
+    "managed pre-HTTP overhead",
+    "macOS reference timing"
+  ]
+}

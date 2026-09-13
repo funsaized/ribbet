@@ -6,7 +6,8 @@ export class Budget {
   readonly controller = new AbortController();
   readonly signal = this.controller.signal;
   readonly limits: BudgetLimits;
-  requests = 0; tokens = 0; bytes = 0; records = 0;
+  requests = 0; tokens = 0; bytes = 0; records = 0; repairs = 0; retries = 0;
+  routes: {provider:string;model:string;source:Record<string,string>}[] = [];
   usageUnknown = false;
   private timer: ReturnType<typeof setTimeout>;
   private external?: AbortSignal;

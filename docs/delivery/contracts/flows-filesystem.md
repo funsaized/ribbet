@@ -1,6 +1,6 @@
 # Flows Filesystem contract
 
-Status: PROPOSED for implementation planning. The corresponding CONTRACT task must ratify this baseline with evidence; this document does not imply user approval of unpublished details.
+Status: RATIFIED baseline, 2026-09-13. See the corresponding CONTRACT evidence. Downstream implementation and release gates require their own acceptance.
 
 Authority: PRD version 1.0; changes must update PRD and affected tasks together.
 
@@ -37,3 +37,11 @@ Root traversal observes .gitignore and Ribbit ignore rules by default; hidden fi
 ls/find emit actual metadata. find first applies cheap exact predicates, then semantic decisions on names unless --read content is explicit. tree --describe defaults to names evidence, labels descriptions accordingly, and supports --read content for richer evidence. Budgets: configurable maximum files and input bytes; omit nothing silently. Discovery budget exhaustion errors before semantic inference. No model output may introduce a path not present in candidates. Traversal errors are reported; --on-read-error skip is an explicit discovery-only option producing warnings and omission counts.
 
 pick v1 uses an installed fzf-compatible backend with a pinned supported minimum determined in the runtime spike. Invocation passes argv without shell interpolation. Opaque IDs map display labels back to originals; tabs, newlines, ANSI sequences and hostile labels cannot inject arguments or corrupt identity. --about performs a bounded semantic rank once, then the picker operates lexically. Cancel returns 130 and no selections. A TTY is required; absent backend returns an actionable error. Backend output is never trusted to create arbitrary records.
+
+## Implemented reference details, 2026-09-13
+
+Restricted field components are `.key` (ASCII letter or underscore first, then letters, digits, underscore or hyphen) and `[nonnegativeDecimalIndex]`. Prototype-related keys are forbidden. Missing known schema paths fail planning; unknown schemas defer to runtime. Direct single-consumer references can stream; reused or field-selected outputs materialize within shared limits. Templates use `{{field.path[0]}}` only; values substitute literally without evaluation. Table rendering escapes control characters.
+
+Standalone `::` is reserved at the argv layer. A shell removes quote information, so a quoted argument equal to `::` cannot be distinguished from a separator; longer prompt arguments containing `::` remain intact. Use saved YAML for that exact literal payload. This resolves the original phrasing without introducing a shell parser.
+
+Filesystem scenario checks cover nested ignores, hidden/sensitive names, binary contents, symlink cycles and finite discovery budgets. Real fzf PTY smoke covers a label containing tabs, newline, ANSI and shell-looking text, exact original selection, and Escape cancellation with exit 130. No fixture interprets model output as a path.

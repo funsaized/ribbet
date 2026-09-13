@@ -1,6 +1,6 @@
 import { type Config, type Inference, type Provider, inferenceSchema } from '../config/index.ts';
 import { RibbitError } from '../engine/records/index.ts';
-export const LAYERS = ['global', 'savedFlow', 'invocationFlow', 'perCommand', 'definition', 'step', 'cli'] as const;
+export const LAYERS = ['global', 'project', 'savedFlow', 'invocationFlow', 'perCommand', 'definition', 'step', 'cli'] as const;
 export type Layer = typeof LAYERS[number];
 export interface Route { provider: string; model: string; temperature?: number; maxOutputTokens?: number; timeout?: number; source: Record<string, string>; endpoint: Provider; }
 export function resolveRoute(config: Config, layers: Partial<Record<Layer, Inference>>, forceProfile?: string, capabilities: string[] = ['text']): Route {

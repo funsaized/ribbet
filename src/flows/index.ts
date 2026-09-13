@@ -1,0 +1,55 @@
+import {z} from 'zod';
+import {inferenceSchema,type Config,type Inference,loadProjectInference} from '../config/index.ts';
+import {resolveInvocation} from '../definitions/index.ts';
+import {validateJson} from '../build/schema/index.ts';
+import {RibbitError} from '../engine/records/index.ts';
+import {runInvocation,routeFor,type Data,type Invocation} from '../engine/runtime/index.ts';
+import {inspectRoute} from '../routing/index.ts';
+import type {Budget} from '../sdk/index.ts';
+const stepSchema=z.strictObject({id:z.string().regex(/^[A-Za-z][A-Za-z0-9_-]*$/),command:z.string(),args:z.record(z.string(),z.unknown()).default({}),input:z.unknown().optional(),inference:inferenceSchema.optional()});
+export const flowSchema=z.strictObject({apiVersion:z.literal('ribbit/v1'),kind:z.literal('Flow'),name:z.string(),input:z.record(z.string(),z.unknown()).default({}),inference:inferenceSchema.optional(),steps:z.array(stepSchema).min(1).max(100),output:z.unknown().optional()});
+type Flow=z.infer<typeof flowSchema>;
+export interface Plan{flow:Flow;steps:{invocation:Invocation;binding:unknown;route:unknown;barrier:boolean}[];force?:string;inference?:Inference;project?:Inference;}
+function reference(value:string){const match=/^(input|steps\.([A-Za-z][A-Za-z0-9_-]*)\.output)((?:\.[A-Za-z_][A-Za-z0-9_-]*|\[\d+\])*)$/.exec(value);if(!match)throw new RibbitError(2,'Invalid flow reference',value);const path=match[3].match(/[A-Za-z_][A-Za-z0-9_-]*|\d+/g)??[];if(path.some(p=>['__proto__','constructor','prototype'].includes(p)))throw new RibbitError(2,'Unsafe reference path');return {key:match[2]??'input',path};}
+function refs(value:unknown):string[]{if(Array.isArray(value))return value.flatMap(refs);if(value&&typeof value==='object'){if(Object.hasOwn(value,'$ref')){if(Object.keys(value).length!==1||typeof(value as any).$ref!=='string')throw new RibbitError(2,'Reference must contain only a string $ref');return [(value as any).$ref];}return Object.values(value).flatMap(refs);}return [];}
+function refSchema(ref:string,schemas:Map<string,any>):any{const parsed=reference(ref);let schema=schemas.get(parsed.key);for(const part of parsed.path){if(!schema||!Object.keys(schema).length)return {};if(schema.type==='array'&&/^\d+$/.test(part))schema=schema.items;else if(schema.properties?.[part])schema=schema.properties[part];else if(schema.additionalProperties===false)throw new RibbitError(2,'Reference path absent from schema',ref);else return {};}return schema??{};}
+function mismatch(source:any,target:any){const a=Array.isArray(source?.type)?source.type:[source?.type],b=Array.isArray(target?.type)?target.type:[target?.type];return a[0]&&b[0]&&!a.some((t:string)=>b.includes(t)||t==='integer'&&b.includes('number'));}
+export async function planFlow(raw:unknown,config:Config,force?:string,inference?:Inference):Promise<Plan>{
+ const parsed=flowSchema.safeParse(raw);if(!parsed.success)throw new RibbitError(2,parsed.error.message);const project=await loadProjectInference(process.cwd()+'/.ribbit.yaml');const flow=parsed.data,steps:Plan['steps']=[],seen=new Set(['input']),schemas=new Map<string,any>([['input',flow.input]]);
+ for(const [i,step]of flow.steps.entries()){
+  if(seen.has(step.id))throw new RibbitError(2,'Duplicate or reserved step ID',step.id);
+  const binding=step.input??{$ref:i?`steps.${flow.steps[i-1].id}.output`:'input'};
+  for(const ref of [...refs(binding),...refs(step.args)])if(!seen.has(reference(ref).key))throw new RibbitError(2,'Missing or future flow reference',ref);
+  const invocation=await resolveInvocation(step.command);invocation.args={...invocation.args,...step.args};
+  if(!refs(step.args).length)invocation.args=validateJson(invocation.manifest.actions[invocation.action].args,invocation.args,`steps.${step.id}.args`);
+  const action=invocation.manifest.actions[invocation.action];
+  for(const ref of [...refs(binding),...refs(step.args)])refSchema(ref,schemas);
+  if(binding&&typeof binding==='object'&&Object.hasOwn(binding,'$ref')){const source=refSchema((binding as any).$ref,schemas),target=action.inputKind==='records'?{type:'array',items:action.input}:action.input;if(action.inputKind!=='none'&&mismatch(source,target))throw new RibbitError(2,'Flow input schema mismatch',step.id);}
+  schemas.set(step.id,action.outputKind==='records'?{type:'array',items:action.output}:action.output);
+  const route=routeFor(invocation,config,{project,savedFlow:flow.inference,invocationFlow:inference,step:step.inference},force);
+  steps.push({invocation,binding,route:route?inspectRoute(route):null,barrier:action.barrier});seen.add(step.id);
+ }
+ for(const ref of refs(flow.output)){if(!seen.has(reference(ref).key))throw new RibbitError(2,'Missing output reference',ref);refSchema(ref,schemas);}
+ return {flow,steps,force,inference,project};
+}
+async function materialize(data:Data,budget:Budget):Promise<unknown>{if(data.kind==='records'){const rows=[];for await(const row of data.records){if(rows.length>=budget.limits.maxRecords)throw new RibbitError(6,'Flow barrier exceeds record limit');rows.push(row);}return rows;}if(data.kind==='textStream'){let text='';for await(const chunk of data.chunks){text+=chunk;if(Buffer.byteLength(text)>budget.limits.maxBytes)throw new RibbitError(6,'Flow barrier exceeds byte limit');}return text;}return data.value;}
+export async function executeFlow(plan:Plan,input:Data,budget:Budget,config:Config):Promise<Data>{
+ const data=new Map<string,Data>([['input',input]]),cache=new Map<string,unknown>();
+ const uses=new Map<string,number>();for(const ref of [...plan.steps.flatMap(s=>[...refs(s.binding),...refs(s.invocation.args)]),...refs(plan.flow.output??{$ref:`steps.${plan.flow.steps.at(-1)!.id}.output`})]){const key=reference(ref).key;uses.set(key,(uses.get(key)??0)+1);}
+ async function value(key:string){if(!cache.has(key))cache.set(key,await materialize(data.get(key)!,budget));return cache.get(key);}
+ async function bind(binding:unknown):Promise<any>{if(Array.isArray(binding))return Promise.all(binding.map(bind));if(binding&&typeof binding==='object'){if(Object.hasOwn(binding,'$ref')){const ref=reference((binding as any).$ref);let result=await value(ref.key);for(const part of ref.path){if(result===null||typeof result!=='object'||!Object.hasOwn(result,part))throw new RibbitError(2,'Missing reference path',(binding as any).$ref);result=(result as any)[part];}return result;}return Object.fromEntries(await Promise.all(Object.entries(binding).map(async([k,v])=>[k,await bind(v)])));}return binding;}
+ function wrap(v:unknown,kind:string):Data{return kind==='records'?{kind:'records',records:(async function*(){if(!Array.isArray(v))throw new RibbitError(2,'Record binding requires an array');yield*v;})()}:{kind:typeof v==='string'?'text':'json',value:v};}
+ if(Object.keys(plan.flow.input).length)validateJson(plan.flow.input,await value('input'),'input');
+ for(const [i,step]of plan.steps.entries()){
+  budget.check();const action=step.invocation.manifest.actions[step.invocation.action],binding=step.binding;
+  // Materialize bindings once so fan-out and later references never consume an exhausted iterator.
+  let boundInput:Data;const direct=binding&&typeof binding==='object'&&Object.hasOwn(binding,'$ref')?reference((binding as any).$ref):undefined;
+  if(direct&&!direct.path.length&&uses.get(direct.key)===1&&!cache.has(direct.key))boundInput=data.get(direct.key)!;else boundInput=wrap(await bind(binding),action.inputKind);
+  const invocation={...step.invocation,args:await bind(step.invocation.args)};
+  invocation.args=validateJson(action.args,invocation.args,`steps.${plan.flow.steps[i].id}.args`);
+  data.set(plan.flow.steps[i].id,await runInvocation(invocation,boundInput,budget,config,{project:plan.project,savedFlow:plan.flow.inference,invocationFlow:plan.inference,step:plan.flow.steps[i].inference},plan.force));
+ }
+ const last=plan.flow.steps.at(-1)!.id;if(plan.flow.output===undefined)return data.get(last)!;
+ const out=plan.flow.output;if(out&&typeof out==='object'&&Object.hasOwn(out,'$ref')){const ref=reference((out as any).$ref);if(!ref.path.length&&!cache.has(ref.key))return data.get(ref.key)!;}
+ return wrap(await bind(out),'any');
+}

@@ -44,3 +44,5 @@ refusals, malformed/truncated events and missing completion markers fail. Struct
 output is validated locally even with native schema support. No auto-pull, fallback,
 tools or remote endpoint discovery. A 400/422 schema rejection is a capability error;
 401/403/404 are configuration errors. Bounded 429/5xx retries share the request budget.
+
+Project `.ribbit.yaml` inference is an explicit layer immediately after the global default and before saved-flow defaults. Inspection reports `project` provenance. Flow invocation flags remain defaults below per-command, definition and step overrides; force-profile remains final.

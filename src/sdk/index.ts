@@ -1,9 +1,11 @@
 import { z } from 'zod';
 import { Budget } from '../engine/execution/index.ts';
-import { RibbitError } from '../engine/records/index.ts';
+import { RibbitError, isJson } from '../engine/records/index.ts';
 export { z, Budget, RibbitError };
+export { recordSchema, jsonValueSchema } from '../engine/records/index.ts';
 export type { RecordValue, Json } from '../engine/records/index.ts';
 export interface Context {
+  inputKind?: 'records' | 'text' | 'json' | 'textStream';
   signal: AbortSignal;
   budget: Budget;
   log(message: string): void;
@@ -18,6 +20,11 @@ type Outgoing<O extends z.ZodType, M extends Mode> = M extends 'value' ? Promise
 export function defineAction<C extends z.ZodType, A extends z.ZodType, I extends z.ZodType, O extends z.ZodType, M extends Mode>(spec: {
   config: C; description: string; args: A; input: I; output: O; mode: M;
   capabilities: string[]; effects: string[]; cli?: { positionals?: string[] };
+  inputKind?: 'text' | 'records' | 'none' | 'any';
+  outputKind?: 'text' | 'records' | 'json' | 'display';
+  barrier?: boolean;
+  inferenceWhen?: string[];
+  examples?: string[];
   execute(input: { config: z.output<C>; args: z.output<A>; input: Incoming<I, M> }, ctx: Context): Outgoing<O, M>;
 }) { return spec; }
 export type Action = ReturnType<typeof defineAction<z.ZodType, z.ZodType, z.ZodType, z.ZodType, Mode>>;
@@ -31,8 +38,10 @@ export function defineCommand<C extends z.ZodType, A extends Record<string, Acti
   return spec;
 }
 export function parse<T>(schema: z.ZodType<T>, value: unknown, location: string, code = 2): T {
+  if (!isJson(value)) throw new RibbitError(code, 'Expected finite JSON value', location);
   const result = schema.safeParse(value);
   if (!result.success) throw new RibbitError(code, result.error.message, location);
+  if (!isJson(result.data)) throw new RibbitError(code, 'Schema produced non-JSON value', location);
   return result.data;
 }
 export async function executeAction(action: Action, input: unknown, args: unknown, config: unknown, ctx: Context): Promise<unknown> {
@@ -46,7 +55,7 @@ export async function executeAction(action: Action, input: unknown, args: unknow
   const parsedInput = action.mode === 'records' ? validatedInput(input as AsyncIterable<unknown>) : parse(inputSchema, input, 'input');
   let result: unknown;
   try { result = await action.execute({ input: parsedInput, args: parsedArgs, config: parsedConfig }, ctx); }
-  catch (error) { if (error instanceof RibbitError) throw error; throw new RibbitError(5, `Extension failed: ${error instanceof Error ? error.message : String(error)}`); }
+  catch (error) { if (error instanceof RibbitError) throw error; throw new RibbitError(5, 'Extension execution failed (details redacted)'); }
   if (action.mode === 'value') return parse(action.output, result, 'output', 5);
   if (!result || typeof (result as AsyncIterable<unknown>)[Symbol.asyncIterator] !== 'function') throw new RibbitError(5, 'Streaming action did not return an async iterable');
   return (async function* () {
@@ -57,6 +66,6 @@ export async function executeAction(action: Action, input: unknown, args: unknow
         if (action.mode === 'text-stream' && typeof output !== 'string') throw new RibbitError(5, 'Text stream must emit strings');
         yield output;
       }
-    } catch (error) { if (error instanceof RibbitError) throw error; throw new RibbitError(5, `Extension stream failed: ${String(error)}`); }
+    } catch (error) { if (error instanceof RibbitError) throw error; throw new RibbitError(5, 'Extension stream failed (details redacted)'); }
   })();
 }

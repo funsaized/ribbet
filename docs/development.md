@@ -11,19 +11,18 @@ No public CI upload or publish operation is enabled.
 | Script | Purpose |
 | --- | --- |
 | check | Strict TypeScript check |
-| test:unit | Focused unit checks |
-| test:consumer | Public SDK consumer checks when implemented |
+| test:unit | Unit and deterministic integration checks |
+| test:consumer | Public SDK consumer checks |
 | test:cli | Subprocess shell checks |
-| test:conformance | Adversarial integration checks when implemented |
-| test:docs | Local documentation links |
+| test:conformance | Loopback HTTP cancellation checks |
+| test:docs | Links and packaged deterministic examples |
 | build | Compile native development CLI |
-| bench | PERF-01 runner; currently fails explicitly as unimplemented |
-| eval:semantic | EVAL-02 runner; currently fails explicitly as unimplemented |
+| bench | Warm-process timing; remaining gates tracked separately |
+| eval:semantic | Three-repetition local semantic evaluation; explicit opt-in |
 | eval:agent | AGENT-03 runner; currently fails explicitly as unimplemented |
-| package:smoke | Isolated installed help/version smoke |
+| package:smoke | Isolated installed CLI and extension-authoring smoke |
 
-The consumer suite checks the public SDK; the conformance suite currently checks real loopback HTTP cancellation and needs local socket permission. Neither represents full release conformance. The current binary
-is a foundation only; the 22-command implementation is tracked in the backlog.
+The consumer suite checks the public SDK; the conformance suite currently checks real loopback HTTP cancellation and needs local socket permission. Neither represents full release conformance. The current binary exposes all 22 commands. See the backlog for acceptance status; implementation is not a release-quality claim.
 
 Live provider harness: `scripts/live-provider.ts`; configuration and bounded invocation
 are documented in [PROV-03 evidence](delivery/evidence/PROV-03.md).

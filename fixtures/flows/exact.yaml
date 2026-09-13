@@ -1,0 +1,12 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: exact-projection
+steps:
+  - id: project
+    command: select
+    args:
+      fields: name
+  - id: first
+    command: take
+    args:
+      count: 2

@@ -1,6 +1,6 @@
 # Release contract
 
-Status: PROPOSED for implementation planning. The corresponding CONTRACT task must ratify this baseline with evidence; this document does not imply user approval of unpublished details.
+Status: RATIFIED baseline, 2026-09-13. See the corresponding CONTRACT evidence. Downstream implementation and release gates require their own acceptance.
 
 Authority: PRD version 1.0; changes must update PRD and affected tasks together.
 

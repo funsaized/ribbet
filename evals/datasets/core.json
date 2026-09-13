@@ -1,0 +1,2752 @@
+[
+  {
+    "id": "filter-0",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 0: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-0",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 0: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-1",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 1: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-1",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 1: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-2",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 2: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-2",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 2: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-3",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 3: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-3",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 3: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-4",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 4: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-4",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 4: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-5",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 5: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-5",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 5: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-6",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 6: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-6",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 6: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-7",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 7: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-7",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 7: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-8",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 8: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-8",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 8: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-9",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 9: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-9",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 9: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-10",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 10: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-10",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 10: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-11",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 11: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-11",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 11: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-12",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 12: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-12",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 12: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-13",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 13: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-13",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 13: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-14",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 14: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-14",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 14: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-15",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 15: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-15",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 15: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-16",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 16: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-16",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 16: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-17",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 17: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-17",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 17: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-18",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 18: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-18",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 18: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-19",
+    "split": "development",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 19: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-19",
+    "split": "development",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 19: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-20",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 20: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-20",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 20: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-21",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 21: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-21",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 21: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-22",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 22: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-22",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 22: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-23",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 23: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-23",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 23: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-24",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 24: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-24",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 24: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-25",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 25: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-25",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 25: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-26",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 26: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-26",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 26: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-27",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 27: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-27",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 27: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-28",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 28: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-28",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 28: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-29",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 29: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-29",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 29: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-30",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 30: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-30",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 30: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-31",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 31: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-31",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 31: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-32",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 32: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-32",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 32: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-33",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 33: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-33",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 33: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-34",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 34: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-34",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 34: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-35",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 35: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-35",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 35: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-36",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 36: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-36",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 36: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-37",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 37: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-37",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 37: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-38",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 38: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-38",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 38: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-39",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 39: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-39",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 39: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-40",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 40: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-40",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 40: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-41",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 41: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-41",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 41: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-42",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 42: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-42",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 42: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-43",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 43: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-43",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 43: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-44",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 44: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-44",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 44: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-45",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 45: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-45",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 45: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-46",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 46: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-46",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 46: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-47",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 47: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-47",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 47: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-48",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 48: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-48",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 48: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-49",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 49: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-49",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 49: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-50",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 50: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-50",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 50: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-51",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 51: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-51",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 51: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-52",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 52: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-52",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 52: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-53",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 53: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-53",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 53: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-54",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 54: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-54",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 54: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-55",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 55: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-55",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 55: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-56",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 56: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-56",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 56: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-57",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 57: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-57",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 57: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-58",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 58: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-58",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 58: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-59",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 59: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-59",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 59: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-60",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 60: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-60",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 60: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-61",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 61: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-61",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 61: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-62",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 62: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-62",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 62: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-63",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 63: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-63",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 63: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-64",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 64: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-64",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 64: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-65",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 65: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-65",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 65: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-66",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 66: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-66",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 66: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-67",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 67: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-67",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 67: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-68",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 68: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-68",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 68: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-69",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 69: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-69",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 69: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-70",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 70: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-70",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 70: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-71",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 71: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-71",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 71: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-72",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 72: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-72",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 72: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-73",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 73: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-73",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 73: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-74",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 74: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-74",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 74: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-75",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 75: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-75",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 75: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-76",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 76: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-76",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 76: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-77",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 77: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-77",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 77: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-78",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 78: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-78",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 78: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-79",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 79: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-79",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 79: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-80",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 80: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-80",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 80: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-81",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 81: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-81",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 81: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-82",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 82: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-82",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 82: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-83",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 83: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-83",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 83: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-84",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 84: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-84",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 84: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-85",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 85: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-85",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 85: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-86",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 86: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-86",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 86: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-87",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 87: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-87",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 87: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-88",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 88: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-88",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 88: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-89",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 89: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-89",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 89: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-90",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 90: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-90",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 90: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-91",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 91: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-91",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 91: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-92",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 92: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-92",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 92: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-93",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 93: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-93",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 93: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-94",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 94: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-94",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 94: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-95",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 95: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-95",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 95: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "filter-96",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 96: connection timed out while contacting the database.",
+    "expected": true
+  },
+  {
+    "id": "classify-96",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 96: The Save button crashes the application.",
+    "expected": "bug"
+  },
+  {
+    "id": "filter-97",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 97: connection established successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-97",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 97: Please add an export-to-CSV option.",
+    "expected": "feature"
+  },
+  {
+    "id": "filter-98",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 98: network connection refused by the remote service.",
+    "expected": true
+  },
+  {
+    "id": "classify-98",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 98: The interface is excellent and easy to use.",
+    "expected": "praise"
+  },
+  {
+    "id": "filter-99",
+    "split": "held-out",
+    "command": "filter",
+    "args": {
+      "instruction": "Keep reports of failed network connections or network timeouts."
+    },
+    "input": "Service 99: processed a local file successfully.",
+    "expected": false
+  },
+  {
+    "id": "classify-99",
+    "split": "held-out",
+    "command": "classify",
+    "args": {
+      "labels": "bug,feature,praise,unknown"
+    },
+    "input": "Feedback ticket 99: No product feedback is available.",
+    "expected": "unknown"
+  },
+  {
+    "id": "extract-0",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 0. No owner assigned. No due date given.",
+    "expected": {
+      "title": "Review item 0",
+      "owner": null,
+      "due": null
+    }
+  },
+  {
+    "id": "extract-1",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 1. Owner: Person 1. Due: 2026-10-02.",
+    "expected": {
+      "title": "Review item 1",
+      "owner": "Person 1",
+      "due": "2026-10-02"
+    }
+  },
+  {
+    "id": "extract-2",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 2. Owner: Person 2. Due: 2026-10-03.",
+    "expected": {
+      "title": "Review item 2",
+      "owner": "Person 2",
+      "due": "2026-10-03"
+    }
+  },
+  {
+    "id": "extract-3",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 3. Owner: Person 3. No due date given.",
+    "expected": {
+      "title": "Review item 3",
+      "owner": "Person 3",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-4",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 4. Owner: Person 4. Due: 2026-10-05.",
+    "expected": {
+      "title": "Review item 4",
+      "owner": "Person 4",
+      "due": "2026-10-05"
+    }
+  },
+  {
+    "id": "extract-5",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 5. No owner assigned. Due: 2026-10-06.",
+    "expected": {
+      "title": "Review item 5",
+      "owner": null,
+      "due": "2026-10-06"
+    }
+  },
+  {
+    "id": "extract-6",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 6. Owner: Person 6. No due date given.",
+    "expected": {
+      "title": "Review item 6",
+      "owner": "Person 6",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-7",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 7. Owner: Person 7. Due: 2026-10-08.",
+    "expected": {
+      "title": "Review item 7",
+      "owner": "Person 7",
+      "due": "2026-10-08"
+    }
+  },
+  {
+    "id": "extract-8",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 8. Owner: Person 8. Due: 2026-10-09.",
+    "expected": {
+      "title": "Review item 8",
+      "owner": "Person 8",
+      "due": "2026-10-09"
+    }
+  },
+  {
+    "id": "extract-9",
+    "split": "development",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 9. Owner: Person 9. No due date given.",
+    "expected": {
+      "title": "Review item 9",
+      "owner": "Person 9",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-10",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 10. No owner assigned. Due: 2026-10-11.",
+    "expected": {
+      "title": "Review item 10",
+      "owner": null,
+      "due": "2026-10-11"
+    }
+  },
+  {
+    "id": "extract-11",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 11. Owner: Person 11. Due: 2026-10-12.",
+    "expected": {
+      "title": "Review item 11",
+      "owner": "Person 11",
+      "due": "2026-10-12"
+    }
+  },
+  {
+    "id": "extract-12",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 12. Owner: Person 12. No due date given.",
+    "expected": {
+      "title": "Review item 12",
+      "owner": "Person 12",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-13",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 13. Owner: Person 13. Due: 2026-10-14.",
+    "expected": {
+      "title": "Review item 13",
+      "owner": "Person 13",
+      "due": "2026-10-14"
+    }
+  },
+  {
+    "id": "extract-14",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 14. Owner: Person 14. Due: 2026-10-15.",
+    "expected": {
+      "title": "Review item 14",
+      "owner": "Person 14",
+      "due": "2026-10-15"
+    }
+  },
+  {
+    "id": "extract-15",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 15. No owner assigned. No due date given.",
+    "expected": {
+      "title": "Review item 15",
+      "owner": null,
+      "due": null
+    }
+  },
+  {
+    "id": "extract-16",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 16. Owner: Person 16. Due: 2026-10-17.",
+    "expected": {
+      "title": "Review item 16",
+      "owner": "Person 16",
+      "due": "2026-10-17"
+    }
+  },
+  {
+    "id": "extract-17",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 17. Owner: Person 17. Due: 2026-10-18.",
+    "expected": {
+      "title": "Review item 17",
+      "owner": "Person 17",
+      "due": "2026-10-18"
+    }
+  },
+  {
+    "id": "extract-18",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 18. Owner: Person 18. No due date given.",
+    "expected": {
+      "title": "Review item 18",
+      "owner": "Person 18",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-19",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 19. Owner: Person 19. Due: 2026-10-20.",
+    "expected": {
+      "title": "Review item 19",
+      "owner": "Person 19",
+      "due": "2026-10-20"
+    }
+  },
+  {
+    "id": "extract-20",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 20. No owner assigned. Due: 2026-10-21.",
+    "expected": {
+      "title": "Review item 20",
+      "owner": null,
+      "due": "2026-10-21"
+    }
+  },
+  {
+    "id": "extract-21",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 21. Owner: Person 21. No due date given.",
+    "expected": {
+      "title": "Review item 21",
+      "owner": "Person 21",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-22",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 22. Owner: Person 22. Due: 2026-10-23.",
+    "expected": {
+      "title": "Review item 22",
+      "owner": "Person 22",
+      "due": "2026-10-23"
+    }
+  },
+  {
+    "id": "extract-23",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 23. Owner: Person 23. Due: 2026-10-24.",
+    "expected": {
+      "title": "Review item 23",
+      "owner": "Person 23",
+      "due": "2026-10-24"
+    }
+  },
+  {
+    "id": "extract-24",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 24. Owner: Person 24. No due date given.",
+    "expected": {
+      "title": "Review item 24",
+      "owner": "Person 24",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-25",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 25. No owner assigned. Due: 2026-10-26.",
+    "expected": {
+      "title": "Review item 25",
+      "owner": null,
+      "due": "2026-10-26"
+    }
+  },
+  {
+    "id": "extract-26",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 26. Owner: Person 26. Due: 2026-10-27.",
+    "expected": {
+      "title": "Review item 26",
+      "owner": "Person 26",
+      "due": "2026-10-27"
+    }
+  },
+  {
+    "id": "extract-27",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 27. Owner: Person 27. No due date given.",
+    "expected": {
+      "title": "Review item 27",
+      "owner": "Person 27",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-28",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 28. Owner: Person 28. Due: 2026-10-01.",
+    "expected": {
+      "title": "Review item 28",
+      "owner": "Person 28",
+      "due": "2026-10-01"
+    }
+  },
+  {
+    "id": "extract-29",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 29. Owner: Person 29. Due: 2026-10-02.",
+    "expected": {
+      "title": "Review item 29",
+      "owner": "Person 29",
+      "due": "2026-10-02"
+    }
+  },
+  {
+    "id": "extract-30",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 30. No owner assigned. No due date given.",
+    "expected": {
+      "title": "Review item 30",
+      "owner": null,
+      "due": null
+    }
+  },
+  {
+    "id": "extract-31",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 31. Owner: Person 31. Due: 2026-10-04.",
+    "expected": {
+      "title": "Review item 31",
+      "owner": "Person 31",
+      "due": "2026-10-04"
+    }
+  },
+  {
+    "id": "extract-32",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 32. Owner: Person 32. Due: 2026-10-05.",
+    "expected": {
+      "title": "Review item 32",
+      "owner": "Person 32",
+      "due": "2026-10-05"
+    }
+  },
+  {
+    "id": "extract-33",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 33. Owner: Person 33. No due date given.",
+    "expected": {
+      "title": "Review item 33",
+      "owner": "Person 33",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-34",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 34. Owner: Person 34. Due: 2026-10-07.",
+    "expected": {
+      "title": "Review item 34",
+      "owner": "Person 34",
+      "due": "2026-10-07"
+    }
+  },
+  {
+    "id": "extract-35",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 35. No owner assigned. Due: 2026-10-08.",
+    "expected": {
+      "title": "Review item 35",
+      "owner": null,
+      "due": "2026-10-08"
+    }
+  },
+  {
+    "id": "extract-36",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 36. Owner: Person 36. No due date given.",
+    "expected": {
+      "title": "Review item 36",
+      "owner": "Person 36",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-37",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 37. Owner: Person 37. Due: 2026-10-10.",
+    "expected": {
+      "title": "Review item 37",
+      "owner": "Person 37",
+      "due": "2026-10-10"
+    }
+  },
+  {
+    "id": "extract-38",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 38. Owner: Person 38. Due: 2026-10-11.",
+    "expected": {
+      "title": "Review item 38",
+      "owner": "Person 38",
+      "due": "2026-10-11"
+    }
+  },
+  {
+    "id": "extract-39",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 39. Owner: Person 39. No due date given.",
+    "expected": {
+      "title": "Review item 39",
+      "owner": "Person 39",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-40",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 40. No owner assigned. Due: 2026-10-13.",
+    "expected": {
+      "title": "Review item 40",
+      "owner": null,
+      "due": "2026-10-13"
+    }
+  },
+  {
+    "id": "extract-41",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 41. Owner: Person 41. Due: 2026-10-14.",
+    "expected": {
+      "title": "Review item 41",
+      "owner": "Person 41",
+      "due": "2026-10-14"
+    }
+  },
+  {
+    "id": "extract-42",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 42. Owner: Person 42. No due date given.",
+    "expected": {
+      "title": "Review item 42",
+      "owner": "Person 42",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-43",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 43. Owner: Person 43. Due: 2026-10-16.",
+    "expected": {
+      "title": "Review item 43",
+      "owner": "Person 43",
+      "due": "2026-10-16"
+    }
+  },
+  {
+    "id": "extract-44",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 44. Owner: Person 44. Due: 2026-10-17.",
+    "expected": {
+      "title": "Review item 44",
+      "owner": "Person 44",
+      "due": "2026-10-17"
+    }
+  },
+  {
+    "id": "extract-45",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 45. No owner assigned. No due date given.",
+    "expected": {
+      "title": "Review item 45",
+      "owner": null,
+      "due": null
+    }
+  },
+  {
+    "id": "extract-46",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 46. Owner: Person 46. Due: 2026-10-19.",
+    "expected": {
+      "title": "Review item 46",
+      "owner": "Person 46",
+      "due": "2026-10-19"
+    }
+  },
+  {
+    "id": "extract-47",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 47. Owner: Person 47. Due: 2026-10-20.",
+    "expected": {
+      "title": "Review item 47",
+      "owner": "Person 47",
+      "due": "2026-10-20"
+    }
+  },
+  {
+    "id": "extract-48",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 48. Owner: Person 48. No due date given.",
+    "expected": {
+      "title": "Review item 48",
+      "owner": "Person 48",
+      "due": null
+    }
+  },
+  {
+    "id": "extract-49",
+    "split": "held-out",
+    "command": "extract",
+    "args": {
+      "instruction": "Extract the task title, owner and due date. Use null for facts not stated.",
+      "schema": "evals/datasets/task.schema.json"
+    },
+    "input": "Task title: Review item 49. Owner: Person 49. Due: 2026-10-22.",
+    "expected": {
+      "title": "Review item 49",
+      "owner": "Person 49",
+      "due": "2026-10-22"
+    }
+  }
+]

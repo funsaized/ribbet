@@ -23,3 +23,7 @@ BUILD-01 must create and document equivalents of: check (types/lint), test:unit,
 ## Completion
 
 Each task writes docs/delivery/evidence/ID.md. Index status is authoritative; individual file initial states are synchronized when work starts. RELEASE-01 additionally checks every required task, not just its listed direct gate predecessors. RELEASE-02 prepares a private decision packet; it does not publish.
+
+## Integration amendment, 2026-09-13
+
+The owner explicitly directed continued full-backlog implementation after the live-provider blocker and authorized builds, tests and commits. The integrator is preparing connected implementation and verification across adjacent CLI/SDK/flow/package paths before final gate acceptance. Tasks under review may therefore contain implementation while an external predecessor remains blocked. This amendment permits preparation, not acceptance: hosted conformance, independent agent exercises, semantic quality and real-user pilots remain required. Original PRD/backlog source documents are preserved; discovered example ambiguities are recorded in maintained contracts and user docs.

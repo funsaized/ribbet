@@ -46,3 +46,10 @@ acceptance, retaining it as a release requirement; that changes the supplied del
 dependency plan and has not been applied. Under the current task stop conditions,
 PROV-03 cannot be accepted. The owner requested implementation until a blocker;
 work stops here with remaining tasks accurately tracked in the backlog.
+
+## Update, 2026-09-13
+
+The LM Studio portion is now resolved: the user's desktop install serves the downloaded
+Qwen2.5-0.5B-Instruct model; see provider-lmstudio-live.json and the integrated evidence.
+Hosted endpoint conformance is still blocked pending the owner's endpoint/model and
+API-key environment-variable name. Do not treat a local compatible server as hosted evidence.

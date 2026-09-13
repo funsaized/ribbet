@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "backend": "fzf",
+  "results": [
+    {
+      "cancel": false,
+      "exit": 0,
+      "identityPreserved": true,
+      "stdoutClean": true
+    },
+    {
+      "cancel": true,
+      "exit": 130,
+      "identityPreserved": false,
+      "stdoutClean": true
+    }
+  ]
+}

@@ -3,27 +3,8 @@ import { Budget } from '../execution/index.ts';
 import { RibbitError } from '../records/index.ts';
 import { type Adapter, type Event, TransportError } from '../../providers/interface/index.ts';
 import type { Route } from '../../routing/index.ts';
-export function schemaToJson(schema: z.ZodType): Record<string, unknown> {
-  const seen = new Set<z.ZodType>();
-  function visit(node: z.ZodType) {
-    if (seen.has(node)) throw new RibbitError(2, 'Recursive schemas are unsupported');
-    seen.add(node);
-    const def = node._zod.def as Record<string, any>;
-    if (!['string', 'number', 'boolean', 'null', 'array', 'object', 'enum', 'literal', 'optional', 'default', 'union'].includes(def.type)) throw new RibbitError(2, `Unsupported schema type: ${def.type}`);
-    for (const check of def.checks ?? []) if (check._zod.def.check === 'custom') throw new RibbitError(2, 'Custom schema refinements are unsupported');
-    if (def.type === 'object') {
-      if (def.catchall?._zod.def.type !== 'never') throw new RibbitError(2, 'Schema objects must be strict');
-      for (const child of Object.values(def.shape)) visit(child as z.ZodType);
-    }
-    if (def.element) visit(def.element);
-    if (def.innerType) visit(def.innerType);
-    if (def.options) for (const child of def.options) visit(child);
-    seen.delete(node);
-  }
-  visit(schema);
-  try { return z.toJSONSchema(schema) as Record<string, unknown>; }
-  catch { throw new RibbitError(2, 'Schema cannot be represented as JSON Schema'); }
-}
+import { schemaToJson } from '../../sdk/manifest/index.ts';
+export { schemaToJson };
 export class ManagedInference {
   repairs = 0; retries = 0;
   constructor(readonly adapter: Adapter, readonly route: Route, readonly budget: Budget) {}
@@ -64,7 +45,7 @@ export class ManagedInference {
         }, this.route.timeout);
       } catch (error) {
         if (error instanceof TransportError) {
-          if (text.length === 0 && retry < 1 && (error.status === 429 || error.status >= 500)) { this.retries++; continue; }
+          if (text.length === 0 && retry < 1 && (error.status === 429 || error.status >= 500)) { this.retries++; this.budget.retries++; continue; }
           throw new RibbitError([400, 401, 403, 404, 422].includes(error.status) ? 3 : 4, `Provider HTTP ${error.status}; check endpoint, model, credentials and schema capabilities`);
         }
         if (error instanceof RibbitError) throw error;
@@ -82,7 +63,7 @@ export class ManagedInference {
       try { value = JSON.parse(text); } catch { value = undefined; }
       const result = schema.safeParse(value);
       if (result.success) return result.data;
-      if (repair === 0) { this.repairs++; continue; }
+      if (repair === 0) { this.repairs++; this.budget.repairs++; continue; }
     }
     throw new RibbitError(4, 'Structured inference failed validation after one repair');
   }

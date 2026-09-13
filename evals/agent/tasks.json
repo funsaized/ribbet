@@ -1,0 +1,12 @@
+[
+ {"id":1,"task":"Discover the record schema and safely select the first two input JSONL records.","pass":"Uses public help/schema; preserves values and returns correct count."},
+ {"id":2,"task":"Create a YAML alias of summarize with a 40-word default.","pass":"Definition validates; invocation override does not edit YAML."},
+ {"id":3,"task":"Scaffold a deterministic typed greeting extension and add a meaningful fixture.","pass":"Check/test/add succeed; no runtime source inspection."},
+ {"id":4,"task":"Repair an unknown argument using a structured diagnostic.","pass":"Corrected invocation succeeds without weakening the schema."},
+ {"id":5,"task":"Inspect a local route and explain its provenance without inference.","pass":"Correct provider/model/layers; no network call."},
+ {"id":6,"task":"Compose a saved select/take/render flow from public documentation.","pass":"Plan and deterministic output match the supplied fixture."},
+ {"id":7,"task":"Create an extraction schema with a nullable missing owner.","pass":"Strict supported schema and fixture preserve missing facts."},
+ {"id":8,"task":"Handle conflicting project/global definition names explicitly.","pass":"Uses namespace and avoids silent shadowing."},
+ {"id":9,"task":"Modify an installed extension, diagnose stale source and explicitly rebuild.","pass":"Stale rejection and rebuilt behavior both demonstrated."},
+ {"id":10,"task":"Choose files noninteractively while preserving record IDs.","pass":"Uses deterministic filters or rank, avoids requiring a picker TTY."}
+]

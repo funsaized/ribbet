@@ -14,12 +14,13 @@ export function isJson(value: unknown, ancestors = new Set<unknown>()): value is
   ancestors.delete(value);
   return good;
 }
+export const jsonValueSchema = z.unknown().meta({ ribbitJson: true, description: 'Finite JSON; execution validates recursively.' });
 export const recordSchema = z.strictObject({
-  id: z.string().min(1), value: z.custom<Json>(isJson),
+  id: z.string().min(1), value: jsonValueSchema,
   source: z.strictObject({ path: z.string().optional(), lineStart: z.number().int().positive().optional(), lineEnd: z.number().int().positive().optional() }).optional(),
-  annotations: z.record(z.string(), z.custom<Json>(isJson)),
+  annotations: z.record(z.string(), jsonValueSchema).meta({ ribbitDictionary: true }),
 });
-export type RecordValue = z.infer<typeof recordSchema>;
+export type RecordValue = Omit<z.infer<typeof recordSchema>, 'value' | 'annotations'> & { value: Json; annotations: Record<string, Json> };
 export const WIRE_HEADER = '{"$ribbit":{"version":1,"kind":"records"}}';
 export type InputMode = 'auto' | 'text' | 'lines' | 'jsonl' | 'records';
 export type Input = { kind: 'text'; value: string } | { kind: 'records'; records: AsyncIterable<RecordValue> };
@@ -28,6 +29,7 @@ export const EXACT_LIMITS: Limits = { maxBytes: 128 * 1024 * 1024, maxRecords: 1
 export const SEMANTIC_LIMITS: Limits = { maxBytes: 8 * 1024 * 1024, maxRecords: 10_000 };
 
 export function validateRecord(value: unknown, location?: string): RecordValue {
+  if (!isJson(value)) throw new RibbitError(2, 'Record must contain only finite JSON values', location);
   const parsed = recordSchema.safeParse(value);
   if (!parsed.success) throw new RibbitError(2, `Invalid record: ${parsed.error.message}`, location);
   if (parsed.data.source?.lineStart !== undefined && parsed.data.source?.lineEnd !== undefined && parsed.data.source.lineStart > parsed.data.source.lineEnd) throw new RibbitError(2, 'Invalid source line range', location);
