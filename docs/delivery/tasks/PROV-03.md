@@ -6,7 +6,7 @@ Implement the contracted compatible HTTP subset, custom base URL, API-key enviro
 
 ## Parent and state
 
-Parent: G4. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G4. Class: Required. Initial state: **BLOCKED**. Current state: **BLOCKED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

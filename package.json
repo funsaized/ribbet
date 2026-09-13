@@ -6,7 +6,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "build": "bun run scripts/build.ts",
-    "test:unit": "bun test tests/unit tests/records tests/execution tests/sdk",
+    "test:unit": "bun test tests/unit tests/records tests/execution tests/sdk tests/routing tests/providers",
     "test:consumer": "bun test tests/consumer",
     "test:cli": "bun test tests/cli",
     "test:conformance": "bun test tests/conformance",

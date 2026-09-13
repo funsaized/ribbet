@@ -6,7 +6,7 @@ Implement supported model listing, text streaming and native structured schema c
 
 ## Parent and state
 
-Parent: G4. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G4. Class: Required. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

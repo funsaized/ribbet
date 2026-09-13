@@ -6,7 +6,7 @@ Translate the PRD precedence into a table-driven resolver specification includin
 
 ## Parent and state
 
-Parent: G4; R-ROUTE. Class: Required gate. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G4; R-ROUTE. Class: Required gate. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

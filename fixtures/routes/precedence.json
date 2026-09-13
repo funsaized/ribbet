@@ -1,0 +1,479 @@
+[
+  {
+    "name": "savedFlow overrides global",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "savedFlow": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "global",
+        "model": "savedFlow"
+      }
+    }
+  },
+  {
+    "name": "invocationFlow overrides global",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "invocationFlow": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "global",
+        "model": "invocationFlow"
+      }
+    }
+  },
+  {
+    "name": "perCommand overrides global",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "perCommand": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "global",
+        "model": "perCommand"
+      }
+    }
+  },
+  {
+    "name": "definition overrides global",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "definition": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "global",
+        "model": "definition"
+      }
+    }
+  },
+  {
+    "name": "step overrides global",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "step": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "global",
+        "model": "step"
+      }
+    }
+  },
+  {
+    "name": "cli overrides global",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "global",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "invocationFlow overrides savedFlow",
+    "layers": {
+      "savedFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "invocationFlow": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "savedFlow",
+        "model": "invocationFlow"
+      }
+    }
+  },
+  {
+    "name": "perCommand overrides savedFlow",
+    "layers": {
+      "savedFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "perCommand": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "savedFlow",
+        "model": "perCommand"
+      }
+    }
+  },
+  {
+    "name": "definition overrides savedFlow",
+    "layers": {
+      "savedFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "definition": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "savedFlow",
+        "model": "definition"
+      }
+    }
+  },
+  {
+    "name": "step overrides savedFlow",
+    "layers": {
+      "savedFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "step": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "savedFlow",
+        "model": "step"
+      }
+    }
+  },
+  {
+    "name": "cli overrides savedFlow",
+    "layers": {
+      "savedFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "savedFlow",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "perCommand overrides invocationFlow",
+    "layers": {
+      "invocationFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "perCommand": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "invocationFlow",
+        "model": "perCommand"
+      }
+    }
+  },
+  {
+    "name": "definition overrides invocationFlow",
+    "layers": {
+      "invocationFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "definition": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "invocationFlow",
+        "model": "definition"
+      }
+    }
+  },
+  {
+    "name": "step overrides invocationFlow",
+    "layers": {
+      "invocationFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "step": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "invocationFlow",
+        "model": "step"
+      }
+    }
+  },
+  {
+    "name": "cli overrides invocationFlow",
+    "layers": {
+      "invocationFlow": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "invocationFlow",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "definition overrides perCommand",
+    "layers": {
+      "perCommand": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "definition": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "perCommand",
+        "model": "definition"
+      }
+    }
+  },
+  {
+    "name": "step overrides perCommand",
+    "layers": {
+      "perCommand": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "step": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "perCommand",
+        "model": "step"
+      }
+    }
+  },
+  {
+    "name": "cli overrides perCommand",
+    "layers": {
+      "perCommand": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "perCommand",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "step overrides definition",
+    "layers": {
+      "definition": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "step": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "definition",
+        "model": "step"
+      }
+    }
+  },
+  {
+    "name": "cli overrides definition",
+    "layers": {
+      "definition": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "definition",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "cli overrides step",
+    "layers": {
+      "step": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "model": "upper"
+      }
+    },
+    "expected": {
+      "provider": "local",
+      "model": "upper",
+      "source": {
+        "provider": "step",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "provider reset",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "provider": "remote"
+      }
+    },
+    "expected": {
+      "provider": "remote",
+      "model": "remote-default",
+      "source": {
+        "provider": "cli",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "profile reset",
+    "layers": {
+      "global": {
+        "provider": "local",
+        "model": "lower"
+      },
+      "cli": {
+        "profile": "quality"
+      }
+    },
+    "expected": {
+      "provider": "remote",
+      "model": "quality-model",
+      "source": {
+        "provider": "cli",
+        "model": "cli"
+      }
+    }
+  },
+  {
+    "name": "same layer explicit wins profile",
+    "layers": {
+      "cli": {
+        "profile": "quality",
+        "model": "explicit"
+      }
+    },
+    "expected": {
+      "provider": "remote",
+      "model": "explicit",
+      "source": {
+        "provider": "cli",
+        "model": "cli"
+      }
+    }
+  }
+]

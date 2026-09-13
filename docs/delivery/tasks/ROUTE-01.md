@@ -6,7 +6,7 @@ Load global/project config with explicit paths, named providers/profiles and per
 
 ## Parent and state
 
-Parent: G4/R-ROUTE. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G4/R-ROUTE. Class: Required. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

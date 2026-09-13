@@ -58,3 +58,11 @@ test('pipe closure succeeds only for expected downstream EPIPE; writer backpress
   expect(closed).toBe(true); expect(produced).toBe(1);
   await expect(writeOutput(source(), { async write() { throw Object.assign(new Error('closed'), { code: 'EPIPE' }); } }, false)).rejects.toMatchObject({ code: 7 });
 });
+test('shared budget serializes concurrent inference requests and honors shorter route timeout', async () => {
+  const budget = new Budget(); let active = 0, peak = 0;
+  const work = () => budget.request(async () => { active++; peak = Math.max(peak, active); await new Promise(resolve => setTimeout(resolve, 5)); active--; });
+  try {
+    await Promise.all([work(), work(), work()]); expect(peak).toBe(1); expect(budget.requests).toBe(3);
+    await expect(budget.request(() => new Promise(() => {}), 5)).rejects.toMatchObject({ code: 6 });
+  } finally { budget.close(); }
+});

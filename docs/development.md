@@ -22,5 +22,8 @@ No public CI upload or publish operation is enabled.
 | eval:agent | AGENT-03 runner; currently fails explicitly as unimplemented |
 | package:smoke | Isolated installed help/version smoke |
 
-Empty consumer/conformance suites are not acceptance evidence. The current binary
+The consumer suite checks the public SDK; the conformance suite currently checks real loopback HTTP cancellation and needs local socket permission. Neither represents full release conformance. The current binary
 is a foundation only; the 22-command implementation is tracked in the backlog.
+
+Live provider harness: `scripts/live-provider.ts`; configuration and bounded invocation
+are documented in [PROV-03 evidence](delivery/evidence/PROV-03.md).

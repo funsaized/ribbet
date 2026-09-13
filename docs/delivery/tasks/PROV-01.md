@@ -6,7 +6,7 @@ Implement normalized text/object calls, response usage, capability declarations,
 
 ## Parent and state
 
-Parent: G4/R-EXT. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G4/R-EXT. Class: Required. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

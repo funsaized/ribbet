@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "platform": "linux",
+  "runtime": "1.4.0",
+  "type": "ollama",
+  "model": "qwen3.5:9b",
+  "modelDiscovered": true,
+  "text": "OK",
+  "object": {
+    "ok": true
+  },
+  "requests": 2,
+  "repairs": 0,
+  "retries": 0,
+  "tokens": 1461,
+  "usageUnknown": false,
+  "elapsedMs": 19381.144118,
+  "pass": true
+}

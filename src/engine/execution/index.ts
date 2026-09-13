@@ -10,6 +10,7 @@ export class Budget {
   usageUnknown = false;
   private timer: ReturnType<typeof setTimeout>;
   private external?: AbortSignal;
+  private tail: Promise<void> = Promise.resolve();
   private onAbort = () => this.controller.abort(new RibbitError(130, 'Cancelled'));
   constructor(limits: Partial<BudgetLimits> = {}, external?: AbortSignal) {
     this.limits = { ...DEFAULT_BUDGET, ...limits };
@@ -32,14 +33,20 @@ export class Budget {
     this[kind] += count;
   }
   // Every transport attempt, including repairs/retries, must enter here.
-  async request<T>(execute: (signal: AbortSignal) => Promise<T>): Promise<T> {
+  async request<T>(execute: (signal: AbortSignal) => Promise<T>, timeoutMs = this.limits.requestMs): Promise<T> {
+    const previous = this.tail;
+    let release!: () => void;
+    this.tail = new Promise<void>(resolve => { release = resolve; });
+    await previous;
+    try {
     this.check();
+    if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 1) throw new RibbitError(2, "Invalid request timeout");
     if (this.requests >= this.limits.maxRequests) throw new RibbitError(6, `Request budget exceeded (${this.limits.maxRequests})`);
     this.requests++;
     const controller = new AbortController();
     const forward = () => controller.abort(this.signal.reason);
     this.signal.addEventListener('abort', forward, { once: true });
-    const timer = setTimeout(() => controller.abort(new RibbitError(6, 'Inference request deadline exceeded')), this.limits.requestMs);
+    const timer = setTimeout(() => controller.abort(new RibbitError(6, 'Inference request deadline exceeded')), Math.min(this.limits.requestMs, timeoutMs));
     let remove = () => {};
     const aborted = new Promise<never>((_, reject) => {
       const onAbort = () => reject(controller.signal.reason);
@@ -48,6 +55,7 @@ export class Budget {
     });
     try { return await Promise.race([Promise.resolve().then(() => execute(controller.signal)), aborted]); }
     finally { clearTimeout(timer); remove(); this.signal.removeEventListener('abort', forward); }
+    } finally { release(); }
   }
   close() { clearTimeout(this.timer); this.external?.removeEventListener('abort', this.onAbort); }
 }
