@@ -1,0 +1,39 @@
+        0.30 real         0.06 user         0.02 sys
+            49364992  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                3818  page reclaims
+                  76  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                  84  involuntary context switches
+           433747558  instructions retired
+           150246758  cycles elapsed
+            21190528  peak memory footprint
+        0.75 real         0.03 user         0.03 sys
+            32178176  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                2097  page reclaims
+                  47  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                   0  voluntary context switches
+                  71  involuntary context switches
+           267499111  instructions retired
+           113637980  cycles elapsed
+            16664256  peak memory footprint
+Apple M1
+17179869184
+0.74.3 (Homebrew)

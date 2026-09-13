@@ -1,0 +1,8 @@
+{
+  "name": "ribbit-runtime-spike",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": { "zod": "4.1.13" },
+  "devDependencies": { "typescript": "5.9.3", "@types/node": "24.10.1" }
+}

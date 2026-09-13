@@ -6,7 +6,7 @@ Compare at least two practical TS-capable execution/distribution options using a
 
 ## Parent and state
 
-Parent: G2/G7; R-EXT/R-PERF. Class: Required gate. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G2/G7; R-EXT/R-PERF. Class: Required gate. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

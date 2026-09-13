@@ -1,0 +1,10 @@
+{
+  "ribbit-node": {
+    "peakRssKiB": 60276,
+    "exit": 0
+  },
+  "ribbit-bun": {
+    "peakRssKiB": 51816,
+    "exit": 0
+  }
+}
