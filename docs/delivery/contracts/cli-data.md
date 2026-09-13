@@ -1,6 +1,6 @@
 # Cli Data contract
 
-Status: PROPOSED for implementation planning. The corresponding CONTRACT task must ratify this baseline with evidence; this document does not imply user approval of unpublished details.
+Status: RATIFIED by implementation integrator, 2026-09-13. Scope and release targets unchanged.
 
 Authority: PRD version 1.0; changes must update PRD and affected tasks together.
 
@@ -68,3 +68,44 @@ Record IDs are unique and stable within one input run; transformations retain li
 Stdin and --file cannot both supply data; compare exclusively owns its two files. --file accepts one text source; read handles multiple. Empty record streams produce empty record streams for record operations and no inference. Text generation commands reject empty evidence unless ask has a self-contained instruction. Global operations inspect bounded input before inference. Output is UTF-8; malformed input is rejected with location. A final unterminated line is accepted.
 
 Stdout contains only result data. Errors, statistics and progress use stderr. --json on management commands controls their response object; execution data uses --output to avoid ambiguity. --error-format json controls machine diagnostics. Exit codes: 0 success (including zero matches), 2 usage/schema input error, 3 config/provider/capability error, 4 inference/output validation failure, 5 extension execution failure, 6 budget/size limit, 7 filesystem/backend I/O failure, 130 cancellation. Expected downstream pipe closure is successful early termination; other broken writes are errors. Partial streaming output may exist on nonzero exit; records are emitted only after each is valid. Scripts needing full-pipeline success should use shell pipefail.
+
+## Normative implementation details
+
+See [contract details](../../decisions/contract-details.md) and
+[command inventory fixture](../../../fixtures/contracts/commands.json).
+
+Text inputs: ask/summarize/explain/rewrite/extract/reduce accept a text value or a
+record stream serialized as evidence with source IDs; summarize/reduce also accept
+empty record streams only as an input error, without inference. Ask alone may use
+an instruction with no evidence. Compare accepts exactly two explicit paths and
+rejects stdin and --file. Read accepts explicit paths; ls/find/tree own traversal
+and reject stdin evidence. Filter/classify/rank/group/map/pick/select/sort/unique/take
+consume records: explicit lines/jsonl adapters or the wire header are required.
+Render consumes records, a text value, or a JSON value from internal typed flows.
+A standalone JSON extraction result can be piped using --input jsonl (one JSON value).
+
+Default outputs: text for ask/summarize/explain/rewrite/reduce/compare/tree; one JSON
+value for extract; wire records for classify/filter/rank/group/map/ls/find/pick/read/
+select/sort/unique/take. Render emits the selected final format. --output records wraps
+a value result with run lineage; --output jsonl strips record metadata deliberately.
+Invalid output modes fail before work. --json belongs only to management commands.
+
+Wire record fields: id (nonempty string), value (JSON), annotations (object), optional
+source with path, lineStart and lineEnd. No unknown envelope fields; source ranges
+are positive integers in ascending order. Known sources only. External lines/jsonl
+assign string IDs starting at 1; line ranges are known for these explicit adapters.
+Header comparison is structural and disallows application data. Empty wire stream is
+valid. Duplicate IDs and malformed UTF-8 fail with location. No record is emitted
+until validated. Empty matching results succeed. Exact original values and metadata
+survive filter, take, sort, unique and pick.
+
+Global operations are barriers: rank/group/sort/reduce/compare and tree. Per-record
+map/classify/filter/project can stream. Unique retains bounded canonical keys.
+Take 0 never calls the upstream iterator. Consumer cancellation invokes iterator
+return/AbortSignal; expected downstream EPIPE is success, other writes exit 7.
+Streaming may leave a valid prefix on failure; no all-or-nothing claim.
+
+Whitespace word count splits trimmed text on Unicode whitespace; empty text is zero
+words. Summarize validates the maximum locally. Unknown keys and invalid positive
+integer flags fail usage validation. Field projection never reads annotations through
+value selectors. Metadata is exposed only by explicit structured SDK access.

@@ -6,7 +6,7 @@ Ratify wire header, command arguments, exit codes, records, field selectors, std
 
 ## Parent and state
 
-Parent: G1/G5; R-DATA. Class: Required gate. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G1/G5; R-DATA. Class: Required gate. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

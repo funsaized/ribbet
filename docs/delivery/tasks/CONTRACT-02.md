@@ -6,7 +6,7 @@ Define SDK signatures, streaming mode, schema subset, generated manifest format,
 
 ## Parent and state
 
-Parent: G2/G6; R-EXT. Class: Required gate. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G2/G6; R-EXT. Class: Required gate. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

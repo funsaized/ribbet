@@ -8,16 +8,16 @@ Read [execution rules](README.md), [PRD](../../Ribbit-PRD.md), and [contracts](c
 | --- | --- | --- | --- | --- | --- |
 | [BASE-01](tasks/BASE-01.md) | Establish repository and delivery baseline | Required | G1–G8 | — | ACCEPTED |
 | [DECIDE-01](tasks/DECIDE-01.md) | Prove the runtime and distribution path | Required gate | G2/G7; R-EXT/R-PERF | BASE-01 | ACCEPTED |
-| [CONTRACT-01](tasks/CONTRACT-01.md) | Freeze command and data contracts | Required gate | G1/G5; R-DATA | DECIDE-01 | READY |
-| [CONTRACT-02](tasks/CONTRACT-02.md) | Freeze SDK, build and extension trust contracts | Required gate | G2/G6; R-EXT | DECIDE-01 | READY |
+| [CONTRACT-01](tasks/CONTRACT-01.md) | Freeze command and data contracts | Required gate | G1/G5; R-DATA | DECIDE-01 | ACCEPTED |
+| [CONTRACT-02](tasks/CONTRACT-02.md) | Freeze SDK, build and extension trust contracts | Required gate | G2/G6; R-EXT | DECIDE-01 | ACCEPTED |
 | [CONTRACT-03](tasks/CONTRACT-03.md) | Freeze routing and provider conformance | Required gate | G4; R-ROUTE | DECIDE-01 | READY |
 | [CONTRACT-04](tasks/CONTRACT-04.md) | Freeze linear flow and filesystem contracts | Required gate | G3/G5; R-FLOW/R-FS | CONTRACT-01, CONTRACT-02, CONTRACT-03 | BLOCKED |
 | [CONTRACT-05](tasks/CONTRACT-05.md) | Ratify measurable release gates | Required gate | G7/G8; R-PERF | DECIDE-01 | READY |
-| [BUILD-01](tasks/BUILD-01.md) | Create workspace, scripts and CI skeleton | Required | G2/G7 | CONTRACT-01, CONTRACT-02 | BLOCKED |
-| [CORE-01](tasks/CORE-01.md) | Implement record adapters and wire format | Required | R-DATA | BUILD-01 | BLOCKED |
-| [CORE-02](tasks/CORE-02.md) | Implement execution lifecycle and budgets | Required | R-DATA/R-PERF | CORE-01 | BLOCKED |
-| [SDK-01](tasks/SDK-01.md) | Implement typed command SDK | Required | R-EXT | BUILD-01 | BLOCKED |
-| [SDK-02](tasks/SDK-02.md) | Generate manifests and CLI schema bindings | Required | R-EXT/G6 | SDK-01 | BLOCKED |
+| [BUILD-01](tasks/BUILD-01.md) | Create workspace, scripts and CI skeleton | Required | G2/G7 | CONTRACT-01, CONTRACT-02 | ACCEPTED |
+| [CORE-01](tasks/CORE-01.md) | Implement record adapters and wire format | Required | R-DATA | BUILD-01 | ACCEPTED |
+| [CORE-02](tasks/CORE-02.md) | Implement execution lifecycle and budgets | Required | R-DATA/R-PERF | CORE-01 | ACCEPTED |
+| [SDK-01](tasks/SDK-01.md) | Implement typed command SDK | Required | R-EXT | BUILD-01 | ACCEPTED |
+| [SDK-02](tasks/SDK-02.md) | Generate manifests and CLI schema bindings | Required | R-EXT/G6 | SDK-01 | READY |
 | [EXT-01](tasks/EXT-01.md) | Build and explicitly install local extensions | Required | R-EXT | SDK-02, CORE-02 | BLOCKED |
 | [EXT-02](tasks/EXT-02.md) | Execute extension actions through shared engine | Required | G2/R-EXT | EXT-01, SDK-01, CORE-02 | BLOCKED |
 | [CLI-01](tasks/CLI-01.md) | Implement parser and shell behavior | Required | G1/G5 | SDK-02, CORE-02 | BLOCKED |

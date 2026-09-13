@@ -6,7 +6,7 @@ Build shared deadline/request/token/input limits, AbortSignal propagation, backp
 
 ## Parent and state
 
-Parent: R-DATA/R-PERF. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: R-DATA/R-PERF. Class: Required. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

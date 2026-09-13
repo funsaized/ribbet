@@ -1,0 +1,30 @@
+{
+  "name": "ribbit-private",
+  "version": "0.1.0-dev.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "bun run scripts/build.ts",
+    "test:unit": "bun test tests/unit tests/records tests/execution tests/sdk",
+    "test:consumer": "bun test tests/consumer",
+    "test:cli": "bun test tests/cli",
+    "test:conformance": "bun test tests/conformance",
+    "test:docs": "bun run scripts/docs.ts",
+    "bench": "bun run scripts/gate.ts PERF-01",
+    "eval:semantic": "bun run scripts/gate.ts EVAL-02",
+    "eval:agent": "bun run scripts/gate.ts AGENT-03",
+    "package:smoke": "bun run scripts/smoke.ts"
+  },
+  "dependencies": {
+    "zod": "4.1.13",
+    "yaml": "2.8.1",
+    "ajv": "8.17.1",
+    "ignore": "7.0.5"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "24.10.1",
+    "@types/bun": "1.3.3"
+  }
+}

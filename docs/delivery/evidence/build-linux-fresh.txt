@@ -1,0 +1,70 @@
+$ npm ci --offline --ignore-scripts --no-audit --no-fund --cache /tmp/ribbit-npm-cache
+
+added 13 packages in 393ms
+
+exit: 0
+$ npm run check
+
+> ribbit-private@0.1.0-dev.0 check
+> tsc --noEmit
+
+
+exit: 0
+$ npm run test:unit
+
+> ribbit-private@0.1.0-dev.0 test:unit
+> bun test tests/unit
+
+bun test v1.4.0 (34cbb9a40)
+
+tests/unit/baseline.test.ts:
+(pass) private package never enables publishing [0.11ms]
+
+ 1 pass
+ 0 fail
+ 2 expect() calls
+Ran 1 test across 1 file. [9.00ms]
+
+exit: 0
+$ npm run test:cli
+
+> ribbit-private@0.1.0-dev.0 test:cli
+> bun test tests/cli
+
+bun test v1.4.0 (34cbb9a40)
+
+tests/cli/baseline.test.ts:
+(pass) development help and usage keep diagnostic channels separate [6.57ms]
+
+ 1 pass
+ 0 fail
+ 3 expect() calls
+Ran 1 test across 1 file. [10.00ms]
+
+exit: 0
+$ npm run build
+
+> ribbit-private@0.1.0-dev.0 build
+> bun run scripts/build.ts
+
+   [2ms]  bundle  1 modules
+  [86ms] compile  dist/ribbit
+
+exit: 0
+$ npm run package:smoke
+
+> ribbit-private@0.1.0-dev.0 package:smoke
+> bun run scripts/smoke.ts
+
+Installed development CLI smoke passed
+
+exit: 0
+$ npm run test:docs
+
+> ribbit-private@0.1.0-dev.0 test:docs
+> bun run scripts/docs.ts
+
+Documentation links passed
+
+exit: 0
+Lockfile SHA-256 unchanged: 97f6bce54a8a860196a33ffab06c5042af6f16a4b4cb4521db7b39fe19da01ea

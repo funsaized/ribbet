@@ -6,7 +6,7 @@ Implement text/lines/jsonl/records input adapters, bounded auto detection, IDs, 
 
 ## Parent and state
 
-Parent: R-DATA. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: R-DATA. Class: Required. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

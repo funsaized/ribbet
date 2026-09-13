@@ -1,0 +1,134 @@
+[
+  {
+    "id": "C01",
+    "command": "ask",
+    "inputDescription": "Optional instruction plus stdin/--file; instruction required unless definition supplies it; --rule repeatable",
+    "outputDescription": "Text answer; no tool execution"
+  },
+  {
+    "id": "C02",
+    "command": "summarize",
+    "inputDescription": "Text or records; --words positive integer, --rule",
+    "outputDescription": "Concise text; word count is an enforced maximum using documented whitespace token counting"
+  },
+  {
+    "id": "C03",
+    "command": "explain",
+    "inputDescription": "Text/code/errors; optional focus; --audience",
+    "outputDescription": "Text explanation; uncertainty explicit; no claims of execution"
+  },
+  {
+    "id": "C04",
+    "command": "rewrite",
+    "inputDescription": "Instruction plus text; --rule",
+    "outputDescription": "Rewritten text; preserve supplied facts unless transformation explicitly changes them"
+  },
+  {
+    "id": "C05",
+    "command": "extract",
+    "inputDescription": "Instruction, --schema local JSON Schema file",
+    "outputDescription": "Validated JSON; missing facts follow null/empty schema allowances; unsupported schemas fail before inference"
+  },
+  {
+    "id": "C06",
+    "command": "classify",
+    "inputDescription": "Records; --labels comma-separated simple labels or repeated --label; --field",
+    "outputDescription": "Original record with one allowed label; optional user-declared unknown label; never invent a class"
+  },
+  {
+    "id": "C07",
+    "command": "filter",
+    "inputDescription": "Predicate instruction; records; --field",
+    "outputDescription": "Exact matching records, stable order; semantic decisions are fallible"
+  },
+  {
+    "id": "C08",
+    "command": "rank",
+    "inputDescription": "Criterion; records; --top positive integer; --field",
+    "outputDescription": "Original records reordered; no omitted/duplicated IDs before top slicing; no fabricated numeric confidence"
+  },
+  {
+    "id": "C09",
+    "command": "group",
+    "inputDescription": "Criterion; records; --field",
+    "outputDescription": "Objects containing group ID, generated label, member records/IDs; each input belongs to exactly one group in v1"
+  },
+  {
+    "id": "C10",
+    "command": "map",
+    "inputDescription": "Instruction; records; optional --schema",
+    "outputDescription": "Exactly one result per record with lineage; validated structured results if schema supplied"
+  },
+  {
+    "id": "C11",
+    "command": "reduce",
+    "inputDescription": "Instruction; text or records",
+    "outputDescription": "One text result; explicit --strategy chunked allows hierarchical reduction with recorded chunk boundaries"
+  },
+  {
+    "id": "C12",
+    "command": "compare",
+    "inputDescription": "Exactly two file paths; --focus",
+    "outputDescription": "Text comparison labeled with both sources; neither file is modified"
+  },
+  {
+    "id": "C13",
+    "command": "ls",
+    "inputDescription": "Root path default cwd; --recursive, --hidden, --glob",
+    "outputDescription": "Filesystem records: path, kind, sizeBytes, modifiedAt; zero inference"
+  },
+  {
+    "id": "C14",
+    "command": "find",
+    "inputDescription": "Root; --glob, --kind, --about, --read names\\",
+    "outputDescription": "content|File records; deterministic prefilter before optional semantic filtering"
+  },
+  {
+    "id": "C15",
+    "command": "tree",
+    "inputDescription": "Root; --depth, --describe, --about, --read names\\",
+    "outputDescription": "content|Human tree by default, structured tree on request; metadata-only mode needs no provider"
+  },
+  {
+    "id": "C16",
+    "command": "pick",
+    "inputDescription": "Records; --multi, --query, --about, --label",
+    "outputDescription": "Selected original records; UI on controlling terminal; stdout only selections"
+  },
+  {
+    "id": "C17",
+    "command": "read",
+    "inputDescription": "One or more explicit text paths",
+    "outputDescription": "File records with content and source boundaries; never executes content"
+  },
+  {
+    "id": "C18",
+    "command": "select",
+    "inputDescription": "Comma-separated field paths",
+    "outputDescription": "Project record value fields; missing field errors unless --missing null"
+  },
+  {
+    "id": "C19",
+    "command": "sort",
+    "inputDescription": "--by path; --descending; --type number\\",
+    "outputDescription": "string|Stable exact sort; missing/mixed invalid values fail; no inference"
+  },
+  {
+    "id": "C20",
+    "command": "unique",
+    "inputDescription": "Optional --by path",
+    "outputDescription": "First record for each exact key/value; canonical JSON equality with sorted object keys"
+  },
+  {
+    "id": "C21",
+    "command": "take",
+    "inputDescription": "Nonnegative integer count",
+    "outputDescription": "First N records, stops upstream work early; zero consumes no records"
+  },
+  {
+    "id": "C22",
+    "command": "render",
+    "inputDescription": "--as text\\",
+    "outputDescription": "table\\|json\\|jsonl or --template path|Final display values; safe template substitution only, no eval or shell execution"
+  }
+]

@@ -6,7 +6,7 @@ Implement defineCommand/action generics, separate config/args/input/output valid
 
 ## Parent and state
 
-Parent: R-EXT. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: R-EXT. Class: Required. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

@@ -6,7 +6,7 @@ Initialize chosen runtime workspace, lint/typecheck/unit/consumer test scripts a
 
 ## Parent and state
 
-Parent: G2/G7. Class: Required. Initial state: **BLOCKED**. Current state is maintained in backlog.md.
+Parent: G2/G7. Class: Required. Initial state: **BLOCKED**. Current state: **ACCEPTED**. Current state is maintained in backlog.md.
 
 ## Prerequisites
 

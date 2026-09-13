@@ -1,0 +1,7 @@
+ribbit 0.1.0-dev.0
+Ribbit — Small commands. Big hops.
+
+Development build. Command engine is under implementation.
+
+  --help     Show help
+  --version  Show version

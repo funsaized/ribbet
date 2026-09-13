@@ -1,0 +1,7 @@
+{
+  "count": 100000,
+  "baselinePeakRssKiB": 52808,
+  "finalPeakRssKiB": 88200,
+  "incrementalPeakRssKiB": 35392,
+  "limitKiB": 131072
+}
