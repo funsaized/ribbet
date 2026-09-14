@@ -15,7 +15,6 @@ The distribution contains `ribbit` and its adjacent `lib/` directory. Keep them 
 On this workstation, `local-test` points to the user's LM Studio installation at `http://127.0.0.1:1234/v1`, using Qwen2.5-0.5B-Instruct Q4_K_M. This is a fast integration-test model, not an accepted semantic-quality default. The existing Ollama Qwen model is also available through `--profile local-qwen`, without conversion or another download.
 
 - [Current status and tomorrow’s handoff](docs/delivery/HANDOFF.md)
-- [27B LM Studio setup](docs/lmstudio-qwen27b.md)
 - [User guide and examples](docs/usage.md)
 - [Generated command reference](docs/commands.md)
 - [Extension authoring](docs/extensions.md)

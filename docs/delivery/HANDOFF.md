@@ -24,9 +24,10 @@ Linux measured extension p95 123.5 ms and managed pre-HTTP p95 70.3 ms. Mac: 82.
 
 1. Reproduce and close the remaining findings in [flow/CLI audit](audits/flow-cli-20260913.md) and [filesystem audit](audits/filesystem-20260913.md). Several are fixed with regressions, but obvious array-item schema mismatches, complete named/runtime completion coverage, whole-output/template budgets, all-or-nothing picker validation, unreadable-directory regression coverage and final flow route/cancellation matrices still need review. Do not blanket-accept REVIEW tasks.
 2. Investigate semantic prompt/model behavior before choosing a default. Both small models failed filter/classify thresholds. The explicit-label/filter prompt variant **regressed** aggregate filter/classify scores on 1.5B, although extraction reached 98.7%. Preserve both before/after reports; do not present the code correction as a measured quality improvement. Sample templates overlap across splits; avoid generalization claims.
-3. Extend validation of the newly requested Qwen3.8-27B model and guarded LM Studio load settings; initial load and OpenAI-compatible smoke generation passed with at least 3516 MiB free VRAM. See [desktop setup](../lmstudio-qwen27b.md). It is too large for full residency on the actual 12 GiB RTX 3080 Ti. A 2 GiB free VRAM reserve is the policy; start with 8K context, partial offload, one slot and Q4 KV. No throughput or Q4 KV quality claim has been established.
-4. Finish rubric-family evaluation and per-task acceptance, then rebuild/checksum/smoke both target packages and run final performance/doc gates.
-5. Owner is participant 1 and will crowdsource four additional pilot participants. Use [pilot materials](../pilot/README.md); record actual sessions rather than assuming development usage counts.
+3. Finish rubric-family evaluation and per-task acceptance, then rebuild/checksum/smoke both target packages and run final performance/doc gates.
+4. Owner is participant 1 and will crowdsource four additional pilot participants. Use [pilot materials](../pilot/README.md); record actual sessions rather than assuming development usage counts.
+
+Qwen3.8-27B LM Studio notes are not delivery work. They live in `~/Projects/qwen38-3080ti`.
 
 ## Local model profiles and restart
 
@@ -34,11 +35,6 @@ All inference for the current test path uses `http://127.0.0.1:1234/v1` (LM Stud
 
 - `local-test`: Qwen2.5-0.5B Q4_K_M; fast plumbing tests, failed quality gate.
 - `local-candidate`: Qwen2.5-1.5B Q4_K_M; comparison model, failed overall quality gate.
-- `local-27b`: explicit `ribbit-qwen27b` loaded-instance alias, temperature .6; guarded launcher required.
 - `local-qwen`: existing Ollama Qwen3.5:9b retained for reuse, but owner directed current evaluations through LM Studio.
 
 The final [checkpoint evidence](evidence/CHECKPOINT-20260913.md) records process shutdown and model setup. Start LM Studio desktop/server deliberately tomorrow; nothing should be left evaluating overnight. The original user-owned Ollama service is not ours to terminate.
-
-## Additional quick screen
-
-The owner subsequently requested and received an executed Qwen3.8 27B screen: [QUICK_SCREEN_TO_REVIEW.md](../../QUICK_SCREEN_TO_REVIEW.md). Three ~7K-token retrieval cases and 30 labeled cases passed, with a 3017 MiB minimum sampled free VRAM. This does not close the release quality gate or establish FP16-cache equivalence. Model and screen processes were stopped afterward.

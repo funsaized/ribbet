@@ -1,6 +1,6 @@
 # End-of-day checkpoint
 
-Owner requested status, documentation updates, a clean stopping point and shutdown of processes started by the assistant. A final additional request authorized preparation of Unsloth Qwen3.8-27B UD-IQ4_XS for LM Studio without consuming all VRAM.
+Owner requested status, documentation updates, a clean stopping point and shutdown of processes started by the assistant.
 
 ## Completed versus remaining
 
@@ -22,11 +22,9 @@ Each row has 750 attempts (250 examples, three repetitions) through LM Studio. A
 
 Hosted OpenAI API-key testing is deferred until the owner supplies it later. Continue using the local compatible endpoint. Independent agent evaluations are authorized and were executed. Owner is the first nominated pilot participant and will recruit additional users; no completed pilot session is assumed.
 
-## LM Studio setup
+## LM Studio (delivery test path)
 
-Actual GPU: RTX 3080 Ti, 12288 MiB. The downloaded requested 27B file is 14,252,845,984 bytes; publisher SHA-256 is `40fac4050e940397dbf13087afd50f4734a11805bf9d65ef8ddd7483470e6199`. Preset and guarded launcher are tracked under config/lmstudio and scripts/lmstudio-qwen27b.mjs. Starting configuration is 8K context, .4 weight offload, Q4_0 K/V cache, Flash Attention, one slot, and 2 GiB free VRAM headroom checks. Initial loading and short generation passed; cache quality and sustained generation throughput remain unverified; no full-VRAM settings are copied.
-
-Download verification passed: exact byte count, GGUF header and SHA-256 matched the publisher. LM Studio estimated 5825 MiB VRAM. Actual free VRAM was 3552 MiB after load and a minimum 3516 MiB during a short OpenAI-compatible request. Returned `Model ready` in 5.72 seconds, with 30 completion tokens including reasoning. Reported load configuration confirmed Q4_0 K/V, Flash Attention, 8192 context and .4 offload. Keep this conservative ratio; the estimate understated actual allocation.
+Loopback OpenAI-compatible endpoint at `127.0.0.1:1234`. Delivery evals used Qwen2.5 0.5B / 1.5B, not the 27B desktop recipe. That experiment lives in `~/Projects/qwen38-3080ti`.
 
 Final loopback conformance test passed (one test); documentation links/examples and whitespace checks passed.
 
