@@ -8,8 +8,8 @@ async function invoke(name:keyof typeof builtins,input:unknown,args:unknown,resp
 async function* records(){yield{id:'a',value:'first',annotations:{original:true}};yield{id:'b',value:'second',annotations:{}};}
 test('text families and classification retain declared behavior',async()=>{
  for(const name of ['ask','explain','rewrite']as const)expect((await invoke(name,'evidence',{...(name==='explain'?{}:{instruction:'test'})},['answer'])).value).toBe('answer');
- const classified=await invoke('classify',records(),{labels:'yes,no'},[{label:'yes'},{label:'no'}]);expect(classified.value).toMatchObject([{id:'a',value:'first',annotations:{original:true,classify:{label:'yes'}}},{id:'b',value:'second',annotations:{classify:{label:'no'}}}]);
- await expect(invoke('classify',records(),{labels:'yes,no'},[{label:'invented'}])).rejects.toBeDefined();
+ const classified=await invoke('classify',records(),{labels:'yes,no'},[{reason:'positive',label:'yes'},{reason:'negative',label:'no'}]);expect(classified.value).toMatchObject([{id:'a',value:'first',annotations:{original:true,classify:{label:'yes'}}},{id:'b',value:'second',annotations:{classify:{label:'no'}}}]);
+ await expect(invoke('classify',records(),{labels:'yes,no'},[{reason:'unsure',label:'invented'}])).rejects.toBeDefined();
 });
 test('group requires a complete partition and reduce reports actual calls',async()=>{
  const result=await invoke('group',records(),{instruction:'group'},[{groups:[{label:'both',ids:['b','a']}]}]);expect(result.value).toMatchObject([{value:{members:[{id:'b'},{id:'a'}]}}]);
