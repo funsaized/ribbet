@@ -2,7 +2,7 @@ import { type Config, type Inference, type Provider, inferenceSchema } from '../
 import { RibbitError } from '../engine/records/index.ts';
 export const LAYERS = ['global', 'project', 'savedFlow', 'invocationFlow', 'perCommand', 'definition', 'step', 'cli'] as const;
 export type Layer = typeof LAYERS[number];
-export interface Route { provider: string; model: string; temperature?: number; maxOutputTokens?: number; timeout?: number; source: Record<string, string>; endpoint: Provider; }
+export interface Route { provider: string; model: string; temperature?: number; maxOutputTokens?: number; timeout?: number; reasoning?: 'off' | 'on'; source: Record<string, string>; endpoint: Provider; }
 export function resolveRoute(config: Config, layers: Partial<Record<Layer, Inference>>, forceProfile?: string, capabilities: string[] = ['text']): Route {
   let route: Partial<Inference> = {}, source: Record<string, string> = {};
   for (const name of LAYERS) {
@@ -24,7 +24,7 @@ export function resolveRoute(config: Config, layers: Partial<Record<Layer, Infer
       source.provider = name; source.model = name;
       if (!route.model && !layer.model) throw new RibbitError(3, `Provider at ${name} requires a configured default model or explicit model`);
     }
-    for (const key of ['model', 'temperature', 'maxOutputTokens', 'timeout'] as const) {
+    for (const key of ['model', 'temperature', 'maxOutputTokens', 'timeout', 'reasoning'] as const) {
       if (layer[key] !== undefined) { Object.assign(route, { [key]: layer[key] }); source[key] = name; }
     }
   }
@@ -37,7 +37,7 @@ export function resolveRoute(config: Config, layers: Partial<Record<Layer, Infer
   const endpoint = config.providers[route.provider];
   if (!endpoint) throw new RibbitError(3, 'Resolved provider is not configured');
   if (endpoint.models && !endpoint.models.includes(route.model)) throw new RibbitError(3, 'Resolved model is not in provider model allowlist');
-  const required = [...capabilities, ...(route.temperature === undefined ? [] : ['temperature']), ...(route.maxOutputTokens === undefined ? [] : ['maxOutputTokens'])];
+  const required = [...capabilities, ...(route.temperature === undefined ? [] : ['temperature']), ...(route.maxOutputTokens === undefined ? [] : ['maxOutputTokens']), ...(route.reasoning === undefined ? [] : ['reasoning'])];
   for (const capability of required) if (!endpoint.capabilities.includes(capability as Provider['capabilities'][number])) throw new RibbitError(3, `Provider does not support ${capability}`);
   return { ...route, provider: route.provider, model: route.model, source, endpoint };
 }

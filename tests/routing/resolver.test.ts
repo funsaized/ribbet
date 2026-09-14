@@ -24,6 +24,15 @@ test('capability and known-model checks happen without network', () => {
   const restricted = { ...config, providers: { ...config.providers, local: { ...config.providers.local, models: ['only'] } } };
   expect(() => resolveRoute(restricted, { cli: { provider: 'local' } })).toThrow('allowlist');
 });
+test('reasoning control requires the provider capability and carries through resolution', () => {
+  const capable = configSchema.parse({ providers: { local: { type: 'ollama', baseUrl: 'http://127.0.0.1:11434', defaultModel: 'local-default', capabilities: ['text', 'reasoning'] } }, default: { provider: 'local' } });
+  expect(resolveRoute(capable, {}).reasoning).toBeUndefined();
+  const route = resolveRoute(capable, { cli: { reasoning: 'off' } });
+  expect(route.reasoning).toBe('off');
+  expect(inspectRoute(route).reasoning).toBe('off');
+  expect(() => resolveRoute(config, { cli: { provider: 'local', reasoning: 'off' } })).toThrow('reasoning');
+  expect(() => configSchema.parse({ default: { reasoning: 'maybe' } })).toThrow();
+});
 test('unknown config keys and credential-bearing URLs rejected', () => {
   expect(() => configSchema.parse({ apiKey: 'secret' })).toThrow();
   for (const url of ['https://user:secret@example.org', 'https://example.org?key=x', 'file:///tmp/file']) expect(() => configSchema.parse({ providers: { bad: { type: 'ollama', baseUrl: url } } })).toThrow();

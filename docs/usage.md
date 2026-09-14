@@ -30,6 +30,10 @@ Global configuration is `${XDG_CONFIG_HOME:-$HOME/.config}/ribbit/config.yaml` o
 
 On this workstation, `--profile local-test` uses the fast LM Studio model; `--profile local-qwen` reuses the existing Ollama Qwen3.5:9b. The latter has passed transport checks but has not undergone the full quality evaluation.
 
+### Reasoning
+
+Thinking is wasted work for schema-constrained commands (`classify`, `filter`, `extract`, `rank`, `group`) and can exhaust the output budget, producing truncation failures. A provider declares the `reasoning` capability only when its adapter can control thinking; structured requests then default to `reasoning: off`, while free text keeps the model default. Set `reasoning: off|on` in a profile, route or project to override. Resolution fails if a route sets `reasoning` on a provider without the capability. Ollama uses the native `think` field; OpenAI-compatible adapters send `chat_template_kwargs.enable_thinking` and must be declared explicitly because template support varies. A thinking model on a provider without the capability needs a larger `--max-output-tokens`, not silence.
+
 A shell pipeline runs separate commands with separate budgets and routes. In a flow, `--profile`/`--provider`/`--model` supply flow invocation defaults; segment overrides win. `--force-profile` replaces managed inference routes across a flow and is visible in its plan.
 
 ## Flows

@@ -27,16 +27,21 @@ if compatible with final capability checks. A higher explicit profile parameter 
 Force-profile runs last and replaces all inference defaults with the selected profile.
 
 All config objects reject unknown fields. Providers declare capabilities explicitly:
-text, stream, object, temperature, maxOutputTokens. Model context limits and a known
-model allowlist may be configured; they are not guessed from names. Resolution checks
-model membership when a list is configured. Setup/model discovery can inspect an
+text, stream, object, temperature, maxOutputTokens, reasoning. Model context limits and a
+known model allowlist may be configured; they are not guessed from names. Resolution checks
+model membership when a list is configured. `reasoning` (off/on) is a route setting; a
+provider declares the capability only when its adapter can honor it, and setting it without
+the capability fails resolution. Structured (schema-constrained) requests default reasoning
+off where declared; free text keeps the provider default. Ollama maps this to the native
+`think` field; OpenAI-compatible adapters send `chat_template_kwargs.enable_thinking` and
+must be declared explicitly, because compatible vendors and templates differ. Setup/model discovery can inspect an
 endpoint only when requested; pure route resolution never fetches. Configuration
 stores environment variable names, never credential values. URL userinfo, query
 credentials and non-HTTP(S) schemes are rejected. Diagnostics never include response
 bodies or Authorization header content.
 
 Supported HTTP subset: native Ollama `/api/tags`, `/api/chat` with model/messages,
-stream, format JSON Schema and supported options; OpenAI-compatible `/models` and
+stream, format JSON Schema, `think` and supported options; OpenAI-compatible `/models` and
 `/chat/completions` under the configured base URL, model/messages, stream, temperature,
 max_tokens and explicit supported response_format json_schema. Ollama streams NDJSON;
 compatible streams SSE data messages terminated by `[DONE]`. Unexpected tool calls,

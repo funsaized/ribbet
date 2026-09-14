@@ -15,6 +15,17 @@ test('compatible SSE, custom base URL, structured payload, no-key local endpoint
   });
   expect(await Array.fromAsync(adapter.stream({ ...request, schema: { type: 'object' } }))).toEqual([{ type: 'text', text: 'hi' }, { type: 'done' }]);
 });
+test('compatible endpoint receives thinking control only when declared', async () => {
+  const capable = resolveRoute(configSchema.parse({ providers: { local: { type: 'openai-compatible', baseUrl: 'http://127.0.0.1:1234/v1', defaultModel: 'test', capabilities: ['text', 'object', 'reasoning'] } }, default: { provider: 'local' } }), {});
+  const bodies: any[] = [];
+  const adapter = new CompatibleAdapter(async (_url, init) => { bodies.push(JSON.parse(String(init?.body))); return new Response(event({ content: 'hi' }) + event({}, 'stop') + 'data: [DONE]\n\n'); });
+  await Array.fromAsync(adapter.stream({ ...request, route: capable, schema: { type: 'object' } }));
+  expect(bodies[0].chat_template_kwargs).toEqual({ enable_thinking: false });
+  await Array.fromAsync(adapter.stream({ ...request, route: { ...capable, reasoning: 'on' }, schema: { type: 'object' } }));
+  expect(bodies[1].chat_template_kwargs).toEqual({ enable_thinking: true });
+  await Array.fromAsync(adapter.stream({ ...request, schema: { type: 'object' } }));
+  expect(bodies[2].chat_template_kwargs).toBeUndefined();
+});
 test('SSE rejects truncation, length stop, refusal, tool call and bad JSON', async () => {
   for (const data of [event({ content: 'hi' }), event({}, 'length') + 'data: [DONE]\n\n', event({ refusal: 'no' }), event({ tool_calls: [{}] }), 'data: {broken}\n\n']) {
     const adapter = new CompatibleAdapter(async () => new Response(data));

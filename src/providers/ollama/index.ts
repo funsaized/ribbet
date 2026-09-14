@@ -1,4 +1,4 @@
-import { type Adapter, type Event, type Request } from '../interface/index.ts';
+import { type Adapter, type Event, type Request, reasoningOption } from '../interface/index.ts';
 import { send, responseLines, responseJson, eventJson, type Fetcher } from '../http/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';
 import type { Provider } from '../../config/index.ts';
@@ -12,7 +12,8 @@ export class OllamaAdapter implements Adapter {
   async *stream(request: Request): AsyncGenerator<Event> {
     const { route, signal } = request;
     const options = { ...(route.temperature !== undefined ? { temperature: route.temperature } : {}), ...(route.maxOutputTokens !== undefined ? { num_predict: route.maxOutputTokens } : {}) };
-    const response = await send(route.endpoint, '/api/chat', signal, { model: route.model, messages: [{ role: 'system', content: request.instruction }, { role: 'user', content: request.evidence }], stream: true, ...(request.schema ? { format: request.schema } : {}), options }, this.fetcher);
+    const think = reasoningOption(route, request.schema !== undefined);
+    const response = await send(route.endpoint, '/api/chat', signal, { model: route.model, messages: [{ role: 'system', content: request.instruction }, { role: 'user', content: request.evidence }], stream: true, ...(request.schema ? { format: request.schema } : {}), ...(think === undefined ? {} : { think }), options }, this.fetcher);
     let done = false;
     for await (const line of responseLines(response, signal)) {
       if (!line) continue;

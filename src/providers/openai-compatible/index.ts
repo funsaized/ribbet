@@ -1,4 +1,4 @@
-import { type Adapter, type Event, type Request } from '../interface/index.ts';
+import { type Adapter, type Event, type Request, reasoningOption } from '../interface/index.ts';
 import { send, responseLines, responseJson, eventJson, type Fetcher } from '../http/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';
 import type { Provider } from '../../config/index.ts';
@@ -11,8 +11,10 @@ export class CompatibleAdapter implements Adapter {
   }
   async *stream(request: Request): AsyncGenerator<Event> {
     const { route, signal } = request;
+    const think = reasoningOption(route, request.schema !== undefined);
     const body = { model: route.model, messages: [{ role: 'system', content: request.instruction }, { role: 'user', content: request.evidence }], stream: true,
       ...(route.temperature === undefined ? {} : { temperature: route.temperature }), ...(route.maxOutputTokens === undefined ? {} : { max_tokens: route.maxOutputTokens }),
+      ...(think === undefined ? {} : { chat_template_kwargs: { enable_thinking: think } }),
       ...(request.schema ? { response_format: { type: 'json_schema', json_schema: { name: 'ribbit_result', strict: true, schema: request.schema } } } : {}) };
     const response = await send(route.endpoint, '/chat/completions', signal, body, this.fetcher);
     let data: string[] = [], stopped = false, done = false, usage: { inputTokens?: number; outputTokens?: number } = {};
