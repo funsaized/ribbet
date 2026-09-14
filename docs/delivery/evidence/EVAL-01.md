@@ -1,5 +1,10 @@
-# EVAL-01 — Dataset preparation and sample review complete; REVIEW
+# EVAL-01 — ACCEPTED 2026-09-14
 
-250 synthetic core cases (100 filter, 100 classify, 50 extract), plus 30 cases in each of five rubric families. Provenance is the tracked generator; no confidential or third-party data. Splits are explicit. Two independent AI reviewers, blind to the authored answers and each other, labeled a seeded 50-item sample. Inter-reviewer and authored-label agreement were both 100%; see evals/review/agreement.json.
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Counts and label agreement reported | PASS | 250 core + 30×5 rubric; 50/50 blind agreement |
+| No confidential production data | PASS | synthetic generator only |
+| Held-out set distinct from prompt tuning set | PASS | unique IDs/inputs; template families overlap (not OOD proof) |
+| Rubrics score factuality independently of schema | PASS | rubric-cases.json; schema validity is not the score |
 
-The review flagged shared sentence templates across development and held-out splits. Exact inputs are distinct, but this is a limited synthetic benchmark and not broad generalization evidence. Keep REVIEW until that limitation and rubric-case execution coverage are resolved in the release evaluation decision. No human annotation study is claimed.
+Limitation: shared sentence templates across splits. Do not claim generalization. Reviewer decision: ACCEPTED.

@@ -1,40 +1,68 @@
-# Resume here — 2026-09-13 checkpoint
+# Resume here — 2026-09-14 (evening checkpoint)
 
-The owner requested a logical stop for tomorrow. The commit containing this file is the checkpoint; use `git log -1` and `git status --short`. No claim of full release completion is made.
+Owner stopped the live semantic evaluation for this session; all eval processes and the LM Studio server started for it are stopped. The macOS/perf/ship/docs gates are now closed. This tree is uncommitted; inspect `git status --short`.
 
 ## Backlog counts
 
-50 required tasks: **17 ACCEPTED, 28 REVIEW, 1 owner-deferred, 4 BLOCKED**. Five FOLLOW tasks are excluded from v1. The [backlog table](backlog.md) is authoritative.
+50 required tasks: **44 ACCEPTED, 1 REVIEW, 1 owner-deferred, 4 BLOCKED**. FOLLOW tasks stay out of v1.
 
-- Accepted: baseline/runtime decision, all five contracts, build foundation, records/budgets, SDK/schema generation, routing core, managed inference/Ollama, and extension install/runtime.
-- Implemented, still under review: all 22 commands, CLI/catalog/management, filesystem, definitions/flows, scaffold/guidance, adversarial QA, docs, packaging, performance and evaluations.
-- Independent consumer evaluation: 10/10 completed, traces retained. Blind label review: 50/50 agreement from two independent AI reviewers. These are not human pilot sessions.
-- Hosted OpenAI conformance: explicitly deferred by owner; use LM Studio's OpenAI-compatible endpoint now. Do not ask for an API key again until the owner resumes that test.
-- Still blocked: semantic release quality/default model selection, actual pilots, complete release audit and launch decision packet.
+- REVIEW: PROV-04. Implementation and runtime checks pass; held only because its declared predecessor PROV-03 (hosted OpenAI conformance) is owner-deferred.
+- DEFERRED: PROV-03.
+- BLOCKED: EVAL-02, PILOT-01, RELEASE-01, RELEASE-02.
 
-## Latest verified work
+The backlog table is authoritative: [backlog.md](backlog.md).
 
-95 unit/integration tests, nine CLI tests and one public SDK consumer test pass. Type-check, Linux build, packaged extension smoke and deterministic documentation examples pass. The loopback conformance check has its own evidence. Native Mac package and timing checks passed for the measured intermediate package; repeat against the final release revision.
+## Closed this session
 
-Fixed today: shared flow reference consumption, preserved record output kind, cancellation of pending extension iterators, nested scaffold parents and fixture locations, missing classification labels, generated validation startup overhead, zero-take flow input reuse, partial reference preflight, early flow flag validation, plan limits/validate operation, management JSON diagnostic flags, UTF-8 BOM preservation, hyphen field paths, bounded projection indices, display controls and unreadable discovery-directory handling.
+- Remaining 2026-09-13 audit findings, with regressions. Adversarial, filesystem, flow and CLI acceptance tests added.
+- PERF-01, SHIP-01, DOCS-02 — both platform artifacts rebuilt from one tree and measured in place. See [PERF-01](evidence/PERF-01.md), [SHIP-01](evidence/SHIP-01.md), [DOCS-02](evidence/DOCS-02.md), [performance](../performance.md), [checkpoint](evidence/CHECKPOINT-20260914.md).
 
-Linux measured extension p95 123.5 ms and managed pre-HTTP p95 70.3 ms. Mac: 82.0 ms and 48.8 ms respectively. These are intermediate-package timings, not final-release acceptance.
+| Gate | Linux | macOS |
+| --- | --- | --- |
+| help/version p95 ≤100 ms | 38.7 / 38.4 | 30.6 / 29.8 |
+| extension p95 ≤150 ms | 121.4 | 80.9 |
+| managed pre-HTTP p95 ≤100 ms | 66.2 | 48.4 |
+| 100k take incremental RSS ≤128 MiB | 42936 KiB | n/a (Linux reference) |
 
-## Highest-priority work tomorrow
+Artifacts: Linux `dist/ribbit` `b23e33cf…`, macOS `dist/ribbit-darwin-arm64` `a9227bf8…` (full hashes in the checkpoint).
 
-1. Reproduce and close the remaining findings in [flow/CLI audit](audits/flow-cli-20260913.md) and [filesystem audit](audits/filesystem-20260913.md). Several are fixed with regressions, but obvious array-item schema mismatches, complete named/runtime completion coverage, whole-output/template budgets, all-or-nothing picker validation, unreadable-directory regression coverage and final flow route/cancellation matrices still need review. Do not blanket-accept REVIEW tasks.
-2. Investigate semantic prompt/model behavior before choosing a default. Both small models failed filter/classify thresholds. The explicit-label/filter prompt variant **regressed** aggregate filter/classify scores on 1.5B, although extraction reached 98.7%. Preserve both before/after reports; do not present the code correction as a measured quality improvement. Sample templates overlap across splits; avoid generalization claims.
-3. Finish rubric-family evaluation and per-task acceptance, then rebuild/checksum/smoke both target packages and run final performance/doc gates.
-4. Owner is participant 1 and will crowdsource four additional pilot participants. Use [pilot materials](../pilot/README.md); record actual sessions rather than assuming development usage counts.
+## Semantics — EVAL-02 (blocking)
 
-Qwen3.8-27B LM Studio notes are not delivery work. They live in `~/Projects/qwen38-3080ti`.
+Full held-out runs (750 attempts, 3 reps): Qwen2.5 0.5B `.332/.524/.749`; 1.5B `.855/.651/.984` before the label-prompt change and `.333/.444/.987` with current code — the explicit-label variant regressed filter/classify.
 
-## Local model profiles and restart
+Development-split screens only (1 rep, not comparable to the full runs): gemma-4-e4b `.944/.867/.400`; ribbit-qwen27b IQ4_XS `1/1/1`. Required: **all three ≥0.90**. No candidate has met it on the full held-out set.
 
-All inference for the current test path uses `http://127.0.0.1:1234/v1` (LM Studio OpenAI compatibility):
+Open owner decision: block release; accept a larger candidate with a documented hardware requirement (27B IQ4_XS needs >12 GiB); or evaluate another small model. Full run ≈3 h.
 
-- `local-test`: Qwen2.5-0.5B Q4_K_M; fast plumbing tests, failed quality gate.
-- `local-candidate`: Qwen2.5-1.5B Q4_K_M; comparison model, failed overall quality gate.
-- `local-qwen`: existing Ollama Qwen3.5:9b retained for reuse, but owner directed current evaluations through LM Studio.
+## Remaining
 
-The final [checkpoint evidence](evidence/CHECKPOINT-20260913.md) records process shutdown and model setup. Start LM Studio desktop/server deliberately tomorrow; nothing should be left evaluating overnight. The original user-owned Ollama service is not ours to terminate.
+1. EVAL-02: decide the model path, then run the full 750-attempt eval and `scripts/evaluate-rubrics.ts` (written, never run).
+2. PROV-04: one owner decision — supply the hosted OpenAI key for PROV-03, or record a waiver substituting the LM Studio OpenAI-compatible path.
+3. PILOT-01: owner is participant 1; gate is ≥4/5 users and simulated runs do not count. Needs recruitment or a recorded gate revision.
+4. RELEASE-01/02 after the above.
+
+## Exact resume steps
+
+```sh
+lms server start
+lms load ribbit/qwen38-27b-desktop-8k -y -c 8192 --gpu max --identifier ribbit-qwen27b
+
+npm run check && TMPDIR=/home/saiguy/.cache/ribbit-tmp npm run test:unit
+
+RIBBIT_RUN_LIVE_EVAL=1 RIBBIT_EVAL_PROFILE=local-27b-eval RIBBIT_EVAL_QUANT=IQ4_XS \
+  RIBBIT_EVAL_TOTAL_MS=180000 RIBBIT_EVAL_REQUEST_MS=120000 bun run scripts/evaluate.ts
+
+RIBBIT_RUN_LIVE_EVAL=1 RIBBIT_EVAL_PROFILE=local-27b-eval RIBBIT_EVAL_QUANT=IQ4_XS \
+  bun run scripts/evaluate-rubrics.ts
+
+lms unload --all && lms server stop
+```
+
+`scripts/evaluate.ts` supports `RIBBIT_EVAL_PER` (per-command screen) and `RIBBIT_EVAL_REPS`; it writes `evals/results/in-progress.json` after every attempt.
+
+## Environment notes
+
+- `/tmp` tmpfs returns `EDQUOT`; run tests/smoke with `TMPDIR=/home/saiguy/.cache/ribbit-tmp`.
+- LM Studio server stopped and model unloaded; Ollama not running.
+- macOS CLI resolves its SDK at `dist/lib/` beside the executable; place it there when shipping.
+- `~/.config/ribbit/config.yaml` gained `local-gemma` and `local-27b-eval` profiles; default remains `local-test`.

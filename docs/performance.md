@@ -6,6 +6,8 @@ Reference Linux runner: AMD Ryzen 9 5900XT, 32 GiB RAM, Bun 1.4.0. Native macOS 
 
 `python3 scripts/stream-bench.py` tests the same 100,000-small-record take/select workload against empty-input baseline processes, three times each. It reports both total and incremental RSS. A stricter total-RSS-only preliminary check exceeded 128 MiB; the specified gate is incremental RSS. No input size was reduced.
 
-Extension cold/warm overhead, full managed pre-HTTP overhead, macOS timing and release regression review are not yet accepted. Platform install smoke is functional evidence, not performance evidence.
+2026-09-14 Linux, release revision `dist/ribbit` SHA-256 `b23e33cf84064f3285486fa9c9079df074011a07f4c4565a797a02975aa6fc36`: help p95 38.7 ms, version p95 38.4 ms, take p95 73.9 ms; extension warm p95 121.4 ms (first 116.3 ms); managed pre-HTTP warm p95 66.2 ms (first 62.3 ms); 100k take incremental RSS 42936 KiB. Every Linux p95/RSS gate passed on a single build of this revision.
 
-Later invocation benchmarks: Linux extension p95 123.5 ms and managed pre-HTTP p95 70.3 ms; macOS extension p95 82.0 ms and managed pre-HTTP p95 48.8 ms. Raw samples are in benchmarks/invocation-linux.json and invocation-darwin.json. Mac harness used Bun 1.1.33; the measured CLI embeds Bun 1.4.0. These preceded final audit fixes, so release-candidate performance verification remains open.
+2026-09-14 macOS, same revision `dist/ribbit-darwin-arm64` SHA-256 `a9227bf8e914c0b523302a62dda45849d875362808e46322799ab3e7694345ea`: help p95 30.6 ms, version p95 29.8 ms (30 samples, Apple M1); extension warm p95 80.9 ms (first 80.8 ms); managed pre-HTTP warm p95 48.4 ms (first 48.8 ms). Raw samples in benchmarks/invocation-darwin.json. All p95 gates passed. The benchmark harness ran on Bun 1.1.33; the measured CLI embeds Bun 1.4.0. macOS RSS was not measured; the contract's RSS gate is on the Linux reference runner.
+
+Both platform artifacts were rebuilt from one tree on 2026-09-14 and measured in place. No timing threshold was changed.

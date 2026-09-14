@@ -1,14 +1,11 @@
-# CLI-02 — Implementation under review
+# CLI-02 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+See [checkpoint](CHECKPOINT-20260914.md).
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Works outside initialized repo | PASS | completions/help with isolated XDG |
+| No inference/import during discovery | PASS | completions list manifests/YAML only |
+| Named definitions show type/action and effective argument contract | PASS | `first --help` includes `@ribbit/take`, `Action: run`, defaults |
 
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+`tests/cli/audit-regressions.test.ts`. Reviewer decision: ACCEPTED.

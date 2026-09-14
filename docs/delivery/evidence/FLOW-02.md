@@ -1,14 +1,10 @@
-# FLOW-02 — Implementation under review
+# FLOW-02 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Plan performs no model call or extension import | PASS | planFlow uses manifests only |
+| Future/missing refs rejected | PASS | `tests/flows/flow.test.ts` |
+| Force-profile visible | PASS | plan source.model `forceProfile` |
+| Quoted prompt content preserved | PASS | pipelines `::` segments |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Array-of-strings vs record envelopes fails preflight. Plan JSON includes limits. `flow validate` exists. Reviewer decision: ACCEPTED.

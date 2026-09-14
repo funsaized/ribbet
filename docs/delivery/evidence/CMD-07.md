@@ -1,14 +1,9 @@
-# CMD-07 — Implementation under review
+# CMD-07 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Missing placeholders fail clearly | PASS | `{{missing}}` code 2 |
+| Output values are not accidentally rewrapped | PASS | JSON round trip |
+| Arbitrary template text cannot spawn code | PASS | `$(touch NEVER)` literal |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Display escapes headers/text; JSON preserves ESC. Template/output byte budgets enforced. Reviewer decision: ACCEPTED.

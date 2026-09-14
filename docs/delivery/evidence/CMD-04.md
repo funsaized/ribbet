@@ -1,14 +1,9 @@
-# CMD-04 — Implementation under review
+# CMD-04 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Duplicate/unknown/omitted IDs rejected | PASS | rank permutation tests |
+| Every group member is original | PASS | group partition test |
+| No silent sampling above 200 default records | PASS | rank/group 201 records → code 6, no inference |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED.

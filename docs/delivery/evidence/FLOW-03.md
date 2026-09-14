@@ -1,14 +1,10 @@
-# FLOW-03 — Implementation under review
+# FLOW-03 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Failure stops subsequent steps | PASS | unconsumed select failure |
+| Step routes honor precedence | PASS | take null route; ask step profile vs force |
+| Structured outputs revalidated at boundaries | PASS | runInvocation validateRecord |
+| Deterministic step zero inference | PASS | take 0 / exact steps no route |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Cancellation code 130; shared maxRecords exhausts. Zero-take does not drop later `$ref: input`. Reviewer decision: ACCEPTED.

@@ -1,14 +1,10 @@
-# CMD-06 — Implementation under review
+# CMD-06 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Zero provider calls | PASS | exact commands have empty capabilities |
+| Missing fields/mixed sort types explicit | PASS | sort mixed-type code 2 |
+| Unique keeps first | PASS | canonical uniqueness test |
+| Take zero does not consume upstream | PASS | take 0 / 100k pull count |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Also: 100k take pulls exactly 100k; unique key set charged against maxBytes; index bound 1e6. Reviewer decision: ACCEPTED.

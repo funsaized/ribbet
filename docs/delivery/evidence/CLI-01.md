@@ -1,14 +1,12 @@
-# CLI-01 — Implementation under review
+# CLI-01 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+See [checkpoint](CHECKPOINT-20260914.md). Linux, Bun 1.4.0.
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Conflicting args-json/flags fail before inference | PASS | `tests/cli/parser.test.ts` |
+| Unknown args point to schema path | PASS | parser location `args.*` |
+| Stdout stays clean | PASS | `tests/cli/baseline.test.ts`, pipelines |
+| No TTY prompt in CI | PASS | setup/doctor JSON, no prompt path |
 
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+`npm run test:cli` 11 pass. Reviewer decision: ACCEPTED.

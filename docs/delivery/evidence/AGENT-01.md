@@ -1,14 +1,9 @@
-# AGENT-01 — Implementation under review
+# AGENT-01 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Scaffold builds without edits | PASS | `tests/scaffold/scaffold.test.ts` testExtension failed=0 |
+| Invalid fixture fails with corrective location | PASS | invalid.json error 2 location |
+| Scaffold never overwrites existing source without explicit option | PASS | second scaffold code 2, bytes unchanged |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED.

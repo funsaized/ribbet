@@ -1,14 +1,10 @@
-# CMD-05 — Implementation under review
+# CMD-05 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| No truncation on overflow | PASS | managed truncation fails; summarize rejects over-words |
+| Compare preserves file labels | PASS | families compare `Sources: path | path` |
+| Chunked approximation visible in stats | PASS | reduce chunked three calls + log events |
+| Empty evidence follows contract | PASS | requireEvidence / empty compare |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED.

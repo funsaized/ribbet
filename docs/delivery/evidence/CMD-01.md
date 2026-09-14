@@ -1,14 +1,12 @@
-# CMD-01 — Implementation under review
+# CMD-01 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+Mocked command behavior only. Live quality is EVAL-02.
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| All four expose schema/help/examples | PASS | generated catalog/docs/commands.md |
+| Exact requested max words enforced or explicit failure | PASS | `tests/builtins/commands.test.ts` summarize |
+| Inputs treated as data | PASS | prompt wrapper + adversarial stdin |
+| No shell actions | PASS | families template/hostile text |
 
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED. Not a semantic-quality pass.

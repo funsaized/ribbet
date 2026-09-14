@@ -1,14 +1,10 @@
-# FLOW-01 — Implementation under review
+# FLOW-01 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Definition cannot shadow built-in silently | PASS | reserved name `take` rejected |
+| Exact type version validated | PASS | typeVersion 9.0.0 code 3 |
+| Invocation override does not mutate YAML | PASS | CLI 3 vs default 2; file unchanged |
+| Schema errors include paths | PASS | YAML/definition locations |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Named help includes type/action/defaults. Reviewer decision: ACCEPTED.

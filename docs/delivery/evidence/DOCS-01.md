@@ -1,14 +1,10 @@
-# DOCS-01 — Implementation under review
+# DOCS-01 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| All examples map to actual schemas | PASS | `npm run test:docs`; 22-command generated reference |
+| Routing examples resolve as stated | PASS | docs/usage.md local-only providers |
+| No unsupported provider claim | PASS | Ollama + OpenAI-compatible only |
+| Built-ins and extension paths both taught | PASS | docs/extensions.md + commands.md |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED.

@@ -1,14 +1,9 @@
-# AGENT-02 — Implementation under review
+# AGENT-02 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Repeated init idempotent | PASS | second `init --agent opencode` same AGENTS.md |
+| Works for codex/claude/cursor/opencode | PASS | path map in `initGuidance` |
+| Agent examples reference only real public commands | PASS | guidance text: list/describe/scaffold/check/test |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED.

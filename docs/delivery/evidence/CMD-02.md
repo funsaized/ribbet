@@ -1,14 +1,10 @@
-# CMD-02 — Implementation under review
+# CMD-02 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Invalid/unsupported schema fails before inference | PASS | `tests/providers/managed.test.ts` schemaToJson; extract file schema |
+| No invented class | PASS | classify invented label rejected |
+| Repaired responses counted | PASS | managed repair test `llm.repairs===1` |
+| Output never emits invalid schema | PASS | object parse/repair then fail |
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
-
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED. Live extract/classify scores remain EVAL-02.

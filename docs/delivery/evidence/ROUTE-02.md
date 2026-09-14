@@ -1,14 +1,11 @@
-# ROUTE-02 — Implementation under review
+# ROUTE-02 — ACCEPTED 2026-09-14
 
-2026-09-13. Implementation prepared under the integration amendment. See
-[combined verification and remaining gaps](IMPLEMENTATION-20260913.md).
+See [checkpoint](CHECKPOINT-20260914.md).
 
-| Assessment | State |
-| --- | --- |
-| Connected implementation exists | PASS |
-| Relevant deterministic checks executed | PASS; exact suite mapping in combined evidence |
-| Every task-specific acceptance criterion independently audited | UNVERIFIED |
-| Direct prerequisites and release gates all accepted | UNVERIFIED |
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| No secret displayed or placed in manifest | PASS | `tests/cli/management.test.ts` redaction |
+| Config corruption does not overwrite prior config | PASS | same; invalid profile leaves bytes |
+| Inspect makes no network calls | PASS | `route inspect` against isolated config, no listener |
 
-Reviewer decision: REVIEW, not ACCEPTED. No mock check is claimed as live provider,
-semantic quality, independent consumer or human-pilot evidence.
+Reviewer decision: ACCEPTED.
