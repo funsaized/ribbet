@@ -23,12 +23,12 @@ Raw: `evals/results/{qwen2_5-0_5b-instruct,qwen2_5-1_5b-before-label-prompt-fix,
 
 Diagnosis from the attempt logs: zero parse/validation errors in 900 filter+classify attempts, so the harness was sound; failures were semantic. The explicit-output filter variant collapsed to all-negative (150/150 positives predicted false). Label descriptions were tested with a dataset variant generated from `core.json` where classify `--labels` carries `name=description` (bug, feature, praise, unknown each given one plain sentence; not committed, regenerated per run).
 
-| Variant | Filter | Classify | Extract | File |
-| --- | --- | --- | --- | --- |
-| Reverted filter + classify reason-first, no descriptions | .810 | .657 | .973 | `experiments/1.5b-reasononly.json` |
-| + label descriptions v1 | .824 | .826 | .964 | `experiments/1.5b-described.json` |
-| + label descriptions v2 (best) | .858 | .850 | .987 | `experiments/1.5b-described2.json` |
-| + label descriptions v3 | .824 | .836 | .989 | `experiments/1.5b-described3.json` |
+| Variant | Filter | Classify | Extract |
+| --- | --- | --- | --- |
+| Reverted filter + classify reason-first, no descriptions | .810 | .657 | .973 |
+| + label descriptions v1 | .824 | .826 | .964 |
+| + label descriptions v2 (best) | .858 | .850 | .987 |
+| + label descriptions v3 | .824 | .836 | .989 |
 
 Findings: reverting the filter prompt restored it from .333 to .81–.86. Label descriptions fixed `unknown` (0/75 → 75/75) and kept `feature`/`bug` at 100%; `praise` still maps to `feature` (34/75). Best 1.5B is `.858/.850/.987` — still below the .90 classify and filter gates.
 
