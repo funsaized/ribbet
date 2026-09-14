@@ -10,6 +10,7 @@ import {RibbitError} from '../../engine/records/index.ts';
 import {OllamaAdapter} from '../../providers/ollama/index.ts';
 import {CompatibleAdapter} from '../../providers/openai-compatible/index.ts';
 import {listInstalled,removeInstalled} from '../../extensions/install/index.ts';
+import {RUNTIME_FLAGS} from '../../sdk/manifest/index.ts';
 const booleanFlags=new Set(['json','probe','yes']);
 export function options(tokens:string[],allowed:string[]){const flags:Record<string,any>={},positionals:string[]=[];for(let i=0;i<tokens.length;i++){const token=tokens[i];if(token.startsWith('--')){const eq=token.indexOf('='),name=token.slice(2,eq<0?undefined:eq);if(!allowed.includes(name)&&name!=='json'&&name!=='error-format')throw new RibbitError(2,`Unknown management flag --${name}`);if(name in flags)throw new RibbitError(2,`Duplicate management flag --${name}`);if(booleanFlags.has(name))flags[name]=true;else{const value=eq<0?tokens[++i]:token.slice(eq+1);if(value===undefined)throw new RibbitError(2,`--${name} requires a value`);flags[name]=value;}}else positionals.push(token);}return{flags,positionals};}
 async function saveConfig(value:unknown){const config=configSchema.parse(value),path=configPath();await mkdir(dirname(path),{recursive:true,mode:0o700});const temp=path+'.'+crypto.randomUUID()+'.tmp';await writeFile(temp,stringify(config),{mode:0o600,flag:'wx'});await rename(temp,path);return config;}
@@ -22,7 +23,9 @@ export async function admin(command:string,tokens:string[]):Promise<void>{
  const result=(value:unknown)=>respond(value,json);
  if(command==='completions'){
   if(!['bash','zsh','fish'].includes(operation))throw new RibbitError(2,'Choose bash, zsh or fish');
-  const names=[...Object.keys(builtins),...ADMIN,'run','flow'].join(' '),flags=[...new Set(Object.values(builtins).flatMap(m=>m.actions.run.bindings.map(b=>'--'+b.flag)))].join(' ');
+   const named=(await definitions()).flatMap(d=>[d.value.name,`${d.scope}:${d.value.name}`]);
+   const names=[...new Set([...Object.keys(builtins),...named,...ADMIN,'run','flow'])].join(' ');
+   const flags=[...new Set([...[...RUNTIME_FLAGS].map(f=>'--'+f),...(await types()).flatMap(m=>Object.values(m.actions).flatMap(a=>a.bindings.map(b=>'--'+b.flag)))])].join(' ');
   if(operation==='bash')console.log(`_ribbit_complete() { COMPREPLY=( $(compgen -W '${names} ${flags}' -- "\${COMP_WORDS[COMP_CWORD]}") ); }\ncomplete -F _ribbit_complete ribbit`);
   if(operation==='zsh')console.log(`#compdef ribbit\n_arguments '*:argument:(${names} ${flags})'`);
   if(operation==='fish')console.log(`complete -c ribbit -f -a '${names} ${flags}'`);return;

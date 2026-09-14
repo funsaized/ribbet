@@ -13,7 +13,13 @@ export interface Plan{flow:Flow;steps:{invocation:Invocation;binding:unknown;rou
 function reference(value:string){const match=/^(input|steps\.([A-Za-z][A-Za-z0-9_-]*)\.output)((?:\.[A-Za-z_][A-Za-z0-9_-]*|\[\d+\])*)$/.exec(value);if(!match)throw new RibbitError(2,'Invalid flow reference',value);const path=match[3].match(/[A-Za-z_][A-Za-z0-9_-]*|\d+/g)??[];if(path.some(p=>['__proto__','constructor','prototype'].includes(p)))throw new RibbitError(2,'Unsafe reference path');return {key:match[2]??'input',path};}
 function refs(value:unknown):string[]{if(Array.isArray(value))return value.flatMap(refs);if(value&&typeof value==='object'){if(Object.hasOwn(value,'$ref')){if(Object.keys(value).length!==1||typeof(value as any).$ref!=='string')throw new RibbitError(2,'Reference must contain only a string $ref');return [(value as any).$ref];}return Object.values(value).flatMap(refs);}return [];}
 function refSchema(ref:string,schemas:Map<string,any>):any{const parsed=reference(ref);let schema=schemas.get(parsed.key);for(const part of parsed.path){if(!schema||!Object.keys(schema).length)return {};if(schema.type==='array'&&/^\d+$/.test(part))schema=schema.items;else if(schema.properties?.[part])schema=schema.properties[part];else if(schema.additionalProperties===false)throw new RibbitError(2,'Reference path absent from schema',ref);else return {};}return schema??{};}
-function mismatch(source:any,target:any){const a=Array.isArray(source?.type)?source.type:[source?.type],b=Array.isArray(target?.type)?target.type:[target?.type];return a[0]&&b[0]&&!a.some((t:string)=>b.includes(t)||t==='integer'&&b.includes('number'));}
+function mismatch(source:any,target:any):boolean{
+  if(!source||!target||!Object.keys(source).length||!Object.keys(target).length)return false;
+  const a=Array.isArray(source.type)?source.type:[source.type].filter(Boolean),b=Array.isArray(target.type)?target.type:[target.type].filter(Boolean);
+  if(a.length&&b.length&&!a.some((t:string)=>b.includes(t)||t==='integer'&&b.includes('number')))return true;
+  if(a.includes('array')&&b.includes('array')&&source.items&&target.items)return mismatch(source.items,target.items);
+  return false;
+}
 function validateBindings(value:any,schema:any,schemas:Map<string,any>,location:string){
  if(value&&typeof value==='object'&&Object.hasOwn(value,'$ref')){if(mismatch(refSchema(value.$ref,schemas),schema))throw new RibbitError(2,'Reference schema mismatch',location);return;}
  if(!refs(value).length){validateJson(schema,value,location);return;}

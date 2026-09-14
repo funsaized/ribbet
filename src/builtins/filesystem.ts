@@ -9,6 +9,15 @@ const config=z.strictObject({});
 const traversal={root:z.string().default('.'),hidden:z.boolean().default(false),noIgnore:z.boolean().default(false),follow:z.boolean().default(false),outsideRoot:z.boolean().default(false),includeSensitive:z.boolean().default(false),glob:z.string().optional(),maxFiles:z.number().int().positive().optional(),onReadError:z.enum(['error','skip']).default('error')};
 function command(name:string,description:string,args:z.ZodType,execute:Action['execute'],options:Partial<Action>={}){return defineCommand({type:`@ribbit/${name}`,version:'1.0.0',description,config,actions:{run:defineAction({config,description,args,input:jsonValueSchema,output:z.array(recordSchema),mode:'value',inputKind:'none',outputKind:'records',capabilities:[],effects:['filesystem-read'],execute,...options} as Action)}});}
 async function about(rows:RecordValue[],instruction:string,ctx:any){if(!rows.length)return rows;const result=await ctx.llm.object(prompt(`Select relevant candidate IDs for: ${instruction}. Return only supplied IDs.`),JSON.stringify(rows.map(r=>({id:r.id,value:r.value}))),z.strictObject({ids:z.array(z.string())}));if(new Set(result.ids).size!==result.ids.length||result.ids.some((id:string)=>!rows.some(r=>r.id===id)))throw new RibbitError(4,'Semantic filesystem output contains invalid IDs');return rows.filter(r=>result.ids.includes(r.id));}
+export function pickerSelections(selected:string,rows:RecordValue[]):RecordValue[]{
+  const chosen:RecordValue[]=[],ids=new Set<number>();
+  for(const item of selected.split('\0').filter(Boolean)){
+    const token=item.split('\t',1)[0];if(!/^(0|[1-9]\d*)$/.test(token))throw new RibbitError(7,'Invalid picker identity');
+    const id=Number(token);if(!rows[id]||ids.has(id)||!item.startsWith(`${id}\t`))throw new RibbitError(7,'Invalid picker selection');
+    ids.add(id);chosen.push(rows[id]);
+  }
+  return chosen;
+}
 export const filesystemCommands={
  ls:command('ls','List actual filesystem metadata without inference',z.strictObject({...traversal,recursive:z.boolean().default(false)}),async({args},ctx)=>walk((args as any).root,{...args as any,maxBytes:ctx.budget.limits.maxBytes},ctx.log),{cli:{positionals:['root']}}),
  read:command('read','Read explicit UTF-8 files with source boundaries',z.strictObject({paths:z.array(z.string()).min(1)}),async({args},ctx)=>{const result:RecordValue[]=[];let bytes=0;for(const path of (args as any).paths){const content=await textFile(path,ctx.budget.limits.maxBytes-bytes);bytes+=Buffer.byteLength(content);result.push({id:String(result.length+1),value:{path:resolve(path),content},source:{path:resolve(path)},annotations:{}});}return result;},{cli:{positionals:['paths']}}),
@@ -25,8 +34,8 @@ export const filesystemCommands={
    const pickerProcess=Bun.spawn(['fzf','--read0','--print0','--delimiter=\t','--with-nth=2..','--query',a.query,...(a.multi?['--multi']:[])],{stdin:new Blob([labels]),stdout:'pipe',stderr:tty.fd,env});
    const abort=()=>pickerProcess.kill('SIGINT');ctx.signal.addEventListener('abort',abort,{once:true});let selected:string,exit:number;
    try{selected=await new Response(pickerProcess.stdout).text();exit=await pickerProcess.exited;}finally{ctx.signal.removeEventListener('abort',abort);}
-   if(exit===130)throw new RibbitError(130,'Picker cancelled');if(exit===1)return;if(exit!==0)throw new RibbitError(7,'fzf backend failed');
-   const ids=new Set<number>();for(const item of selected.split('\0').filter(Boolean)){const token=item.split('\t',1)[0];if(!/^(0|[1-9]\d*)$/.test(token))throw new RibbitError(7,'Invalid picker identity');const id=Number(token);if(!rows[id]||ids.has(id)||!item.startsWith(`${id}\t`))throw new RibbitError(7,'Invalid picker selection');ids.add(id);yield rows[id];}
+    if(exit===130)throw new RibbitError(130,'Picker cancelled');if(exit===1)return;if(exit!==0)throw new RibbitError(7,'fzf backend failed');
+    for(const row of pickerSelections(selected,rows))yield row;
   }finally{await tty.close();}
  },{mode:'records',input:recordSchema,output:recordSchema,inputKind:'records',outputKind:'records',capabilities:['object'],inferenceWhen:['about'],effects:['process','terminal'],barrier:true}),
 };

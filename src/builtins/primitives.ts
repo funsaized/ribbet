@@ -2,8 +2,8 @@ import { readFile, open, stat } from 'node:fs/promises';
 import { RibbitError, type Json, type RecordValue } from '../engine/records/index.ts';
 import { schemaToZod } from '../build/schema/index.ts';
 export function pathParts(path:string): (string|number)[]{
-  if(!/^[A-Za-z_$][\w$-]*(?:(?:\.[A-Za-z_$][\w$-]*)|(?:\[(?:0|[1-9]\d*)\]))*$/.test(path))throw new RibbitError(2,`Invalid field path: ${path}`);
-  const parts=[...path.matchAll(/[A-Za-z_$][\w$-]*|\d+/g)].map(m=>/^\d+$/.test(m[0])?Number(m[0]):m[0]);
+  if(!/^[A-Za-z_][A-Za-z0-9_-]*(?:(?:\.[A-Za-z_][A-Za-z0-9_-]*)|(?:\[(?:0|[1-9]\d*)\]))*$/.test(path))throw new RibbitError(2,`Invalid field path: ${path}`);
+  const parts=[...path.matchAll(/[A-Za-z_][A-Za-z0-9_-]*|\d+/g)].map(m=>/^\d+$/.test(m[0])?Number(m[0]):m[0]);
   if(parts.some(p=>typeof p==='number'&&(!Number.isSafeInteger(p)||p>1000000)))throw new RibbitError(6,'Field array index exceeds supported bounds');
   if(parts.some(p=>['__proto__','constructor','prototype'].includes(String(p))))throw new RibbitError(2,'Unsafe field path');return parts;
 }

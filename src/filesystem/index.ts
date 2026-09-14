@@ -14,8 +14,19 @@ export async function walk(root:string,options:WalkOptions={},log:(s:string)=>vo
  async function visit(dir:string,depth:number){
   const real=await realpath(dir);if(visited.has(real)){log(`Skipped symlink cycle: ${dir}`);omitted++;return;}visited.add(real);
   if(!options.outsideRoot){const rel=relative(boundary,real);if(rel==='..'||rel.startsWith('..'+sep)||resolve(boundary,rel)!==real){log(`Skipped outside-root link: ${dir}`);omitted++;return;}}
-  const base=relative(absolute,dir);let added=false;
-  if(!options.noIgnore){const matcher=ignore();for(const name of ['.gitignore','.ribbitignore']){try{matcher.add(await textFile(join(dir,name),Math.min(maxBytes,1024*1024)));}catch(e){if(e instanceof RibbitError&&e.code===7){try{await stat(join(dir,name));}catch(missing){if((missing as NodeJS.ErrnoException).code==='ENOENT')continue;}}throw e;}}stack.push({base,matcher});added=true;}
+   const base=relative(absolute,dir);let added=false;
+   if(!options.noIgnore){
+    const matcher=ignore();
+    for(const name of ['.gitignore','.ribbitignore']){
+     const path=join(dir,name);let meta;try{meta=await lstat(path);}catch(e){if((e as NodeJS.ErrnoException).code==='ENOENT')continue;if(options.onReadError==='skip'){omitted++;log(`Skipped unreadable ignore: ${path}`);continue;}throw e;}
+     if(meta.isSymbolicLink()){
+      let real:string;try{real=await realpath(path);}catch(e){if(options.onReadError==='skip'){omitted++;log(`Skipped unreadable ignore: ${path}`);continue;}throw new RibbitError(7,'Cannot resolve ignore file',path);}
+      const rel=relative(boundary,real);if(!options.outsideRoot&&(rel==='..'||rel.startsWith('..'+sep)||resolve(boundary,rel)!==real)){omitted++;log(`Skipped outside-root ignore: ${path}`);continue;}
+     }
+     try{matcher.add(await textFile(path,Math.min(maxBytes,1024*1024)));}catch(e){if(options.onReadError==='skip'&&(!(e instanceof RibbitError)||e.code===7)){omitted++;log(`Skipped unreadable ignore: ${path}`);continue;}throw e;}
+    }
+    stack.push({base,matcher});added=true;
+   }
   try{
    for(const entry of(await readdir(dir,{withFileTypes:true})).sort((a,b)=>a.name<b.name?-1:a.name>b.name?1:0)){
     const path=join(dir,entry.name),rel=relative(absolute,path);

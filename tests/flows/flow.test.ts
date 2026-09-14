@@ -1,7 +1,7 @@
 import {test,expect} from 'bun:test';
 import {planFlow,executeFlow} from '../../src/flows/index.ts';
 import {configSchema} from '../../src/config/index.ts';
-import {Budget} from '../../src/sdk/index.ts';
+import {Budget,RibbitError} from '../../src/sdk/index.ts';
 const config=configSchema.parse({});
 const flow=(steps:unknown[],output?:unknown)=>({apiVersion:'ribbit/v1',kind:'Flow',name:'test',steps,...(output===undefined?{}:{output})});
 test('flow plans reject future references and duplicate IDs without inference',async()=>{
@@ -30,4 +30,17 @@ test('unconsumed intermediate stream failures stop later independent steps',asyn
 test('reference argument types and unknown fields fail preflight',async()=>{
  await expect(planFlow({...flow([{id:'a',command:'take',args:{count:{$ref:'input'}}}]),input:{type:'string'}},config)).rejects.toThrow('Reference schema mismatch');
  await expect(planFlow({...flow([{id:'a',command:'take',args:{count:{$ref:'input'},bogus:true}}]),input:{type:'integer'}},config)).rejects.toThrow('Unknown argument');
+ await expect(planFlow({...flow([{id:'a',command:'take',args:{count:1}}]),input:{type:'array',items:{type:'string'}}},config)).rejects.toThrow('schema mismatch');
+});
+test('step routes honor precedence and force-profile; take stays off-network',async()=>{
+ const routed=configSchema.parse({providers:{local:{type:'ollama',baseUrl:'http://127.0.0.1:11434',defaultModel:'base',capabilities:['text','stream','object','temperature','maxOutputTokens']}},profiles:{fast:{provider:'local',model:'fast-model'},quality:{provider:'local',model:'quality-model'}}});
+ const raw={apiVersion:'ribbit/v1',kind:'Flow',name:'routes',inference:{profile:'fast'},steps:[{id:'exact',command:'take',args:{count:0}},{id:'ask',command:'ask',args:{instruction:'x'},inference:{profile:'quality'}}]};
+ const plan=await planFlow(raw,routed);expect(plan.steps[0].route).toBeNull();expect((plan.steps[1].route as any).model).toBe('quality-model');
+ const forced=await planFlow(raw,routed,'fast');expect((forced.steps[1].route as any).model).toBe('fast-model');expect((forced.steps[1].route as any).source.model).toBe('forceProfile');
+});
+test('cancellation and shared record budgets stop later flow work',async()=>{
+ const plan=await planFlow(flow([{id:'a',command:'take',args:{count:1}},{id:'b',command:'take',args:{count:1}}]),config);
+ const cancelled=new Budget();cancelled.controller.abort(new RibbitError(130,'Cancelled'));
+ try{await expect(executeFlow(plan,{kind:'records',records:(async function*(){yield{id:'1',value:1,annotations:{}};})()},cancelled,config)).rejects.toMatchObject({code:130});}finally{cancelled.close();}
+ const budget=new Budget({maxRecords:2});try{const out=await executeFlow(await planFlow(flow([{id:'a',command:'take',args:{count:5}}]),config),{kind:'records',records:(async function*(){for(let i=0;i<5;i++)yield{id:String(i),value:i,annotations:{}};})()},budget,config);if(out.kind==='records')await expect(Array.fromAsync(out.records)).rejects.toMatchObject({code:6});}finally{budget.close();}
 });
