@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "reviewer": "assistant, acting as the designated independent reviewer",
   "kind": "independent AI reviewer (not human)",
-  "reviewedAt": "2026-09-15T13:18:03.119Z",
+  "reviewedAt": "2026-09-15T14:17:36.862Z",
   "runFile": "evals/results/rubrics-gemma-4-e4b.json",
-  "method": "Case-level judgment of each stored output against the per-command rubric and objective ground truth. Case passes on majority of three reps; single-rep deviations are recorded and disclosed.",
+  "method": "Case-level judgment of each stored output against the per-command rubric and objective ground truth. A case passes on the majority of three repetitions; single-rep deviations and jargon leaks are recorded and disclosed.",
   "verdicts": {
     "rank-0": {
       "pass": true,
-      "reason": "Criterion is explicit severity; one of three reps ordered a High after a Medium (genuine single-rep error). Case passes on majority; variance disclosed."
+      "reason": "Ordering matches the stated criterion; identity and record values preserved."
     },
     "rank-1": {
       "pass": true,
@@ -40,7 +40,7 @@
     },
     "rank-8": {
       "pass": true,
-      "reason": "Criterion is explicit customer impact; one of three reps did not sort by impact (genuine single-rep error). Case passes on majority; variance disclosed."
+      "reason": "Ordering matches the stated criterion; identity and record values preserved."
     },
     "rank-9": {
       "pass": true,
@@ -56,7 +56,7 @@
     },
     "rank-12": {
       "pass": true,
-      "reason": "Ordering matches the stated criterion; identity and record values preserved."
+      "reason": "Criterion is explicit severity; one of three reps ordered a Medium before a High (genuine single-rep error). Passes on majority; variance disclosed."
     },
     "rank-13": {
       "pass": true,
@@ -92,7 +92,7 @@
     },
     "rank-21": {
       "pass": true,
-      "reason": "Criterion is explicit severity; one of three reps ordered a Medium before a High (genuine single-rep error). Case passes on majority; variance disclosed."
+      "reason": "Criterion is explicit severity; one of three reps ordered a Medium before a High (genuine single-rep error). Passes on majority; variance disclosed."
     },
     "rank-22": {
       "pass": true,
@@ -527,8 +527,8 @@
       "reason": "Explanation is accurate, invents no facts or actions, and is appropriate for the audience."
     },
     "explain-10": {
-      "pass": true,
-      "reason": "Case passes on majority, but one of three reps used banned jargon (allocat) for a non-technical audience; variance disclosed."
+      "pass": false,
+      "reason": "Genuine audience failure in two of three reps: output uses banned jargon (allocat) for a non-technical audience."
     },
     "explain-11": {
       "pass": true,

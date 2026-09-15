@@ -155,7 +155,7 @@ const reduceBodies: ReduceBody[] = [
     { id:'e', value:'queue: drained normally at 12:30.' },
   ],
     summarize:{ mustContain:['dead-letter','pileup|backlog|accumulat','deserial'], mustNotContain:['reprocessed all','cleared the queue','deployed'] },
-    themes:{ mustContain:['queue','worker|consumer|deserial'], mustNotContain:['cleared'], },
+    themes:{ mustContain:['queue','worker|consumer|deserial'], mustNotContain:['cleared the queue'], },
     facts:{ mustContain:['3,000','4,200','deserial'], mustNotContain:resolvedClaims } },
   { records:[
     { id:'a', value:'db-01: write latency spike to 900ms at 01:00.' },
@@ -214,7 +214,7 @@ const reduceBodies: ReduceBody[] = [
     { id:'d', value:'prometheus-02: rules evaluation timeout at 03:20.' },
     { id:'e', value:'prometheus-01: target back up at 03:30.' },
   ],
-    summarize:{ mustContain:['scrape','down','evaluation timeout'], mustNotContain:['increased the scrape interval','restarted prometheus','changed the retention'] },
+    summarize:{ mustContain:['scrape','down|unavailab','evaluation timeout'], mustNotContain:['increased the scrape interval','restarted prometheus','changed the retention'] },
     themes:{ mustContain:['scrape','evaluation'], mustNotContain:['changed the scrape interval'], },
     facts:{ mustContain:['scrape','timeout','03:0'], mustNotContain:resolvedClaims } },
 ];
@@ -245,7 +245,7 @@ const compareBodies: CompareBody[] = [
     similarities:{ leftOnly:['queue depth limit'], rightOnly:['queue depth limit'], mustNotContain:[] },
     impact:{ leftOnly:['4'], rightOnly:['8'], mustNotContain:['both cap at 8'] } },
   { left:'The API requires an API key and permits 100 requests per minute.', right:'The API requires an API key and permits 1000 requests per minute.',
-    diffs:{ leftOnly:['100 requests'], rightOnly:['1000 requests'], mustNotContain:['both permit 1000 requests','both permit 100 requests'] },
+    diffs:{ leftOnly:['100'], rightOnly:['1000'], mustNotContain:['both permit 1000 requests','both permit 100 requests'] },
     similarities:{ leftOnly:['API key'], rightOnly:['API key'], mustNotContain:[] },
     impact:{ leftOnly:['100'], rightOnly:['1000'], mustNotContain:['both permit 1000'] } },
   { left:'Log level is set to debug with sampling disabled.', right:'Log level is set to error with sampling disabled.',
@@ -266,7 +266,7 @@ const compareBodies: CompareBody[] = [
     impact:{ leftOnly:['authenticated'], rightOnly:['anonymous'], mustNotContain:['both limit anonymous'] } },
   { left:'The service binds to port 8080 with keepalive enabled.', right:'The service binds to port 8443 with keepalive enabled.',
     diffs:{ leftOnly:['8080'], rightOnly:['8443'], mustNotContain:['both bind to 8443','both bind to 8080'] },
-    similarities:{ leftOnly:['keepalive enabled'], rightOnly:['keepalive enabled'], mustNotContain:[] },
+    similarities:{ leftOnly:['keepalive'], rightOnly:['keepalive'], mustNotContain:[] },
     impact:{ leftOnly:['8080'], rightOnly:['8443'], mustNotContain:['both bind to 8443'] } },
 ];
 

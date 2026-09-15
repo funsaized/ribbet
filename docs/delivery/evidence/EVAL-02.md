@@ -105,11 +105,11 @@ Every raw output is archived in `evals/results/rubrics-gemma-4-e4b.json`. Gate: 
 
 | Family | Deterministic (90 attempts) | Reviewer (30 cases) | Agreement | Result |
 | --- | --- | --- | --- | --- |
-| rank | 87/90 = 96.7 % | 30/30 = 100 % | 0.97 | PASS |
+| rank | 88/90 = 97.8 % | 30/30 = 100 % | 0.97 | PASS |
 | group | 90/90 = 100 % | 30/30 = 100 % | 1.00 | PASS |
 | reduce | 90/90 = 100 % | 30/30 = 100 % | 1.00 | PASS |
 | compare | 90/90 = 100 % | 30/30 = 100 % | 1.00 | PASS |
-| explain | 83/90 = 92.2 % | 28/30 = 93.3 % | 0.97 | PASS |
+| explain | 82/90 = 91.1 % | 27/30 = 90.0 % | 1.00 | PASS |
 
 Combined report: `evals/results/rubrics-gate.json` (`pass: true`).
 
@@ -125,8 +125,8 @@ than lexical form. Findings:
   alternatives) and over-broad negative tokens narrowed, because the first pass measured lexical form
   rather than factuality. The failures that remain are genuine.
 - Genuine failures are confined to the non-technical `explain` cases: `explain-12` (uses `GET`) and
-  `explain-14` (uses `recursive`) fail in every repetition; `explain-10` leaked `allocat` in one
-  repetition and passes on majority. These are real audience failures and are retained.
+  `explain-14` (uses `recursive`) fail in every repetition; `explain-10` leaked `allocat` in two of
+  three repetitions. These are real audience failures and are retained.
 
 Limitations: the reviewer is an independent AI reviewer, not a human; the release contract's
 "human factuality scoring" should be satisfied by the owner at RELEASE-01 if a human pass is

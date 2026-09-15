@@ -3583,7 +3583,7 @@
         "worker|consumer|deserial"
       ],
       "mustNotContain": [
-        "cleared"
+        "cleared the queue"
       ]
     }
   },
@@ -4441,7 +4441,7 @@
     "expected": {
       "mustContain": [
         "scrape",
-        "down",
+        "down|unavailab",
         "evaluation timeout"
       ],
       "mustNotContain": [
@@ -4928,10 +4928,10 @@
     ],
     "expected": {
       "leftOnly": [
-        "100 requests"
+        "100"
       ],
       "rightOnly": [
-        "1000 requests"
+        "1000"
       ],
       "mustNotContain": [
         "both permit 1000 requests",
@@ -5404,10 +5404,10 @@
     ],
     "expected": {
       "leftOnly": [
-        "keepalive enabled"
+        "keepalive"
       ],
       "rightOnly": [
-        "keepalive enabled"
+        "keepalive"
       ],
       "mustNotContain": []
     }

@@ -98,7 +98,7 @@ extension smoke pass.
 Latest semantics: gemma-4-e4b passes the filter/classify/extract gate in three independent
 full runs (mean 1.000 / 1.000 / 0.919, zero harness errors); Qwen2.5 0.5B, Qwen2.5 1.5B
 and Qwen3.5 9B do not pass. It is the selected v1 default; see [models](../models.md).
-Rubric families pass: rank/group/reduce/compare/explain deterministic 96.7/100/100/100/92.2 %
-and reviewer 100/100/100/100/93.3 %; see [EVAL-02](evidence/EVAL-02.md).
+Rubric families pass: rank/group/reduce/compare/explain deterministic 97.8/100/100/100/91.1 %
+and reviewer 100/100/100/100/90.0 %; see [EVAL-02](evidence/EVAL-02.md).
 
 See [handoff](HANDOFF.md) and [checkpoint](evidence/CHECKPOINT-20260914.md).
