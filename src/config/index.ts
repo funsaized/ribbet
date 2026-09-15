@@ -16,6 +16,12 @@ export type Inference = z.infer<typeof inferenceSchema>;
 export type Provider = z.infer<typeof providerSchema>;
 export type Config = z.infer<typeof configSchema>;
 export const configPath = () => join(process.env.XDG_CONFIG_HOME || join(homedir(), '.config'), 'ribbit', 'config.yaml');
+// Credentials reach providers as apiKeyEnv references, so a project-root .env is loaded here.
+// Real environment values win and a missing file is not an error.
+export function loadDotenv(path = join(process.cwd(), '.env')): void {
+  try { process.loadEnvFile(path); }
+  catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw new RibbitError(3, 'Invalid .env file; expected NAME=value lines'); }
+}
 export async function loadConfig(path = configPath()): Promise<Config> {
   let source: string;
   try { source = await readFile(path, 'utf8'); }

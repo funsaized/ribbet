@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { configSchema } from '../src/config/index.ts';
+import { configSchema, loadDotenv } from '../src/config/index.ts';
 import { resolveRoute } from '../src/routing/index.ts';
 import { Budget } from '../src/engine/execution/index.ts';
 import { ManagedInference } from '../src/engine/inference/index.ts';
@@ -7,6 +7,7 @@ import { OllamaAdapter } from '../src/providers/ollama/index.ts';
 import { CompatibleAdapter } from '../src/providers/openai-compatible/index.ts';
 const type = process.argv[2];
 if (!['ollama', 'compatible'].includes(type)) throw new Error('Specify ollama or compatible');
+loadDotenv();
 const baseUrl = process.env.RIBBIT_TEST_BASE_URL;
 const model = process.env.RIBBIT_TEST_MODEL;
 if (!baseUrl || !model) { console.error('Live smoke requires RIBBIT_TEST_BASE_URL and RIBBIT_TEST_MODEL; no request sent.'); process.exit(3); }

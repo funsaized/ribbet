@@ -11,6 +11,7 @@ async function main(){
  if(argv.length===1&&argv[0]==='--version'){console.log('ribbit 0.1.0-dev.0');return;}
  if(!argv.length||argv[0]==='--help'){help();return;}
  if(argv.slice(0,argv.indexOf('--')<0?undefined:argv.indexOf('--')).includes('--help')){const name=argv[0]==='run'?argv[1]:argv[0];    if(name&&!builtins[name]&&!administrative.includes(name)&&name!=='flow'){const invocation=await(await import('../definitions/index.ts')).resolveInvocation(name);help(name,invocation.manifest,invocation.action,invocation.args);}else help(name);return;}
+ (await import('../config/index.ts')).loadDotenv();
  const command=argv[0];
  if(administrative.includes(command)){await(await import('./admin/index.ts')).admin(command,argv.slice(1));return;}
  if(command==='flow'){await(await import('../flows/cli.ts')).flowCli(argv.slice(1));return;}
