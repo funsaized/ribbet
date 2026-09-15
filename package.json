@@ -13,6 +13,8 @@
     "test:docs": "bun run scripts/docs.ts && bun run scripts/docs-examples.ts",
     "bench": "bun run scripts/bench.ts",
     "eval:semantic": "bun run scripts/evaluate.ts",
+    "eval:rubrics": "bun run scripts/evaluate-rubrics.ts",
+    "eval:gate": "bun run scripts/rubric-gate.ts",
     "eval:agent": "bun run scripts/gate.ts AGENT-03",
     "package:smoke": "bun run scripts/smoke.ts"
   },

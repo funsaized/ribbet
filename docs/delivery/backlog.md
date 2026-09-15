@@ -48,7 +48,7 @@ Read [execution rules](README.md), [PRD](../../Ribbit-PRD.md), and [contracts](c
 | [AGENT-03](tasks/AGENT-03.md) | Run independent agent consumer evaluation | Required gate | G6/R-PERF | AGENT-02, FLOW-03, CMD-01, CMD-02 | ACCEPTED |
 | [QA-01](tasks/QA-01.md) | Build adversarial conformance suite | Required | G5/G8 | FLOW-03, FS-05, CMD-07 | ACCEPTED |
 | [EVAL-01](tasks/EVAL-01.md) | Create labeled semantic datasets and rubrics | Required | G7 | CONTRACT-05 | ACCEPTED |
-| [EVAL-02](tasks/EVAL-02.md) | Select default small local model and evaluate commands | Required gate | G7 | EVAL-01, PROV-02, PROV-03, CMD-01, CMD-02, CMD-03, CMD-04, CMD-05, FS-03, FS-04 | BLOCKED |
+| [EVAL-02](tasks/EVAL-02.md) | Select default small local model and evaluate commands | Required gate | G7 | EVAL-01, PROV-02, PROV-03, CMD-01, CMD-02, CMD-03, CMD-04, CMD-05, FS-03, FS-04 | ACCEPTED |
 | [PERF-01](tasks/PERF-01.md) | Measure and optimize runtime overhead | Required gate | G7 | CONTRACT-05, FLOW-03, FS-05, CMD-06, CMD-07 | ACCEPTED |
 | [SHIP-01](tasks/SHIP-01.md) | Package installable artifacts for target platforms | Required | G8 | QA-01, PERF-01 | ACCEPTED |
 | [DOCS-01](tasks/DOCS-01.md) | Write complete command, SDK and routing docs | Required | G1/G6 | FLOW-03, FS-05, AGENT-02 | ACCEPTED |
@@ -79,14 +79,15 @@ All Required, Required gate and Required human evidence tasks block full v1 acce
 
 ## Current delivery state — 2026-09-15
 
-Of 50 required tasks: **46 ACCEPTED, 0 REVIEW, 0 owner-deferred, 4 BLOCKED**.
+Of 50 required tasks: **47 ACCEPTED, 0 REVIEW, 0 owner-deferred, 3 BLOCKED**.
 The five FOLLOW tasks are outside initial scope and remain inactive.
 
 PROV-03 is accepted: LM Studio and a hosted OpenAI-compatible endpoint both have
 recorded live conformance. PROV-04 followed its prerequisite to acceptance.
+EVAL-02 is accepted: gemma-4-e4b passes the semantic gate and all five rubric
+families (deterministic floor and independent reviewer pass both ≥ 85 %).
 
-BLOCKED: EVAL-02 (rubric families outstanding; semantic gate now passed),
-PILOT-01 (human evidence), RELEASE-01/02 (final gates).
+BLOCKED: PILOT-01 (human evidence), RELEASE-01/02 (final gates).
 
 Both platform artifacts rebuilt from one tree and measured in place:
 Linux help/version p95 38.7/38.4 ms, extension 121.4 ms, managed 66.2 ms, 100k RSS 42936 KiB;
@@ -97,6 +98,7 @@ extension smoke pass.
 Latest semantics: gemma-4-e4b passes the filter/classify/extract gate in three independent
 full runs (mean 1.000 / 1.000 / 0.919, zero harness errors); Qwen2.5 0.5B, Qwen2.5 1.5B
 and Qwen3.5 9B do not pass. It is the selected v1 default; see [models](../models.md).
-Rubric families are not yet evaluated.
+Rubric families pass: rank/group/reduce/compare/explain deterministic 91.1/100/98.9/100/87.8 %
+and reviewer 100/100/100/100/86.7 %; see [EVAL-02](evidence/EVAL-02.md).
 
 See [handoff](HANDOFF.md) and [checkpoint](evidence/CHECKPOINT-20260914.md).

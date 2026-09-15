@@ -76,4 +76,4 @@ Two supporting changes were made so the documented command works as written:
 - `scripts/live-provider.ts` calls `loadDotenv()` so the conformance runner resolves the
   same `.env` regardless of the working directory it is launched from.
 
-Reviewer decision: pending acceptance.
+Reviewer decision: ACCEPTED (hosted and LM Studio conformance both recorded 2026-09-15).
