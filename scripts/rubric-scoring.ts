@@ -23,7 +23,7 @@ export interface CaseResult {
 
 // Normalize before matching: case, markdown emphasis/backticks, and whitespace are formatting,
 // not factuality. A `mustContain` entry may give alternatives with `|` (any one satisfies).
-const normalize = (s: string) => s.toLowerCase().replace(/[`*]/g, '').replace(/\s+/g, ' ').trim();
+const normalize = (s: string) => s.toLowerCase().replace(/[`*]/g, '').replace(/,/g, '').replace(/\s+/g, ' ').trim();
 const has = (text: string, needle: string) => needle.split('|').some((alt) => normalize(text).includes(normalize(alt)));
 const hasAny = (text: string, needles: string[]) => needles.some((n) => has(text, n));
 const setEq = (a: string[], b: string[]) => a.length === b.length && a.every((x) => b.includes(x));

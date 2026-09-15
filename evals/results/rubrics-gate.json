@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-15T13:18:03.207Z",
+  "gate": 0.85,
+  "runFile": "evals/results/rubrics-latest.json",
+  "reviewFile": "evals/review/rubrics-review.json",
+  "reviewer": "assistant, acting as the designated independent reviewer",
+  "reviewerKind": "independent AI reviewer (not human)",
+  "model": "gemma-4-e4b",
+  "provider": "lmstudio",
+  "families": {
+    "rank": {
+      "deterministic": {
+        "attempts": 90,
+        "pass": 87,
+        "rate": 0.9666666666666667
+      },
+      "reviewer": {
+        "cases": 30,
+        "reviewed": 30,
+        "pass": 30,
+        "rate": 1
+      },
+      "deterministicVsReviewerAgreement": 0.9666666666666667,
+      "pass": true
+    },
+    "group": {
+      "deterministic": {
+        "attempts": 90,
+        "pass": 90,
+        "rate": 1
+      },
+      "reviewer": {
+        "cases": 30,
+        "reviewed": 30,
+        "pass": 30,
+        "rate": 1
+      },
+      "deterministicVsReviewerAgreement": 1,
+      "pass": true
+    },
+    "reduce": {
+      "deterministic": {
+        "attempts": 90,
+        "pass": 90,
+        "rate": 1
+      },
+      "reviewer": {
+        "cases": 30,
+        "reviewed": 30,
+        "pass": 30,
+        "rate": 1
+      },
+      "deterministicVsReviewerAgreement": 1,
+      "pass": true
+    },
+    "compare": {
+      "deterministic": {
+        "attempts": 90,
+        "pass": 90,
+        "rate": 1
+      },
+      "reviewer": {
+        "cases": 30,
+        "reviewed": 30,
+        "pass": 30,
+        "rate": 1
+      },
+      "deterministicVsReviewerAgreement": 1,
+      "pass": true
+    },
+    "explain": {
+      "deterministic": {
+        "attempts": 90,
+        "pass": 83,
+        "rate": 0.9222222222222223
+      },
+      "reviewer": {
+        "cases": 30,
+        "reviewed": 30,
+        "pass": 28,
+        "rate": 0.9333333333333333
+      },
+      "deterministicVsReviewerAgreement": 0.9666666666666667,
+      "pass": true
+    }
+  },
+  "pass": true
+}

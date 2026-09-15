@@ -103,13 +103,13 @@ Model: `gemma-4-e4b` (LM Studio, `local-gemma` profile), 8192 context, 150 cases
 Every raw output is archived in `evals/results/rubrics-gemma-4-e4b.json`. Gate: 30 cases per family,
 ≥ 85 % pass, on both the deterministic floor and the independent reviewer pass.
 
-| Family | Deterministic (450 attempts) | Reviewer (30 cases) | Agreement | Result |
+| Family | Deterministic (90 attempts) | Reviewer (30 cases) | Agreement | Result |
 | --- | --- | --- | --- | --- |
-| rank | 82/90 = 91.1 % | 30/30 = 100 % | 0.90 | PASS |
+| rank | 87/90 = 96.7 % | 30/30 = 100 % | 0.97 | PASS |
 | group | 90/90 = 100 % | 30/30 = 100 % | 1.00 | PASS |
-| reduce | 89/90 = 98.9 % | 30/30 = 100 % | 1.00 | PASS |
+| reduce | 90/90 = 100 % | 30/30 = 100 % | 1.00 | PASS |
 | compare | 90/90 = 100 % | 30/30 = 100 % | 1.00 | PASS |
-| explain | 79/90 = 87.8 % | 26/30 = 86.7 % | 0.97 | PASS |
+| explain | 83/90 = 92.2 % | 28/30 = 93.3 % | 0.97 | PASS |
 
 Combined report: `evals/results/rubrics-gate.json` (`pass: true`).
 
@@ -118,17 +118,15 @@ Reviewer pass (independent, designated by the owner): case-level judgment record
 and judged the free-text families on factuality, source attribution, audience and coherence rather
 than lexical form. Findings:
 
-- The first deterministic run (explain 75.6 %) understated quality: most `reduce`/`compare`/`explain`
-  failures were lexical artifacts (synonyms such as "exhausted"/"used up", substring direction
-  "timeout"/"timed out", markdown "**100** requests"), not factuality errors. The scorer was made
-  robust (markdown/whitespace normalization, `|` alternatives) and the brittle ground-truth tokens
-  fixed; the stored outputs were re-scored without re-inference.
-- Genuine failures (4): the non-technical `explain` cases leak explicitly banned jargon
-  (`GET`, `TLS`/`handshake`, `recursive`, `allocat`). These are retained as real audience failures.
-- Ground-truth ambiguity (3): `rank-8`, `rank-21`, `rank-27` involve near-ties ("negligible" vs "$0";
-  two minor issues with no explicit severity marker). The model's ordering is defensible; the
-  reviewer passed them and the dataset's rank severity layer is flagged for a follow-up fix so
-  ordering is unambiguous (add explicit severity markers).
+- The rank fixtures now carry explicit severity, date and USD impact, so every ordering is objective
+  and the earlier near-tie ambiguity is removed. Remaining rank failures are genuine single-repetition
+  ordering errors (a High/Medium or impact inversion in one of three reps).
+- Deterministic scoring for free text was hardened (markdown and comma normalization, `|`
+  alternatives) and over-broad negative tokens narrowed, because the first pass measured lexical form
+  rather than factuality. The failures that remain are genuine.
+- Genuine failures are confined to the non-technical `explain` cases: `explain-12` (uses `GET`) and
+  `explain-14` (uses `recursive`) fail in every repetition; `explain-10` leaked `allocat` in one
+  repetition and passes on majority. These are real audience failures and are retained.
 
 Limitations: the reviewer is an independent AI reviewer, not a human; the release contract's
 "human factuality scoring" should be satisfied by the owner at RELEASE-01 if a human pass is

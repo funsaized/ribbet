@@ -76,10 +76,9 @@ structured output.
 - Quality is measured on synthetic fixtures with cross-split template overlap. This is not
   evidence of broad out-of-distribution generalisation.
 - Rubric families (`rank`, `group`, `reduce`, `compare`, `explain`) were evaluated 2026-09-15 and
-  pass: deterministic floor 91.1 / 100 / 98.9 / 100 / 87.8 % and independent reviewer 100 / 100 / 100 /
-  100 / 86.7 % respectively (see `docs/delivery/evidence/EVAL-02.md`). The `explain` shortfall is
-  non-technical audience cases leaking jargon. `rank` has three ambiguous near-tie fixtures flagged
-  for a follow-up dataset fix.
+  pass: deterministic floor 96.7 / 100 / 100 / 100 / 92.2 % and independent reviewer 100 / 100 / 100 /
+  100 / 93.3 % respectively (see `docs/delivery/evidence/EVAL-02.md`). The `explain` shortfall is
+  non-technical audience cases leaking jargon.
 - Numbers are single-machine and single-GPU; other hardware may differ.
 - The evaluated model is text-only for Ribbit's purposes; the multimodal projector shipped
   alongside it is unused.

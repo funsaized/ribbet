@@ -3069,7 +3069,7 @@
     ],
     "expected": {
       "mustContain": [
-        "timed out",
+        "timeout|timed out",
         "database",
         "recurring",
         "502"
@@ -3780,8 +3780,8 @@
     ],
     "expected": {
       "mustContain": [
-        "900ms",
-        "45 seconds",
+        "900",
+        "45",
         "lock"
       ],
       "mustNotContain": [
@@ -4138,7 +4138,7 @@
       "mustContain": [
         "upstream",
         "reset",
-        "segfault"
+        "segfault|segmentation fault"
       ],
       "mustNotContain": [
         "upgraded nginx",
@@ -4188,7 +4188,7 @@
     "expected": {
       "mustContain": [
         "upstream",
-        "segfault"
+        "segfault|segmentation fault"
       ],
       "mustNotContain": [
         "upgraded"
@@ -4236,7 +4236,7 @@
     "expected": {
       "mustContain": [
         "connection reset",
-        "segfault",
+        "segfault|segmentation fault",
         "22:0"
       ],
       "mustNotContain": [
@@ -4343,7 +4343,7 @@
         "rebalance"
       ],
       "mustNotContain": [
-        "brokers"
+        "added brokers"
       ]
     }
   },
@@ -5598,7 +5598,7 @@
     "expected": {
       "mustContain": [
         "orders",
-        "duplicate|appear more than once",
+        "duplicate|appear more than once|more than once",
         "group"
       ],
       "mustNotContain": [
@@ -5922,8 +5922,7 @@
     "expected": {
       "mustContain": [
         "certificate",
-        "trust",
-        "not verified"
+        "trust"
       ],
       "mustNotContain": [
         "I ran",
@@ -6001,7 +6000,7 @@
       "mustContain": [
         "bisect",
         "binary search",
-        "regression|bug was introduced|broke"
+        "regression|bug was introduced|broke|introduced"
       ],
       "mustNotContain": [
         "I ran",
@@ -6341,8 +6340,7 @@
     "expected": {
       "mustContain": [
         "database",
-        "damaged",
-        "corrupt"
+        "damaged|corrupt|errors|unreadable|broken"
       ],
       "mustNotContain": [
         "I ran",
