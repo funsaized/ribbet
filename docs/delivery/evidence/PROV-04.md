@@ -1,6 +1,10 @@
-# PROV-04 — REVIEW 2026-09-14
+# PROV-04 — ACCEPTED 2026-09-15
 
-Implementation and runtime behavior verified against the packaged Linux binary. Held at REVIEW only because its declared prerequisite PROV-03 is owner-deferred (hosted OpenAI conformance), not because of a defect.
+Implementation and runtime behavior verified against the packaged Linux binary.
+
+Prerequisite PROV-03 is now ACCEPTED: both LM Studio and a hosted OpenAI-compatible
+endpoint have recorded live conformance (`provider-lmstudio-live.json`,
+`provider-hosted-live.json`). The earlier hold was solely that prerequisite, not a defect.
 
 Runtime evidence (`./dist/ribbit`, `TMPDIR` on disk):
 
@@ -14,4 +18,4 @@ Runtime evidence (`./dist/ribbit`, `TMPDIR` on disk):
 | Setup shows evidence for its local suggestion | PASS | probes both loopback endpoints |
 | Doctor separates config errors from absent runtime/model | PASS | checks[] with configuration/picker vs provider names |
 
-Blocker: PROV-03 hosted OpenAI-key conformance is deferred by the owner. To accept PROV-04 either supply the key for that test or record an owner waiver substituting the LM Studio OpenAI-compatible path. Reviewer decision: REVIEW pending that single owner decision.
+Resolved: PROV-03 hosted conformance was completed on 2026-09-15, so the prerequisite is accepted and the alternative waiver is no longer needed. Reviewer decision: ACCEPTED.

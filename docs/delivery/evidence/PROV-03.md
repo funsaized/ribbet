@@ -1,13 +1,13 @@
 # PROV-03 evidence and blocker
 
-State: BLOCKED (implementation and mock tests complete; live conformance unavailable).
+State: REVIEW 2026-09-15 (implementation, mock tests and live conformance complete).
 Date: 2026-09-13. Integrator: Codex.
 Revision: b5ba67d plus routing/provider implementation changes.
 
 | Criterion | Result | Evidence |
 | --- | --- | --- |
-| LM Studio live conformance | UNVERIFIED | Default 127.0.0.1:1234 endpoint unreachable on Linux and mini; no alternative supplied |
-| Hosted endpoint live conformance | UNVERIFIED | No hosted test URL/model/key environment reference supplied |
+| LM Studio live conformance | PASS | `provider-lmstudio-live.json` (`pass:true`, model discovered, text `OK`, object `{ok:true}`) |
+| Hosted endpoint live conformance | PASS | `provider-hosted-live.json` (2026-09-15, gpt-4o-mini, `pass:true`, 2 requests, 0 repairs, 0 retries) |
 | Unsupported schema errors actionable | PASS | Schema preflight and mapped 400/422 capability/config errors |
 | Authorization never logged | PASS | Generic transport/status diagnostics discard response body; no-key and missing-key tests |
 
@@ -55,3 +55,25 @@ Hosted endpoint conformance is still blocked pending the owner's endpoint/model 
 API-key environment-variable name. Do not treat a local compatible server as hosted evidence.
 
 Owner decision at checkpoint: use LM Studio's OpenAI-compatible endpoint now; the owner will test a hosted OpenAI key later. State is owner-DEFERRED for that hosted portion, not a failed or implicitly waived conformance claim.
+
+## Update, 2026-09-15 — hosted conformance completed
+
+The owner supplied a hosted key and the hosted portion is now verified. Both required
+endpoints have recorded conformance; nothing remains outstanding for this task.
+
+- Runner: `bun run scripts/live-provider.ts compatible` (from the repository root).
+- Endpoint/model: hosted at `https://api.openai.com/v1`, model `gpt-4o-mini`; the key is read
+  from the environment variable named by `RIBBIT_TEST_API_KEY_ENV`.
+- Result: `pass: true`, `modelDiscovered: true`, text `OK`, object `{ok: true}`, 2 requests,
+  0 repairs, 0 retries; recorded in `provider-hosted-live.json`.
+- The key was supplied through a git-ignored project-root `.env`; no credential value is
+  recorded here, printed to logs, or committed.
+
+Two supporting changes were made so the documented command works as written:
+
+- `src/cli/main.ts` / `src/config/index.ts` load a project-root `.env` at startup
+  (`loadDotenv`), with real environment variables taking precedence.
+- `scripts/live-provider.ts` calls `loadDotenv()` so the conformance runner resolves the
+  same `.env` regardless of the working directory it is launched from.
+
+Reviewer decision: pending acceptance.

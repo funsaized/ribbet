@@ -1,6 +1,6 @@
 # Executable implementation backlog
 
-Version 1.0 · Private implementation tracking · Updated 2026-09-14
+Version 1.0 · Private implementation tracking · Updated 2026-09-15
 
 Read [execution rules](README.md), [PRD](../../Ribbit-PRD.md), and [contracts](contracts/cli-data.md). Sizes are intentionally not time estimates; each task is a bounded deliverable and may be split before dispatch without weakening acceptance.
 
@@ -26,8 +26,8 @@ Read [execution rules](README.md), [PRD](../../Ribbit-PRD.md), and [contracts](c
 | [ROUTE-02](tasks/ROUTE-02.md) | Implement provider/profile management and inspection | Required | G4/G6 | ROUTE-01, CLI-01 | ACCEPTED |
 | [PROV-01](tasks/PROV-01.md) | Implement managed inference interface | Required | G4/R-EXT | ROUTE-01, SDK-01, CORE-02 | ACCEPTED |
 | [PROV-02](tasks/PROV-02.md) | Implement native Ollama adapter | Required | G4 | PROV-01 | ACCEPTED |
-| [PROV-03](tasks/PROV-03.md) | Implement OpenAI-compatible adapter | Required | G4 | PROV-01 | DEFERRED (owner: hosted test later) |
-| [PROV-04](tasks/PROV-04.md) | Implement setup, doctor and model discovery | Required | G4/G8 | PROV-02, PROV-03, ROUTE-02, CLI-02 | REVIEW |
+| [PROV-03](tasks/PROV-03.md) | Implement OpenAI-compatible adapter | Required | G4 | PROV-01 | ACCEPTED |
+| [PROV-04](tasks/PROV-04.md) | Implement setup, doctor and model discovery | Required | G4/G8 | PROV-02, PROV-03, ROUTE-02, CLI-02 | ACCEPTED |
 | [CMD-01](tasks/CMD-01.md) | Ship ask, summarize, explain and rewrite | Required | C01–C04 | EXT-02, CLI-01, PROV-01 | ACCEPTED |
 | [CMD-02](tasks/CMD-02.md) | Ship extract and classify | Required | C05–C06 | EXT-02, CLI-01, PROV-01 | ACCEPTED |
 | [CMD-03](tasks/CMD-03.md) | Ship filter and map | Required | C07/C10 | EXT-02, CLI-01, PROV-01 | ACCEPTED |
@@ -77,23 +77,26 @@ Runtime/schema work is the critical path. EVAL-01 can prepare datasets while run
 
 All Required, Required gate and Required human evidence tasks block full v1 acceptance. FOLLOW tasks are explicitly excluded. No estimated calendar date is committed: runtime feasibility, model evaluation and real-user scheduling are not yet measured. After BASE/DECIDE acceptance, size tasks against actual repository context and sequence within team capacity.
 
-## Current delivery state — 2026-09-14
+## Current delivery state — 2026-09-15
 
-Of 50 required tasks: **44 ACCEPTED, 1 REVIEW, 1 owner-deferred, 4 BLOCKED**.
+Of 50 required tasks: **46 ACCEPTED, 0 REVIEW, 0 owner-deferred, 4 BLOCKED**.
 The five FOLLOW tasks are outside initial scope and remain inactive.
 
-REVIEW remaining: PROV-04 (its declared predecessor PROV-03 hosted OpenAI test is
-owner-deferred; implementation and runtime checks pass).
-DEFERRED: PROV-03 hosted OpenAI conformance.
-BLOCKED: EVAL-02 (no passing default model), PILOT-01 (human evidence),
-RELEASE-01/02 (final gates).
+PROV-03 is accepted: LM Studio and a hosted OpenAI-compatible endpoint both have
+recorded live conformance. PROV-04 followed its prerequisite to acceptance.
+
+BLOCKED: EVAL-02 (rubric families outstanding; semantic gate now passed),
+PILOT-01 (human evidence), RELEASE-01/02 (final gates).
 
 Both platform artifacts rebuilt from one tree and measured in place:
 Linux help/version p95 38.7/38.4 ms, extension 121.4 ms, managed 66.2 ms, 100k RSS 42936 KiB;
-macOS help/version 30.6/29.8 ms, extension 80.9 ms, managed 48.4 ms. Linux unit 107,
-CLI 11, docs/build/smoke, picker PTY; macOS docs-examples and extension smoke pass.
+macOS help/version 30.6/29.8 ms, extension 80.9 ms, managed 48.4 ms. Linux unit 111,
+CLI 11, consumer 1, conformance 2, docs/build/smoke, picker PTY; macOS docs-examples and
+extension smoke pass.
 
-Latest semantics: 0.5B/1.5B full runs fail; gemma-4-e4b and 27B screened on the
-development split only. No passing default model.
+Latest semantics: gemma-4-e4b passes the filter/classify/extract gate in three independent
+full runs (mean 1.000 / 1.000 / 0.919, zero harness errors); Qwen2.5 0.5B, Qwen2.5 1.5B
+and Qwen3.5 9B do not pass. It is the selected v1 default; see [models](../models.md).
+Rubric families are not yet evaluated.
 
 See [handoff](HANDOFF.md) and [checkpoint](evidence/CHECKPOINT-20260914.md).

@@ -1,0 +1,53 @@
+{
+  "gemma-4-e4b": {
+    "filter": 1,
+    "classify": 1,
+    "extract": 0.9044444444444445,
+    "attempts": 750,
+    "errors": 0
+  },
+  "qwen2_5-0_5b-instruct": {
+    "filter": 0.3221131369798972,
+    "classify": 0.8514285959138901,
+    "extract": 0.7577777777777778,
+    "attempts": 750,
+    "errors": 0
+  },
+  "qwen2_5-1_5b-instruct": {
+    "filter": 0.8590982286634461,
+    "classify": 0.8844052122740648,
+    "extract": 0.9777777777777777,
+    "attempts": 750,
+    "errors": 0
+  },
+  "qwen3_5_9b": {
+    "filter": 0.8102903133084219,
+    "classify": 1,
+    "extract": 0.9977777777777778,
+    "attempts": 750,
+    "errors": 0
+  },
+  "_resources": {
+    "active_minutes": 58.8,
+    "cpu": {
+      "mean": 22.7,
+      "max": 47.2
+    },
+    "gpu_util": {
+      "mean": 89.3,
+      "max": 100.0
+    },
+    "gpu_temp": {
+      "mean": 78.3,
+      "max": 83.0
+    },
+    "gpu_w": {
+      "mean": 273.5,
+      "max": 348.4
+    },
+    "gpu_mem": {
+      "mean": 5663.1,
+      "max": 8231.0
+    }
+  }
+}
