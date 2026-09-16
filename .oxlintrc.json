@@ -9,13 +9,20 @@
     "builtin": true,
     "node": true
   },
-  "ignorePatterns": [
-    "node_modules",
-    "dist",
-    ".cache",
-    "src/generated",
-    "evals/results",
-    "benchmarks",
-    "spikes"
-  ]
+  "rules": {
+    // `_zod` is Zod's internal marker; the rule otherwise conflicts with the `_` unused-binding convention.
+    "no-underscore-dangle": ["warn", { "allow": ["_zod"] }],
+    // Flags mutable placeholder closures and micro-optimises nested functions; not applied here.
+    "unicorn/consistent-function-scoping": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/builtins/exact.ts", "src/builtins/filesystem.ts"],
+      "rules": {
+        // These files intentionally match control characters to escape/redact them.
+        "no-control-regex": "off"
+      }
+    }
+  ],
+  "ignorePatterns": ["node_modules", "dist", ".cache", "src/generated", "evals/results", "benchmarks", "spikes"]
 }

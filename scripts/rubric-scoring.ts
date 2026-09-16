@@ -5,11 +5,27 @@
 // generic words. Free-text quality still requires an independent reviewer pass alongside;
 // these checks are the deterministic floor, not a substitute for it.
 
-export interface RankExpected { order: string[]; top?: number }
-export interface GroupExpected { partition: string[][] }
-export interface FactExpected { mustContain: string[]; mustNotContain: string[] }
-export interface CompareExpected { leftOnly: string[]; rightOnly: string[]; mustNotContain: string[] }
-export interface ExplainExpected { mustContain: string[]; mustNotContain: string[]; forbid?: string[] }
+export interface RankExpected {
+  order: string[];
+  top?: number;
+}
+export interface GroupExpected {
+  partition: string[][];
+}
+export interface FactExpected {
+  mustContain: string[];
+  mustNotContain: string[];
+}
+export interface CompareExpected {
+  leftOnly: string[];
+  rightOnly: string[];
+  mustNotContain: string[];
+}
+export interface ExplainExpected {
+  mustContain: string[];
+  mustNotContain: string[];
+  forbid?: string[];
+}
 
 export interface CaseResult {
   command: string;
@@ -30,7 +46,12 @@ const setEq = (a: string[], b: string[]) => a.length === b.length && a.every((x)
 const setOfSetsEq = (a: string[][], b: string[][]) =>
   a.length === b.length && a.every((group) => b.some((g) => setEq(group, g)));
 
-export function scoreRank(actualOrder: string[], inputIds: string[], expected: RankExpected, valuesUnchanged: boolean): CaseResult {
+export function scoreRank(
+  actualOrder: string[],
+  inputIds: string[],
+  expected: RankExpected,
+  valuesUnchanged: boolean,
+): CaseResult {
   const unique = actualOrder.length === inputIds.length && setEq(actualOrder, inputIds);
   const top = expected.top ?? actualOrder.length;
   const prefix = actualOrder.slice(0, top);
@@ -47,11 +68,21 @@ export function scoreRank(actualOrder: string[], inputIds: string[], expected: R
   };
 }
 
-export function scoreGroup(actualGroups: { label: string; memberIds: string[] }[], inputIds: string[], expected: GroupExpected, valuesUnchanged: boolean): CaseResult {
+export function scoreGroup(
+  actualGroups: { label: string; memberIds: string[] }[],
+  inputIds: string[],
+  expected: GroupExpected,
+  valuesUnchanged: boolean,
+): CaseResult {
   const flat = actualGroups.flatMap((g) => g.memberIds);
   const identity = flat.length === inputIds.length && setEq(flat, inputIds) && new Set(flat).size === flat.length;
-  const membership = setOfSetsEq(actualGroups.map((g) => g.memberIds), expected.partition);
-  const labels = actualGroups.every((g) => g.label.trim().length > 0) && new Set(actualGroups.map((g) => g.label.trim())).size === actualGroups.length;
+  const membership = setOfSetsEq(
+    actualGroups.map((g) => g.memberIds),
+    expected.partition,
+  );
+  const labels =
+    actualGroups.every((g) => g.label.trim().length > 0) &&
+    new Set(actualGroups.map((g) => g.label.trim())).size === actualGroups.length;
   return {
     command: 'group',
     criteria: [
@@ -61,7 +92,11 @@ export function scoreGroup(actualGroups: { label: string; memberIds: string[] }[
       { text: 'Member records are unchanged (group partitions only)', pass: valuesUnchanged },
     ],
     pass: identity && membership && labels && valuesUnchanged,
-    detail: { actualPartition: actualGroups.map((g) => g.memberIds), expectedPartition: expected.partition, labels: actualGroups.map((g) => g.label) },
+    detail: {
+      actualPartition: actualGroups.map((g) => g.memberIds),
+      expectedPartition: expected.partition,
+      labels: actualGroups.map((g) => g.label),
+    },
   };
 }
 
@@ -81,7 +116,12 @@ export function scoreReduce(text: string, expected: FactExpected, criteria: stri
   };
 }
 
-export function scoreCompare(text: string, paths: string[], expected: CompareExpected, filesUnchanged: boolean): CaseResult {
+export function scoreCompare(
+  text: string,
+  paths: string[],
+  expected: CompareExpected,
+  filesUnchanged: boolean,
+): CaseResult {
   const labeled = paths.every((p) => has(text, p));
   const leftCovered = expected.leftOnly.every((f) => has(text, f));
   const rightCovered = expected.rightOnly.every((f) => has(text, f));
@@ -94,7 +134,7 @@ export function scoreCompare(text: string, paths: string[], expected: CompareExp
       { text: 'Covers the requested focus', pass: leftCovered || rightCovered },
       { text: 'Modifies neither input file', pass: filesUnchanged },
     ],
-    pass: labeled && (leftCovered && rightCovered) && noConflation && filesUnchanged,
+    pass: labeled && leftCovered && rightCovered && noConflation && filesUnchanged,
     detail: { paths, leftOnly: expected.leftOnly, rightOnly: expected.rightOnly },
   };
 }

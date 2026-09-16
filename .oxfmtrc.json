@@ -21,6 +21,8 @@
     "evals/review",
     "benchmarks",
     "fixtures",
-    "spikes"
+    "spikes",
+    "docs",
+    "**/*.md"
   ]
 }
