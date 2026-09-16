@@ -1,6 +1,6 @@
 # Owner-led setup pilot
 
-The owner has volunteered as participant 1 and will recruit additional participants. No completed session or recruitment result is assumed. The release gate remains at least four successful first runs out of five participants, within ten minutes excluding model download.
+The owner completed a single documented first-run within the target ([PILOT-01 evidence](../delivery/evidence/PILOT-01.md)); the multi-user requirement was waived by owner decision ([pilot scope](../decisions/pilot-scope.md)). The guidance below is retained for reference.
 
 Give each participant the packaged distribution and public usage guide. Use a separate project directory and existing loopback LM Studio server. Start the timer after model download; include configuration and troubleshooting time. Record help requests and failures, even if a later retry succeeds. Do not share API keys or confidential source files.
 

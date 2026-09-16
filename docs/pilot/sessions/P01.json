@@ -2,15 +2,15 @@
 {
   "participantId": "funsaized",
   "platform": "linux",
-  "cliRevision": "a35c6a75c7ade2274433452022a8aab12beca759d7f34bb1d98eb6af05e7478d",
+  "cliRevision": "b0b07ad5a74759fd4852db3e937a6a17ac27a4e33cac4bc7f641c75d91c21933",
   "model": "gemma-4-e4b",
-  "startedAt": "2026-09-15T17:57:47-04:00",
-  "finishedAt": null,
-  "elapsedSecondsExcludingDownload": null,
-  "downloadSeconds": null,
-  "tasksCompleted": [],
-  "failuresAndRetries": [],
+  "startedAt": "2026-09-16T06:07:15-04:00",
+  "finishedAt": "2026-09-16T06:11:46-04:00",
+  "elapsedSecondsExcludingDownload": 271,
+  "downloadSeconds": 0,
+  "tasksCompleted": ["help/version", "take", "setup", "explain", "flow", "recurring-task"],
+  "failuresAndRetries": ["LM Studio local server not running: semantic commands fail with 'Provider endpoint unreachable (details redacted)'; resolved by starting the server"],
   "assistance": [],
   "recurringUseCase": "",
-  "successfulWithinTenMinutes": null
+  "successfulWithinTenMinutes": true
 }

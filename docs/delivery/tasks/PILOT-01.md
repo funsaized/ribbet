@@ -2,7 +2,7 @@
 
 ## Outcome
 
-Owner arranges five private pilot sessions; observe local setup and at least one signature workflow, record download time separately and identify blockers. Do not contact anyone without authorization.
+Owner runs a documented local first-run and at least one signature workflow, records download time separately and identifies blockers. Multi-user sampling is waived by owner decision (`docs/decisions/pilot-scope.md`). Do not contact anyone without authorization.
 
 ## Parent and state
 
@@ -22,12 +22,12 @@ docs/delivery/evidence/PILOT-01.md; anonymized observations. Task-specific evide
 
 ## Exact change
 
-Owner arranges five private pilot sessions; observe local setup and at least one signature workflow, record download time separately and identify blockers. Do not contact anyone without authorization.
+Owner runs a documented local first-run and at least one signature workflow, records download time separately and identifies blockers. Multi-user sampling is waived by owner decision (`docs/decisions/pilot-scope.md`). Do not contact anyone without authorization.
 
 ## Acceptance criteria
 
-- At least 4/5 meet setup target excluding download.
-- Evidence is real users, not simulations.
+- A documented owner-run first-run meets the setup target excluding download (multi-user sampling waived by owner decision).
+- Evidence is a real user, not a simulation.
 - Blockers enter tracked tasks.
 
 ## Verification

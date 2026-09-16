@@ -1,6 +1,6 @@
 # Executable implementation backlog
 
-Version 1.0 · Private implementation tracking · Updated 2026-09-15
+Version 1.0 · Private implementation tracking · Updated 2026-09-16
 
 Read [execution rules](README.md), [PRD](../../Ribbit-PRD.md), and [contracts](contracts/cli-data.md). Sizes are intentionally not time estimates; each task is a bounded deliverable and may be split before dispatch without weakening acceptance.
 
@@ -53,8 +53,8 @@ Read [execution rules](README.md), [PRD](../../Ribbit-PRD.md), and [contracts](c
 | [SHIP-01](tasks/SHIP-01.md) | Package installable artifacts for target platforms | Required | G8 | QA-01, PERF-01 | ACCEPTED |
 | [DOCS-01](tasks/DOCS-01.md) | Write complete command, SDK and routing docs | Required | G1/G6 | FLOW-03, FS-05, AGENT-02 | ACCEPTED |
 | [DOCS-02](tasks/DOCS-02.md) | Verify docs against packaged CLI | Required | G1/G8 | DOCS-01, SHIP-01 | ACCEPTED |
-| [PILOT-01](tasks/PILOT-01.md) | Validate first-run and recurring use cases with owner-selected users | Required human evidence | G8/R-PERF | DOCS-02, EVAL-02 | BLOCKED |
-| [RELEASE-01](tasks/RELEASE-01.md) | Audit complete initial scope and release evidence | Required gate | G1–G8 | AGENT-03, EVAL-02, PERF-01, DOCS-02, PILOT-01 | BLOCKED |
+| [PILOT-01](tasks/PILOT-01.md) | Validate first-run and recurring use cases with owner-selected users | Required human evidence | G8/R-PERF | DOCS-02, EVAL-02 | ACCEPTED |
+| [RELEASE-01](tasks/RELEASE-01.md) | Audit complete initial scope and release evidence | Required gate | G1–G8 | AGENT-03, EVAL-02, PERF-01, DOCS-02, PILOT-01 | READY |
 | [RELEASE-02](tasks/RELEASE-02.md) | Prepare private launch decision packet | Required gate | G8 | RELEASE-01 | BLOCKED |
 | [FOLLOW-01](tasks/FOLLOW-01.md) | Explore additional native providers | Post-release | Deferred | RELEASE-02 | BLOCKED |
 | [FOLLOW-02](tasks/FOLLOW-02.md) | Explore branching flows and nested invocation | Post-release | Deferred | RELEASE-02 | BLOCKED |
@@ -77,9 +77,9 @@ Runtime/schema work is the critical path. EVAL-01 can prepare datasets while run
 
 All Required, Required gate and Required human evidence tasks block full v1 acceptance. FOLLOW tasks are explicitly excluded. No estimated calendar date is committed: runtime feasibility, model evaluation and real-user scheduling are not yet measured. After BASE/DECIDE acceptance, size tasks against actual repository context and sequence within team capacity.
 
-## Current delivery state — 2026-09-15
+## Current delivery state — 2026-09-16
 
-Of 50 required tasks: **47 ACCEPTED, 0 REVIEW, 0 owner-deferred, 3 BLOCKED**.
+Of 50 required tasks: **48 ACCEPTED, 1 READY, 0 REVIEW, 0 owner-deferred, 1 BLOCKED**.
 The five FOLLOW tasks are outside initial scope and remain inactive.
 
 PROV-03 is accepted: LM Studio and a hosted OpenAI-compatible endpoint both have
@@ -87,7 +87,9 @@ recorded live conformance. PROV-04 followed its prerequisite to acceptance.
 EVAL-02 is accepted: gemma-4-e4b passes the semantic gate and all five rubric
 families (deterministic floor and independent reviewer pass both ≥ 85 %).
 
-BLOCKED: PILOT-01 (human evidence), RELEASE-01/02 (final gates).
+PILOT-01 is accepted under an owner-waived single-participant scope
+([decision](../decisions/pilot-scope.md)): one documented owner first-run completed in
+271 s excluding model download. RELEASE-01 is READY; RELEASE-02 remains BLOCKED.
 
 Both platform artifacts rebuilt from one tree and measured in place:
 Linux help/version p95 38.7/38.4 ms, extension 121.4 ms, managed 66.2 ms, 100k RSS 42936 KiB;

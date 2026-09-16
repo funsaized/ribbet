@@ -21,7 +21,7 @@ Proposed release budgets, to be ratified with reference hardware before implemen
 | Extraction field correctness | >=0.90 on >=50 fixtures; schema validity alone insufficient |
 | rank/group/reduce/compare/task explanations | >=85% rubric pass on >=30 cases per family; disclose model variance |
 | Agent authoring evaluation | >=8/10 tasks completed from public docs/schema with no runtime source inspection |
-| Setup pilot | >=4/5 target users complete a documented local first-run within 10 minutes excluding model download |
+| Setup pilot | A documented owner-run local first-run completes within 10 minutes excluding model download (multi-user sampling waived by owner; see [pilot scope decision](../../decisions/pilot-scope.md)) |
 
 These are acceptance targets, not measured claims. Report first attempt and repaired results separately. Model evals run at least three repetitions with model identifier/digest where available, quantization, runtime, hardware, context, tokens, request count, and latency. Choose a small quantized default by actual quality/latency results; do not promise a particular model today. Keep a larger local option documented. Setup pilot is owner-arranged; simulated users do not count.
 
