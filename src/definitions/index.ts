@@ -1,5 +1,5 @@
 import {readdir,readFile} from 'node:fs/promises';
-import {join,dirname,resolve} from 'node:path';
+import {join,dirname} from 'node:path';
 import {parseDocument} from 'yaml';
 import {z} from 'zod';
 import {inferenceSchema,configPath} from '../config/index.ts';

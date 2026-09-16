@@ -1,8 +1,8 @@
 import {join} from 'node:path';
-import {type Context,type Action,Budget} from '../../sdk/index.ts';
+import {type Context,Budget} from '../../sdk/index.ts';
 import {type RecordValue,RibbitError,validateRecord} from '../records/index.ts';
 import {type Manifest,type ActionManifest} from '../../sdk/manifest/index.ts';
-import {loadConfig,loadProjectInference,type Config,type Inference} from '../../config/index.ts';
+import {loadProjectInference,type Config,type Inference} from '../../config/index.ts';
 import {resolveRoute,commandRoute,type Layer,type Route} from '../../routing/index.ts';
 import {ManagedInference} from '../inference/index.ts';
 import {OllamaAdapter} from '../../providers/ollama/index.ts';

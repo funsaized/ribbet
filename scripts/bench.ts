@@ -1,6 +1,6 @@
-import {writeFile,mkdtemp,rm} from 'node:fs/promises';
-import {tmpdir,cpus,totalmem} from 'node:os';
-import {join,resolve} from 'node:path';
+import {writeFile} from 'node:fs/promises';
+import {cpus,totalmem} from 'node:os';
+import {resolve} from 'node:path';
 const binary=resolve('dist/ribbit');
 const runs=30;
 async function measure(args:string[],input=''){const samples=[];for(let i=0;i<runs+1;i++){const start=performance.now();const p=Bun.spawn([binary,...args],{stdin:new Blob([input]),stdout:'ignore',stderr:'pipe'});if(await p.exited)throw new Error(await new Response(p.stderr).text());if(i)samples.push(performance.now()-start);}samples.sort((a,b)=>a-b);return {n:runs,samplesMs:samples,p50Ms:samples[Math.floor(runs*.5)],p95Ms:samples[Math.ceil(runs*.95)-1]};}

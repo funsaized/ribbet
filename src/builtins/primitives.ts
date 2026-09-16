@@ -1,4 +1,4 @@
-import { readFile, open, stat } from 'node:fs/promises';
+import { open } from 'node:fs/promises';
 import { RibbitError, type Json, type RecordValue } from '../engine/records/index.ts';
 import { schemaToZod } from '../build/schema/index.ts';
 export function pathParts(path:string): (string|number)[]{

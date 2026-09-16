@@ -11,6 +11,10 @@ No public CI upload or publish operation is enabled.
 | Script | Purpose |
 | --- | --- |
 | check | Strict TypeScript check |
+| lint | Oxlint with the repository config (`.oxlintrc.json`) |
+| lint:fix | Apply safe oxlint fixes |
+| format | Format with oxfmt (`.oxfmtrc.json`) |
+| format:check | List files that are not yet formatted |
 | test:unit | Unit and deterministic integration checks |
 | test:consumer | Public SDK consumer checks |
 | test:cli | Subprocess shell checks |
@@ -25,6 +29,8 @@ No public CI upload or publish operation is enabled.
 | package:smoke | Isolated installed CLI and extension-authoring smoke |
 
 The consumer suite checks the public SDK; the conformance suite currently checks real loopback HTTP cancellation and needs local socket permission. Neither represents full release conformance. The current binary exposes all 22 commands. See the backlog for acceptance status; implementation is not a release-quality claim.
+
+Formatting and linting use the Oxc toolchain: `oxlint` and `oxfmt`, configured by `.oxlintrc.json` and `.oxfmtrc.json`. Both honor `.gitignore`; the configs additionally exclude generated and recorded data (`dist`, `src/generated`, `evals/datasets`, `evals/results`, `evals/agent`, `evals/review`, `benchmarks`, `fixtures`, `spikes`). `npm run lint` passes with no errors (warnings are advisory). `npm run format` has not yet been applied to the whole tree; a first full pass is a separate, reviewable commit.
 
 Live provider harness: `scripts/live-provider.ts`; configuration and bounded invocation
 are documented in [PROV-03 evidence](delivery/evidence/PROV-03.md).

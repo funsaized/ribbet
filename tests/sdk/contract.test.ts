@@ -5,7 +5,7 @@ const action = defineAction({ config, description: 'Echo', args: z.strictObject(
   async execute({ args, config, input }) {
     const count: number = args.times;
     // @ts-expect-error inferred numeric default is not a string
-    const wrong: string = args.times;
+    const _wrong: string = args.times;
     return config.prefix + input.repeat(count) + (args.suffix ?? '');
   }
 });

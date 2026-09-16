@@ -12,6 +12,7 @@ export const exactCommands={
  take:recordCommand('take','Take the first N records and stop upstream reads',z.strictObject({count:z.number().int().nonnegative()}),async function*({args,input}){yield* takeStream(input as AsyncIterable<RecordValue>,(args as any).count);},{cli:{positionals:['count']}}),
  render:defineCommand({type:'@ribbit/render',version:'1.0.0',description:'Render final values without inference or executable templates',config,actions:{run:defineAction({config,description:'Render text, JSON, JSONL, table or safe substitutions',args:z.strictObject({as:z.enum(['text','table','json','jsonl']).default('text'),template:z.string().optional()}),input:jsonValueSchema,output:z.string(),mode:'value',inputKind:'any',outputKind:'display',capabilities:[],effects:['filesystem-read'],barrier:true,execute:async({args,input},ctx)=>{
     const finish=(text:string)=>{if(Buffer.byteLength(text)>ctx.budget.limits.maxBytes)throw new RibbitError(6,'Render output exceeds byte limit');return text;};
+// eslint-disable-next-line no-control-regex -- intentional: escapes control characters
     const safe=(text:string)=>text.replace(/[\u0000-\u001f\u007f-\u009f]/g,(c:string)=>`\\u${c.charCodeAt(0).toString(16).padStart(4,'0')}`);
     const value=input as any,rows=ctx.inputKind==='records'&&Array.isArray(value)?value.map(r=>r.value):Array.isArray(value)?value:[value];
     if(args.template){const template=await textFile(args.template,ctx.budget.limits.maxBytes);return finish(rows.map(row=>template.replace(/\{\{([^{}]+)\}\}/g,(_,path)=>{const v=field(row,path.trim());return safe(typeof v==='string'?v:JSON.stringify(v));})).join('\n'));}
@@ -20,6 +21,7 @@ export const exactCommands={
     const display=(v:any)=>typeof v==='string'?v:JSON.stringify(v);
     if(args.as==='text')return finish(rows.map(row=>safe(display(row))).join('\n'));
     const columns=[...new Set(rows.flatMap(row=>row&&typeof row==='object'&&!Array.isArray(row)?Object.keys(row):['value']))];
+// eslint-disable-next-line no-control-regex -- intentional: escapes control characters
     const escape=(v:any)=>display(v??'').replace(/[\u0000-\u001f\u007f]/g,(c:string)=>`\\u${c.charCodeAt(0).toString(16).padStart(4,'0')}`);
     return finish([columns.map(escape).join('\t'),...rows.map(row=>columns.map(col=>escape(row&&typeof row==='object'&&!Array.isArray(row)?row[col]:row)).join('\t'))].join('\n'));
  }})}}),

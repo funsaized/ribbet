@@ -1,5 +1,5 @@
-import {lstat,readdir,readFile,realpath,stat} from 'node:fs/promises';
-import {resolve,relative,join,basename,sep} from 'node:path';
+import {lstat,readdir,realpath,stat} from 'node:fs/promises';
+import {resolve,relative,join,sep} from 'node:path';
 import ignore from 'ignore';
 import {RibbitError,type RecordValue} from '../engine/records/index.ts';
 import {textFile} from '../builtins/primitives.ts';
@@ -20,7 +20,7 @@ export async function walk(root:string,options:WalkOptions={},log:(s:string)=>vo
     for(const name of ['.gitignore','.ribbitignore']){
      const path=join(dir,name);let meta;try{meta=await lstat(path);}catch(e){if((e as NodeJS.ErrnoException).code==='ENOENT')continue;if(options.onReadError==='skip'){omitted++;log(`Skipped unreadable ignore: ${path}`);continue;}throw e;}
      if(meta.isSymbolicLink()){
-      let real:string;try{real=await realpath(path);}catch(e){if(options.onReadError==='skip'){omitted++;log(`Skipped unreadable ignore: ${path}`);continue;}throw new RibbitError(7,'Cannot resolve ignore file',path);}
+      let real:string;try{real=await realpath(path);}catch{if(options.onReadError==='skip'){omitted++;log(`Skipped unreadable ignore: ${path}`);continue;}throw new RibbitError(7,'Cannot resolve ignore file',path);}
       const rel=relative(boundary,real);if(!options.outsideRoot&&(rel==='..'||rel.startsWith('..'+sep)||resolve(boundary,rel)!==real)){omitted++;log(`Skipped outside-root ignore: ${path}`);continue;}
      }
      try{matcher.add(await textFile(path,Math.min(maxBytes,1024*1024)));}catch(e){if(options.onReadError==='skip'&&(!(e instanceof RibbitError)||e.code===7)){omitted++;log(`Skipped unreadable ignore: ${path}`);continue;}throw e;}

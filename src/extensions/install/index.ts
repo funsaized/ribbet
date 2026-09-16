@@ -1,5 +1,5 @@
 import { readdir, readFile, mkdir, rename, writeFile, rm, realpath } from 'node:fs/promises';
-import { join, resolve, relative } from 'node:path';
+import { join, relative } from 'node:path';
 import { homedir } from 'node:os';
 import { hash, stable, type Manifest } from '../../sdk/manifest/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';

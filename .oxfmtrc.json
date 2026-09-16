@@ -1,0 +1,26 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 120,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "insertFinalNewline": true,
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    ".cache",
+    "src/generated",
+    "evals/datasets",
+    "evals/results",
+    "evals/agent",
+    "evals/review",
+    "benchmarks",
+    "fixtures",
+    "spikes"
+  ]
+}

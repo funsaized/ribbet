@@ -26,7 +26,7 @@ const consumer = defineCommand({
       const count: number = args.count;
       const suffix: string | undefined = args.suffix;
       // @ts-expect-error defaults are numbers, never string
-      const invalid: string = args.count;
+      const _invalid: string = args.count;
       return `${config.prefix}${input.repeat(count)}${suffix ?? ''}`;
     }
   } }

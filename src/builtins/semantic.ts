@@ -1,4 +1,4 @@
-import {z,defineCommand,defineAction,jsonValueSchema,recordSchema,RibbitError,type Action,type Context,type RecordValue} from '../sdk/index.ts';
+import {z,defineCommand,defineAction,jsonValueSchema,recordSchema,RibbitError,type Action,type RecordValue} from '../sdk/index.ts';
 import {field,evidence,requireEvidence,collect,prompt,externalSchema,textFile} from './primitives.ts';
 const config=z.strictObject({});
 const rule=z.array(z.string()).default([]);

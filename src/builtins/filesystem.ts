@@ -1,7 +1,7 @@
 import {open} from 'node:fs/promises';
-import {resolve,relative,dirname,basename,sep} from 'node:path';
+import {resolve,dirname} from 'node:path';
 import {z,defineCommand,defineAction,jsonValueSchema,recordSchema,RibbitError,type Action,type RecordValue} from '../sdk/index.ts';
-import {walk,type FileValue} from '../filesystem/index.ts';
+import {walk} from '../filesystem/index.ts';
 import {collect,textFile,field,prompt} from './primitives.ts';
 import {semanticCommands} from './semantic.ts';
 import {executeAction} from '../sdk/index.ts';
@@ -29,7 +29,8 @@ export const filesystemCommands={
  pick:command('pick','Select original records using fzf on the controlling terminal',z.strictObject({multi:z.boolean().default(false),query:z.string().default(''),about:z.string().optional(),label:z.string().optional()}),async function*({args,input},ctx){const a=args as any;let tty;try{tty=await open('/dev/tty','r+');}catch{throw new RibbitError(7,'pick requires a controlling terminal; use rank --top for noninteractive selection');}
   try{let rows=await collect(input as AsyncIterable<unknown>,ctx.budget.limits.maxRecords);if(!rows.length)return;if(a.about){const ranked=await executeAction(semanticCommands.rank.actions.run,(async function*(){yield*rows;})(),{instruction:a.about},{},ctx);rows=await collect(ranked as AsyncIterable<unknown>,200);}
    const version=Bun.spawn(['fzf','--version'],{stdout:'pipe',stderr:'pipe'});if(await version.exited!==0)throw new RibbitError(7,'Install fzf >=0.74.3');const output=await new Response(version.stdout).text();const numbers=output.split(' ')[0].split('.').map(Number);if(numbers[0]===0&&(numbers[1]<74||(numbers[1]===74&&numbers[2]<3)))throw new RibbitError(7,'Install fzf >=0.74.3');
-   const labels=rows.map((r,i)=>{const value=a.label?field(r.value,a.label):r.value;const display=typeof value==='string'?value:JSON.stringify(value);return `${i}\t${display.replace(/[\u0000-\u001f\u007f]/g,(c:string)=>`\\u${c.charCodeAt(0).toString(16).padStart(4,'0')}`)}\0`;}).join('');
+   // eslint-disable-next-line no-control-regex -- intentional: escapes control characters for fzf
+const labels=rows.map((r,i)=>{const value=a.label?field(r.value,a.label):r.value;const display=typeof value==='string'?value:JSON.stringify(value);return `${i}\t${display.replace(/[\u0000-\u001f\u007f]/g,(c:string)=>`\\u${c.charCodeAt(0).toString(16).padStart(4,'0')}`)}\0`;}).join('');
    const env:Record<string,string|undefined>={...process.env,FZF_DEFAULT_OPTS:'',FZF_DEFAULT_COMMAND:''};delete env.FZF_DEFAULT_OPTS_FILE;
    const pickerProcess=Bun.spawn(['fzf','--read0','--print0','--delimiter=\t','--with-nth=2..','--query',a.query,...(a.multi?['--multi']:[])],{stdin:new Blob([labels]),stdout:'pipe',stderr:tty.fd,env});
    const abort=()=>pickerProcess.kill('SIGINT');ctx.signal.addEventListener('abort',abort,{once:true});let selected:string,exit:number;

@@ -9,7 +9,7 @@ const event = (delta: object, finish_reason: string | null = null) => `data: ${J
 test('compatible SSE, custom base URL, structured payload, no-key local endpoint', async () => {
   const adapter = new CompatibleAdapter(async (url, init) => {
     expect(String(url)).toBe('http://127.0.0.1:1234/v1/chat/completions');
-    expect((init?.headers as Record<string, string>).Authorization).toBeUndefined();
+    expect((init?.headers as Record<string, string> | undefined)?.Authorization).toBeUndefined();
     expect(JSON.parse(String(init?.body)).response_format.json_schema.schema).toEqual({ type: 'object' });
     return new Response(event({ role: 'assistant' }) + event({ content: 'hi' }) + event({}, 'stop') + 'data: [DONE]\n\n');
   });

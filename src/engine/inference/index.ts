@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Budget } from '../execution/index.ts';
 import { RibbitError } from '../records/index.ts';
-import { type Adapter, type Event, TransportError } from '../../providers/interface/index.ts';
+import { type Adapter, TransportError } from '../../providers/interface/index.ts';
 import type { Route } from '../../routing/index.ts';
 import { schemaToJson } from '../../sdk/manifest/index.ts';
 export { schemaToJson };
