@@ -1,9 +1,12 @@
 import { RUNTIME_FLAGS, type ActionManifest } from '../../sdk/manifest/index.ts';
 import { validateJson } from '../../build/schema/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';
+
 export type Runtime = Record<string, string | number | boolean>;
+
 const booleans = new Set(['help', 'version', 'stats']);
 const numbers = new Set(['max-bytes', 'max-records', 'max-requests', 'max-tokens', 'total-ms', 'request-ms']);
+
 export function parseAction(
   tokens: string[],
   action: ActionManifest,
@@ -17,20 +20,25 @@ export function parseAction(
     .toSorted((a, b) => a.positional! - b.positional!);
   let position = 0,
     literal = false;
+
   function scalar(value: string, type: string) {
     if (type === 'boolean') {
       if (!['true', 'false'].includes(value)) throw new RibbitError(2, 'Expected true or false');
+
       return value === 'true';
     }
     if (type === 'number' || type === 'integer') {
       if (value.trim() === '' || !Number.isFinite(Number(value))) throw new RibbitError(2, 'Expected finite number');
+
       return Number(value);
     }
     if (type === 'string') return value;
     throw new RibbitError(2, 'Complex arguments require --args-json');
   }
+
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
+
     if (token === '--' && !literal) {
       literal = true;
       continue;
@@ -39,10 +47,12 @@ export function parseAction(
       const eq = token.indexOf('='),
         flag = token.slice(2, eq < 0 ? undefined : eq);
       let value = eq < 0 ? undefined : token.slice(eq + 1);
+
       if (flag === 'args-json') {
         value ??= tokens[++i];
         if (value === undefined) throw new RibbitError(2, '--args-json requires an object');
         let json: any;
+
         try {
           json = JSON.parse(value);
         } catch {
@@ -69,6 +79,7 @@ export function parseAction(
         continue;
       }
       const binding = action.bindings.find((b) => b.flag === flag);
+
       if (!binding) throw new RibbitError(2, `Unknown argument --${flag}`, 'args.' + flag);
       if (binding.type === 'boolean' && !binding.repeated && value === undefined) value = 'true';
       else value ??= tokens[++i];
@@ -78,6 +89,7 @@ export function parseAction(
       if (assigned.has(binding.field) && binding.repeated && !Array.isArray(args[binding.field]))
         throw new RibbitError(2, `Duplicate argument ${binding.field}`);
       const parsed = scalar(value, binding.type);
+
       if (binding.repeated) {
         if (assigned.has('json:' + binding.field)) throw new RibbitError(2, 'Conflicting --args-json and field flag');
         args[binding.field] = [...((args[binding.field] as unknown[]) ?? []), parsed];
@@ -85,6 +97,7 @@ export function parseAction(
       assigned.add(binding.field);
     } else {
       const binding = positionals[position];
+
       if (!binding) throw new RibbitError(2, `Unexpected positional argument: ${token}`);
       if (assigned.has(binding.field) && !binding.repeated)
         throw new RibbitError(2, 'Conflicting positional and field argument');
@@ -99,5 +112,6 @@ export function parseAction(
       assigned.add(binding.field);
     }
   }
+
   return { args: validateJson(action.args, { ...defaults, ...args }), runtime };
 }

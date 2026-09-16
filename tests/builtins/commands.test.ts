@@ -2,8 +2,10 @@ import { test, expect } from 'bun:test';
 import { exactCommands } from '../../src/builtins/exact.ts';
 import { semanticCommands } from '../../src/builtins/semantic.ts';
 import { executeAction, Budget, type Context } from '../../src/sdk/index.ts';
+
 function ctx(object: any = {}): Context {
   const budget = new Budget({ maxRecords: 1000000, maxBytes: 128 * 1024 * 1024 });
+
   return {
     budget,
     signal: budget.signal,
@@ -18,12 +20,15 @@ function ctx(object: any = {}): Context {
     },
   };
 }
+
 async function* rows(values: any[]) {
   for (const [i, value] of values.entries()) yield { id: String(i + 1), value, annotations: {} };
 }
+
 async function run(cmd: any, input: any, args: any = {}, context = ctx()) {
   try {
     const result = await executeAction(cmd.actions.run, input, args, {}, context);
+
     return result && typeof (result as any)[Symbol.asyncIterator] === 'function'
       ? await Array.fromAsync(result as AsyncIterable<any>)
       : result;
@@ -31,6 +36,7 @@ async function run(cmd: any, input: any, args: any = {}, context = ctx()) {
     context.budget.close();
   }
 }
+
 test('exact projection, stable sorting and canonical uniqueness', async () => {
   expect(await run(exactCommands.select, rows([{ a: { b: 1 }, other: 2 }]), { fields: 'a.b' })).toMatchObject([
     { id: '1', value: { a: { b: 1 } } },
@@ -81,6 +87,7 @@ test('filter preserves records, map retains lineage, summarize enforces words', 
 });
 test('empty semantic record streams make zero requests', async () => {
   const c = ctx();
+
   c.llm.object = async () => {
     throw new Error('Unexpected inference');
   };
@@ -89,23 +96,28 @@ test('empty semantic record streams make zero requests', async () => {
 });
 test('rank and group error before inference above the 200-record default', async () => {
   const c = ctx();
+
   c.llm.object = async () => {
     throw new Error('Unexpected inference');
   };
+
   async function* many() {
     for (let i = 0; i < 201; i++) yield { id: String(i), value: i, annotations: {} };
   }
+
   await expect(run(semanticCommands.rank, many(), { instruction: 'best' }, c)).rejects.toMatchObject({ code: 6 });
   await expect(run(semanticCommands.group, many(), { instruction: 'group' }, c)).rejects.toMatchObject({ code: 6 });
 });
 test('take streams 100k records without extra pulls and sort keeps equal keys stable', async () => {
   let pulls = 0;
+
   async function* many() {
     for (let i = 0; i < 200000; i++) {
       pulls++;
       yield { id: String(i), value: i, annotations: {} };
     }
   }
+
   expect(((await run(exactCommands.take, many(), { count: 100000 })) as any[]).length).toBe(100000);
   expect(pulls).toBe(100000);
   const ties = [
@@ -113,6 +125,7 @@ test('take streams 100k records without extra pulls and sort keeps equal keys st
     { id: '2', value: { n: 1, k: 'b' }, annotations: {} },
     { id: '3', value: { n: 0, k: 'c' }, annotations: {} },
   ];
+
   expect(
     (
       (await run(
@@ -140,6 +153,7 @@ test('unique accounts key memory against the invocation byte budget', async () =
       },
     },
   };
+
   try {
     await expect(
       run(exactCommands.unique, rows(['aaaaaaaaaaaaaaaaaaaa', 'bbbbbbbbbbbbbbbbbbbb']), {}, context),

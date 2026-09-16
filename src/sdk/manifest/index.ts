@@ -2,20 +2,25 @@ import { z } from 'zod';
 import { createHash } from 'node:crypto';
 import { canonical, type Json, RibbitError } from '../../engine/records/index.ts';
 import type { Action } from '../index.ts';
+
 export function schemaToJson(schema: z.ZodType): Record<string, unknown> {
   const seen = new Set<z.ZodType>();
+
   function visit(node: z.ZodType) {
     if (seen.has(node)) throw new RibbitError(2, 'Recursive schemas are unsupported');
     seen.add(node);
     const def = node._zod.def as Record<string, any>;
+
     if (def.type === 'unknown' && node.meta()?.ribbitJson === true) {
       seen.delete(node);
+
       return;
     }
     if (def.type === 'record' && node.meta()?.ribbitDictionary === true) {
       visit(def.keyType);
       visit(def.valueType);
       seen.delete(node);
+
       return;
     }
     if (
@@ -45,6 +50,7 @@ export function schemaToJson(schema: z.ZodType): Record<string, unknown> {
     if (def.options) for (const child of def.options) visit(child);
     seen.delete(node);
   }
+
   visit(schema);
   try {
     return z.toJSONSchema(schema) as Record<string, unknown>;
@@ -52,6 +58,7 @@ export function schemaToJson(schema: z.ZodType): Record<string, unknown> {
     throw new RibbitError(2, 'Schema cannot be represented as JSON Schema');
   }
 }
+
 export const RUNTIME_FLAGS = new Set([
   'input',
   'output',
@@ -72,7 +79,9 @@ export const RUNTIME_FLAGS = new Set([
   'total-ms',
   'request-ms',
 ]);
+
 export type JsonSchema = Record<string, any>;
+
 export interface Binding {
   field: string;
   flag: string;
@@ -80,6 +89,7 @@ export interface Binding {
   repeated: boolean;
   positional?: number;
 }
+
 export interface ActionManifest {
   description: string;
   args: JsonSchema;
@@ -95,6 +105,7 @@ export interface ActionManifest {
   inferenceWhen?: string[];
   examples: string[];
 }
+
 export interface Manifest {
   schemaVersion: 1;
   sdkVersion: string;
@@ -106,35 +117,43 @@ export interface Manifest {
   config: JsonSchema;
   actions: Record<string, ActionManifest>;
 }
+
 export function hash(value: string | Uint8Array): string {
   return createHash('sha256').update(value).digest('hex');
 }
+
 export function stable(value: unknown): string {
   return canonical(value as Json);
 }
+
 export function manifest(
   command: { type: string; version: string; description: string; config: z.ZodType; actions: Record<string, Action> },
   sourceHash: string,
   dependencies: Record<string, string> = {},
 ): Manifest {
   const actions: Record<string, ActionManifest> = {};
+
   for (const [name, action] of Object.entries(command.actions)) {
     if (!/^[a-z][a-zA-Z0-9]*$/.test(name)) throw new RibbitError(2, 'Invalid action name');
     const args = schemaToJson(action.args) as JsonSchema;
+
     if (args.type !== 'object') throw new RibbitError(2, 'Action args must be a strict object');
     const flags = new Set<string>();
     const positions = action.cli?.positionals ?? [];
+
     if (new Set(positions).size !== positions.length || positions.some((p) => !Object.hasOwn(args.properties ?? {}, p)))
       throw new RibbitError(2, 'Invalid positional mapping');
     const bindings = Object.entries(args.properties ?? {}).map(([field, raw]) => {
       const property = raw as JsonSchema;
       const flag = field.replace(/[A-Z]/g, (x) => `-${x.toLowerCase()}`);
+
       if (RUNTIME_FLAGS.has(flag) || flags.has(flag) || !/^[a-z][a-z0-9-]*$/.test(flag))
         throw new RibbitError(2, `Reserved or colliding flag: --${flag}`);
       flags.add(flag);
       const repeated =
         property.type === 'array' && ['string', 'number', 'integer', 'boolean'].includes(property.items?.type);
       const type = repeated ? property.items.type : (property.type ?? 'json');
+
       return {
         field,
         flag,
@@ -143,6 +162,7 @@ export function manifest(
         ...(positions.includes(field) ? { positional: positions.indexOf(field) } : {}),
       };
     });
+
     actions[name] = {
       description: action.description,
       args,
@@ -171,6 +191,8 @@ export function manifest(
     config: schemaToJson(command.config),
     actions,
   };
+
   stable(result);
+
   return result;
 }

@@ -2,6 +2,7 @@ import { test, expect } from 'bun:test';
 import { planFlow, executeFlow } from '../../src/flows/index.ts';
 import { configSchema } from '../../src/config/index.ts';
 import { Budget, RibbitError } from '../../src/sdk/index.ts';
+
 const config = configSchema.parse({});
 const flow = (steps: unknown[], output?: unknown) => ({
   apiVersion: 'ribbit/v1',
@@ -10,6 +11,7 @@ const flow = (steps: unknown[], output?: unknown) => ({
   steps,
   ...(output === undefined ? {} : { output }),
 });
+
 test('flow plans reject future references and duplicate IDs without inference', async () => {
   await expect(
     planFlow(flow([{ id: 'a', command: 'take', args: { count: 1 }, input: { $ref: 'steps.b.output' } }]), config),
@@ -34,6 +36,7 @@ test('linear record flow streams and take stops upstream', async () => {
   );
   let pulls = 0;
   const budget = new Budget();
+
   try {
     const result = await executeFlow(
       plan,
@@ -49,6 +52,7 @@ test('linear record flow streams and take stops upstream', async () => {
       budget,
       config,
     );
+
     expect(result.kind).toBe('records');
     if (result.kind === 'records') expect((await Array.fromAsync(result.records)).map((r) => r.value)).toEqual([0]);
     expect(pulls).toBe(1);
@@ -68,6 +72,7 @@ test('reused outputs retain values and reject missing field paths', async () => 
     config,
   );
   const budget = new Budget();
+
   try {
     const out = await executeFlow(
       plan,
@@ -81,6 +86,7 @@ test('reused outputs retain values and reject missing field paths', async () => 
       budget,
       config,
     );
+
     expect(out.kind).toBe('records');
     if (out.kind === 'records') expect((await Array.fromAsync(out.records)).length).toBe(2);
   } finally {
@@ -112,6 +118,7 @@ test('parallel references share one materialization without losing rows', async 
   );
   let pulls = 0;
   const budget = new Budget();
+
   try {
     const out = await executeFlow(
       plan,
@@ -127,9 +134,11 @@ test('parallel references share one materialization without losing rows', async 
       budget,
       config,
     );
+
     expect(out.kind).toBe('json');
     if (out.kind === 'json') {
       const value = out.value as any;
+
       expect(value.left).toEqual(value.right);
       expect(value.left.length).toBe(2);
     }
@@ -147,6 +156,7 @@ test('unconsumed intermediate stream failures stop later independent steps', asy
     config,
   );
   const budget = new Budget();
+
   try {
     await expect(
       executeFlow(
@@ -217,9 +227,11 @@ test('step routes honor precedence and force-profile; take stays off-network', a
     ],
   };
   const plan = await planFlow(raw, routed);
+
   expect(plan.steps[0].route).toBeNull();
   expect((plan.steps[1].route as any).model).toBe('quality-model');
   const forced = await planFlow(raw, routed, 'fast');
+
   expect((forced.steps[1].route as any).model).toBe('fast-model');
   expect((forced.steps[1].route as any).source.model).toBe('forceProfile');
 });
@@ -232,6 +244,7 @@ test('cancellation and shared record budgets stop later flow work', async () => 
     config,
   );
   const cancelled = new Budget();
+
   cancelled.controller.abort(new RibbitError(130, 'Cancelled'));
   try {
     await expect(
@@ -251,6 +264,7 @@ test('cancellation and shared record budgets stop later flow work', async () => 
     cancelled.close();
   }
   const budget = new Budget({ maxRecords: 2 });
+
   try {
     const out = await executeFlow(
       await planFlow(flow([{ id: 'a', command: 'take', args: { count: 5 } }]), config),
@@ -263,6 +277,7 @@ test('cancellation and shared record budgets stop later flow work', async () => 
       budget,
       config,
     );
+
     if (out.kind === 'records') await expect(Array.fromAsync(out.records)).rejects.toMatchObject({ code: 6 });
   } finally {
     budget.close();

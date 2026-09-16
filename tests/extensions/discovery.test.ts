@@ -3,12 +3,14 @@ import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { addExtension } from '../../src/extensions/build/index.ts';
+
 test('catalog/help/completions/plan do not import installed code or invoke fetch', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'ribbit-discovery-')),
     source = join(dir, 'source'),
     marker = join(dir, 'imports'),
     guard = join(dir, 'guard.ts'),
     data = join(dir, 'data');
+
   try {
     await mkdir(source);
     await writeFile(
@@ -17,6 +19,7 @@ test('catalog/help/completions/plan do not import installed code or invoke fetch
     );
     await addExtension(source, join(data, 'ribbit', 'extensions'));
     const initial = await readFile(marker, 'utf8');
+
     await mkdir(join(dir, 'commands'));
     await writeFile(
       join(dir, 'commands', 'echo.yaml'),
@@ -48,6 +51,7 @@ test('catalog/help/completions/plan do not import installed code or invoke fetch
         new Response(p.stderr).text(),
         p.exited,
       ]);
+
       expect({ args, code, err }).toEqual({ args, code: 0, err: '' });
       expect(out.length).toBeGreaterThan(0);
       expect(await readFile(marker, 'utf8')).toBe(initial);
@@ -59,6 +63,7 @@ test('catalog/help/completions/plan do not import installed code or invoke fetch
       stdout: 'pipe',
       stderr: 'pipe',
     });
+
     expect(await new Response(run.stdout).text()).toBe('offline\n');
     expect(await run.exited).toBe(0);
     expect(await readFile(marker, 'utf8')).toBe(initial + 'import\n');

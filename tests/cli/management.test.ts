@@ -2,9 +2,11 @@ import { test, expect } from 'bun:test';
 import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { tmpdir } from 'node:os';
+
 test('failed configuration update preserves prior bytes and route inspection hides secret values', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'ribbit-management-'));
   const env = { ...process.env, XDG_CONFIG_HOME: dir, RIBBIT_TEST_KEY: 'NEVER-PRINT-THIS' };
+
   async function run(args: string[]) {
     const p = Bun.spawn(['bun', resolve('src/cli/main.ts'), ...args], {
       cwd: dir,
@@ -13,8 +15,10 @@ test('failed configuration update preserves prior bytes and route inspection hid
       stdout: 'pipe',
       stderr: 'pipe',
     });
+
     return { out: await new Response(p.stdout).text(), err: await new Response(p.stderr).text(), code: await p.exited };
   }
+
   try {
     expect(
       (
@@ -46,9 +50,11 @@ test('failed configuration update preserves prior bytes and route inspection hid
       '--max-output-tokens',
       '-1',
     ]);
+
     expect(invalid.code).not.toBe(0);
     expect(await readFile(path, 'utf8')).toBe(before);
     const inspect = await run(['route', 'inspect', 'ask', '--provider', 'local', '--json']);
+
     expect(inspect.code).toBe(0);
     expect(inspect.out + inspect.err).not.toContain('NEVER-PRINT-THIS');
     expect(inspect.out).not.toContain('RIBBIT_TEST_KEY');

@@ -11,10 +11,12 @@ import { dispatch } from '../../extensions/runtime/index.ts';
 import { loadInstalled } from '../../extensions/install/index.ts';
 import { builtins } from '../../catalog/index.ts';
 import { collect } from '../../builtins/primitives.ts';
+
 export type Data =
   | { kind: 'records'; records: AsyncIterable<RecordValue> }
   | { kind: 'text' | 'json'; value: unknown }
   | { kind: 'textStream'; chunks: AsyncIterable<string> };
+
 export interface Invocation {
   name: string;
   manifest: Manifest;
@@ -23,9 +25,11 @@ export interface Invocation {
   config: Record<string, unknown>;
   inference?: Inference;
 }
+
 export function requiresInference(action: ActionManifest, args: Record<string, any>) {
   return action.capabilities.length > 0 && (!action.inferenceWhen || action.inferenceWhen.some((key) => !!args[key]));
 }
+
 export function routeFor(
   invocation: Invocation,
   config: Config,
@@ -33,7 +37,9 @@ export function routeFor(
   force?: string,
 ): Route | undefined {
   const action = invocation.manifest.actions[invocation.action];
+
   if (!requiresInference(action, invocation.args)) return undefined;
+
   return resolveRoute(
     config,
     {
@@ -45,6 +51,7 @@ export function routeFor(
     action.capabilities,
   );
 }
+
 export async function runInvocation(
   invocation: Invocation,
   input: Data,
@@ -56,11 +63,14 @@ export async function runInvocation(
 ): Promise<Data> {
   layers = { project: await loadProjectInference(join(process.cwd(), '.ribbit.yaml')), ...layers };
   const action = invocation.manifest.actions[invocation.action];
+
   if (!action) throw new RibbitError(2, 'Unknown action');
   let llm: ManagedInference | undefined;
+
   function inference() {
     if (!llm) {
       const route = routeFor(invocation, config, layers, force);
+
       if (!route) throw new RibbitError(3, 'Action did not declare inference');
       budget.routes.push({ provider: route.provider, model: route.model, source: route.source });
       llm = new ManagedInference(
@@ -69,8 +79,10 @@ export async function runInvocation(
         budget,
       );
     }
+
     return llm;
   }
+
   const ctx: Context = {
     inputKind: input.kind,
     budget,
@@ -81,8 +93,10 @@ export async function runInvocation(
       object: (instruction, evidence, schema) => inference().object(instruction, evidence, schema),
     },
   };
+
   if (input.kind === 'textStream') {
     let value = '';
+
     for await (const chunk of input.chunks) {
       value += chunk;
       if (Buffer.byteLength(value) > budget.limits.maxBytes)
@@ -91,6 +105,7 @@ export async function runInvocation(
     input = { kind: 'text', value };
   }
   let value: unknown;
+
   if (action.inputKind === 'records') {
     if (input.kind !== 'records')
       throw new RibbitError(2, 'This command requires records; use --input lines or --input jsonl');
@@ -108,10 +123,12 @@ export async function runInvocation(
   let cleanup = () => {};
   const abort = new Promise<never>((_, reject) => {
     const listener = () => reject(budget.signal.reason);
+
     cleanup = () => budget.signal.removeEventListener('abort', listener);
     budget.signal.addEventListener('abort', listener, { once: true });
     if (budget.signal.aborted) listener();
   });
+
   try {
     result = await Promise.race([pending, abort]);
   } finally {
@@ -125,13 +142,16 @@ export async function runInvocation(
             if (!Array.isArray(result)) throw new RibbitError(5, 'Expected record array');
             yield* result;
           })();
+
     return {
       kind: 'records',
       records: (async function* () {
         const ids = new Set<string>();
+
         for await (const row of iterable) {
           budget.check();
           let record: RecordValue;
+
           try {
             record = validateRecord(row);
           } catch {
@@ -157,6 +177,7 @@ export async function runInvocation(
         }
       })(),
     };
+
   return {
     kind:
       action.outputKind === 'json' || (action.outputKind === 'display' && typeof result !== 'string') ? 'json' : 'text',

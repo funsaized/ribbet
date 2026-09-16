@@ -1,5 +1,6 @@
 import { type Config, type Inference, type Provider, inferenceSchema } from '../config/index.ts';
 import { RibbitError } from '../engine/records/index.ts';
+
 export const LAYERS = [
   'global',
   'project',
@@ -10,7 +11,9 @@ export const LAYERS = [
   'step',
   'cli',
 ] as const;
+
 export type Layer = (typeof LAYERS)[number];
+
 export interface Route {
   provider: string;
   model: string;
@@ -21,6 +24,7 @@ export interface Route {
   source: Record<string, string>;
   endpoint: Provider;
 }
+
 export function resolveRoute(
   config: Config,
   layers: Partial<Record<Layer, Inference>>,
@@ -29,20 +33,26 @@ export function resolveRoute(
 ): Route {
   let route: Partial<Inference> = {},
     source: Record<string, string> = {};
+
   for (const name of LAYERS) {
     const raw = name === 'global' ? (layers.global ?? config.default) : layers[name];
+
     if (!raw) continue;
     const parsed = inferenceSchema.safeParse(raw);
+
     if (!parsed.success) throw new RibbitError(3, `Invalid inference fields at ${name}`);
     const layer = parsed.data;
+
     if (layer.profile !== undefined) {
       const profile = config.profiles[layer.profile];
+
       if (!profile) throw new RibbitError(3, `Unknown profile at ${name}`);
       route = { ...route, ...profile, provider: profile.provider, model: profile.model };
       for (const key of Object.keys(profile)) source[key] = name;
     }
     if (layer.provider !== undefined) {
       const provider = config.providers[layer.provider];
+
       if (!provider) throw new RibbitError(3, `Unknown provider at ${name}`);
       route.provider = layer.provider;
       route.model = provider.defaultModel;
@@ -60,12 +70,14 @@ export function resolveRoute(
   }
   if (forceProfile !== undefined) {
     const profile = config.profiles[forceProfile];
+
     if (!profile) throw new RibbitError(3, 'Unknown force-profile');
     route = { ...profile };
     source = Object.fromEntries(Object.keys(profile).map((key) => [key, 'forceProfile']));
   }
   if (!route.provider || !route.model) throw new RibbitError(3, 'No complete route; configure a provider and model');
   const endpoint = config.providers[route.provider];
+
   if (!endpoint) throw new RibbitError(3, 'Resolved provider is not configured');
   if (endpoint.models && !endpoint.models.includes(route.model))
     throw new RibbitError(3, 'Resolved model is not in provider model allowlist');
@@ -75,16 +87,21 @@ export function resolveRoute(
     ...(route.maxOutputTokens === undefined ? [] : ['maxOutputTokens']),
     ...(route.reasoning === undefined ? [] : ['reasoning']),
   ];
+
   for (const capability of required)
     if (!endpoint.capabilities.includes(capability as Provider['capabilities'][number]))
       throw new RibbitError(3, `Provider does not support ${capability}`);
+
   return { ...route, provider: route.provider, model: route.model, source, endpoint };
 }
+
 export function commandRoute(config: Config, name: string, typeAction?: string): Inference | undefined {
   return config.routes[name] ?? (typeAction ? config.routes[typeAction] : undefined);
 }
+
 export function inspectRoute(route: Route) {
   const { endpoint, ...safe } = route;
+
   return {
     schemaVersion: 1,
     ...safe,

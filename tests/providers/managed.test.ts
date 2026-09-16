@@ -5,6 +5,7 @@ import { ManagedInference, schemaToJson } from '../../src/engine/inference/index
 import { type Adapter, TransportError } from '../../src/providers/interface/index.ts';
 import { configSchema } from '../../src/config/index.ts';
 import { resolveRoute } from '../../src/routing/index.ts';
+
 const config = configSchema.parse({
   providers: {
     local: {
@@ -17,6 +18,7 @@ const config = configSchema.parse({
   default: { provider: 'local' },
 });
 const route = resolveRoute(config, {});
+
 test('structured repair is bounded and usage remains unknown when omitted', async () => {
   let calls = 0;
   const adapter: Adapter = {
@@ -27,6 +29,7 @@ test('structured repair is bounded and usage remains unknown when omitted', asyn
   };
   const budget = new Budget();
   const llm = new ManagedInference(adapter, route, budget);
+
   try {
     expect(await llm.object('extract', 'evidence', z.strictObject({ ok: z.boolean() }))).toEqual({ ok: true });
     expect(llm.repairs).toBe(1);
@@ -51,6 +54,7 @@ test('truncation fails, schema failures stop after one repair', async () => {
     };
     const budget = new Budget();
     const llm = new ManagedInference(adapter, route, budget);
+
     try {
       await expect(llm.object('extract', 'evidence', z.strictObject({ ok: z.boolean() }))).rejects.toMatchObject({
         code: 4,
@@ -73,6 +77,7 @@ test('bounded retry shares request budget and never switches route', async () =>
   };
   const budget = new Budget();
   const llm = new ManagedInference(adapter, route, budget);
+
   try {
     expect(await llm.text('ask', '')).toBe('ok');
     expect(budget.requests).toBe(2);
@@ -92,6 +97,7 @@ test('stream uses same accounting and consumer cancellation', async () => {
   };
   const budget = new Budget();
   const llm = new ManagedInference(adapter, route, budget);
+
   try {
     expect(await Array.fromAsync(llm.stream('ask', ''))).toEqual(['a', 'b']);
     expect(budget.requests).toBe(1);
@@ -113,6 +119,7 @@ test('early stream break aborts provider without deadlocking handoff', async () 
   };
   const budget = new Budget();
   const llm = new ManagedInference(adapter, route, budget);
+
   try {
     for await (const text of llm.stream('ask', '')) {
       expect(text).toBe('a');

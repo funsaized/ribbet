@@ -1,7 +1,9 @@
 import { test, expect } from 'bun:test';
 import { z, defineAction, defineCommand, recordSchema } from '../../src/sdk/index.ts';
 import { manifest, hash, stable, schemaToJson } from '../../src/sdk/manifest/index.ts';
+
 const config = z.strictObject({});
+
 function command(
   args = z.strictObject({
     nested: z.strictObject({ answer: z.string() }),
@@ -29,8 +31,10 @@ function command(
     },
   });
 }
+
 test('one deterministic manifest contains nested schemas and generated flags', () => {
   const a = manifest(command(), hash('source'));
+
   expect(stable(a)).toBe(stable(manifest(command(), hash('source'))));
   expect(a.actions.run.bindings.find((b) => b.field === 'maxWords')?.flag).toBe('max-words');
   expect(a.actions.run.args.properties.nested.properties.answer.type).toBe('string');
@@ -51,6 +55,7 @@ test('reserved flag and runtime code transforms/refinements fail export', () => 
 });
 test('record envelopes export JSON value and annotation contracts', () => {
   const schema = schemaToJson(recordSchema) as any;
+
   expect(schema.type).toBe('object');
   expect(schema.additionalProperties).toBe(false);
 });

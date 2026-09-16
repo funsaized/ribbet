@@ -9,18 +9,22 @@ export interface RankExpected {
   order: string[];
   top?: number;
 }
+
 export interface GroupExpected {
   partition: string[][];
 }
+
 export interface FactExpected {
   mustContain: string[];
   mustNotContain: string[];
 }
+
 export interface CompareExpected {
   leftOnly: string[];
   rightOnly: string[];
   mustNotContain: string[];
 }
+
 export interface ExplainExpected {
   mustContain: string[];
   mustNotContain: string[];
@@ -56,6 +60,7 @@ export function scoreRank(
   const top = expected.top ?? actualOrder.length;
   const prefix = actualOrder.slice(0, top);
   const orderOk = setEq(prefix, expected.order.slice(0, top)) && prefix.every((id, i) => id === expected.order[i]);
+
   return {
     command: 'rank',
     criteria: [
@@ -83,6 +88,7 @@ export function scoreGroup(
   const labels =
     actualGroups.every((g) => g.label.trim().length > 0) &&
     new Set(actualGroups.map((g) => g.label.trim())).size === actualGroups.length;
+
   return {
     command: 'group',
     criteria: [
@@ -104,6 +110,7 @@ export function scoreReduce(text: string, expected: FactExpected, criteria: stri
   const coverage = expected.mustContain.every((f) => has(text, f));
   const fidelity = expected.mustNotContain.length === 0 || !hasAny(text, expected.mustNotContain);
   const coherent = text.trim().length > 20 && !/\n\s*\{"/.test(text); // not raw record passthrough
+
   return {
     command: 'reduce',
     criteria: [
@@ -126,6 +133,7 @@ export function scoreCompare(
   const leftCovered = expected.leftOnly.every((f) => has(text, f));
   const rightCovered = expected.rightOnly.every((f) => has(text, f));
   const noConflation = expected.mustNotContain.length === 0 || !hasAny(text, expected.mustNotContain);
+
   return {
     command: 'compare',
     criteria: [
@@ -144,6 +152,7 @@ export function scoreExplain(text: string, expected: ExplainExpected, criteria: 
   const fidelity = expected.mustNotContain.length === 0 || !hasAny(text, expected.mustNotContain);
   const audience = !expected.forbid || expected.forbid.length === 0 || !hasAny(text, expected.forbid);
   const coherent = text.trim().length > 20;
+
   return {
     command: 'explain',
     criteria: [

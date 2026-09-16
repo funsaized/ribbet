@@ -2,6 +2,7 @@ import { test, expect } from 'bun:test';
 import { z, defineAction, defineCommand } from '../../src/sdk/index.ts';
 import { manifest, hash } from '../../src/sdk/manifest/index.ts';
 import { parseAction } from '../../src/cli/parser/index.ts';
+
 const config = z.strictObject({});
 const cmd = defineCommand({
   type: '@test/parse',
@@ -29,6 +30,7 @@ const cmd = defineCommand({
   },
 });
 const action = manifest(cmd, hash('x')).actions.run;
+
 test('generated positional/scalar/repeated flags and runtime separation', () => {
   expect(
     parseAction(['hello world', '--rule', 'a', '--rule', 'b', '--count', '2', '--profile', 'local'], action),

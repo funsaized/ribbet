@@ -6,6 +6,7 @@ import { addExtension } from '../extensions/build/index.ts';
 import { loadInstalled } from '../extensions/install/index.ts';
 import { dispatch } from '../extensions/runtime/index.ts';
 import { Budget, type Context, RibbitError } from '../sdk/index.ts';
+
 export async function scaffold(path: string, type = `@local/${basename(resolve(path))}`) {
   if (!/^@[a-z0-9-]+\/[a-z0-9-]+$/.test(type)) throw new RibbitError(2, 'Use a scoped type such as @local/example');
   await mkdir(dirname(resolve(path)), { recursive: true });
@@ -41,18 +42,23 @@ export async function scaffold(path: string, type = `@local/${basename(resolve(p
       2,
     ) + '\n',
   );
+
   return { path: resolve(path), type, next: `ribbit extensions check ${path}` };
 }
+
 export async function testExtension(path: string) {
   const temp = await mkdtemp(join(tmpdir(), 'ribbit-fixtures-'));
   const results: any[] = [];
+
   try {
     const item = await addExtension(path, temp),
       command = await loadInstalled(item.manifest.type, temp);
     const files = (await readdir(join(path, 'fixtures'))).filter((f) => f.endsWith('.json')).toSorted();
+
     if (!files.length) throw new RibbitError(2, 'No fixtures found');
     for (const file of files) {
       let fixture: any;
+
       try {
         fixture = JSON.parse(await readFile(join(path, 'fixtures', file), 'utf8'));
       } catch {
@@ -69,16 +75,20 @@ export async function testExtension(path: string) {
         llm: {
           async text() {
             if (index >= responses.length) throw new RibbitError(5, 'Fixture inference response missing');
+
             return String(responses[index++]);
           },
           async object(_i, _e, schema) {
             if (index >= responses.length) throw new RibbitError(5, 'Fixture inference response missing');
+
             return schema.parse(responses[index++]);
           },
         },
       };
+
       try {
         let input = fixture.input;
+
         if (command.actions[fixture.action ?? 'run'].mode === 'records')
           input = (async function* () {
             yield* fixture.input;
@@ -91,6 +101,7 @@ export async function testExtension(path: string) {
           fixture.config ?? {},
           ctx,
         );
+
         if (actual && typeof (actual as any)[Symbol.asyncIterator] === 'function')
           actual = await Array.fromAsync(actual as AsyncIterable<unknown>);
         results.push({ file, pass: !fixture.error && isDeepStrictEqual(actual, fixture.expected) });
@@ -106,11 +117,13 @@ export async function testExtension(path: string) {
         budget.close();
       }
     }
+
     return { passed: results.filter((r) => r.pass).length, failed: results.filter((r) => !r.pass).length, results };
   } finally {
     await rm(temp, { recursive: true, force: true });
   }
 }
+
 export async function initGuidance(agent: string) {
   const paths: Record<string, string> = {
     codex: 'AGENTS.md',
@@ -118,16 +131,20 @@ export async function initGuidance(agent: string) {
     cursor: '.cursor/rules/ribbit.mdc',
     opencode: 'AGENTS.md',
   };
+
   if (!paths[agent]) throw new RibbitError(2, 'Choose codex, claude, cursor or opencode');
   const path = paths[agent];
+
   await mkdir(dirname(path), { recursive: true });
   let existing = '';
+
   try {
     existing = await readFile(path, 'utf8');
   } catch (e) {
     if ((e as NodeJS.ErrnoException).code !== 'ENOENT') throw e;
   }
   const marker = '<!-- ribbit guidance -->';
+
   if (!existing.includes(marker))
     await writeFile(
       path,

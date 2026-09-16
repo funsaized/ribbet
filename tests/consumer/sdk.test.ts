@@ -1,6 +1,7 @@
 import { test, expect } from 'bun:test';
 // Consumer imports only the public SDK entry point, never engine internals.
 import { defineAction, defineCommand, z } from '../../src/sdk/index.ts';
+
 test('external command type composes from public exports', () => {
   const config = z.strictObject({});
   const command = defineCommand({
@@ -22,5 +23,6 @@ test('external command type composes from public exports', () => {
       }),
     },
   });
+
   expect(command.actions.run.execute({ input: 'hello', args: {}, config: {} }, {} as never)).toBe(5);
 });

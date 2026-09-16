@@ -9,9 +9,11 @@ import {
   type RecordValue,
 } from '../sdk/index.ts';
 import { field, evidence, requireEvidence, collect, prompt, externalSchema, textFile } from './primitives.ts';
+
 const config = z.strictObject({});
 const rule = z.array(z.string()).default([]);
 const instruction = z.string().min(1);
+
 function command(
   name: string,
   description: string,
@@ -43,7 +45,9 @@ function command(
     },
   });
 }
+
 const positional = (...positionals: string[]) => ({ positionals });
+
 export const semanticCommands = {
   ask: command(
     'ask',
@@ -51,6 +55,7 @@ export const semanticCommands = {
     z.strictObject({ instruction, rule }),
     async ({ args, input }, ctx) => {
       const a = args as any;
+
       return ctx.llm.text(prompt(a.instruction, a.rule), evidence(input));
     },
     { cli: positional('instruction') },
@@ -65,8 +70,10 @@ export const semanticCommands = {
         prompt(`Summarize in no more than ${a.words} whitespace-separated words.`, a.rule),
         requireEvidence(input),
       );
+
       if (text.trim().split(/\s+/u).filter(Boolean).length > a.words)
         throw new RibbitError(4, 'Summary exceeds requested word maximum');
+
       return text;
     },
   ),
@@ -76,6 +83,7 @@ export const semanticCommands = {
     z.strictObject({ focus: z.string().optional(), audience: z.string().default('developer') }),
     async ({ args, input }, ctx) => {
       const a = args as any;
+
       return ctx.llm.text(
         prompt(
           `Explain for ${a.audience}. Focus: ${a.focus ?? 'overall meaning'}. Distinguish evidence from uncertainty; never claim execution.`,
@@ -91,6 +99,7 @@ export const semanticCommands = {
     z.strictObject({ instruction, rule }),
     async ({ args, input }, ctx) => {
       const a = args as any;
+
       return ctx.llm.text(
         prompt(`Rewrite: ${a.instruction}. Preserve supplied facts unless explicitly told to transform them.`, a.rule),
         requireEvidence(input),
@@ -105,6 +114,7 @@ export const semanticCommands = {
     async ({ args, input }, ctx) => {
       const a = args as any;
       const schema = await externalSchema(a.schema);
+
       return ctx.llm.object(
         prompt(`${a.instruction}. Do not invent missing facts; use permitted null/empty values.`),
         requireEvidence(input),
@@ -127,19 +137,23 @@ export const semanticCommands = {
       const specs = [...(a.labels?.split(',') ?? []), ...(a.label ?? [])];
       const parsed = specs.map((s: string) => {
         const i = s.indexOf('=');
+
         return i === -1
           ? { name: s.trim(), description: '' }
           : { name: s.slice(0, i).trim(), description: s.slice(i + 1).trim() };
       });
+
       if (a.unknownLabel && !parsed.some((p: any) => p.name === a.unknownLabel))
         parsed.push({ name: a.unknownLabel, description: '' });
       const names = parsed.map((p: any) => p.name);
+
       if (!names.length || names.some((n: string) => !n) || new Set(names).size !== names.length)
         throw new RibbitError(2, 'Provide unique nonempty labels');
       const legend =
         '\n' +
         parsed.map((p: any) => `- ${JSON.stringify(p.name)}${p.description ? `: ${p.description}` : ''}`).join('\n');
       const schema = z.strictObject({ reason: z.string().min(1), label: z.enum(names as [string, ...string[]]) });
+
       for await (const raw of input as AsyncIterable<RecordValue>) {
         const r = raw as RecordValue;
         const result = await ctx.llm.object(
@@ -149,6 +163,7 @@ export const semanticCommands = {
           evidence(a.field ? field(r.value, a.field) : r.value),
           schema,
         );
+
         yield { ...r, annotations: { ...r.annotations, classify: { label: result.label } } };
       }
     },
@@ -168,12 +183,14 @@ export const semanticCommands = {
     z.strictObject({ instruction, field: z.string().optional() }),
     async function* ({ args, input }, ctx) {
       const a = args as any;
+
       for await (const r of input as AsyncIterable<RecordValue>) {
         const result = await ctx.llm.object(
           prompt(`Decide whether this record matches: ${a.instruction}`),
           evidence(a.field ? field(r.value, a.field) : r.value),
           z.strictObject({ match: z.boolean() }),
         );
+
         if (result.match) yield r;
       }
     },
@@ -195,11 +212,13 @@ export const semanticCommands = {
     async function* ({ args, input }, ctx) {
       const a = args as any;
       const schema = a.schema ? await externalSchema(a.schema) : null;
+
       for await (const r of input as AsyncIterable<RecordValue>) {
         const data = evidence(a.field ? field(r.value, a.field) : r.value);
         const value = schema
           ? await ctx.llm.object(prompt(a.instruction), data, schema)
           : await ctx.llm.text(prompt(a.instruction), data);
+
         yield { ...r, value, annotations: { ...r.annotations, map: { originId: r.id } } };
       }
     },
@@ -221,12 +240,14 @@ export const semanticCommands = {
     async function* ({ args, input }, ctx) {
       const a = args as any;
       const rows = await collect(input as AsyncIterable<unknown>, 200);
+
       if (!rows.length) return;
       const result = await ctx.llm.object(
         prompt(`Rank all supplied IDs by: ${a.instruction}. Return each ID exactly once.`),
         JSON.stringify(rows.map((r) => ({ id: r.id, value: a.field ? field(r.value, a.field) : r.value }))),
         z.strictObject({ ids: z.array(z.string()) }),
       );
+
       if (
         result.ids.length !== rows.length ||
         new Set(result.ids).size !== rows.length ||
@@ -253,6 +274,7 @@ export const semanticCommands = {
     async function* ({ args, input }, ctx) {
       const a = args as any,
         rows = await collect(input as AsyncIterable<unknown>, 200);
+
       if (!rows.length) return;
       const result = await ctx.llm.object(
         prompt(`Partition records by: ${a.instruction}. Every supplied ID must belong to exactly one nonempty group.`),
@@ -262,6 +284,7 @@ export const semanticCommands = {
         }),
       );
       const ids = result.groups.flatMap((g) => g.ids);
+
       if (
         ids.length !== rows.length ||
         new Set(ids).size !== rows.length ||
@@ -270,6 +293,7 @@ export const semanticCommands = {
         throw new RibbitError(4, 'Groups must partition input IDs exactly once');
       for (const [index, g] of result.groups.entries()) {
         const id = `group-${index + 1}`;
+
         yield {
           id,
           value: { id, label: g.label, members: g.ids.map((memberId) => rows.find((r) => r.id === memberId)!) },
@@ -299,14 +323,17 @@ export const semanticCommands = {
     async ({ args, input }, ctx) => {
       const a = args as any,
         text = requireEvidence(input);
+
       if (a.strategy === 'direct')
         return ctx.llm.text(prompt(`${a.instruction}. Distinguish observations from hypotheses.`), text);
       const chunks: string[] = [];
       let pending = '',
         bytes = 0,
         offset = 0;
+
       for (const char of text) {
         const size = Buffer.byteLength(char);
+
         if (size > a.chunkBytes) throw new RibbitError(2, 'chunkBytes cannot split a UTF-8 codepoint');
         if (bytes + size > a.chunkBytes && pending) {
           ctx.log(JSON.stringify({ event: 'reduce.chunk', start: offset, end: offset + bytes }));
@@ -322,6 +349,7 @@ export const semanticCommands = {
         ctx.log(JSON.stringify({ event: 'reduce.chunk', start: offset, end: offset + bytes }));
         chunks.push(await ctx.llm.text(prompt(a.instruction), pending));
       }
+
       return ctx.llm.text(
         prompt(`${a.instruction}. Combine the partial summaries without inventing evidence.`),
         chunks.join('\n\n'),
@@ -337,6 +365,7 @@ export const semanticCommands = {
       const a = args as any;
       const left = await textFile(a.paths[0]),
         right = await textFile(a.paths[1]);
+
       if (!left.trim() || !right.trim()) throw new RibbitError(2, 'Comparison evidence is empty');
       const result = await ctx.llm.text(
         prompt(
@@ -347,6 +376,7 @@ export const semanticCommands = {
           { path: a.paths[1], content: right },
         ]),
       );
+
       return `Sources: ${a.paths[0]} | ${a.paths[1]}\n${result}`;
     },
     { cli: positional('paths'), inputKind: 'none' },

@@ -11,17 +11,21 @@ import {
 test('rank passes only on exact criterion order and full identity', () => {
   const expected = { order: ['a', 'c', 'b'] };
   const good = scoreRank(['a', 'c', 'b'], ['a', 'b', 'c'], expected, true);
+
   expect(good.pass).toBe(true);
 
   const wrongOrder = scoreRank(['a', 'b', 'c'], ['a', 'b', 'c'], expected, true);
+
   expect(wrongOrder.pass).toBe(false);
   expect(wrongOrder.criteria[1].pass).toBe(false);
 
   const missingId = scoreRank(['a', 'c'], ['a', 'b', 'c'], expected, true);
+
   expect(missingId.pass).toBe(false);
   expect(missingId.criteria[0].pass).toBe(false);
 
   const alteredValues = scoreRank(['a', 'c', 'b'], ['a', 'b', 'c'], expected, false);
+
   expect(alteredValues.pass).toBe(false);
 });
 
@@ -37,6 +41,7 @@ test('group passes on exact partition and nonempty distinct labels', () => {
     expected,
     true,
   );
+
   expect(good.pass).toBe(true);
 
   const wrongSplit = scoreGroup(
@@ -49,6 +54,7 @@ test('group passes on exact partition and nonempty distinct labels', () => {
     expected,
     true,
   );
+
   expect(wrongSplit.pass).toBe(false);
 
   const duplicateLabel = scoreGroup(
@@ -61,6 +67,7 @@ test('group passes on exact partition and nonempty distinct labels', () => {
     expected,
     true,
   );
+
   expect(duplicateLabel.pass).toBe(false);
   expect(duplicateLabel.criteria[2].pass).toBe(false);
 });
@@ -72,6 +79,7 @@ test('reduce scores fact coverage, fabrication absence and coherence', () => {
     expected,
     rubricText.reduce,
   );
+
   expect(good.pass).toBe(true);
 
   const hallucinated = scoreReduce(
@@ -79,10 +87,12 @@ test('reduce scores fact coverage, fabrication absence and coherence', () => {
     expected,
     rubricText.reduce,
   );
+
   expect(hallucinated.pass).toBe(false);
   expect(hallucinated.criteria[1].pass).toBe(false);
 
   const missingFact = scoreReduce('There were some failures on a few hosts.', expected, rubricText.reduce);
+
   expect(missingFact.pass).toBe(false);
   expect(missingFact.criteria[0].pass).toBe(false);
 });
@@ -99,6 +109,7 @@ test('compare scores source labeling, attribution and conflation', () => {
     expected,
     true,
   );
+
   expect(good.pass).toBe(true);
 
   const conflated = scoreCompare(
@@ -107,6 +118,7 @@ test('compare scores source labeling, attribution and conflation', () => {
     expected,
     true,
   );
+
   expect(conflated.pass).toBe(false);
   expect(conflated.criteria[1].pass).toBe(false);
 
@@ -116,6 +128,7 @@ test('compare scores source labeling, attribution and conflation', () => {
     expected,
     false,
   );
+
   expect(modified.pass).toBe(false);
   expect(modified.criteria[3].pass).toBe(false);
 });
@@ -127,6 +140,7 @@ test('explain rejects fabrication, execution claims and audience jargon', () => 
     expected,
     rubricText.explain,
   );
+
   expect(good.pass).toBe(true);
 
   const executed = scoreExplain(
@@ -134,6 +148,7 @@ test('explain rejects fabrication, execution claims and audience jargon', () => 
     expected,
     rubricText.explain,
   );
+
   expect(executed.pass).toBe(false);
   expect(executed.criteria[1].pass).toBe(false);
   expect(executed.criteria[2].pass).toBe(false);

@@ -1,5 +1,6 @@
 import { test, expect } from 'bun:test';
 import { z, defineAction, defineCommand, executeAction, Budget, type Context } from '../../src/sdk/index.ts';
+
 const configSchema = z.strictObject({ prefix: z.string().default('') });
 const action = defineAction({
   config: configSchema,
@@ -14,7 +15,9 @@ const action = defineAction({
     const count: number = args.times;
     // @ts-expect-error inferred numeric default is not a string
     const wrongValue: string = args.times;
+
     void wrongValue;
+
     return config.prefix + input.repeat(count) + (args.suffix ?? '');
   },
 });
@@ -25,8 +28,10 @@ const command = defineCommand({
   config: configSchema,
   actions: { run: action },
 });
+
 function context(): Context {
   const budget = new Budget();
+
   return {
     budget,
     signal: budget.signal,
@@ -41,8 +46,10 @@ function context(): Context {
     },
   };
 }
+
 test('defaults and separate input/args/config validation', async () => {
   const ctx = context();
+
   try {
     expect(await executeAction(command.actions.run, 'x', {}, {}, ctx)).toBe('x');
     await expect(executeAction(action, 'x', { extra: 1 }, {}, ctx)).rejects.toMatchObject({
@@ -60,6 +67,7 @@ test('defaults and separate input/args/config validation', async () => {
 });
 test('output postprocessing cannot bypass validation', async () => {
   const ctx = context();
+
   try {
     const invalid = {
       ...action,
@@ -67,6 +75,7 @@ test('output postprocessing cannot bypass validation', async () => {
         return 42 as unknown as string;
       },
     };
+
     await expect(executeAction(invalid, 'x', {}, {}, ctx)).rejects.toMatchObject({ code: 5, location: 'output' });
   } finally {
     ctx.budget.close();
@@ -88,9 +97,11 @@ test('stream validates each result and retains valid prefix only', async () => {
       yield 42 as unknown as string;
     },
   });
+
   try {
     const result = (await executeAction(streaming, '', {}, {}, ctx)) as AsyncIterable<string>;
     const seen: string[] = [];
+
     await expect(
       (async () => {
         for await (const value of result) seen.push(value);

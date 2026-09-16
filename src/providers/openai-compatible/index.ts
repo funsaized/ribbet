@@ -2,12 +2,15 @@ import { type Adapter, type Event, type Request, reasoningOption } from '../inte
 import { send, responseLines, responseJson, eventJson, type Fetcher } from '../http/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';
 import type { Provider } from '../../config/index.ts';
+
 export class CompatibleAdapter implements Adapter {
   constructor(private fetcher: Fetcher = fetch) {}
   async models(provider: Provider, signal: AbortSignal): Promise<string[]> {
     const value = await responseJson(await send(provider, '/models', signal, undefined, this.fetcher), signal);
+
     if (!Array.isArray(value.data) || value.data.some((m: any) => typeof m.id !== 'string'))
       throw new RibbitError(4, 'Invalid model list');
+
     return value.data.map((m: any) => m.id);
   }
   async *stream(request: Request): AsyncGenerator<Event> {
@@ -37,20 +40,24 @@ export class CompatibleAdapter implements Adapter {
       stopped = false,
       done = false,
       usage: { inputTokens?: number; outputTokens?: number } = {};
+
     function parseEvent(payload: string): Event[] {
       if (done) throw new RibbitError(4, 'Compatible endpoint emitted data after completion');
       if (payload === '[DONE]') {
         if (!stopped) throw new RibbitError(4, 'Missing normal finish reason');
         done = true;
+
         return [{ type: 'done', ...usage }];
       }
       const value = eventJson(payload);
+
       if (value.error || !Array.isArray(value.choices)) throw new RibbitError(4, 'Invalid compatible endpoint event');
       if (value.usage) usage = { inputTokens: value.usage.prompt_tokens, outputTokens: value.usage.completion_tokens };
       if (value.choices.length === 0 && value.usage) return [];
       if (value.choices.length !== 1) throw new RibbitError(4, 'Expected one choice');
       const choice = value.choices[0],
         delta = choice.delta;
+
       if (!delta || delta.refusal || delta.tool_calls || delta.function_call)
         throw new RibbitError(4, 'Provider refusal or unsupported tool/function call');
       if (stopped && delta.content) throw new RibbitError(4, 'Text after finish reason');
@@ -61,8 +68,10 @@ export class CompatibleAdapter implements Adapter {
       }
       if (delta.content !== undefined && delta.content !== null && typeof delta.content !== 'string')
         throw new RibbitError(4, 'Invalid text delta');
+
       return typeof delta.content === 'string' && delta.content ? [{ type: 'text', text: delta.content }] : [];
     }
+
     for await (const line of responseLines(response, signal)) {
       if (!line) {
         if (data.length) {

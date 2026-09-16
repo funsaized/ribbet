@@ -3,14 +3,19 @@ import * as compiled from '../../generated/validators.ts';
 import { hash, stable } from '../../sdk/manifest/index.ts';
 import { RibbitError, isJson } from '../../engine/records/index.ts';
 import type { JsonSchema } from '../../sdk/manifest/index.ts';
+
 let ajv: Ajv2020 | undefined;
+
 function compiler() {
   return (ajv ??= new (require('ajv/dist/2020.js').default)({ allErrors: true, useDefaults: true, strict: false }));
 }
+
 const cache = new WeakMap<object, ReturnType<Ajv2020['compile']>>();
+
 export function validateJson(schema: JsonSchema, value: unknown, location = 'args', code = 2): any {
   if (!isJson(value)) throw new RibbitError(code, 'Expected finite JSON', location);
   let validator = cache.get(schema) ?? (compiled as Record<string, any>)['v' + hash(stable(schema))];
+
   try {
     if (!validator) {
       validator = compiler().compile(schema);
@@ -20,6 +25,7 @@ export function validateJson(schema: JsonSchema, value: unknown, location = 'arg
     throw new RibbitError(2, 'Unsupported or invalid JSON Schema', location);
   }
   const copy = structuredClone(value);
+
   if (!validator(copy))
     throw new RibbitError(
       code,
@@ -27,8 +33,10 @@ export function validateJson(schema: JsonSchema, value: unknown, location = 'arg
         'Schema validation failed',
       location,
     );
+
   return copy;
 }
+
 export function validateExternalSchema(schema: unknown): asserts schema is JsonSchema {
   const allowed = new Set([
     '$schema',
@@ -61,6 +69,7 @@ export function validateExternalSchema(schema: unknown): asserts schema is JsonS
     'examples',
   ]);
   const seen = new Set<unknown>();
+
   function visit(node: any, depth = 0) {
     if (depth > 32 || !node || typeof node !== 'object' || Array.isArray(node) || seen.has(node))
       throw new RibbitError(2, 'Unsupported recursive or invalid schema');
@@ -76,6 +85,7 @@ export function validateExternalSchema(schema: unknown): asserts schema is JsonS
     if (typeof node.additionalProperties === 'object') visit(node.additionalProperties, depth + 1);
     seen.delete(node);
   }
+
   visit(schema);
   try {
     compiler().compile(schema as object);
@@ -83,19 +93,25 @@ export function validateExternalSchema(schema: unknown): asserts schema is JsonS
     throw new RibbitError(2, 'Invalid JSON Schema');
   }
 }
+
 import { z } from 'zod';
+
 export function schemaToZod(schema: JsonSchema): z.ZodType<any> {
   validateExternalSchema(schema);
+
   function convert(s: JsonSchema): z.ZodType<any> {
     let result: z.ZodType<any>;
+
     if (s.const !== undefined) {
       if (s.const !== null && !['string', 'number', 'boolean'].includes(typeof s.const))
         throw new RibbitError(2, 'Only scalar const schemas are supported');
+
       return z.literal(s.const);
     }
     if (s.enum) {
       if (!s.enum.length || s.enum.some((v: any) => v !== null && !['string', 'number', 'boolean'].includes(typeof v)))
         throw new RibbitError(2, 'Only nonempty scalar enums supported');
+
       return z.union(s.enum.map((v: any) => z.literal(v)));
     }
     if (s.anyOf) return z.union(s.anyOf.map(convert));
@@ -104,6 +120,7 @@ export function schemaToZod(schema: JsonSchema): z.ZodType<any> {
     switch (s.type) {
       case 'string': {
         let x = z.string();
+
         if (s.minLength !== undefined) x = x.min(s.minLength);
         if (s.maxLength !== undefined) x = x.max(s.maxLength);
         if (s.pattern) x = x.regex(new RegExp(s.pattern));
@@ -113,6 +130,7 @@ export function schemaToZod(schema: JsonSchema): z.ZodType<any> {
       case 'number':
       case 'integer': {
         let x = z.number();
+
         if (s.type === 'integer') x = x.int();
         if (s.minimum !== undefined) x = x.min(s.minimum);
         if (s.maximum !== undefined) x = x.max(s.maximum);
@@ -131,6 +149,7 @@ export function schemaToZod(schema: JsonSchema): z.ZodType<any> {
       case 'array': {
         if (!s.items) throw new RibbitError(2, 'Array schema requires items');
         let x = z.array(convert(s.items));
+
         if (s.minItems !== undefined) x = x.min(s.minItems);
         if (s.maxItems !== undefined) x = x.max(s.maxItems);
         result = x;
@@ -140,8 +159,10 @@ export function schemaToZod(schema: JsonSchema): z.ZodType<any> {
         if (s.additionalProperties !== false)
           throw new RibbitError(2, 'Extraction object schemas must set additionalProperties:false');
         const properties: Record<string, z.ZodType> = {};
+
         for (const [key, value] of Object.entries(s.properties ?? {})) {
           let property = convert(value as JsonSchema);
+
           if (!(s.required ?? []).includes(key)) property = property.optional();
           properties[key] = property;
         }
@@ -152,7 +173,9 @@ export function schemaToZod(schema: JsonSchema): z.ZodType<any> {
         throw new RibbitError(2, 'Schema requires a supported type, enum, const or anyOf');
     }
     if (s.default !== undefined) result = result.default(s.default);
+
     return result;
   }
+
   return convert(schema);
 }

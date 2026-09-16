@@ -15,18 +15,22 @@ import { scoreRank, scoreGroup, scoreReduce, scoreCompare, scoreExplain, type Ca
 if (process.env.RIBBIT_RUN_LIVE_EVAL !== '1')
   throw new Error('Set RIBBIT_RUN_LIVE_EVAL=1 to authorize local evaluation requests');
 const config = await loadConfig();
+
 if (process.env.RIBBIT_EVAL_PROFILE) config.default = { profile: process.env.RIBBIT_EVAL_PROFILE };
 const route = routeFor(await resolveInvocation('ask'), config)!;
+
 if (!['127.0.0.1', 'localhost', '[::1]'].includes(new URL(route.endpoint.baseUrl).hostname))
   throw new Error('This evaluation runner requires a loopback provider');
 
 const cases = JSON.parse(
   await readFile(process.env.RIBBIT_EVAL_DATASET || 'evals/datasets/rubric-cases.json', 'utf8'),
 ) as any[];
+
 if (cases.length !== 150 || new Set(cases.map((c: any) => c.id)).size !== 150)
   throw new Error('Expected 150 unique rubric cases');
 const per = Number(process.env.RIBBIT_EVAL_PER || 0);
 let fixtures = cases;
+
 if (per)
   fixtures = ['rank', 'group', 'reduce', 'compare', 'explain'].flatMap((cmd) =>
     cases.filter((c: any) => c.command === cmd).slice(0, per),
@@ -35,6 +39,7 @@ const reps = Number(process.env.RIBBIT_EVAL_REPS || 3);
 
 const sha = (s: string) => createHash('sha256').update(s).digest('hex');
 const attempts: any[] = [];
+
 await mkdir('evals/results', { recursive: true });
 
 for (let repetition = 1; repetition <= reps; repetition++) {
@@ -50,21 +55,26 @@ for (let repetition = 1; repetition <= reps; repetition++) {
       dir = '',
       rendered = '';
     let result: CaseResult | null = null;
+
     try {
       if (fixture.command === 'compare') {
         dir = await mkdtemp(join(tmpdir(), 'ribbit-rubric-'));
         const left = join(dir, 'left.txt'),
           right = join(dir, 'right.txt');
+
         await writeFile(left, String(fixture.input.left) + '\n');
         await writeFile(right, String(fixture.input.right) + '\n');
         const before = sha(await readFile(left, 'utf8')) + sha(await readFile(right, 'utf8'));
+
         invocation.args = { paths: [left, right], focus: fixture.args.focus };
         const out = await runInvocation(invocation, { kind: 'text', value: '' }, budget, config);
         const after = sha(await readFile(left, 'utf8')) + sha(await readFile(right, 'utf8'));
+
         rendered = out.kind === 'text' ? String(out.value) : '';
         result = scoreCompare(rendered, [left, right], fixture.expected, before === after);
       } else if (fixture.command === 'rank' || fixture.command === 'group') {
         const records = fixture.input.records as { id: string; value: string }[];
+
         invocation.args = { instruction: fixture.args.instruction };
         const out = await runInvocation(
           invocation,
@@ -79,8 +89,10 @@ for (let repetition = 1; repetition <= reps; repetition++) {
         );
         const rows = out.kind === 'records' ? await Array.fromAsync(out.records) : [];
         const byId = new Map(records.map((r) => [r.id, r.value]));
+
         if (fixture.command === 'rank') {
           const valuesUnchanged = rows.every((r: any) => JSON.stringify(r.value) === JSON.stringify(byId.get(r.id)));
+
           result = scoreRank(
             rows.map((r: any) => r.id),
             records.map((r) => r.id),
@@ -96,6 +108,7 @@ for (let repetition = 1; repetition <= reps; repetition++) {
           const valuesUnchanged = rows.every((r: any) =>
             (r.value?.members ?? []).every((m: any) => JSON.stringify(m.value) === JSON.stringify(byId.get(m.id ?? m))),
           );
+
           result = scoreGroup(
             groups,
             records.map((r) => r.id),
@@ -106,6 +119,7 @@ for (let repetition = 1; repetition <= reps; repetition++) {
         }
       } else if (fixture.command === 'reduce') {
         const records = fixture.input.records as { id: string; value: string }[];
+
         invocation.args = { instruction: fixture.args.instruction, strategy: 'direct' };
         const out = await runInvocation(
           invocation,
@@ -118,6 +132,7 @@ for (let repetition = 1; repetition <= reps; repetition++) {
           budget,
           config,
         );
+
         rendered = out.kind === 'text' ? String(out.value) : '';
         result = scoreReduce(rendered, fixture.expected, fixture.rubric);
       } else if (fixture.command === 'explain') {
@@ -128,6 +143,7 @@ for (let repetition = 1; repetition <= reps; repetition++) {
           budget,
           config,
         );
+
         rendered = out.kind === 'text' ? String(out.value) : '';
         result = scoreExplain(rendered, fixture.expected, fixture.rubric);
       }
@@ -194,6 +210,7 @@ const report = {
   attempts,
   screen: !!per,
 };
+
 await writeFile(
   'evals/results/rubrics-' + route.model.replace(/[^a-zA-Z0-9_-]/g, '_') + '.json',
   JSON.stringify(report, null, 2) + '\n',

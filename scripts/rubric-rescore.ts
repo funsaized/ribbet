@@ -11,13 +11,16 @@ const run = JSON.parse(await readFile(runFile, 'utf8'));
 
 for (const a of run.attempts) {
   const c = byId.get(a.id);
+
   if (!c) continue;
   let result: CaseResult | null = null;
+
   if (a.command === 'reduce') result = scoreReduce(a.output, c.expected, c.rubric);
   else if (a.command === 'explain') result = scoreExplain(a.output, c.expected, c.rubric);
   else if (a.command === 'compare') {
     const m = /^Sources: (.+?) \| (.+)$/m.exec(a.output || '');
     const filesUnchanged = (a.criteria || []).find((x: any) => x.text === 'Modifies neither input file')?.pass ?? true;
+
     if (m) result = scoreCompare(a.output, [m[1], m[2]], c.expected, filesUnchanged);
   }
   if (result) {
@@ -27,10 +30,12 @@ for (const a of run.attempts) {
 }
 
 const families = ['rank', 'group', 'reduce', 'compare', 'explain'];
+
 run.families = Object.fromEntries(
   families.map((cmd) => {
     const rows = run.attempts.filter((a: any) => a.command === cmd);
     const pass = rows.filter((a: any) => a.pass).length;
+
     return [cmd, { n: rows.length, pass, rate: rows.length ? pass / rows.length : 0 }];
   }),
 );

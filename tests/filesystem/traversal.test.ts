@@ -4,9 +4,11 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { walk } from '../../src/filesystem/index.ts';
 import { textFile } from '../../src/builtins/primitives.ts';
+
 test('nested ignores, hidden/sensitive files and bounded content discovery', async () => {
   const root = await mkdtemp(join(tmpdir(), 'ribbit-fs-'));
   const messages: string[] = [];
+
   try {
     await mkdir(join(root, 'sub'));
     await writeFile(join(root, '.gitignore'), 'ignored.txt\n');
@@ -24,6 +26,7 @@ test('nested ignores, hidden/sensitive files and bounded content discovery', asy
       (s) => messages.push(s),
     );
     const names = rows.map((r) => (r.value as any).relativePath);
+
     expect(names).toContain('visible.txt');
     expect(names).toContain('sub/code.ts');
     expect(names).not.toContain('.env');
@@ -42,6 +45,7 @@ test('skip mode continues past unreadable nested directories', async () => {
   const root = await mkdtemp(join(tmpdir(), 'ribbit-skip-'));
   const locked = join(root, 'locked');
   const messages: string[] = [];
+
   try {
     await mkdir(locked);
     await writeFile(join(locked, 'secret.txt'), 'no');
@@ -49,6 +53,7 @@ test('skip mode continues past unreadable nested directories', async () => {
     await chmod(locked, 0);
     const rows = await walk(root, { recursive: true, onReadError: 'skip' }, (s) => messages.push(s));
     const names = rows.map((r) => (r.value as any).relativePath);
+
     expect(names).toContain('ok.txt');
     expect(names).not.toContain('locked/secret.txt');
     expect(messages.some((m) => m.includes('unreadable'))).toBe(true);
@@ -61,12 +66,14 @@ test('skip mode continues past unreadable nested directories', async () => {
 test('outside-root ignore links and oversized ignore files are bounded', async () => {
   const root = await mkdtemp(join(tmpdir(), 'ribbit-ignore-'));
   const outside = await mkdtemp(join(tmpdir(), 'ribbit-ignore-out-'));
+
   try {
     await writeFile(join(outside, 'rules'), 'keep.txt\n');
     await writeFile(join(root, 'keep.txt'), 'x');
     await symlink(join(outside, 'rules'), join(root, '.gitignore'));
     const messages: string[] = [];
     const rows = await walk(root, {}, (s) => messages.push(s));
+
     expect(rows.map((r) => (r.value as any).relativePath)).toContain('keep.txt');
     expect(messages.some((m) => m.includes('outside-root ignore'))).toBe(true);
     await rm(join(root, '.gitignore'));

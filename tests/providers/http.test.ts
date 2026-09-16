@@ -1,5 +1,6 @@
 import { test, expect } from 'bun:test';
 import { responseLines } from '../../src/providers/http/index.ts';
+
 test('response parser handles arbitrary UTF-8 chunk boundaries and rejects malformed encoding', async () => {
   const input = new TextEncoder().encode('雪\nnext');
   const response = new Response(
@@ -10,6 +11,7 @@ test('response parser handles arbitrary UTF-8 chunk boundaries and rejects malfo
       },
     }),
   );
+
   expect(await Array.fromAsync(responseLines(response, new AbortController().signal))).toEqual(['雪', 'next']);
   await expect(
     Array.fromAsync(responseLines(new Response(new Uint8Array([255])), new AbortController().signal)),
@@ -30,6 +32,7 @@ test('response parser enforces byte bound and cancels reader on consumer exit', 
       },
     }),
   );
+
   for await (const line of responseLines(response, new AbortController().signal)) {
     expect(line).toBe('a');
     break;

@@ -6,8 +6,10 @@ import { writeFile } from 'node:fs/promises';
 // scripts/rubric-scoring.ts for the scoring contract.
 
 const cases: any[] = [];
+
 for (let i = 0; i < 100; i++) {
   const positive = i % 2 === 0;
+
   cases.push({
     id: `filter-${i}`,
     split: i < 20 ? 'development' : 'held-out',
@@ -24,6 +26,7 @@ for (let i = 0; i < 100; i++) {
     'The interface is excellent and easy to use.',
     'No product feedback is available.',
   ];
+
   cases.push({
     id: `classify-${i}`,
     split: i < 20 ? 'development' : 'held-out',
@@ -36,6 +39,7 @@ for (let i = 0; i < 100; i++) {
 for (let i = 0; i < 50; i++) {
   const owner = i % 5 === 0 ? null : `Person ${i}`,
     due = i % 3 === 0 ? null : `2026-10-${String((i % 28) + 1).padStart(2, '0')}`;
+
   cases.push({
     id: `extract-${i}`,
     split: i < 10 ? 'development' : 'held-out',
@@ -183,17 +187,21 @@ const rankBodies: { Critical: string; High: string; Medium: string; Low: string 
     Low: 'Onboarding checklist has a broken icon',
   },
 ];
+
 function rankFields(b: number, i: number) {
   return { s: (3 * i + b + 1) % 4, d: (3 * i + b + 2) % 4, m: (3 * i + b + 3) % 4 };
 }
+
 function rankRecords(b: number): Rec[] {
   return rankIds.map((id, i) => {
     const f = rankFields(b, i),
       sev = rankSevWords[f.s],
       desc = (rankBodies[b] as any)[sev];
+
     return { id, value: `${sev}: ${desc}. Reported ${rankDates[f.d]}. Estimated impact ${rankImpacts[f.m]}.` };
   });
 }
+
 function rankOrder(b: number, key: string): string[] {
   return rankIds
     .map((id, i) => ({ id, ...rankFields(b, i) }))
@@ -222,6 +230,7 @@ const groupAssign = [
   { c: 3, s: 1, e: 2 },
   { c: 3, s: 2, e: 0 },
 ];
+
 interface GroupBody {
   components: [string, string, string];
   descriptions: string[];
@@ -339,13 +348,17 @@ const groupBodies: GroupBody[] = [
   },
 ];
 const groupIds = ['a', 'b', 'c', 'd', 'e', 'f'];
+
 function groupPartition(key: string): string[][] {
   const groups = new Map<number, string[]>();
+
   groupAssign.forEach((a, i) => {
     const k = key === 'component' ? a.c - 1 : key === 'severityClass' ? a.s : a.e;
+
     if (!groups.has(k)) groups.set(k, []);
     groups.get(k)!.push(groupIds[i]);
   });
+
   return [...groups.values()];
 }
 
@@ -874,14 +887,17 @@ const explainBodies: ExplainBody[] = [
 
 for (let b = 0; b < rankBodies.length; b++) {
   const orders = rankInstructions.map((i) => rankOrder(b, i.key).join(','));
+
   if (new Set(orders).size !== 3 || orders.includes('a,b,c,d'))
     throw new Error(`Rank body ${b} has ambiguous or input-order answers`);
 }
 const out: any[] = [];
 let idx = 0;
 const devLimit = 2; // first two bodies per family are development
+
 rankBodies.forEach((body, b) => {
   const records = rankRecords(b);
+
   rankInstructions.forEach((inst) => {
     out.push({
       id: `rank-${idx}`,
@@ -901,6 +917,7 @@ groupBodies.forEach((body, b) => {
     id: groupIds[i],
     value: `${sevWords[a.s]}: ${body.components[a.c - 1]} ${body.descriptions[i]} in ${envWords[a.e]}.`,
   }));
+
   groupInstructions.forEach((inst) => {
     out.push({
       id: `group-${idx}`,
@@ -933,6 +950,7 @@ idx = 0;
 compareBodies.forEach((body, b) => {
   compareInstructions.forEach((inst) => {
     const fact = (body as any)[inst.key] as CompareFact;
+
     out.push({
       id: `compare-${idx}`,
       split: b < devLimit ? 'development' : 'held-out',

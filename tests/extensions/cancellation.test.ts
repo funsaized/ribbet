@@ -1,6 +1,8 @@
 import { test, expect } from 'bun:test';
 import { defineAction, z, Budget, RibbitError, type Context, executeAction } from '../../src/sdk/index.ts';
+
 const config = z.strictObject({});
+
 function context() {
   const budget = new Budget();
   const ctx: Context = {
@@ -16,8 +18,10 @@ function context() {
       },
     },
   };
+
   return ctx;
 }
+
 test('pending extension streams stop waiting on cancellation and request cleanup', async () => {
   const ctx = context();
   let returned = false;
@@ -36,15 +40,18 @@ test('pending extension streams stop waiting on cancellation and request cleanup
           next: () => new Promise<IteratorResult<string>>(() => {}),
           return: async () => {
             returned = true;
+
             return { done: true as const, value: undefined };
           },
         };
       },
     }),
   });
+
   try {
     const stream = (await executeAction(action, 'input', {}, {}, ctx)) as AsyncIterable<string>;
     const pending = stream[Symbol.asyncIterator]().next();
+
     ctx.budget.controller.abort(new RibbitError(130, 'Cancelled'));
     await expect(pending).rejects.toMatchObject({ code: 130 });
     await Promise.resolve();
@@ -74,11 +81,14 @@ test('extension exceptions are sanitized and early consumer exit closes iterator
       }
     },
   });
+
   try {
     const stream = (await executeAction(action, 'input', {}, {}, ctx)) as AsyncIterable<string>;
+
     for await (const _ of stream) break;
     expect(closed).toBe(true);
     const failed = (await executeAction(action, 'input', {}, {}, ctx)) as AsyncIterable<string>;
+
     await expect(Array.fromAsync(failed)).rejects.toMatchObject({
       code: 5,
       message: 'Extension stream failed (details redacted)',

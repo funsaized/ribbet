@@ -3,6 +3,7 @@ import { resolve, relative, join, sep } from 'node:path';
 import ignore from 'ignore';
 import { RibbitError, type RecordValue } from '../engine/records/index.ts';
 import { textFile } from '../builtins/primitives.ts';
+
 export interface WalkOptions {
   recursive?: boolean;
   hidden?: boolean;
@@ -19,6 +20,7 @@ export interface WalkOptions {
   semantic?: boolean;
   onReadError?: 'error' | 'skip';
 }
+
 export interface FileValue {
   path: string;
   relativePath: string;
@@ -27,6 +29,7 @@ export interface FileValue {
   modifiedAt: string;
   content?: string;
 }
+
 export async function walk(
   root: string,
   options: WalkOptions = {},
@@ -54,29 +57,37 @@ export async function walk(
           /^(?:id_rsa|id_ed25519|credentials)(?:\.|$)/.test(p) ||
           /\.(?:pem|key|p12|pfx)$/i.test(p),
       );
+
   async function visit(dir: string, depth: number) {
     const real = await realpath(dir);
+
     if (visited.has(real)) {
       log(`Skipped symlink cycle: ${dir}`);
       omitted++;
+
       return;
     }
     visited.add(real);
     if (!options.outsideRoot) {
       const rel = relative(boundary, real);
+
       if (rel === '..' || rel.startsWith('..' + sep) || resolve(boundary, rel) !== real) {
         log(`Skipped outside-root link: ${dir}`);
         omitted++;
+
         return;
       }
     }
     const base = relative(absolute, dir);
     let added = false;
+
     if (!options.noIgnore) {
       const matcher = ignore();
+
       for (const name of ['.gitignore', '.ribbitignore']) {
         const path = join(dir, name);
         let meta;
+
         try {
           meta = await lstat(path);
         } catch (e) {
@@ -90,6 +101,7 @@ export async function walk(
         }
         if (meta.isSymbolicLink()) {
           let resolved: string;
+
           try {
             resolved = await realpath(path);
           } catch {
@@ -101,6 +113,7 @@ export async function walk(
             throw new RibbitError(7, 'Cannot resolve ignore file', path);
           }
           const rel = relative(boundary, resolved);
+
           if (
             !options.outsideRoot &&
             (rel === '..' || rel.startsWith('..' + sep) || resolve(boundary, rel) !== resolved)
@@ -130,8 +143,10 @@ export async function walk(
       )) {
         const path = join(dir, entry.name),
           rel = relative(absolute, path);
+
         if (!options.hidden && entry.name.startsWith('.')) continue;
         let meta;
+
         try {
           meta = await lstat(path);
         } catch (e) {
@@ -150,6 +165,7 @@ export async function walk(
               ? 'file'
               : 'other';
         let directory = meta.isDirectory();
+
         if (meta.isSymbolicLink() && options.follow) {
           try {
             directory = (await stat(path)).isDirectory();
@@ -163,10 +179,12 @@ export async function walk(
           }
         }
         let ignored = false;
+
         if (!options.noIgnore)
           for (const rule of stack) {
             const sub = relative(join(absolute, rule.base), path).split(sep).join('/') + (directory ? '/' : '');
             const result = rule.matcher.test(sub);
+
             if (result.ignored) ignored = true;
             else if (result.unignored) ignored = false;
           }
@@ -189,6 +207,7 @@ export async function walk(
             modifiedAt: meta.mtime.toISOString(),
           };
           let include = true;
+
           if (options.read === 'content' && kind === 'file') {
             try {
               value.content = await textFile(path, maxBytes - bytes);
@@ -229,6 +248,7 @@ export async function walk(
       if (added) stack.pop();
     }
   }
+
   try {
     await visit(absolute, 1);
   } catch (error) {
@@ -236,5 +256,6 @@ export async function walk(
     throw new RibbitError(7, 'Filesystem traversal failed', root);
   }
   if (omitted) log(JSON.stringify({ event: 'filesystem.omissions', count: omitted }));
+
   return records;
 }

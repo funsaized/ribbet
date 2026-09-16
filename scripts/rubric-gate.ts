@@ -21,6 +21,7 @@ const stats = Object.fromEntries(
     const revPass = reviewed.filter((id) => verdicts[id].pass).length;
     const detRep1 = cases.map((id) => attempts.find((a: any) => a.id === id && a.repetition === 1)?.pass === true);
     const agree = cases.filter((id, i) => verdicts[id] && detRep1[i] === verdicts[id].pass).length;
+
     return [
       cmd,
       {
@@ -55,6 +56,7 @@ const report = {
   families: stats,
   pass: families.every((cmd) => (stats[cmd] as any).pass),
 };
+
 await writeFile('evals/results/rubrics-gate.json', JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));
 if (!report.pass) process.exitCode = 1;

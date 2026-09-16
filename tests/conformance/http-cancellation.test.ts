@@ -4,6 +4,7 @@ import { ManagedInference } from '../../src/engine/inference/index.ts';
 import { OllamaAdapter } from '../../src/providers/ollama/index.ts';
 import { configSchema } from '../../src/config/index.ts';
 import { resolveRoute } from '../../src/routing/index.ts';
+
 test('real loopback HTTP body is cancelled by shared execution signal', async () => {
   let cancelled = false;
   const server = Bun.serve({
@@ -34,6 +35,7 @@ test('real loopback HTTP body is cancelled by shared execution signal', async ()
   );
   const llm = new ManagedInference(new OllamaAdapter(), route, budget);
   const timer = setTimeout(() => external.abort(), 30);
+
   try {
     await expect(llm.text('test', '')).rejects.toMatchObject({ code: 130 });
     // eslint-disable-next-line no-unmodified-loop-condition -- `cancelled` is set by the aborted request

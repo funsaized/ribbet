@@ -1,4 +1,5 @@
 import { RibbitError, validateRecord, type RecordValue } from '../records/index.ts';
+
 export interface BudgetLimits {
   totalMs: number;
   requestMs: number;
@@ -7,6 +8,7 @@ export interface BudgetLimits {
   maxBytes: number;
   maxRecords: number;
 }
+
 export const DEFAULT_BUDGET: BudgetLimits = {
   totalMs: 120_000,
   requestMs: 60_000,
@@ -15,6 +17,7 @@ export const DEFAULT_BUDGET: BudgetLimits = {
   maxBytes: 8 * 1024 * 1024,
   maxRecords: 10_000,
 };
+
 export class Budget {
   readonly started = performance.now();
   readonly controller = new AbortController();
@@ -54,6 +57,7 @@ export class Budget {
     this.check();
     if (!Number.isSafeInteger(count) || count < 0) throw new RibbitError(4, `Invalid ${kind} accounting`);
     const max = { tokens: this.limits.maxTokens, bytes: this.limits.maxBytes, records: this.limits.maxRecords }[kind];
+
     if (this[kind] + count > max) throw new RibbitError(6, `${kind} budget exceeded (${max})`);
     this[kind] += count;
   }
@@ -61,6 +65,7 @@ export class Budget {
   async request<T>(execute: (signal: AbortSignal) => Promise<T>, timeoutMs = this.limits.requestMs): Promise<T> {
     const previous = this.tail;
     let release!: () => void;
+
     this.tail = new Promise<void>((resolve) => {
       release = resolve;
     });
@@ -73,6 +78,7 @@ export class Budget {
       this.requests++;
       const controller = new AbortController();
       const forward = () => controller.abort(this.signal.reason);
+
       this.signal.addEventListener('abort', forward, { once: true });
       const timer = setTimeout(
         () => controller.abort(new RibbitError(6, 'Inference request deadline exceeded')),
@@ -81,9 +87,11 @@ export class Budget {
       let remove = () => {};
       const aborted = new Promise<never>((_, reject) => {
         const onAbort = () => reject(controller.signal.reason);
+
         controller.signal.addEventListener('abort', onAbort, { once: true });
         remove = () => controller.signal.removeEventListener('abort', onAbort);
       });
+
       try {
         return await Promise.race([Promise.resolve().then(() => execute(controller.signal)), aborted]);
       } finally {
@@ -100,17 +108,21 @@ export class Budget {
     this.external?.removeEventListener('abort', this.onAbort);
   }
 }
+
 export async function* take<T>(source: AsyncIterable<T>, count: number): AsyncGenerator<T> {
   if (!Number.isSafeInteger(count) || count < 0) throw new RibbitError(2, 'take count must be a nonnegative integer');
   if (count === 0) return;
   let seen = 0;
+
   for await (const value of source) {
     yield value;
     if (++seen >= count) return;
   }
 }
+
 export async function* validated(source: AsyncIterable<RecordValue>, budget: Budget): AsyncGenerator<RecordValue> {
   const ids = new Set<string>();
+
   for await (const record of source) {
     budget.check();
     validateRecord(record);
@@ -121,6 +133,7 @@ export async function* validated(source: AsyncIterable<RecordValue>, budget: Bud
     yield record;
   }
 }
+
 export async function writeOutput(
   chunks: AsyncIterable<string>,
   sink: { write(chunk: string): Promise<void> },
@@ -141,9 +154,11 @@ export async function abortable<T>(work: PromiseLike<T>, signal: AbortSignal): P
   let remove = () => {};
   const cancelled = new Promise<never>((_, reject) => {
     const onAbort = () => reject(signal.reason);
+
     signal.addEventListener('abort', onAbort, { once: true });
     remove = () => signal.removeEventListener('abort', onAbort);
   });
+
   try {
     return await Promise.race([work, cancelled]);
   } finally {
@@ -155,12 +170,15 @@ export async function abortable<T>(work: PromiseLike<T>, signal: AbortSignal): P
 export async function* cancellable<T>(source: AsyncIterable<T>, signal: AbortSignal): AsyncGenerator<T> {
   const iterator = source[Symbol.asyncIterator]();
   let complete = false;
+
   try {
     while (true) {
       if (signal.aborted) throw signal.reason;
       const part = await abortable(iterator.next(), signal);
+
       if (part.done) {
         complete = true;
+
         return;
       }
       yield part.value;
@@ -168,6 +186,7 @@ export async function* cancellable<T>(source: AsyncIterable<T>, signal: AbortSig
   } finally {
     if (!complete && iterator.return) {
       const closing = Promise.resolve().then(() => iterator.return!());
+
       if (signal.aborted) void closing.catch(() => {});
       else await abortable(closing, signal);
     }

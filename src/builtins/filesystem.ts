@@ -14,6 +14,7 @@ import { walk } from '../filesystem/index.ts';
 import { collect, textFile, field, prompt } from './primitives.ts';
 import { semanticCommands } from './semantic.ts';
 import { executeAction } from '../sdk/index.ts';
+
 const config = z.strictObject({});
 const traversal = {
   root: z.string().default('.'),
@@ -26,6 +27,7 @@ const traversal = {
   maxFiles: z.number().int().positive().optional(),
   onReadError: z.enum(['error', 'skip']).default('error'),
 };
+
 function command(
   name: string,
   description: string,
@@ -56,6 +58,7 @@ function command(
     },
   });
 }
+
 async function about(rows: RecordValue[], instruction: string, ctx: any) {
   if (!rows.length) return rows;
   const result = await ctx.llm.object(
@@ -63,23 +66,31 @@ async function about(rows: RecordValue[], instruction: string, ctx: any) {
     JSON.stringify(rows.map((r) => ({ id: r.id, value: r.value }))),
     z.strictObject({ ids: z.array(z.string()) }),
   );
+
   if (new Set(result.ids).size !== result.ids.length || result.ids.some((id: string) => !rows.some((r) => r.id === id)))
     throw new RibbitError(4, 'Semantic filesystem output contains invalid IDs');
+
   return rows.filter((r) => result.ids.includes(r.id));
 }
+
 export function pickerSelections(selected: string, rows: RecordValue[]): RecordValue[] {
   const chosen: RecordValue[] = [],
     ids = new Set<number>();
+
   for (const item of selected.split('\0').filter(Boolean)) {
     const token = item.split('\t', 1)[0];
+
     if (!/^(0|[1-9]\d*)$/.test(token)) throw new RibbitError(7, 'Invalid picker identity');
     const id = Number(token);
+
     if (!rows[id] || ids.has(id) || !item.startsWith(`${id}\t`)) throw new RibbitError(7, 'Invalid picker selection');
     ids.add(id);
     chosen.push(rows[id]);
   }
+
   return chosen;
 }
+
 export const filesystemCommands = {
   ls: command(
     'ls',
@@ -96,8 +107,10 @@ export const filesystemCommands = {
     async ({ args }, ctx) => {
       const result: RecordValue[] = [];
       let bytes = 0;
+
       for (const path of (args as any).paths) {
         const content = await textFile(path, ctx.budget.limits.maxBytes - bytes);
+
         bytes += Buffer.byteLength(content);
         result.push({
           id: String(result.length + 1),
@@ -106,6 +119,7 @@ export const filesystemCommands = {
           annotations: {},
         });
       }
+
       return result;
     },
     { cli: { positionals: ['paths'] } },
@@ -126,6 +140,7 @@ export const filesystemCommands = {
           { ...a, maxBytes: ctx.budget.limits.maxBytes, recursive: true, semantic: !!a.about },
           ctx.log,
         );
+
       return a.about ? about(rows, a.about, ctx) : rows;
     },
     { cli: { positionals: ['root'] }, capabilities: ['object'], inferenceWhen: ['about'] },
@@ -156,14 +171,18 @@ export const filesystemCommands = {
               },
               ctx.log,
             );
+
       if (a.glob) {
         const matches = rows.filter((r) => new Bun.Glob(a.glob).match((r.value as any).relativePath)),
           paths = new Set<string>();
+
         for (const r of matches) {
           let p = (r.value as any).path;
+
           while (p !== resolve(a.root)) {
             paths.add(p);
             const parent = dirname(p);
+
             if (parent === p) break;
             p = parent;
           }
@@ -173,11 +192,14 @@ export const filesystemCommands = {
       if (a.about) {
         const selected = await about(rows, a.about, ctx),
           paths = new Set<string>();
+
         for (const r of selected) {
           let p = (r.value as any).path;
+
           while (p !== resolve(a.root)) {
             paths.add(p);
             const parent = dirname(p);
+
             if (parent === p) break;
             p = parent;
           }
@@ -185,6 +207,7 @@ export const filesystemCommands = {
         rows = rows.filter((r) => paths.has((r.value as any).path));
       }
       let descriptions: Record<string, string> = {};
+
       if (a.describe && rows.length) {
         const result = await ctx.llm.object(
           prompt(
@@ -193,6 +216,7 @@ export const filesystemCommands = {
           JSON.stringify(rows.map((r) => ({ id: r.id, value: r.value }))),
           z.strictObject({ descriptions: z.array(z.strictObject({ id: z.string(), text: z.string() })) }),
         );
+
         if (
           result.descriptions.length !== rows.length ||
           new Set(result.descriptions.map((d) => d.id)).size !== rows.length ||
@@ -201,6 +225,7 @@ export const filesystemCommands = {
           throw new RibbitError(4, 'Tree descriptions must match candidate IDs');
         descriptions = Object.fromEntries(result.descriptions.map((d) => [d.id, d.text]));
       }
+
       return {
         root: resolve(a.root),
         evidence: a.describe ? a.read : 'metadata',
@@ -232,6 +257,7 @@ export const filesystemCommands = {
     async function* ({ args, input }, ctx) {
       const a = args as any;
       let tty;
+
       try {
         tty = await open('/dev/tty', 'r+');
       } catch {
@@ -239,6 +265,7 @@ export const filesystemCommands = {
       }
       try {
         let rows = await collect(input as AsyncIterable<unknown>, ctx.budget.limits.maxRecords);
+
         if (!rows.length) return;
         if (a.about) {
           const ranked = await executeAction(
@@ -250,12 +277,15 @@ export const filesystemCommands = {
             {},
             ctx,
           );
+
           rows = await collect(ranked as AsyncIterable<unknown>, 200);
         }
         const version = Bun.spawn(['fzf', '--version'], { stdout: 'pipe', stderr: 'pipe' });
+
         if ((await version.exited) !== 0) throw new RibbitError(7, 'Install fzf >=0.74.3');
         const output = await new Response(version.stdout).text();
         const numbers = output.split(' ')[0].split('.').map(Number);
+
         if (numbers[0] === 0 && (numbers[1] < 74 || (numbers[1] === 74 && numbers[2] < 3)))
           throw new RibbitError(7, 'Install fzf >=0.74.3');
         // eslint-disable-next-line no-control-regex -- intentional: escapes control characters for fzf
@@ -263,6 +293,7 @@ export const filesystemCommands = {
           .map((r, i) => {
             const value = a.label ? field(r.value, a.label) : r.value;
             const display = typeof value === 'string' ? value : JSON.stringify(value);
+
             return `${i}\t${display.replace(/[\u0000-\u001f\u007f]/g, (c: string) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`)}\0`;
           })
           .join('');
@@ -271,6 +302,7 @@ export const filesystemCommands = {
           FZF_DEFAULT_OPTS: '',
           FZF_DEFAULT_COMMAND: '',
         };
+
         delete env.FZF_DEFAULT_OPTS_FILE;
         const pickerProcess = Bun.spawn(
           [
@@ -286,8 +318,10 @@ export const filesystemCommands = {
           { stdin: new Blob([labels]), stdout: 'pipe', stderr: tty.fd, env },
         );
         const abort = () => pickerProcess.kill('SIGINT');
+
         ctx.signal.addEventListener('abort', abort, { once: true });
         let selected: string, exit: number;
+
         try {
           selected = await new Response(pickerProcess.stdout).text();
           exit = await pickerProcess.exited;

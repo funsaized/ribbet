@@ -4,29 +4,36 @@ import { loadConfig } from '../src/config/index.ts';
 import { resolveInvocation } from '../src/definitions/index.ts';
 import { runInvocation, routeFor } from '../src/engine/runtime/index.ts';
 import { Budget } from '../src/sdk/index.ts';
+
 if (process.env.RIBBIT_RUN_LIVE_EVAL !== '1')
   throw new Error('Set RIBBIT_RUN_LIVE_EVAL=1 to authorize local evaluation requests');
 const config = await loadConfig();
+
 if (process.env.RIBBIT_EVAL_PROFILE) config.default = { profile: process.env.RIBBIT_EVAL_PROFILE };
 const route = routeFor(await resolveInvocation('ask'), config)!;
+
 if (!['127.0.0.1', 'localhost', '[::1]'].includes(new URL(route.endpoint.baseUrl).hostname))
   throw new Error('This evaluation runner requires a loopback provider');
 let fixtures = JSON.parse(
   await readFile(process.env.RIBBIT_EVAL_DATASET || 'evals/datasets/core.json', 'utf8'),
 ) as any[];
+
 if (fixtures.length !== 250 || new Set(fixtures.map((f) => f.id)).size !== 250)
   throw new Error('Invalid fixture count or duplicate IDs');
 const per = Number(process.env.RIBBIT_EVAL_PER || 0);
+
 if (per)
   fixtures = ['filter', 'classify', 'extract'].flatMap((cmd) =>
     fixtures.filter((f) => f.command === cmd).slice(0, per),
   );
 const reps = Number(process.env.RIBBIT_EVAL_REPS || 3);
 const attempts: any[] = [];
+
 await mkdir('evals/results', { recursive: true });
 for (let repetition = 1; repetition <= reps; repetition++)
   for (const fixture of fixtures) {
     const invocation = await resolveInvocation(fixture.command);
+
     invocation.args = fixture.args;
     const budget = new Budget({
       maxRequests: 3,
@@ -35,6 +42,7 @@ for (let repetition = 1; repetition <= reps; repetition++)
     });
     const started = performance.now();
     let actual: unknown, error: unknown;
+
     try {
       const input =
         fixture.command === 'extract'
@@ -46,8 +54,10 @@ for (let repetition = 1; repetition <= reps; repetition++)
               })(),
             };
       const out = await runInvocation(invocation, input, budget, config);
+
       if (out.kind === 'records') {
         const rows = await Array.fromAsync(out.records);
+
         actual = fixture.command === 'filter' ? rows.length === 1 : (rows[0]?.annotations.classify as any)?.label;
       } else if (out.kind === 'json' || out.kind === 'text') actual = out.value;
     } catch (e) {
@@ -78,6 +88,7 @@ for (let repetition = 1; repetition <= reps; repetition++)
       elapsedMs: performance.now() - started,
     });
     const line = `Evaluated ${attempts.length}/${fixtures.length * reps} ${fixture.id} ${error ? 'ERR' : 'ok'} ${Math.round(performance.now() - started)}ms`;
+
     console.log(line);
     await writeFile(
       'evals/results/in-progress.json',
@@ -88,18 +99,22 @@ for (let repetition = 1; repetition <= reps; repetition++)
       ),
     );
   }
+
 function macroF1(command: string) {
   const rows = attempts.filter((r) => r.command === command),
     labels = [...new Set(rows.map((r) => JSON.stringify(r.expected)))];
+
   return (
     labels.reduce((sum, label) => {
       const tp = rows.filter((r) => JSON.stringify(r.expected) === label && JSON.stringify(r.actual) === label).length,
         fp = rows.filter((r) => JSON.stringify(r.expected) !== label && JSON.stringify(r.actual) === label).length,
         fn = rows.filter((r) => JSON.stringify(r.expected) === label && JSON.stringify(r.actual) !== label).length;
+
       return sum + (2 * tp) / (2 * tp + fp + fn || 1);
     }, 0) / labels.length
   );
 }
+
 const extraction = attempts.filter((r) => r.command === 'extract');
 const fieldCorrectness =
   extraction.reduce((n, r) => n + Object.keys(r.expected).filter((k) => r.actual?.[k] === r.expected[k]).length, 0) /
@@ -125,6 +140,7 @@ const report = {
   attempts,
   screen: !!per,
 };
+
 await writeFile(
   'evals/results/' + route.model.replace(/[^a-zA-Z0-9_-]/g, '_') + (per ? '-screen' : '') + '.json',
   JSON.stringify(report, null, 2) + '\n',

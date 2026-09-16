@@ -4,7 +4,9 @@ import { RibbitError } from '../records/index.ts';
 import { type Adapter, TransportError } from '../../providers/interface/index.ts';
 import type { Route } from '../../routing/index.ts';
 import { schemaToJson } from '../../sdk/manifest/index.ts';
+
 export { schemaToJson };
+
 export class ManagedInference {
   repairs = 0;
   retries = 0;
@@ -21,6 +23,7 @@ export class ManagedInference {
       Buffer.byteLength(instruction) +
       Buffer.byteLength(evidence) +
       Buffer.byteLength(schema ? JSON.stringify(schema) : '');
+
     if (bytes > this.budget.limits.maxBytes) throw new RibbitError(6, 'Inference input byte limit exceeded');
     // Conservative UTF-8 byte upper bound avoids pretending model tokenization is known.
     if (
@@ -37,10 +40,12 @@ export class ManagedInference {
   ): Promise<string> {
     this.preflight(instruction, evidence, !!schema, schema);
     let text = '';
+
     for (let retry = 0; ; retry++) {
       try {
         return await this.budget.request(async (signal) => {
           let done = false;
+
           try {
             for await (const event of this.adapter.stream({
               route: this.route,
@@ -67,6 +72,7 @@ export class ManagedInference {
               }
             }
             if (!done) throw new RibbitError(4, 'Truncated provider stream: missing completion');
+
             return text;
           } finally {
             if (!done) this.budget.usageUnknown = true;
@@ -91,10 +97,12 @@ export class ManagedInference {
   }
   async text(instruction: string, evidence: string) {
     this.preflight(instruction, evidence);
+
     return this.attempt(instruction, evidence);
   }
   async object<T>(instruction: string, evidence: string, schema: z.ZodType<T>): Promise<T> {
     const exported = schemaToJson(schema);
+
     this.preflight(instruction, evidence, true);
     for (let repair = 0; repair <= 1; repair++) {
       const text = await this.attempt(
@@ -104,12 +112,14 @@ export class ManagedInference {
         exported,
       );
       let value: unknown;
+
       try {
         value = JSON.parse(text);
       } catch {
         value = undefined;
       }
       const result = schema.safeParse(value);
+
       if (result.success) return result.data;
       if (repair === 0) {
         this.repairs++;
@@ -146,6 +156,7 @@ export class ManagedInference {
         finished = true;
         wake?.();
       });
+
     try {
       // eslint-disable-next-line no-unmodified-loop-condition -- `finished` is set asynchronously by the worker
       while (!finished || slot) {
@@ -156,6 +167,7 @@ export class ManagedInference {
           });
         if (slot) {
           const item = slot;
+
           slot = undefined;
           pendingAck = item.acknowledge;
           yield item.text;

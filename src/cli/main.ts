@@ -1,5 +1,6 @@
 import { builtins } from '../catalog/index.ts';
 import { RibbitError, EXACT_LIMITS, SEMANTIC_LIMITS } from '../engine/records/index.ts';
+
 const argv = process.argv.slice(2);
 const administrative = [
   'providers',
@@ -14,6 +15,7 @@ const administrative = [
   'setup',
   'doctor',
 ];
+
 function help(
   name?: string,
   manifest = name ? builtins[name] : undefined,
@@ -24,44 +26,56 @@ function help(
     console.log(
       'Usage: ribbit flow run|plan|validate FILE [runtime flags]\n       ribbit flow run|plan|validate [runtime flags] -- COMMAND [args] :: COMMAND [args]\n\nPlan and validate check references without inference. Run executes the flow.\nUse --profile as a flow default, segment --profile to override, or --force-profile to replace all routes.',
     );
+
     return;
   }
   if (name && manifest) {
     const action = manifest.actions[actionName];
+
     console.log(
       `ribbit ${name} — ${action.description}\n\nType: ${manifest.type}\nAction: ${actionName}\nDefaults: ${JSON.stringify(defaults)}\n\n${action.bindings.map((b) => `  --${b.flag}${b.type === 'boolean' ? '' : ` <${b.type}>`}${b.repeated ? ' (repeatable)' : ''}${b.positional !== undefined ? ' (positional)' : ''}`).join('\n')}\n\nInput: ${action.inputKind}; output: ${action.outputKind}.\nRuntime: --input auto|text|lines|jsonl|records, --output records|jsonl|text|json,\n--file PATH, --profile NAME, --provider NAME, --model NAME, --stats, --error-format json.\n`,
     );
+
     return;
   }
   console.log(
     `Ribbit — Small commands. Big hops.\n\nUsage: ribbit COMMAND [arguments]\n\nCommands:\n  ${Object.keys(builtins).join(', ')}\n\nManagement:\n  ${administrative.join(', ')}, run, flow\n\nUse ribbit COMMAND --help or ribbit types describe @ribbit/COMMAND --json.`,
   );
 }
+
 async function main() {
   if (argv.length === 1 && argv[0] === '--version') {
     console.log('ribbit 0.1.0-dev.0');
+
     return;
   }
   if (!argv.length || argv[0] === '--help') {
     help();
+
     return;
   }
   if (argv.slice(0, argv.indexOf('--') < 0 ? undefined : argv.indexOf('--')).includes('--help')) {
     const name = argv[0] === 'run' ? argv[1] : argv[0];
+
     if (name && !builtins[name] && !administrative.includes(name) && name !== 'flow') {
       const invocation = await (await import('../definitions/index.ts')).resolveInvocation(name);
+
       help(name, invocation.manifest, invocation.action, invocation.args);
     } else help(name);
+
     return;
   }
   (await import('../config/index.ts')).loadDotenv();
   const command = argv[0];
+
   if (administrative.includes(command)) {
     await (await import('./admin/index.ts')).admin(command, argv.slice(1));
+
     return;
   }
   if (command === 'flow') {
     await (await import('../flows/cli.ts')).flowCli(argv.slice(1));
+
     return;
   }
   const { resolveInvocation } = await import('../definitions/index.ts');
@@ -72,10 +86,12 @@ async function main() {
     invocation.manifest.actions[invocation.action],
     invocation.args,
   );
+
   invocation.args = parsed.args;
   if (parsed.runtime['force-profile']) throw new RibbitError(2, '--force-profile applies only to flows');
   const runtime = parsed.runtime,
     action = invocation.manifest.actions[invocation.action];
+
   if (runtime['error-format'] && !['json', 'text'].includes(String(runtime['error-format'])))
     throw new RibbitError(2, 'Unknown error format');
   if (runtime.output && !['records', 'jsonl', 'text', 'json'].includes(String(runtime.output)))
@@ -95,6 +111,7 @@ async function main() {
     ...(runtime['request-ms'] === undefined ? {} : { requestMs: Number(runtime['request-ms']) }),
   });
   const cancel = () => budget.controller.abort(new RibbitError(130, 'Cancelled'));
+
   process.once('SIGINT', cancel);
   try {
     const { loadConfig } = await import('../config/index.ts');
@@ -113,6 +130,7 @@ async function main() {
       ...(runtime.model ? { model: String(runtime.model) } : {}),
     };
     const result = await runInvocation(invocation, input, budget, config, { cli });
+
     await io.write(io.output(result, runtime, invocation.name));
   } finally {
     if (runtime.stats)
@@ -131,6 +149,7 @@ async function main() {
     budget.close();
   }
 }
+
 try {
   await main();
 } catch (error) {
@@ -140,6 +159,7 @@ try {
   const json = argv.some(
     (arg, i) => arg === '--error-format=json' || (arg === '--error-format' && argv[i + 1] === 'json'),
   );
+
   console.error(
     json
       ? JSON.stringify({ schemaVersion: 1, error: { code, message, ...(location ? { location } : {}) } })

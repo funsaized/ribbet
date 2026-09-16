@@ -11,6 +11,7 @@ import {
 import type { Data } from '../../engine/runtime/index.ts';
 import type { Runtime } from '../parser/index.ts';
 import type { ActionManifest } from '../../sdk/manifest/index.ts';
+
 export async function readInput(
   runtime: Runtime,
   action: ActionManifest,
@@ -21,11 +22,14 @@ export async function readInput(
   if (zeroTake) return { kind: 'records', records: (async function* () {})() };
   const mode = (runtime.input ?? 'auto') as InputMode;
   let source: AsyncIterable<Uint8Array> = process.stdin;
+
   if (runtime.file || action.inputKind === 'none') {
     if (!process.stdin.isTTY) {
       const iterator = process.stdin[Symbol.asyncIterator]();
+
       try {
         const part = await iterator.next();
+
         if (!part.done && part.value.length)
           throw new RibbitError(
             2,
@@ -39,11 +43,13 @@ export async function readInput(
     }
     if (action.inputKind === 'none') {
       if (runtime.file) throw new RibbitError(2, 'This command owns explicit files; --file is not allowed');
+
       return { kind: 'json', value: null };
     }
     source = createReadStream(String(runtime.file));
   } else if (process.stdin.isTTY) source = (async function* () {})();
   const defaults = semantic ? SEMANTIC_LIMITS : EXACT_LIMITS;
+
   return adapt(
     source,
     mode,
@@ -54,21 +60,27 @@ export async function readInput(
     runtime.file ? String(runtime.file) : undefined,
   );
 }
+
 function treeDisplay(value: any): string {
   const nodes = value.nodes as RecordValue[];
   const children = new Map<string, RecordValue[]>();
+
   for (const r of nodes) {
     const path = (r.value as any).relativePath as string,
       parent = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '';
+
     children.set(parent, [...(children.get(parent) ?? []), r]);
   }
   const lines = [value.root];
+
   function render(parent: string, prefix: string) {
     const rows = children.get(parent) ?? [];
+
     rows.forEach((r, i) => {
       const file = r.value as any,
         last = i === rows.length - 1,
         description = (r.annotations.tree as any)?.description;
+
       lines.push(
         prefix +
           (last ? '└── ' : '├── ') +
@@ -78,17 +90,23 @@ function treeDisplay(value: any): string {
       render(file.relativePath, prefix + (last ? '    ' : '│   '));
     });
   }
+
   render('', '');
+
   return lines.join('\n');
 }
+
 export async function* output(data: Data, runtime: Runtime, name: string): AsyncGenerator<string> {
   const mode = runtime.output as string | undefined;
+
   if (data.kind === 'textStream') {
     if (!mode || mode === 'text') {
       yield* data.chunks;
+
       return;
     }
     let value = '';
+
     for await (const chunk of data.chunks) value += chunk;
     data = { kind: 'text', value };
   }
@@ -97,6 +115,7 @@ export async function* output(data: Data, runtime: Runtime, name: string): Async
     if (mode && !['records', 'jsonl'].includes(mode))
       throw new RibbitError(2, 'Record commands support --output records or jsonl; use render for display');
     yield* serialize(data.records, mode === 'jsonl' ? 'jsonl' : 'records');
+
     return;
   }
   if (mode === 'records') {
@@ -105,21 +124,26 @@ export async function* output(data: Data, runtime: Runtime, name: string): Async
         yield { id: '1', value: data.value as any, annotations: {} };
       })(),
     );
+
     return;
   }
   const value = name === 'tree' && !mode ? treeDisplay(data.value) : data.value;
+
   if (mode === 'json' || mode === 'jsonl' || (data.kind === 'json' && !(name === 'tree' && !mode)))
     yield JSON.stringify(value) + '\n';
   else {
     const text = typeof value === 'string' ? value : JSON.stringify(value);
+
     yield text.endsWith('\n') ? text : text + '\n';
   }
 }
+
 export async function write(chunks: AsyncIterable<string>) {
   let error: Error | undefined;
   const onError = (e: Error) => {
     error = e;
   };
+
   process.stdout.on('error', onError);
   try {
     for await (const chunk of chunks) {

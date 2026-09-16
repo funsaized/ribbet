@@ -6,25 +6,31 @@ import { planFlow, executeFlow, canSkipFlowInput } from './index.ts';
 import { parseAction, type Runtime } from '../cli/parser/index.ts';
 import { resolveInvocation } from '../definitions/index.ts';
 import { readInput, write, output } from '../cli/io/index.ts';
+
 export async function flowCli(tokens: string[]): Promise<void> {
   const operation = tokens.shift();
+
   if (!['run', 'plan', 'validate'].includes(operation ?? ''))
     throw new RibbitError(2, 'Usage: ribbit flow run|plan|validate FILE or -- COMMAND :: COMMAND');
   let raw: unknown,
     runtime: Runtime = {};
   const separator = tokens.indexOf('--');
+
   if (separator >= 0) {
     const options = tokens.slice(0, separator),
       segments: string[][] = [[]];
+
     for (const token of tokens.slice(separator + 1)) {
       if (token === '::') segments.push([]);
       else segments.at(-1)!.push(token);
     }
     const steps = [];
+
     for (const [i, segment] of segments.entries()) {
       if (!segment.length) throw new RibbitError(2, 'Empty flow segment');
       const invocation = await resolveInvocation(segment[0]);
       const parsed = parseAction(segment.slice(1), invocation.manifest.actions[invocation.action], invocation.args);
+
       if (Object.keys(parsed.runtime).some((k) => !['profile', 'provider', 'model'].includes(k)))
         throw new RibbitError(2, 'Flow input/output and budget flags must precede --');
       steps.push({ id: `step${i + 1}`, command: segment[0], args: parsed.args, inference: parsed.runtime });
@@ -33,12 +39,14 @@ export async function flowCli(tokens: string[]): Promise<void> {
     tokens = options;
   } else {
     const file = tokens.shift();
+
     if (!file) throw new RibbitError(2, 'Flow file required');
     raw = await yamlFile(file);
   }
   const dummy = (await resolveInvocation('ask')).manifest.actions.run;
   // Reuse runtime flag validation without accepting action arguments here.
   const parsed = parseAction(tokens, { ...dummy, args: { type: 'object', additionalProperties: false }, bindings: [] });
+
   runtime = parsed.runtime;
   const config = await loadConfig(),
     plan = await planFlow(
@@ -49,6 +57,7 @@ export async function flowCli(tokens: string[]): Promise<void> {
         ['profile', 'provider', 'model'].filter((k) => runtime[k] !== undefined).map((k) => [k, String(runtime[k])]),
       ),
     );
+
   if (runtime.output && !['records', 'jsonl', 'text', 'json'].includes(String(runtime.output)))
     throw new RibbitError(2, 'Unknown output format');
   if (runtime.input && !['auto', 'text', 'lines', 'jsonl', 'records'].includes(String(runtime.input)))
@@ -72,9 +81,11 @@ export async function flowCli(tokens: string[]): Promise<void> {
         .map(([flag, key]) => [key, Number(runtime[flag])]),
     ),
   });
+
   if (operation === 'validate') {
     budget.close();
     console.log(JSON.stringify({ schemaVersion: 1, valid: true, name: plan.flow.name }));
+
     return;
   }
   if (operation === 'plan') {
@@ -100,14 +111,17 @@ export async function flowCli(tokens: string[]): Promise<void> {
         2,
       ),
     );
+
     return;
   }
   const cancel = () => budget.controller.abort(new RibbitError(130, 'Cancelled'));
+
   process.once('SIGINT', cancel);
   try {
     const first = plan.steps[0],
       action = first.invocation.manifest.actions[first.invocation.action];
     const input = await readInput(runtime, action, first.invocation.args, semantic, canSkipFlowInput(plan));
+
     await write(output(await executeFlow(plan, input, budget, config), runtime, plan.steps.at(-1)!.invocation.name));
   } finally {
     process.removeListener('SIGINT', cancel);

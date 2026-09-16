@@ -2,12 +2,15 @@ import { type Adapter, type Event, type Request, reasoningOption } from '../inte
 import { send, responseLines, responseJson, eventJson, type Fetcher } from '../http/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';
 import type { Provider } from '../../config/index.ts';
+
 export class OllamaAdapter implements Adapter {
   constructor(private fetcher: Fetcher = fetch) {}
   async models(provider: Provider, signal: AbortSignal): Promise<string[]> {
     const value = await responseJson(await send(provider, '/api/tags', signal, undefined, this.fetcher), signal);
+
     if (!Array.isArray(value.models) || value.models.some((m: any) => typeof m.name !== 'string'))
       throw new RibbitError(4, 'Invalid model list');
+
     return value.models.map((m: any) => m.name);
   }
   async *stream(request: Request): AsyncGenerator<Event> {
@@ -35,10 +38,12 @@ export class OllamaAdapter implements Adapter {
       this.fetcher,
     );
     let done = false;
+
     for await (const line of responseLines(response, signal)) {
       if (!line) continue;
       if (done) throw new RibbitError(4, 'Ollama emitted data after completion');
       const value = eventJson(line);
+
       if (value.error || value.message?.tool_calls?.length || value.message?.refusal)
         throw new RibbitError(4, 'Provider returned an error, refusal or unsupported tool call');
       if (typeof value.message?.content !== 'string' || typeof value.done !== 'boolean')
