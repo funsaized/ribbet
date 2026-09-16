@@ -60,7 +60,7 @@ Eval and pilot evidence therefore apply to the candidate.
   killed by the OS (exit 137). Ad-hoc `codesign --force --sign -` is sufficient locally;
   Developer ID signing/notarization is a publication concern.
 - The 100k incremental RSS measured 106.8 MiB at the candidate versus 42.9 MiB recorded in
-  PERF-01 (2026-09-14). Both are under the 128 MiB gate; the difference was not investigated.
+  PERF-01 (2026-09-14). Both are under the 128 MiB gate. **Cause identified, not a regression**: PERF-01's figure came from `scripts/stream-memory.ts` (engine in-process under `bun run`), while the candidate uses `scripts/stream-bench.py` (compiled `dist/ribbit` subprocess, `/proc` peak); re-running the old script at the candidate reproduces ≈41 MiB. `stream-bench.py` is the correct gate instrument because it measures the shipped artifact.
 - Semantic eval and pilot evidence were measured at `504eec4` (behavioral no-op delta above).
 - Model quality is measured on synthetic, single-machine fixtures with cross-split overlap;
   `gemma-4-e4b` leaks jargon for non-technical `--audience` and shows occasional rank
