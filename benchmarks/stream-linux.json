@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "platform": "Linux-7.2.3-arch1-3-x86_64-with-glibc2.44",
+  "platform": "Linux-7.2.5-3-omarchy-x86_64-with-glibc2.44",
   "results": [
     {
       "command": [
@@ -9,16 +9,16 @@
       ],
       "records": 100000,
       "baselinePeakRSSBytes": [
-        83406848,
-        83148800,
-        83959808
+        77377536,
+        77217792,
+        77381632
       ],
       "workloadPeakRSSBytes": [
-        162783232,
-        163823616,
-        164114432
+        176123904,
+        175714304,
+        176300032
       ],
-      "incrementalRSSBytes": 80965632,
+      "incrementalRSSBytes": 99082240,
       "incrementalUnder128MiB": true
     },
     {
@@ -28,16 +28,16 @@
       ],
       "records": 100000,
       "baselinePeakRSSBytes": [
-        83083264,
-        83091456,
-        83161088
+        77320192,
+        77258752,
+        77357056
       ],
       "workloadPeakRSSBytes": [
-        167411712,
-        168042496,
-        168431616
+        185929728,
+        189276160,
+        189095936
       ],
-      "incrementalRSSBytes": 85348352,
+      "incrementalRSSBytes": 112017408,
       "incrementalUnder128MiB": true
     }
   ],
