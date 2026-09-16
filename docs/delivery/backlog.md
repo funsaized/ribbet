@@ -54,8 +54,8 @@ Read [execution rules](README.md), [PRD](../../Ribbit-PRD.md), and [contracts](c
 | [DOCS-01](tasks/DOCS-01.md) | Write complete command, SDK and routing docs | Required | G1/G6 | FLOW-03, FS-05, AGENT-02 | ACCEPTED |
 | [DOCS-02](tasks/DOCS-02.md) | Verify docs against packaged CLI | Required | G1/G8 | DOCS-01, SHIP-01 | ACCEPTED |
 | [PILOT-01](tasks/PILOT-01.md) | Validate first-run and recurring use cases with owner-selected users | Required human evidence | G8/R-PERF | DOCS-02, EVAL-02 | ACCEPTED |
-| [RELEASE-01](tasks/RELEASE-01.md) | Audit complete initial scope and release evidence | Required gate | G1–G8 | AGENT-03, EVAL-02, PERF-01, DOCS-02, PILOT-01 | REVIEW |
-| [RELEASE-02](tasks/RELEASE-02.md) | Prepare private launch decision packet | Required gate | G8 | RELEASE-01 | BLOCKED |
+| [RELEASE-01](tasks/RELEASE-01.md) | Audit complete initial scope and release evidence | Required gate | G1–G8 | AGENT-03, EVAL-02, PERF-01, DOCS-02, PILOT-01 | ACCEPTED |
+| [RELEASE-02](tasks/RELEASE-02.md) | Prepare private launch decision packet | Required gate | G8 | RELEASE-01 | READY |
 | [FOLLOW-01](tasks/FOLLOW-01.md) | Explore additional native providers | Post-release | Deferred | RELEASE-02 | BLOCKED |
 | [FOLLOW-02](tasks/FOLLOW-02.md) | Explore branching flows and nested invocation | Post-release | Deferred | RELEASE-02 | BLOCKED |
 | [FOLLOW-03](tasks/FOLLOW-03.md) | Explore sandboxed extension distribution | Post-release | Deferred | RELEASE-02 | BLOCKED |
@@ -79,7 +79,7 @@ All Required, Required gate and Required human evidence tasks block full v1 acce
 
 ## Current delivery state — 2026-09-16
 
-Of 50 required tasks: **48 ACCEPTED, 0 READY, 1 REVIEW, 0 owner-deferred, 1 BLOCKED**.
+Of 50 required tasks: **49 ACCEPTED, 1 READY, 0 REVIEW, 0 owner-deferred, 0 BLOCKED**.
 The five FOLLOW tasks are outside initial scope and remain inactive.
 
 PROV-03 is accepted: LM Studio and a hosted OpenAI-compatible endpoint both have
@@ -89,15 +89,16 @@ families (deterministic floor and independent reviewer pass both ≥ 85 %).
 
 PILOT-01 is accepted under an owner-waived single-participant scope
 ([decision](../decisions/pilot-scope.md)): one documented owner first-run completed in
-271 s excluding model download. RELEASE-01's audit is complete and in REVIEW pending one
-evidence-revision item (macOS); RELEASE-02 remains BLOCKED.
+271 s excluding model download. RELEASE-01 is ACCEPTED (all required tasks accepted, 22
+commands traced, contracts/schema reproducible, both-platform artifacts and perf at the
+candidate); RELEASE-02 is READY as the final gate.
 
-Release candidate `629a1dc`: Linux artifact `dist/ribbit` reproducible
-(SHA-256 `322cadd9…`); perf re-measured — help/version 42.2/39.6 ms, extension 119.8 ms,
-managed 66.3 ms, 100k incremental RSS 106.8 MiB (all gates pass). Verification at the
-candidate: check, lint, format:check, unit 117, CLI 11, consumer 1, conformance 2,
-docs/build/smoke, picker PTY. macOS artifact and evidence remain from 2026-09-14
-(see [RELEASE-01](evidence/RELEASE-01.md)).
+Release candidate `629a1dc`, both platform artifacts built from it and re-measured:
+Linux `dist/ribbit` `322cadd9…` — help/version 42.2/39.6 ms, extension 119.8 ms, managed
+66.3 ms, 100k incremental RSS 106.8 MiB; macOS arm64 `e0abc053…` (ad-hoc signed
+`52dd197b…`, run on the M1) — help/version 30.2/29.6 ms, extension 80.6 ms, managed 46.6 ms.
+All gates pass. Verification at the candidate: check, lint, format:check, unit 117, CLI 11,
+consumer 1, conformance 2, docs/build/smoke, picker PTY. See [RELEASE-01](evidence/RELEASE-01.md).
 
 Latest semantics: gemma-4-e4b passes the filter/classify/extract gate in three independent
 full runs (mean 1.000 / 1.000 / 0.919, zero harness errors); Qwen2.5 0.5B, Qwen2.5 1.5B
