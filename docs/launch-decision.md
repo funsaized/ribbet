@@ -48,9 +48,9 @@ Full detail: `docs/delivery/evidence/` (`RELEASE-01`, `EVAL-02`, `PERF-01`, `PIL
 - macOS arm64 distribution requires signing; only ad-hoc signing was done locally.
   Developer ID signing and notarization are not performed.
 - 100k incremental RSS: 106.8 MiB (`select`) / 94.5 MiB (`take`), measured against the compiled
-  binary. The older 42.9 MiB figure measured the engine in-process and is not comparable; the
-  old script reproduces ≈41 MiB at the candidate, so there is no regression. Both are under the
-  128 MiB gate.
+  binary. The older 42.9 MiB figure came from a since-retired in-process engine check and is not
+  comparable; it reproduced ≈41 MiB at the candidate, so there is no regression. Both are under
+  the 128 MiB gate.
 - Evals are synthetic and single-machine; semantic/rubric evidence was measured at `504eec4`
   (whitespace-only delta to the candidate). `gemma-4-e4b` leaks jargon for non-technical
   `--audience` and occasionally inverts rank when severity is de-correlated from impact.
