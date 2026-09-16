@@ -10,6 +10,10 @@ States: BLOCKED → READY → IN_PROGRESS → REVIEW → ACCEPTED. A task become
 
 Only BASE-01 is initially READY. Execute BASE-01 then DECIDE-01. Contract tracks 01/02/03/05 can be prepared independently after the runtime decision; CONTRACT-04 follows the first three. This plan permits future scheduling but does not instruct the current assistant to spawn agents or implement code. Parallel writers, if authorized, must own disjoint files; package metadata, lockfiles, SDK contracts and registry generators have one writer at a time.
 
+## Artifact kinds
+
+`contracts/` are ratified, living behavior specs (authoritative for behavior, amended when behavior changes); `tasks/`, `backlog.md` and `traceability.md` are living planning/status; `evidence/`, `audits/`, `HANDOFF.md` and `CHECKPOINT-*.md` are historical records that are not updated.
+
 ## Task rules
 
 Read task, parent PRD sections, relevant contracts and existing callers before editing. Paths are proposed for a greenfield repository; BASE-01 maps existing paths. Do not recreate an existing architecture solely to match names here. Keep changes inside listed scope; a necessary adjacent change requires a task amendment, not an unrelated refactor. Never weaken fixtures or alter budgets to make failures disappear. Add focused regression checks for material behavior. Stop when a contract is contradictory, a dependency is unaccepted, a gate fails without a scoped remedy, or permissions/credentials are unavailable. Record the blocker and the smallest next action. Do not invent test success.
