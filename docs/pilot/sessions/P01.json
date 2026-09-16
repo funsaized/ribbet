@@ -1,0 +1,16 @@
+
+{
+  "participantId": "funsaized",
+  "platform": "linux",
+  "cliRevision": "a35c6a75c7ade2274433452022a8aab12beca759d7f34bb1d98eb6af05e7478d",
+  "model": "gemma-4-e4b",
+  "startedAt": "2026-09-15T17:57:47-04:00",
+  "finishedAt": null,
+  "elapsedSecondsExcludingDownload": null,
+  "downloadSeconds": null,
+  "tasksCompleted": [],
+  "failuresAndRetries": [],
+  "assistance": [],
+  "recurringUseCase": "",
+  "successfulWithinTenMinutes": null
+}

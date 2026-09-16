@@ -1,6 +1,6 @@
 # Command reference
 
-Generated from installed built-in manifests by scripts/generate.ts.
+Reference for the 22 built-in commands. Confirm the live surface with `ribbit commands list --json` and per-command flags with `ribbit <command> --help`.
 
 ## ask
 

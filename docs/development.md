@@ -19,7 +19,9 @@ No public CI upload or publish operation is enabled.
 | build | Compile native development CLI |
 | bench | Warm-process timing; remaining gates tracked separately |
 | eval:semantic | Three-repetition local semantic evaluation; explicit opt-in |
-| eval:agent | AGENT-03 runner; currently fails explicitly as unimplemented |
+| eval:rubrics | Five-family rubric run through the local profile; explicit opt-in |
+| eval:gate | Combine a rubric run and reviewer verdicts into the gate report |
+| eval:agent | AGENT-03 runner; repository placeholder that exits nonzero |
 | package:smoke | Isolated installed CLI and extension-authoring smoke |
 
 The consumer suite checks the public SDK; the conformance suite currently checks real loopback HTTP cancellation and needs local socket permission. Neither represents full release conformance. The current binary exposes all 22 commands. See the backlog for acceptance status; implementation is not a release-quality claim.

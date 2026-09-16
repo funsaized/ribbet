@@ -86,7 +86,7 @@ structured output.
 ## Reproducing
 
 ```sh
-RIBBIIT_RUN_LIVE_EVAL=1 RIBBIT_EVAL_PROFILE=local-gemma \
+RIBBIT_RUN_LIVE_EVAL=1 RIBBIT_EVAL_PROFILE=local-gemma \
   bun run scripts/evaluate.ts
 ```
 
