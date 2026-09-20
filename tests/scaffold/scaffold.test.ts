@@ -38,7 +38,9 @@ test('agent guidance init is idempotent and preserves unrelated text', async () 
         env: { ...process.env, XDG_CONFIG_HOME: join(dir, 'cfg') },
       });
 
-      expect(await p.exited).toBe(0);
+      const stderr = await new Response(p.stderr).text();
+
+      expect({ code: await p.exited, stderr }).toEqual({ code: 0, stderr: '' });
     }
 
     await init();

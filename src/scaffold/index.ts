@@ -133,7 +133,7 @@ export async function initGuidance(agent: string) {
   };
 
   if (!paths[agent]) throw new RibbitError(2, 'Choose codex, claude, cursor or opencode');
-  const path = paths[agent];
+  const path = resolve(paths[agent]);
 
   await mkdir(dirname(path), { recursive: true });
   let existing = '';
