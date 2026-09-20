@@ -25,6 +25,7 @@ try {
     [`dist/${executable}`, executable],
     ['dist/lib', 'lib'],
     ['README.md', 'README.md'],
+    ['Ribbit-PRD.md', 'Ribbit-PRD.md'],
     ...[
       'installation',
       'usage',

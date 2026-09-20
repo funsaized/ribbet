@@ -13,6 +13,7 @@ async function walk(dir: string): Promise<string[]> {
 
 for (const path of [
   'README.md',
+  'Ribbit-PRD.md',
   'CONTRIBUTING.md',
   'SECURITY.md',
   'CHANGELOG.md',

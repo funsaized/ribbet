@@ -36,4 +36,4 @@ Ship shell pipes, named definitions, linear typed flows, two provider protocols,
 
 Every built-in and management surface needs its own contract/CLI verdict. Every semantic command and optional mode needs live regression evidence, clearly separated from mocked inference and broader quality review. Recipes must agree across supported composition surfaces. Clean installation must succeed without maintainer config. Public-facing examples must run against the packaged binary. License, notices, native platform evidence, and publication decisions must be resolved before distributing a public candidate.
 
-[Release checklist](release-checklist.md) is the current readiness authority. [Individual acceptance](release-acceptance.md) records command coverage and model-specific limits.
+[Product requirements](../Ribbit-PRD.md) expand this direction into the current alpha scope and acceptance criteria. [Release checklist](release-checklist.md) is the current readiness authority. [Individual acceptance](release-acceptance.md) records command coverage and model-specific limits.

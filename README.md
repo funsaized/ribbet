@@ -47,7 +47,7 @@ Ribbit records preserve IDs, source references, and annotations between commands
 - [Three runnable recipes](docs/recipes.md): feedback triage, repository-to-harness context, reusable commands.
 - [Installation and local setup](docs/installation.md).
 - [Usage and data contracts](docs/usage.md), [command reference](docs/commands.md), and [command examples](docs/command-examples.md).
-- [Model evidence](docs/models.md), [product direction](docs/product-direction.md), and [release checklist](docs/release-checklist.md).
+- [Model evidence](docs/models.md), [product direction](docs/product-direction.md), [product requirements](Ribbit-PRD.md), and [release checklist](docs/release-checklist.md).
 - [Extension authoring](docs/extensions.md) and [contributing](CONTRIBUTING.md).
 
 No automatic cloud fallback, telemetry, or model downloads. Configured remote routes receive the evidence you supply. Installed extensions are trusted executable code with filesystem, network, and process access. See [security](SECURITY.md).
