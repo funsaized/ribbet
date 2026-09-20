@@ -1,0 +1,25 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: triage
+steps:
+  - id: prepare
+    command: select
+    args:
+      fields: ticket,body,component
+  - id: annotate
+    command: classify
+    args:
+      field: body
+      label:
+        - blocking=Prevents a customer from completing a purchase
+        - cosmetic=Appearance or wording with no functional impact
+        - unknown=Insufficient evidence to determine impact
+      unknownLabel: unknown
+    inference:
+      profile: local-small
+  - id: synthesize
+    command: reduce
+    args:
+      instruction: Prioritize the tickets. Cite every ticket ID and preserve accessibility failures. Treat labels as fallible suggestions; verify against original bodies. Separate observations from hypotheses.
+    inference:
+      profile: stronger

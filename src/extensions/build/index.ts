@@ -1,3 +1,4 @@
+import { pathToFileURL } from 'node:url';
 import { readFile, mkdtemp, rm, realpath } from 'node:fs/promises';
 import { join, resolve, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -5,16 +6,20 @@ import { manifest, type Manifest } from '../../sdk/manifest/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';
 import { sourceDigest, activate } from '../install/index.ts';
 
+declare const RIBBIT_COMPILED: boolean;
+
 const root =
   process.env.RIBBIT_SDK_HOME ??
-  (import.meta.dir.includes('$bunfs')
+  (typeof RIBBIT_COMPILED !== 'undefined' && RIBBIT_COMPILED
     ? resolve(dirname(process.execPath), 'lib')
     : resolve(import.meta.dir, '../../..'));
 
 export async function checkExtension(source: string): Promise<{ manifest: Manifest; code: Uint8Array }> {
   source = await realpath(source);
   const entry = join(source, 'index.ts');
-  const ts: typeof import('typescript') = await import(join(root, 'node_modules/typescript/lib/typescript.js'));
+  const ts: typeof import('typescript') = await import(
+    pathToFileURL(join(root, 'node_modules/typescript/lib/typescript.js')).href
+  );
   const options: import('typescript').CompilerOptions = {
     strict: true,
     noEmit: true,
@@ -66,7 +71,7 @@ export async function checkExtension(source: string): Promise<{ manifest: Manife
     });
 
     if (!build.success) throw new RibbitError(5, 'Extension build failed');
-    const module = await import(join(temp, 'extension.mjs'));
+    const module = await import(pathToFileURL(join(temp, 'extension.mjs')).href);
     const command = module.default;
 
     if (

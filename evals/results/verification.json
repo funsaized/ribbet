@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "date": "2026-09-20T14:59:23.051364+00:00",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "testCounts": {
+    "unit": 118,
+    "cli": 11,
+    "consumer": 1,
+    "conformance": 2,
+    "release": 33,
+    "total": 165
+  },
+  "checks": [
+    "typecheck",
+    "lint",
+    "format",
+    "unit",
+    "cli",
+    "consumer",
+    "conformance",
+    "build",
+    "isolated package smoke",
+    "packaged release acceptance",
+    "documentation links/examples"
+  ],
+  "build": {
+    "schemaVersion": 1,
+    "target": "linux-x64",
+    "runtime": "1.4.0",
+    "sourceSha256": "8abeddebb62e328c6ef2f800b9568c40a9ff690d0356701fb3bbdc639b651fc9",
+    "lockSha256": "b05f31b6cb5651ef2e2a6592dd1288ab97bf05796765fbd119b0690cb4f85641",
+    "binarySha256": "e0a245762166bc4f8a6d23c779c2b73e1a6bf2dc0394ff0cca37458db16612da"
+  },
+  "revision": "04dee0807e0d1733e0ac376ef7a22f8a56af17af",
+  "workingTreeContainsUncommittedReleaseChanges": true,
+  "logSha256": "1c159624213d42903ba9ca2d3e23305d8ebc349d277fca3b4a0059bd6926d811",
+  "limitations": [
+    "Live semantic results are separate; the 0.5B model fails its quality floor",
+    "Hosted CI and non-Linux native execution not verified",
+    "License and independent quality/onboarding review pending"
+  ],
+  "supplementalChecks": {
+    "date": "2026-09-20T15:01:57.718803+00:00",
+    "pickerTerminalStatisticsRegression": "passed (real fzf selection, semantic ranking, and cancellation)",
+    "typecheck": "passed",
+    "lint": "passed with no warnings",
+    "format": "passed",
+    "docs": "passed"
+  }
+}

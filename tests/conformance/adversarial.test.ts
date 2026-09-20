@@ -26,7 +26,7 @@ test('hostile names and stdin text cannot execute or retarget routes', async () 
   const dir = await mkdtemp(join(tmpdir(), 'ribbit-adv-'));
 
   try {
-    const hostile = join(dir, '; touch pwned | echo hi');
+    const hostile = join(dir, process.platform === 'win32' ? '; touch pwned & echo hi' : '; touch pwned | echo hi');
 
     await mkdir(hostile);
     await writeFile(join(hostile, 'ok.txt'), 'safe');

@@ -1,7 +1,8 @@
+import { binaryName } from './platform.ts';
 import assert from 'node:assert/strict';
 import { resolve } from 'node:path';
 
-const binary = resolve('dist/ribbit');
+const binary = resolve('dist', binaryName);
 
 for (const [name, args, input, expected] of [
   ['first lines', ['take', '2', '--input', 'lines', '--output', 'jsonl'], 'one\ntwo\nthree\n', '"one"\n"two"\n'],

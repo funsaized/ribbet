@@ -6,7 +6,7 @@ using `npm run build`; run `dist/ribbit --help`. Development tooling uses TypeSc
 
 Package boundaries: src/sdk (public contract), src/engine (records and execution),
 src/cli (parsing and shell I/O), src/providers (managed HTTP), src/builtins (commands).
-No public CI upload or publish operation is enabled.
+The CI workflow runs deterministic checks without model credentials and uploads verified platform archives as CI artifacts; GitHub Release publication is a separate authorized action. Run `npm run verify` locally; it also requires Python 3 and fzf >=0.74.3.
 
 | Script | Purpose |
 | --- | --- |
@@ -30,7 +30,9 @@ No public CI upload or publish operation is enabled.
 
 The consumer suite checks the public SDK; the conformance suite currently checks real loopback HTTP cancellation and needs local socket permission. Neither represents full release conformance. The current binary exposes all 22 commands. See the backlog for acceptance status; implementation is not a release-quality claim.
 
-Formatting and linting use the Oxc toolchain: `oxlint` and `oxfmt`, configured by `.oxlintrc.json` and `.oxfmtrc.json`. Both honor `.gitignore`; the configs additionally exclude generated and recorded data (`dist`, `src/generated`, `evals/datasets`, `evals/results`, `evals/agent`, `evals/review`, `benchmarks`, `fixtures`, `spikes`). `npm run lint` passes with no errors (warnings are advisory). `npm run format` has not yet been applied to the whole tree; a first full pass is a separate, reviewable commit.
+Formatting and linting use the Oxc toolchain: `oxlint` and `oxfmt`, configured by `.oxlintrc.json` and `.oxfmtrc.json`. Both honor `.gitignore`; the configs additionally exclude generated and recorded data (`dist`, `src/generated`, `evals/datasets`, `evals/results`, `evals/agent`, `evals/review`, `benchmarks`, `fixtures`, `spikes`). `npm run lint` passes with no errors (warnings are advisory). Run `npm run format:check` before review; format only changed files when possible.
 
 Live provider harness: `scripts/live-provider.ts`; configuration and bounded invocation
-are documented in [PROV-03 evidence](delivery/evidence/PROV-03.md).
+are documented in [evaluation guide](../evals/README.md).
+
+Release acceptance tests: `npm run test:release` (build first). Live per-command regression: `npm run eval:release -- --help`. Review artifact: `npm run package:release`. See [release checklist](release-checklist.md) for current evidence.

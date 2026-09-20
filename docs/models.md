@@ -1,93 +1,57 @@
-# Model selection
+# Model evidence and route selection
 
-Status: v1 default selected 2026-09-15. Evidence: `docs/delivery/evidence/EVAL-02.md`.
+Choose routes per task. There is no universal small-model default and no hardware-independent quality claim. The current local regression compares an installed Qwen2.5 0.5B Q4_K_M (`ribbit-release-small`, 4096 loaded context) with Gemma 4 E4B Q4_K_M (`google/gemma-4-e4b`, 8192 loaded context), through LM Studio on this Linux workstation. Both model files were already installed; no model download was performed.
 
-## Selected default
+The runner uses temperature 0, at most 2048 output tokens, 30-second requests, 90-second command budgets, and three repetitions. Quantization is identified from the installed filenames; file digests, runtime, and hardware provenance are in [environment evidence](../evals/results/release-environment.json). Token usage may be unknown because the provider did not report it; unknown is not zero.
 
-| Field | Value |
-| --- | --- |
-| Provider / profile | LM Studio (`lmstudio`), profile `local-gemma` |
-| Model key | `gemma-4-e4b` (`google/gemma-4-e4b`) |
-| Source | `lmstudio-community/gemma-4-E4B-it-GGUF` |
-| File | `gemma-4-E4B-it-Q4_K_M.gguf` |
-| Quantization | Q4_K_M (verified from the GGUF filename) |
-| Parameters | 7.5B |
-| On-disk size | 6.33 GB |
-| Context used in evaluation | 8192 |
+Stronger report: [raw report](../evals/results/release/2026-09-20T14-51-55-840Z-google_gemma-4-e4b/report.json). Small report: [raw report](../evals/results/release/2026-09-20T14-55-34-078Z-ribbit-release-small/report.json). [Individual acceptance](release-acceptance.md) breaks down every command and optional mode.
 
-## Measured quality
+| Semantic command | Stronger passing attempts | 0.5B passing attempts |
+| --- | --- | --- |
+| ask | 6/6 | 3/6 |
+| classify | 3/3 | 1/3 |
+| compare | 3/3 | 3/3 |
+| explain | 3/3 | 3/3 |
+| extract | 3/3 | 3/3 |
+| filter | 3/3 | 0/3 |
+| find | 3/3 | 1/3 |
+| group | 3/3 | 0/3 |
+| map | 6/6 | 6/6 |
+| pick | 3/3 | 3/3 |
+| rank | 3/3 | 3/3 |
+| reduce | 6/6 | 3/6 |
+| rewrite | 3/3 | 3/3 |
+| summarize | 3/3 | 3/3 |
+| tree | 6/6 | 4/6 |
 
-Three independent full runs, 250 frozen fixtures × 3 repetitions = 750 attempts each,
-using the described-label variant of `evals/datasets/core.json`.
+The stronger model previously exhausted a 512-token allowance on explain, reduce, and compare. Those failed runs remain recorded; the 2048-token experiment is a different explicit resource configuration. Template-specific thinking controls are not universally honored. A small visible answer can still require substantial internal generation.
 
-| Metric | Run 1 | Run 2 | Run 3 | Mean | SD |
-| --- | --- | --- | --- | --- | --- |
-| Filter macro-F1 | 1.000 | 1.000 | 1.000 | 1.000 | 0.000 |
-| Classify macro-F1 | 1.000 | 1.000 | 1.000 | 1.000 | 0.000 |
-| Extraction field correctness | 0.922 | 0.931 | 0.904 | 0.919 | 0.011 |
+The 0.5B model is unsuitable as an automatic filter on this evidence: it repeatedly retained the wrong record. Its grouping, adversarial instruction handling, and chunked reduction also failed cases. Passing simple extraction or summarization fixtures does not establish suitability for arbitrary inputs. Prefer preserved originals and annotations when a downstream reviewer must catch mistakes.
 
-All three gates (≥ 0.90) pass in every run, with zero harness errors in 9,000 attempts
-across the four evaluated candidates. It is the only candidate that passes at all.
+## End-to-end comparison
 
-## Measured resources
+Workflow evidence: [raw report](../evals/results/workflows/2026-09-20T14-55-49-560Z/report.json). The same three fixture jobs were run local-only, direct-stronger, and mixed, three times each. All stages and full outputs are recorded. Downstream bytes measure evidence bytes at the final model boundary, not tokens.
 
-Reference: RTX 3080 Ti 12 GiB, 32 CPU cores, Linux.
-
-| Measurement | Observed |
-| --- | --- |
-| VRAM | ≈ 5.6–6.0 GB resident |
-| GPU temperature | ~78–82 °C sustained, 83 °C peak |
-| GPU power | up to ~349 W |
-| Latency | ~1.7–3.0 s per structured request idle; up to ~5 s under host CPU contention |
-| CPU | not a bottleneck; whole-battery CPU stayed under 47 % |
-
-## Candidates not selected
-
-| Model | Filter | Classify | Extract | Reason |
+| Recipe | Route | Passes | Mean wall time (ms) | Mean final evidence bytes |
 | --- | --- | --- | --- | --- |
-| Qwen2.5 1.5B Q4_K_M | 0.876 | 0.883 | 0.981 | Fails filter and classify (best run .906 filter was an outlier) |
-| Qwen3.5 9B (Ollama native) | 0.832 | 1.000 | 0.998 | Fails filter; conservative, mostly false negatives |
-| Qwen2.5 0.5B Q4_K_M | 0.340 | 0.852 | 0.747 | Fails all gates |
-| Qwen3.8 27B IQ4_XS | — | — | — | Development-screen only (3 examples); needs > 12 GiB |
+| triage | local-only | 3/3 | 1258 | 638 |
+| triage | direct-stronger | 3/3 | 8949 | 545 |
+| triage | mixed | 3/3 | 12360 | 637 |
+| context | local-only | 3/3 | 771 | 816 |
+| context | direct-stronger | 3/3 | 6727 | 760 |
+| context | mixed | 3/3 | 8696 | 816 |
+| brief | local-only | 3/3 | 275 | 75 |
+| brief | direct-stronger | 3/3 | 2973 | 90 |
+| brief | mixed | 3/3 | 3706 | 75 |
 
-The 27B has no full evaluation and does not fit the reference card. Deeper model
-investigation is deferred until after v1.
+Interpret these as observations on tiny fixtures and an uncontrolled shared workstation, not benchmark rankings. The annotation-based recipes retain all evidence and can increase final context size and latency. A direct stronger-model call is often simpler. The brief recipe reduces text volume but can lose facts; its floor checks names, dates, and amounts. No monetary savings or general quality improvement is established.
 
-## Configuration
+## Harness boundary
 
-```
-ribbit profiles set local-gemma --provider lmstudio --model gemma-4-e4b --max-output-tokens 2048
-```
+Live Codex handoff: [raw report](../evals/results/handoff/2026-09-20T14-58-06-865Z/report.json). PASS: the local harness consumed the record stream and returned the required source names and expiration condition. This is one bounded read-only interpretation task, not an evaluation of autonomous coding or tool-use reliability.
 
-Select it globally by editing the `default` block in
-`${XDG_CONFIG_HOME:-$HOME/.config}/ribbit/config.yaml`:
+## Limits and reproduction
 
-```yaml
-default:
-  profile: local-gemma
-```
+These are public, authored regression cases. They are not held out, were not independently reviewed, and use deterministic fact checks as a floor. Older synthetic datasets and their reviews are retained as historical evidence, not current cross-domain validation. Model suitability remains experimental until diverse held-out tasks and independent review support broader claims.
 
-There is no CLI flag for the global default; the config file is authoritative.
-`maxOutputTokens` is 2048 — the lower 256/512 caps on the smaller test profiles truncate
-structured output.
-
-## Known limits
-
-- Quality is measured on synthetic fixtures with cross-split template overlap. This is not
-  evidence of broad out-of-distribution generalisation.
-- Rubric families (`rank`, `group`, `reduce`, `compare`, `explain`) were evaluated 2026-09-15 and
-  pass: deterministic floor 97.8 / 100 / 100 / 100 / 91.1 % and independent reviewer 100 / 100 / 100 /
-  100 / 90.0 % respectively (see `docs/delivery/evidence/EVAL-02.md`). The `explain` shortfall is
-  non-technical audience cases leaking jargon.
-- Numbers are single-machine and single-GPU; other hardware may differ.
-- The evaluated model is text-only for Ribbit's purposes; the multimodal projector shipped
-  alongside it is unused.
-
-## Reproducing
-
-```sh
-RIBBIT_RUN_LIVE_EVAL=1 RIBBIT_EVAL_PROFILE=local-gemma \
-  bun run scripts/evaluate.ts
-```
-
-Set `RIBBIT_EVAL_DATASET` to a described-label variant to reproduce the exact configuration.
+Run `npm run eval:release -- --help` for per-command selection. `--mode smoke` runs every selected case once; `--mode full` repeats them three times. The [evaluation guide](../evals/README.md) documents local-only opt-in, raw attempt retention, recipe comparisons, and harness checks.

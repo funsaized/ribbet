@@ -1,8 +1,9 @@
+import { binaryName } from './platform.ts';
 import { writeFile } from 'node:fs/promises';
 import { cpus, totalmem } from 'node:os';
 import { resolve } from 'node:path';
 
-const binary = resolve('dist/ribbit');
+const binary = resolve('dist', binaryName);
 const runs = 30;
 
 async function measure(args: string[], input = '') {
@@ -48,6 +49,6 @@ const report = {
   ],
 };
 
-await writeFile('benchmarks/latest.json', JSON.stringify(report, null, 2) + '\n');
+await writeFile(process.env.RIBBIT_BENCH_OUTPUT || 'benchmarks/latest.json', JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));
 if (!report.checks.startup) process.exitCode = 1;

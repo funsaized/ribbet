@@ -1,24 +1,55 @@
 # Ribbit
 
-Private, local-first semantic shell toolkit. All 22 command implementations are wired to the CLI, alongside typed extensions, named YAML commands and linear flows. Release acceptance is still in progress; this is a development build.
+Compose small commands around local and stronger models. Turn messy input into structured facts, preserve the evidence, and pass the result to the next command or your coding harness.
+
+Ribbit provides 22 shell commands, typed records, explicit per-command model routing, reusable YAML definitions, and linear flows. This is **v0.1.0-alpha.1, the first experimental open-source preview**. Semantic behavior is experimental; see the [release checklist](docs/release-checklist.md) for actual evidence and blockers.
+
+Native release targets: Linux, macOS, and Windows, each on x64 and ARM64. See [platform support](docs/installation.md#platform-support) for validation and terminal requirements.
+
+## Try it without a model
+
+Building requires Bun 1.4.0 and npm. The compiled CLI runs without a separately installed JavaScript runtime.
 
 ```sh
 npm ci --ignore-scripts
 npm run build
-printf 'one\ntwo\nthree\n' | ./dist/ribbit take 2 --input lines --output jsonl
-./dist/ribbit setup --json
-./dist/ribbit ask 'Explain this briefly' --file README.md --profile local-gemma
+printf '{"name":"Ada","score":2}\n{"name":"Lin","score":1}\n' |
+  ./dist/ribbit sort --by score --type number --input jsonl |
+  ./dist/ribbit select name |
+  ./dist/ribbit render --as table
 ```
 
-The distribution contains `ribbit` and its adjacent `lib/` directory. Keep them together for extension authoring. Ordinary commands need no separately installed compiler or runtime. Model inference requires a running provider.
+The result is a `name` column with Lin, then Ada. No inference occurs.
 
-On this workstation the default profile is `local-gemma` (LM Studio at `http://127.0.0.1:1234/v1`, model `gemma-4-e4b`), the selected v1 model; see [model selection](docs/models.md). `--profile local-test` uses the smaller Qwen2.5-0.5B for fast integration checks and did not pass the semantic quality gates; `--profile local-qwen` reuses the existing Ollama Qwen3.5:9b, which failed the filter gate. The local server must be running (LM Studio → Developer → Start Server); verify the route with `ribbit doctor --probe --json`.
+## Give each model a bounded job
 
-- [Delivery state and remaining gates](docs/delivery/backlog.md)
-- [User guide and examples](docs/usage.md)
-- [Command reference](docs/commands.md)
-- [Extension authoring](docs/extensions.md)
-- [Development and validation](docs/development.md)
-- [Product requirements](Ribbit-PRD.md)
+Configure your own installed models as `local-small` and `stronger` using the [setup guide](docs/installation.md). Both profiles can point to local models.
 
-No telemetry, automatic cloud fallback, publication or model downloads occur during ordinary command execution. Installed TypeScript extensions are trusted executable code.
+```sh
+./dist/ribbit flow plan examples/flows/triage.yaml
+./dist/ribbit flow run examples/flows/triage.yaml \
+  --file fixtures/release/feedback.jsonl --input jsonl
+```
+
+The flow projects fields, classifies each ticket locally, then sends every original ticket plus its label to the stronger model for prioritization. Local labels are suggestions. Evidence is retained so the next stage can catch mistakes.
+
+## Choose a command
+
+| Job | Commands |
+| --- | --- |
+| Work with text | ask, summarize, explain, rewrite, extract, compare |
+| Interpret records | classify, filter, rank, group, map, reduce |
+| Gather source evidence | ls, find, tree, read, pick |
+| Compose exact operations | select, sort, unique, take, render |
+
+Ribbit records preserve IDs, source references, and annotations between commands. `--output jsonl` exports bare values and drops that metadata. Keep the default record format until a deliberate export or display boundary.
+
+- [Three runnable recipes](docs/recipes.md): feedback triage, repository-to-harness context, reusable commands.
+- [Installation and local setup](docs/installation.md).
+- [Usage and data contracts](docs/usage.md), [command reference](docs/commands.md), and [command examples](docs/command-examples.md).
+- [Model evidence](docs/models.md), [product direction](docs/product-direction.md), and [release checklist](docs/release-checklist.md).
+- [Extension authoring](docs/extensions.md) and [contributing](CONTRIBUTING.md).
+
+No automatic cloud fallback, telemetry, or model downloads. Configured remote routes receive the evidence you supply. Installed extensions are trusted executable code with filesystem, network, and process access. See [security](SECURITY.md).
+
+Released under the [MIT license](LICENSE). Download native artifacts from [GitHub Releases](https://github.com/funsaized/ribbet/releases). The repository is named `ribbet`; the product and executable are **Ribbit / `ribbit`**. No npm publication is implied.

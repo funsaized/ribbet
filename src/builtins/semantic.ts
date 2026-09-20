@@ -363,8 +363,8 @@ export const semanticCommands = {
     z.strictObject({ paths: z.array(z.string()).length(2), focus: z.string().optional() }),
     async ({ args }, ctx) => {
       const a = args as any;
-      const left = await textFile(a.paths[0]),
-        right = await textFile(a.paths[1]);
+      const left = await textFile(a.paths[0], ctx.budget.limits.maxBytes),
+        right = await textFile(a.paths[1], ctx.budget.limits.maxBytes - Buffer.byteLength(left));
 
       if (!left.trim() || !right.trim()) throw new RibbitError(2, 'Comparison evidence is empty');
       const result = await ctx.llm.text(

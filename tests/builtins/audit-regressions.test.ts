@@ -99,3 +99,38 @@ test('templates and render output honor invocation byte budgets', async () => {
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+test('compare applies the invocation byte budget across both files before inference', async () => {
+  const { semanticCommands } = await import('../../src/builtins/semantic.ts');
+  const dir = await mkdtemp(join(tmpdir(), 'ribbit-compare-budget-'));
+  const budget = new Budget({ maxBytes: 10 });
+
+  try {
+    await writeFile(join(dir, 'a'), '123456');
+    await writeFile(join(dir, 'b'), 'abcdef');
+    await expect(
+      executeAction(
+        semanticCommands.compare.actions.run,
+        null,
+        { paths: [join(dir, 'a'), join(dir, 'b')] },
+        {},
+        {
+          budget,
+          signal: budget.signal,
+          log() {},
+          llm: {
+            async text() {
+              throw new Error('Unexpected inference');
+            },
+            async object() {
+              throw new Error('Unexpected inference');
+            },
+          },
+        },
+      ),
+    ).rejects.toMatchObject({ code: 6 });
+  } finally {
+    budget.close();
+    await rm(dir, { recursive: true, force: true });
+  }
+});

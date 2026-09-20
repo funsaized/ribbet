@@ -1,3 +1,4 @@
+import { version } from '../../package.json';
 import { builtins } from '../catalog/index.ts';
 import { RibbitError, EXACT_LIMITS, SEMANTIC_LIMITS } from '../engine/records/index.ts';
 
@@ -45,7 +46,7 @@ function help(
 
 async function main() {
   if (argv.length === 1 && argv[0] === '--version') {
-    console.log('ribbit 0.1.0-dev.0');
+    console.log(`ribbit ${version}`);
 
     return;
   }

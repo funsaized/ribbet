@@ -1,0 +1,1 @@
+{"type":"object","properties":{"owner":{"type":"string"},"reviewer":{"type":["string","null"]}},"required":["owner","reviewer"],"additionalProperties":false}

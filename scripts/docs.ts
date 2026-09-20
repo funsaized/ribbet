@@ -11,7 +11,14 @@ async function walk(dir: string): Promise<string[]> {
   ).flat();
 }
 
-for (const path of ['README.md', ...(await walk('docs'))]) {
+for (const path of [
+  'README.md',
+  'CONTRIBUTING.md',
+  'SECURITY.md',
+  'CHANGELOG.md',
+  'THIRD_PARTY_NOTICES.md',
+  ...(await walk('docs')),
+]) {
   if (!path.endsWith('.md')) continue;
   const text = await readFile(path, 'utf8');
 

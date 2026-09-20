@@ -19,7 +19,7 @@ test('nested ignores, hidden/sensitive files and bounded content discovery', asy
     await writeFile(join(root, 'sub', 'hidden.txt'), 'ignore');
     await writeFile(join(root, 'sub', 'code.ts'), 'code');
     await writeFile(join(root, 'binary.bin'), new Uint8Array([0, 1]));
-    await symlink(root, join(root, 'sub', 'loop'));
+    await symlink(root, join(root, 'sub', 'loop'), process.platform === 'win32' ? 'junction' : 'dir');
     const rows = await walk(
       root,
       { recursive: true, follow: true, read: 'content', semantic: true, hidden: true },
@@ -40,7 +40,7 @@ test('nested ignores, hidden/sensitive files and bounded content discovery', asy
     await rm(root, { recursive: true, force: true });
   }
 });
-test('skip mode continues past unreadable nested directories', async () => {
+test.skipIf(process.platform === 'win32')('skip mode continues past unreadable nested directories', async () => {
   if (process.getuid?.() === 0) return;
   const root = await mkdtemp(join(tmpdir(), 'ribbit-skip-'));
   const locked = join(root, 'locked');

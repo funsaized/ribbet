@@ -2,6 +2,8 @@
 
 Reference for the 22 built-in commands. Confirm the live surface with `ribbit commands list --json` and per-command flags with `ribbit <command> --help`.
 
+For working invocations and individual assertions, see [command examples](command-examples.md). For model-specific results, see [acceptance](release-acceptance.md).
+
 ## ask
 
 Answer an instruction using optional evidence. Input: text; output: text.

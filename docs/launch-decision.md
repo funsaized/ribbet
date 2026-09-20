@@ -1,4 +1,6 @@
-# Ribbit — private launch decision packet
+# Ribbit — historical private launch decision packet
+
+Superseded for current readiness by the [release checklist](release-checklist.md). The measurements and decisions below describe an earlier candidate.
 
 Private. Owner-facing. Do not publish, distribute or link publicly.
 

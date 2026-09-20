@@ -1,15 +1,38 @@
-import { mkdir, cp, writeFile, rm } from 'node:fs/promises';
+import { hostTarget } from './platform.ts';
+import { createHash } from 'node:crypto';
+import { sourceDigest } from '../src/extensions/install/index.ts';
+import { mkdir, cp, writeFile, rm, readFile } from 'node:fs/promises';
 // eslint-disable-next-line import/no-unassigned-import -- intentional side effect: regenerates built-in manifests
 import './generate.ts';
 
 await mkdir('dist', { recursive: true });
 const target = process.env.RIBBIT_BUILD_TARGET;
+const targetName = target?.replace(/^bun-/, '') ?? hostTarget;
+const executable = targetName.startsWith('windows-') ? 'ribbit.exe' : 'ribbit';
 const proc = Bun.spawn(
-  ['bun', 'build', 'src/cli/main.ts', '--compile', ...(target ? ['--target', target] : []), '--outfile', 'dist/ribbit'],
+  [
+    'bun',
+    'build',
+    'src/cli/main.ts',
+    '--compile',
+    '--define',
+    'RIBBIT_COMPILED=true',
+    ...(target ? ['--target', target] : []),
+    '--outfile',
+    `dist/${executable}`,
+  ],
   { stdout: 'inherit', stderr: 'inherit' },
 );
 
 if ((await proc.exited) !== 0) process.exit(1);
+if (process.platform === 'darwin' && targetName.startsWith('darwin-')) {
+  const sign = Bun.spawn(['codesign', '--force', '--sign', '-', `dist/${executable}`], {
+    stdout: 'inherit',
+    stderr: 'inherit',
+  });
+
+  if ((await sign.exited) !== 0) throw new Error('Ad-hoc signing failed');
+}
 await rm('dist/lib', { recursive: true, force: true });
 for (const path of [
   'src/sdk',
@@ -38,3 +61,24 @@ await writeFile(
   ) + '\n',
 );
 console.log('Built CLI with local SDK and extension compiler type support');
+
+await writeFile(
+  'dist/build.json',
+  JSON.stringify(
+    {
+      schemaVersion: 1,
+      target: targetName,
+      executable,
+      runtime: Bun.version,
+      sourceSha256: await sourceDigest('src'),
+      lockSha256: createHash('sha256')
+        .update(await readFile('package-lock.json'))
+        .digest('hex'),
+      binarySha256: createHash('sha256')
+        .update(await readFile(`dist/${executable}`))
+        .digest('hex'),
+    },
+    null,
+    2,
+  ) + '\n',
+);

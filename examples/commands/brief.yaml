@@ -1,0 +1,11 @@
+apiVersion: ribbit/v1
+kind: Command
+name: brief
+type: '@ribbit/summarize'
+typeVersion: '1.0.0'
+action: run
+config: {}
+defaults:
+  words: 40
+  rule:
+    - Preserve names, dates, amounts, and unresolved questions.

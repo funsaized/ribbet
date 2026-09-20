@@ -36,3 +36,5 @@ defaults:
 Then `printf 'Ada' | ribbit run greeting`. Use `commands validate greeting` and `commands describe greeting --json`. Exact type versions are required. Global definitions live next to global config under `commands/`; project definitions live in project `commands/`. Collisions require `project:NAME` or `global:NAME`; built-in names are reserved. Unknown YAML keys, duplicate keys and executable tags fail.
 
 `ribbit init --agent codex|claude|cursor|opencode` creates project configuration if missing and appends idempotent guidance without replacing existing instructions. The CLI never publishes packages.
+
+The product version and command type versions are separate. The current development product can contain types declared as `1.0.0`; that type identifier is required for definition matching and does not mean Ribbit has shipped a stable 1.0 product.

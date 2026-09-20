@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.png binary
+*.gguf binary
+# Preserve upstream license text byte-for-byte, including original whitespace.
+docs/third-party/*.txt -text -whitespace

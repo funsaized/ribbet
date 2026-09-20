@@ -1,5 +1,6 @@
+import { pathToFileURL } from 'node:url';
 import { readdir, readFile, mkdir, rename, writeFile, rm, realpath } from 'node:fs/promises';
-import { join, relative } from 'node:path';
+import { join, relative, sep } from 'node:path';
 import { homedir } from 'node:os';
 import { hash, stable, type Manifest } from '../../sdk/manifest/index.ts';
 import { RibbitError } from '../../engine/records/index.ts';
@@ -35,7 +36,7 @@ export async function sourceDigest(source: string): Promise<string> {
         bytes += buffer.length;
         count++;
         if (count > 1000 || bytes > 16 * 1024 * 1024) throw new RibbitError(6, 'Extension source budget exceeded');
-        entries.push([relative(source, path), hash(buffer)]);
+        entries.push([relative(source, path).split(sep).join('/'), hash(buffer)]);
       }
     }
   }
@@ -123,7 +124,7 @@ export async function loadInstalled(type: string, home = extensionHome()): Promi
   if (hash(await readFile(path)) !== item.artifactHash)
     throw new RibbitError(3, 'Installed extension artifact changed');
   try {
-    return (await import(path)).default;
+    return (await import(pathToFileURL(path).href)).default;
   } catch {
     throw new RibbitError(5, 'Installed extension import failed (details redacted)');
   }

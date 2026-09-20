@@ -259,7 +259,10 @@ export const filesystemCommands = {
       let tty;
 
       try {
-        tty = await open('/dev/tty', 'r+');
+        tty = await open(
+          process.platform === 'win32' ? 'CONOUT$' : '/dev/tty',
+          process.platform === 'win32' ? 'w' : 'r+',
+        );
       } catch {
         throw new RibbitError(7, 'pick requires a controlling terminal; use rank --top for noninteractive selection');
       }

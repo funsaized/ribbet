@@ -1,0 +1,22 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: context
+steps:
+  - id: candidates
+    command: find
+    args:
+      root: repository
+      kind: file
+      read: content
+      maxFiles: 40
+  - id: relevance
+    command: classify
+    args:
+      field: content
+      label:
+        - relevant=Implements session expiration or request authentication
+        - other=Unrelated to session expiration or request authentication
+        - unknown=Insufficient evidence
+      unknownLabel: unknown
+    inference:
+      profile: local-small

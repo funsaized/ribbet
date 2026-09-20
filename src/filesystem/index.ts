@@ -201,7 +201,7 @@ export async function walk(
         ) {
           const value: FileValue = {
             path,
-            relativePath: rel,
+            relativePath: rel.split(sep).join('/'),
             kind,
             sizeBytes: meta.size,
             modifiedAt: meta.mtime.toISOString(),

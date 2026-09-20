@@ -1,6 +1,8 @@
 # Ribbit — Product requirements document
 
-Version 1.0 · 2026-09-13 · Private planning draft · Selected name; availability unverified
+Historical planning baseline · 2026-09-13 · Selected name; availability unverified
+
+The current product direction is [composable model work](docs/product-direction.md). Current acceptance and remaining release decisions live in the [release checklist](docs/release-checklist.md). This document preserves the original proposed contracts and scope; its future-tense claims and private delivery gates are historical, not a current readiness declaration.
 
 ## 1. Product decision
 

@@ -1,0 +1,10 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: brief
+steps:
+  - id: summary
+    command: brief
+  - id: wording
+    command: rewrite
+    args:
+      instruction: Use plain language; preserve every fact in the summary.
