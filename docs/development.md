@@ -24,9 +24,15 @@ Package boundaries: `src/sdk` is the public contract, `src/engine` handles recor
 | package:smoke | Isolated installed CLI and extension-authoring smoke |
 | package:release | Create the native archive, metadata, and checksum |
 | package:verify | Verify checksum and test the extracted installation |
+| package:npm | Stage and pack the npm installer from all six verified archives |
+| package:npm:verify | Check npm packaging, installation, checksum rejection, and command mapping |
 
 The [CI workflow](../.github/workflows/ci.yml) runs without model credentials on Linux, macOS, and Windows, each on x64 and ARM64. It uploads archives only after native tests and isolated installation checks pass. Windows skips the POSIX permissions and PTY-specific tests; interactive Windows console behavior is not certified by those checks.
 
 Lint and formatting use `.oxlintrc.json` and `.oxfmtrc.json`. Generated output and evaluation recordings are excluded. Run `npm run verify` before review and `npm run package:release && npm run package:verify` when changing distribution behavior.
 
 See the [evaluation guide](../evals/README.md) for live opt-in runs, [individual acceptance](release-acceptance.md) for coverage, and the [release checklist](release-checklist.md) for the current release decision.
+
+## Publish the npm distribution
+
+The repository package stays private. After native CI passes, collect all six archives and checksums from the same commit. Run `npm run package:npm -- @funsaized/ribbit PATH_TO_ARTIFACTS` to generate `dist/npm` and its tarball in `dist/releases`. The generated manifest pins each archive and binary checksum. Publish the native GitHub release before npm so installation URLs are available, then publish the reviewed tarball with `npm publish PATH_TO_TARBALL --access public --tag alpha`. Attach the npm tarball and its checksum to the GitHub release and link the registry package in release notes. Publishing requires the authorized npm account; it is not part of ordinary CI.

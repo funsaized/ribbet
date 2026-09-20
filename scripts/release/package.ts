@@ -42,6 +42,7 @@ try {
     ['docs/third-party', 'docs/third-party'],
     ...[
       'src',
+      'npm',
       'scripts',
       'tests',
       'evals',

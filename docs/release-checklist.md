@@ -19,6 +19,7 @@ Ribbit composes typed shell commands, local-model tasks, stronger-model steps, a
 | Isolated distribution | [Smoke runner](../scripts/smoke.ts) | Copied binary/lib and isolated HOME/XDG paths; no maintainer config |
 | Contributor and security guidance | [Contributing](../CONTRIBUTING.md), [security](../SECURITY.md) | MIT adopted; private reporting enabled for the public repository |
 | CI | [Workflow](../.github/workflows/ci.yml) in source checkout | Native matrix covers Linux/macOS/Windows on x64/ARM64; see the linked Actions run for results |
+| npm distribution | `npm run package:npm:verify` | Packed installation, checksum rejection, command mapping, and extension authoring checked on each native target |
 | Release archive | `npm run package:release` | Binary/lib, curated public docs, source/fixtures, notices, BUILD metadata, checksum; uploaded only after successful native CI |
 
 Run `npm run verify` for the deterministic gate, then `npm run package:release && npm run package:verify` for distribution checks. Live model evaluations are separately opt-in. The [native Actions run](https://github.com/funsaized/ribbet/actions) for the release revision is the build and test authority; archives record that revision in `BUILD.json`.
@@ -33,7 +34,7 @@ The 22-command scope is retained. Exact modes can be presented with their tested
 
 - MIT license, attributed to Sai Nimmagadda using the existing repository author identity.
 - Public experimental preview authorized; publish on the configured `funsaized/ribbet` GitHub remote.
-- Keep Ribbit as the product/executable name. Package metadata keeps `private: true` solely to prevent accidental npm publication; GitHub source and release assets are public.
+- Keep Ribbit as the product/executable name. The source checkout stays `private: true` to prevent accidental publication of the repository package. A separate staged public npm package, `@funsaized/ribbit`, installs the native GitHub assets with pinned checksums. Both GitHub and npm publication are authorized.
 - Independent held-out semantic review and a fresh-user pilot remain follow-up work. No broad quality or onboarding claim is made from synthetic tests.
 - Native CI builds and tests all six desktop targets. macOS binaries are ad-hoc signed, not Apple Developer ID signed/notarized. Windows binaries are not Authenticode signed. Interactive picker validation uses real PTYs on Linux/macOS; Windows console interaction remains separately documented.
 

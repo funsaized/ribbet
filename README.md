@@ -8,7 +8,14 @@ Native release targets: Linux, macOS, and Windows, each on x64 and ARM64. See [p
 
 ## Try it without a model
 
-Building requires Bun 1.4.0 and npm. The compiled CLI runs without a separately installed JavaScript runtime.
+Install the alpha from [npm](https://www.npmjs.com/package/@funsaized/ribbit):
+
+```sh
+npm install -g @funsaized/ribbit@alpha
+ribbit --help
+```
+
+The npm installer requires Node.js >=20 and tar, and downloads the matching checksum-verified native GitHub release. Direct [native archives](https://github.com/funsaized/ribbet/releases) need no separately installed JavaScript runtime. To build from source, use Bun 1.4.0 and npm:
 
 ```sh
 npm ci --ignore-scripts
@@ -52,4 +59,4 @@ Ribbit records preserve IDs, source references, and annotations between commands
 
 No automatic cloud fallback, telemetry, or model downloads. Configured remote routes receive the evidence you supply. Installed extensions are trusted executable code with filesystem, network, and process access. See [security](SECURITY.md).
 
-Released under the [MIT license](LICENSE). Download native artifacts from [GitHub Releases](https://github.com/funsaized/ribbet/releases). The repository is named `ribbet`; the product and executable are **Ribbit / `ribbit`**. No npm publication is implied.
+Released under the [MIT license](LICENSE). Download native artifacts from [GitHub Releases](https://github.com/funsaized/ribbet/releases). The repository is named `ribbet`; the product and executable are **Ribbit / `ribbit`**. The npm package is `@funsaized/ribbit`.

@@ -12,7 +12,7 @@ A developer can give a bounded task to a small or local model, preserve its outp
 
 A small model is not necessarily local, and a stronger model need not be remote. The product must support these choices without assuming that chaining improves quality, latency, cost, or context size. Users should be able to compare a chain with a direct stronger-model request and understand what each stage contributes.
 
-The product and executable are **Ribbit / `ribbit`**. The GitHub repository is `funsaized/ribbet`. Public identifiers include `@ribbit/sdk`, `.ribbit.yaml`, `ribbit/v1`, and the `$ribbit` wire marker. GitHub distributes the source and native archives; npm publication is outside this release.
+The product and executable are **Ribbit / `ribbit`**. The GitHub repository is `funsaized/ribbet`. Public identifiers include `@ribbit/sdk`, `.ribbit.yaml`, `ribbit/v1`, and the `$ribbit` wire marker. GitHub distributes the source and native archives. The public npm package `@funsaized/ribbit` installs the matching GitHub asset after verifying a checksum pinned in the package; the command remains `ribbit`.
 
 ## Users and problems
 
@@ -90,7 +90,7 @@ Ship native archives for Linux glibc x64/ARM64, macOS Intel/Apple Silicon, and W
 
 Interactive picking requires fzf >=0.74.3. Linux/macOS use real PTY tests. Windows console interaction remains unverified by that suite. macOS binaries are ad-hoc signed, not notarized; Windows binaries are not Authenticode signed. Additional operating systems, musl, and 32-bit builds are outside this alpha's support claim.
 
-Provide MIT licensing, dependency notices, checksums, build metadata, installation/uninstall instructions, contributor guidance, and private vulnerability reporting. No telemetry, automatic model download, or bundled model weights. Configured remote endpoints receive the evidence sent to them; filesystem exclusions are not a comprehensive secret detector.
+Provide MIT licensing, dependency notices, checksums, build metadata, installation/uninstall instructions, contributor guidance, and private vulnerability reporting. The npm installer requires Node.js >=20 and tar; native archives remain available without that wrapper. Native CI must also verify the packed npm distribution, checksum rejection, command mapping, and extension support. No telemetry, automatic model download, or bundled model weights. Configured remote endpoints receive the evidence sent to them; filesystem exclusions are not a comprehensive secret detector.
 
 ## Release acceptance and limits
 

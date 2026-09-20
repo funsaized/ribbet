@@ -35,7 +35,9 @@
     "eval:workflows": "bun run scripts/release/workflows.ts",
     "eval:handoff": "bun run scripts/release/handoff.ts",
     "notices": "bun run scripts/release/notices.ts",
-    "package:verify": "bun run scripts/release/archive-smoke.ts"
+    "package:verify": "bun run scripts/release/archive-smoke.ts",
+    "package:npm": "bun run scripts/release/npm.ts",
+    "package:npm:verify": "bun run scripts/release/npm-smoke.ts"
   },
   "dependencies": {
     "ajv": "8.18.0",

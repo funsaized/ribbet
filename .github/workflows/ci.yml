@@ -58,6 +58,8 @@ jobs:
         run: |
           npm run package:release
           npm run package:verify
+      - name: Verify npm installation
+        run: npm run package:npm:verify
       - name: Preserve verified candidate
         uses: actions/upload-artifact@v4
         with:

@@ -2,6 +2,17 @@
 
 Download the archive for your machine from [GitHub Releases](https://github.com/funsaized/ribbet/releases). Extract it and keep the executable beside `lib/`. The archives include source, public documentation, MIT and dependency notices, build metadata, and a SHA-256 sidecar.
 
+## Install with npm
+
+```sh
+npm install -g @funsaized/ribbit@alpha
+ribbit --version
+```
+
+Requires Node.js >=20 and tar. The [npm package](https://www.npmjs.com/package/@funsaized/ribbit) downloads the matching native archive from the versioned GitHub release and verifies the archive and executable hashes pinned in the package. It installs only the executable and adjacent extension support files. With lifecycle scripts disabled, the first invocation performs installation instead. This downloads Ribbit, not model weights.
+
+Use `npm uninstall -g @funsaized/ribbit` to remove the npm installation. User configuration and installed extensions are preserved. For offline use or a machine without Node.js, use the native archive. A failed download or checksum check stops installation; `npm rebuild -g @funsaized/ribbit` retries it.
+
 ## Platform support
 
 | OS | Architectures | Executable | Interactive picker |
