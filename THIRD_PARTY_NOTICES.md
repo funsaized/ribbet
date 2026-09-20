@@ -1,6 +1,6 @@
 # Third-party notices
 
-Inventory of installed locked dependencies, including development tools and SDK support files. Ribbit is MIT licensed; these dependencies retain their own licenses. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). See the release checklist for distribution details.
+Inventory of installed npm dependencies from the lockfile, including development tools and SDK support files. Ribbit is MIT licensed; these dependencies retain their own licenses. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). The documentation site uses [MkDocs](docs/third-party/mkdocs-1.6.1.txt) and [Material for MkDocs](docs/third-party/mkdocs-material-9.7.7.txt); documentation tooling is pinned separately in requirements-docs.txt. See the release checklist for distribution details.
 
 | Package | Version | Declared license | License text |
 | --- | --- | --- | --- |

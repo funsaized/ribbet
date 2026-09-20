@@ -1,62 +1,78 @@
-# Ribbit
+# 🐸 Ribbit
 
-Compose small commands around local and stronger models. Turn messy input into structured facts, preserve the evidence, and pass the result to the next command or your coding harness.
+**Small commands. Big hops.**
 
-Ribbit provides 22 shell commands, typed records, explicit per-command model routing, reusable YAML definitions, and linear flows. This is **v0.1.0-alpha.1, the first experimental open-source preview**. Semantic behavior is experimental; see the [release checklist](docs/release-checklist.md) for actual evidence and blockers.
+Put models in your shell pipelines. Let a small local model label or reshape the input, keep the evidence, then hand it to a stronger model or coding harness.
 
-Native release targets: Linux, macOS, and Windows, each on x64 and ARM64. See [platform support](docs/installation.md#platform-support) for validation and terminal requirements.
+[Documentation](https://funsaized.github.io/ribbet/) · [First tutorial](docs/tutorials/first-pipeline.md) · [npm](https://www.npmjs.com/package/@funsaized/ribbit) · [Native downloads](https://github.com/funsaized/ribbet/releases)
 
-## Try it without a model
+```text
+files / text / JSONL
+        │
+   exact commands
+        │
+  small-model step ── originals + annotations ── stronger model / harness
+```
 
-Install the alpha from [npm](https://www.npmjs.com/package/@funsaized/ribbit):
+Ribbit gives each step an inspectable contract, an explicit model route, and a record format that carries IDs, source references, and annotations. A useful invocation can become a named YAML command, then a reusable flow.
+
+## Install
 
 ```sh
 npm install -g @funsaized/ribbit@alpha
 ribbit --help
 ```
 
-The npm installer requires Node.js >=20 and tar, and downloads the matching checksum-verified native GitHub release. Direct [native archives](https://github.com/funsaized/ribbet/releases) need no separately installed JavaScript runtime. To build from source, use Bun 1.4.0 and npm:
+Linux, macOS, and Windows, on x64 and ARM64. npm needs Node.js >=20 and tar; it installs the matching checksum-verified GitHub asset. [Native archives](https://github.com/funsaized/ribbet/releases) run without a separate JavaScript runtime. See [installation](docs/installation.md) for platform details.
+
+## Get a result before configuring a model
 
 ```sh
-npm ci --ignore-scripts
-npm run build
 printf '{"name":"Ada","score":2}\n{"name":"Lin","score":1}\n' |
-  ./dist/ribbit sort --by score --type number --input jsonl |
-  ./dist/ribbit select name |
-  ./dist/ribbit render --as table
+  ribbit sort --by score --type number --input jsonl |
+  ribbit select name --output jsonl
 ```
 
-The result is a `name` column with Lin, then Ada. No inference occurs.
+```json
+{"name":"Lin"}
+{"name":"Ada"}
+```
 
-## Give each model a bounded job
+The exact commands work offline. Follow [your first pipeline](docs/tutorials/first-pipeline.md) to turn a pipe into a flow.
 
-Configure your own installed models as `local-small` and `stronger` using the [setup guide](docs/installation.md). Both profiles can point to local models.
+## Give each model a clear job
+
+After [configuring](docs/how-to/configure-models.md) `local-small` and `stronger`, annotate feedback locally and pass every original ticket to the stronger model:
 
 ```sh
-./dist/ribbit flow plan examples/flows/triage.yaml
-./dist/ribbit flow run examples/flows/triage.yaml \
-  --file fixtures/release/feedback.jsonl --input jsonl
+ribbit classify --field body \
+  --label 'blocking=Prevents purchases' --label 'other=Other feedback' \
+  --file feedback.jsonl --input jsonl --profile local-small |
+  ribbit reduce 'Prioritize every ticket and cite its ID. Verify labels against the original bodies.' \
+    --profile stronger
 ```
 
-The flow projects fields, classifies each ticket locally, then sends every original ticket plus its label to the stronger model for prioritization. Local labels are suggestions. Evidence is retained so the next stage can catch mistakes.
+The stronger model can challenge a bad label because it still has the ticket body. The [guided local-model tutorial](docs/tutorials/local-model.md) supplies the input and checks; the [saved triage flow](examples/flows/triage.yaml) makes the workflow reusable.
 
-## Choose a command
+## Build on the examples
 
-| Job | Commands |
+| Job | Starting point |
 | --- | --- |
-| Work with text | ask, summarize, explain, rewrite, extract, compare |
-| Interpret records | classify, filter, rank, group, map, reduce |
-| Gather source evidence | ls, find, tree, read, pick |
-| Compose exact operations | select, sort, unique, take, render |
+| Prioritize feedback without losing tickets | [Triage flow](docs/how-to/triage-feedback.md) |
+| Give a coding harness source text and relevance annotations | [Context handoff](docs/how-to/handoff-context.md) |
+| Save a prompt, defaults, and a repeatable transformation | [Reusable brief tutorial](docs/tutorials/reusable-command.md) |
+| Add behavior in TypeScript with Zod contracts | [Extension guide](docs/how-to/build-extension.md) |
 
-Ribbit records preserve IDs, source references, and annotations between commands. `--output jsonl` exports bare values and drops that metadata. Keep the default record format until a deliberate export or display boundary.
+There are 22 built-ins: text operations, record interpretation, filesystem discovery, and exact record tools. [Browse the command reference](docs/commands.md). Native Ollama and OpenAI-compatible endpoints are supported; routes stay explicit and there is no automatic cloud fallback.
 
-- [Three runnable recipes](docs/recipes.md): feedback triage, repository-to-harness context, reusable commands.
-- [Installation and local setup](docs/installation.md).
-- [Usage and data contracts](docs/usage.md), [command reference](docs/commands.md), and [command examples](docs/command-examples.md).
-- [Model evidence](docs/models.md), [product direction](docs/product-direction.md), [product requirements](Ribbit-PRD.md), and [release checklist](docs/release-checklist.md).
-- [Extension authoring](docs/extensions.md) and [contributing](CONTRIBUTING.md).
+## Know what the alpha promises
 
-No automatic cloud fallback, telemetry, or model downloads. Configured remote routes receive the evidence you supply. Installed extensions are trusted executable code with filesystem, network, and process access. See [security](SECURITY.md).
+The native CI matrix tests commands, recipes, installed archives, and npm installation on all six targets. Semantic usefulness remains model-dependent. The [current evaluations](docs/models.md) show both successes and failures; chaining did not automatically make these fixtures faster or cheaper. Keep originals when downstream review matters.
 
-Released under the [MIT license](LICENSE). Download native artifacts from [GitHub Releases](https://github.com/funsaized/ribbet/releases). The repository is named `ribbet`; the product and executable are **Ribbit / `ribbit`**. The npm package is `@funsaized/ribbit`.
+Extensions are trusted code. Remote routes receive the evidence you send. Interactive picking requires fzf, and Windows console interaction is not covered by the Unix PTY tests. See [execution and trust](docs/explanation/trust.md) and [platform support](docs/installation.md#platform-support).
+
+## Contribute
+
+Read the [product requirements](Ribbit-PRD.md), [contributor guide](CONTRIBUTING.md), and [development guide](docs/development.md). The [documentation hub](docs/index.md) separates tutorials, how-to guides, reference, and explanation.
+
+MIT licensed. The repository is `ribbet`; the product and command are **Ribbit / `ribbit`**. Report vulnerabilities through the [security policy](SECURITY.md).

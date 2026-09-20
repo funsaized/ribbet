@@ -1,0 +1,96 @@
+site_name: Ribbit
+site_description: Composable shell commands for local models, stronger models, and coding harnesses.
+site_url: https://funsaized.github.io/ribbet/
+repo_url: https://github.com/funsaized/ribbet
+repo_name: funsaized/ribbet
+edit_uri: edit/main/docs/
+strict: true
+hooks:
+  - scripts/docs-hooks.py
+theme:
+  name: material
+  custom_dir: site-overrides
+  font: false
+  icon:
+    logo: material/console-line
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: green
+      accent: light green
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.details
+extra_css:
+  - stylesheets/extra.css
+nav:
+  - Start here: index.md
+  - Tutorials:
+      - tutorials/index.md
+      - Your first pipeline: tutorials/first-pipeline.md
+      - Add a local model: tutorials/local-model.md
+      - Make a reusable command: tutorials/reusable-command.md
+  - How-to guides:
+      - how-to/index.md
+      - Install Ribbit: installation.md
+      - Configure models: how-to/configure-models.md
+      - Route a workflow: how-to/route-workflows.md
+      - Triage feedback: how-to/triage-feedback.md
+      - Prepare a harness handoff: how-to/handoff-context.md
+      - Reuse commands: how-to/reuse-commands.md
+      - Build an extension: how-to/build-extension.md
+      - Troubleshoot a pipeline: how-to/troubleshoot.md
+      - Example map: recipes.md
+  - Reference:
+      - reference/index.md
+      - CLI overview: usage.md
+      - Command catalog: commands.md
+      - Command examples: command-examples.md
+      - Records and formats: reference/records.md
+      - Configuration and routing: reference/configuration.md
+      - Flow documents: reference/flows.md
+      - Named definitions: reference/definitions.md
+      - Extension SDK: extensions.md
+      - Limits and errors: reference/runtime.md
+      - Management commands: reference/management.md
+      - Development: development.md
+      - Individual acceptance: release-acceptance.md
+      - Release checklist: release-checklist.md
+      - Release notes: release-notes-0.1.0-alpha.1.md
+  - Explanation:
+      - explanation/index.md
+      - When to chain models: explanation/model-chaining.md
+      - Why examples retain originals: explanation/recipes.md
+      - How records compose: explanation/composition.md
+      - Execution and trust: explanation/trust.md
+      - Model evidence: models.md
+      - Product direction: product-direction.md
+copyright: Copyright © 2026 Sai Nimmagadda. Ribbit is MIT licensed. <a href="https://github.com/funsaized/ribbet/blob/main/THIRD_PARTY_NOTICES.md">Dependency notices</a>.

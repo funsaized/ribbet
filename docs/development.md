@@ -36,3 +36,19 @@ See the [evaluation guide](../evals/README.md) for live opt-in runs, [individual
 ## Publish the npm distribution
 
 The repository package stays private. After native CI passes, collect all six archives and checksums from the same commit. Run `npm run package:npm -- @funsaized/ribbit PATH_TO_ARTIFACTS` to generate `dist/npm` and its tarball in `dist/releases`. The generated manifest pins each archive and binary checksum. Publish the native GitHub release before npm so installation URLs are available, then publish the reviewed tarball with `npm publish PATH_TO_TARBALL --access public --tag alpha`. Attach the npm tarball and its checksum to the GitHub release and link the registry package in release notes. Publishing requires the authorized npm account; it is not part of ordinary CI.
+
+## Documentation
+
+The [documentation hub](index.md) uses [Diátaxis](https://diataxis.fr/) to separate tutorials, task guides, reference, and explanation. A tutorial should be a complete lesson with visible checkpoints. A how-to guide should solve a specific task. Reference describes the current contract; explanation gives the reasoning and tradeoffs. Link between these forms instead of making every page serve all four purposes.
+
+Preview the searchable site locally:
+
+```sh
+python3 -m venv .venv-docs
+.venv-docs/bin/pip install -r requirements-docs.txt
+.venv-docs/bin/mkdocs serve
+```
+
+On Windows, use `.venv-docs\Scripts\python -m pip` and `.venv-docs\Scripts\python -m mkdocs`. Build with `mkdocs build --strict` in the environment. The documentation workflow checks the site and deploys the main branch to [GitHub Pages](https://funsaized.github.io/ribbet/).
+
+`npm run test:docs` checks repository links, packaged examples, and the actual shell blocks in the three tutorials and README. Semantic tutorial runs use a controlled local mock; they validate instructions and data boundaries, not model quality. Keep live-output checkpoints separate from exact expected output. External repository links are rewritten for the site by `scripts/docs-hooks.py`; the original Markdown links still work in GitHub and the release archive.

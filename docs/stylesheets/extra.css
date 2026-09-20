@@ -1,0 +1,9 @@
+:root {
+  --md-text-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --md-code-font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.md-typeset h1 { font-weight: 750; letter-spacing: -0.025em; }
+.md-typeset h2 { font-weight: 650; }
+.md-typeset table:not([class]) { border-radius: 0.45rem; overflow: hidden; }
+.md-typeset pre > code { border-radius: 0.45rem; }
+.md-typeset a { text-underline-offset: 0.15em; }

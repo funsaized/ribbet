@@ -17,6 +17,7 @@ Ribbit composes typed shell commands, local-model tasks, stronger-model steps, a
 | Three product recipes | [Runnable guide](recipes.md), [model comparison](models.md) | Local-only/direct-stronger/mixed outputs and overhead measured on shared synthetic fixtures |
 | External harness | [Model/harness evidence](models.md) | Actual local Codex read-only stdin handoff tested; not autonomous coding certification |
 | Isolated distribution | [Smoke runner](../scripts/smoke.ts) | Copied binary/lib and isolated HOME/XDG paths; no maintainer config |
+| Usage documentation | [Documentation hub](index.md), [tutorial execution checks](../scripts/docs-tutorials.ts) | Diátaxis navigation, searchable site, exact tutorial outputs and mock-backed semantic instructions verified |
 | Contributor and security guidance | [Contributing](../CONTRIBUTING.md), [security](../SECURITY.md) | MIT adopted; private reporting enabled for the public repository |
 | CI | [Workflow](../.github/workflows/ci.yml) in source checkout | Native matrix covers Linux/macOS/Windows on x64/ARM64; see the linked Actions run for results |
 | npm distribution | `npm run package:npm:verify` | Packed installation, checksum rejection, command mapping, and extension authoring checked on each native target |

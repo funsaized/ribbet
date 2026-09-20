@@ -11,3 +11,5 @@ Keep changes focused. Preserve stdout as data, explicit routes, bounded requests
 Live evaluations are opt-in: see [evaluation instructions](evals/README.md). Store new evidence in a new timestamped directory, retain failures, and include the binary/fixture hashes. Never tune against a held-out dataset or lower a gate silently. AI review is not human review, and a synthetic pilot is not a user study.
 
 No publication or remote upload is part of the development scripts. Pull requests should describe the problem, resulting behavior, evidence, and remaining limitations.
+
+Documentation uses Diátaxis: keep lessons, task guides, reference, and explanation distinct. Follow the [documentation contributor instructions](docs/development.md#documentation), run `npm run test:docs`, and build the site with `mkdocs build --strict`.

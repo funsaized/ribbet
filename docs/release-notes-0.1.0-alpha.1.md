@@ -27,5 +27,7 @@ This is an alpha, not a broad semantic reliability or API stability promise. Sma
 
 Licensed under MIT. Model weights are not included. Installed extensions are trusted code, not sandboxed plugins. There is no automatic cloud fallback, telemetry, or model download.
 
-Documentation: https://github.com/funsaized/ribbet#readme
+Documentation: https://funsaized.github.io/ribbet/
+
+The searchable documentation site separates tutorials, how-to guides, reference, and explanation. It includes guided first results, local-model composition, reusable commands, and explanations of each supplied workflow.
 Security reports: https://github.com/funsaized/ribbet/security/advisories/new

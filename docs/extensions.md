@@ -1,14 +1,6 @@
-# Typed extensions and named commands
+# Extension SDK reference
 
-```sh
-ribbit extensions scaffold extensions/greeting
-ribbit extensions check extensions/greeting
-ribbit extensions test extensions/greeting
-ribbit extensions add extensions/greeting
-ribbit types describe @local/greeting --json
-```
-
-Scaffolding creates an ordinary TypeScript command, exact dependency declarations and a fixture. Explicit check/test/add imports trusted source; help, catalog, completion and flow planning only read manifests. Source changes require an explicit rebuild. Registry files and immutable bundles live under `${XDG_DATA_HOME:-$HOME/.local/share}/ribbit/extensions`. Removal preserves source. Build artifacts are checked against their hash before execution. Extensions are trusted code with process/filesystem/network access, not sandboxed plugins.
+For the lifecycle procedure, use [build an extension](how-to/build-extension.md). Extensions are trusted executable code; discovery and planning read their manifests without importing them.
 
 The adjacent distribution `lib/` is a private `@ribbit/sdk` package. It exports `defineCommand`, `defineAction`, `z`, `recordSchema`, `jsonValueSchema`, `Budget`, `RibbitError` and types. Use strict Zod input, args, config and output schemas. The supported export subset includes primitives, arrays, strict objects, scalar literals/enums, unions, optional/default values and built-in scalar constraints. Transforms, custom refinements, recursive/lazy schemas and arbitrary unknown values are rejected. `jsonValueSchema` explicitly accepts finite JSON.
 
@@ -18,23 +10,10 @@ Execution receives `{input,args,config}` and context with `signal`, `budget`, `l
 
 Fixture JSON uses `input`, optional `args`, `config`, `action`, expected JSON `expected` or numeric `error`, and optional ordered mock `responses`. Fixtures are deterministic contract checks, not live provider or quality evidence.
 
-Create `commands/greeting.yaml`:
+## Installation contract
 
-```yaml
-apiVersion: ribbit/v1
-kind: Command
-name: greeting
-type: '@local/greeting'
-typeVersion: '1.0.0'
-action: run
-config:
-  prefix: 'Hello '
-defaults:
-  suffix: '!'
-```
+Registry entries and immutable bundles live under `${XDG_DATA_HOME:-$HOME/.local/share}/ribbit/extensions`, using the user's home on Windows. Source changes require explicit check, test, and add operations. Removing an installed extension preserves source. Execution checks built artifacts against their recorded hashes.
 
-Then `printf 'Ada' | ribbit run greeting`. Use `commands validate greeting` and `commands describe greeting --json`. Exact type versions are required. Global definitions live next to global config under `commands/`; project definitions live in project `commands/`. Collisions require `project:NAME` or `global:NAME`; built-in names are reserved. Unknown YAML keys, duplicate keys and executable tags fail.
+## Definitions and versions
 
-`ribbit init --agent codex|claude|cursor|opencode` creates project configuration if missing and appends idempotent guidance without replacing existing instructions. The CLI never publishes packages.
-
-The product version and command type versions are separate. The current development product can contain types declared as `1.0.0`; that type identifier is required for definition matching and does not mean Ribbit has shipped a stable 1.0 product.
+A named YAML definition selects a type, exact type version, action, configuration, and argument defaults. See [definition reference](reference/definitions.md). The product version and command type versions are separate: a type's `1.0.0` identifier does not mean the alpha product has shipped a stable 1.0 release.
