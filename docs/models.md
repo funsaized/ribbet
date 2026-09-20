@@ -24,7 +24,7 @@ Stronger report: [raw report](../evals/results/release/2026-09-20T14-51-55-840Z-
 | summarize | 3/3 | 3/3 |
 | tree | 6/6 | 4/6 |
 
-The stronger model previously exhausted a 512-token allowance on explain, reduce, and compare. Those failed runs remain recorded; the 2048-token experiment is a different explicit resource configuration. Template-specific thinking controls are not universally honored. A small visible answer can still require substantial internal generation.
+These scores use the stated 2048-token output allowance. Template-specific thinking controls are not universally honored. A small visible answer can still require substantial internal generation.
 
 The 0.5B model is unsuitable as an automatic filter on this evidence: it repeatedly retained the wrong record. Its grouping, adversarial instruction handling, and chunked reduction also failed cases. Passing simple extraction or summarization fixtures does not establish suitability for arbitrary inputs. Prefer preserved originals and annotations when a downstream reviewer must catch mistakes.
 
@@ -52,6 +52,6 @@ Live Codex handoff: [raw report](../evals/results/handoff/2026-09-20T14-58-06-86
 
 ## Limits and reproduction
 
-These are public, authored regression cases. They are not held out, were not independently reviewed, and use deterministic fact checks as a floor. Older synthetic datasets and their reviews are retained as historical evidence, not current cross-domain validation. Model suitability remains experimental until diverse held-out tasks and independent review support broader claims.
+These are public, authored regression cases. They are not held out, were not independently reviewed, and use deterministic fact checks as a floor. Model suitability remains experimental until diverse held-out tasks and independent review support broader claims.
 
 Run `npm run eval:release -- --help` for per-command selection. `--mode smoke` runs every selected case once; `--mode full` repeats them three times. The [evaluation guide](../evals/README.md) documents local-only opt-in, raw attempt retention, recipe comparisons, and harness checks.

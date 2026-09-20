@@ -36,5 +36,5 @@
       }
     }
   ],
-  "ignorePatterns": ["node_modules", "dist", ".cache", "src/generated", "evals/results", "benchmarks", "spikes"]
+  "ignorePatterns": ["node_modules", "dist", ".cache", "src/generated", "evals/results", "benchmarks"]
 }

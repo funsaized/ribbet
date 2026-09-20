@@ -100,17 +100,20 @@ test.skipIf(process.platform === 'win32')(
           'critical',
           ...(mode === 'semantic' ? ['--about', 'most urgent first'] : []),
         ];
-        const p = Bun.spawn(['python3', resolve('scripts/release/picker.py'), JSON.stringify(args), mode], {
-          cwd: env.dir,
-          env: env.env,
-          stdout: 'pipe',
-          stderr: 'pipe',
-        });
+        const p = Bun.spawn(
+          ['python3', resolve('scripts/release/picker.py'), JSON.stringify(args), mode, 'critical checkout failure'],
+          {
+            cwd: env.dir,
+            env: env.env,
+            stdout: 'pipe',
+            stderr: 'pipe',
+          },
+        );
         const result = JSON.parse(await new Response(p.stdout).text()) as { code: number; out: string; screen: string };
 
         expect(await p.exited, await new Response(p.stderr).text()).toBe(0);
         expect(result.code, result.screen).toBe(mode === 'cancel' ? 130 : 0);
-        expect(result.out).toBe(mode === 'cancel' ? '' : '"critical checkout failure"\n');
+        expect(result.out, `${mode}: ${result.screen}`).toBe(mode === 'cancel' ? '' : '"critical checkout failure"\n');
         expect(provider.requests.length).toBe(mode === 'semantic' ? 1 : 0);
         expect(parseStats(result.screen)?.requests).toBe(mode === 'semantic' ? 1 : 0);
       }

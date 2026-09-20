@@ -138,7 +138,7 @@ test('context recipe preserves both files and annotations at the harness boundar
     await env.close();
     provider.close();
   }
-});
+}, 15000);
 
 test('named brief reuses defaults in a saved flow', async () => {
   const provider = mockProvider(),

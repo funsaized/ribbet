@@ -26,5 +26,6 @@ with tempfile.TemporaryDirectory(prefix='ribbit-memory-') as tmp:
         incremental=max(peaks)-min(baselines)
         results.append({'command':command,'records':100000,'baselinePeakRSSBytes':baselines,'workloadPeakRSSBytes':peaks,'incrementalRSSBytes':incremental,'incrementalUnder128MiB':incremental<=128*1024*1024})
     report={'schemaVersion':1,'platform':platform.platform(),'results':results,'note':'Same argv with empty input versus 100k records; maximum workload peak minus minimum empty-input peak across three runs. /proc sampling every 2ms.'}
+    Path('benchmarks').mkdir(exist_ok=True)
     Path('benchmarks/stream-linux.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))

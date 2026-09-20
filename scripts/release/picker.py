@@ -1,12 +1,14 @@
 """Run the packaged picker on a real controlling terminal; stdout remains separate."""
-import json, os, pty, select, signal, sys, tempfile, time
+import fcntl, json, os, pty, re, select, signal, struct, sys, tempfile, termios, time
 
 args = json.loads(sys.argv[1])
 cancel = sys.argv[2] == 'cancel'
+expected = sys.argv[3].encode()
 with tempfile.TemporaryDirectory(prefix='ribbit-pty-') as directory:
     output = os.path.join(directory, 'output')
     pid, fd = pty.fork()
     if pid == 0:
+        fcntl.ioctl(0, termios.TIOCSWINSZ, struct.pack('HHHH', 24, 120, 0, 0))
         stream = os.open(output, os.O_WRONLY | os.O_CREAT, 0o600)
         os.dup2(stream, 1)
         os.close(stream)
@@ -26,7 +28,9 @@ with tempfile.TemporaryDirectory(prefix='ribbit-pty-') as directory:
                         last_output = time.monotonic()
                 except OSError:
                     pass
-            if screen and not sent and time.monotonic() - last_output > .6:
+            # Wait for a rendered result, not just the initial terminal setup.
+            visible = re.sub(rb'\x1b\[[0-?]*[ -/]*[@-~]', b'', screen)
+            if expected in visible and not sent and time.monotonic() - last_output > .6:
                 os.write(fd, b'\x1b' if cancel else b'\r')
                 sent = True
             done, status = os.waitpid(pid, os.WNOHANG)

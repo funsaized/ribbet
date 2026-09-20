@@ -7,7 +7,7 @@ await mkdir('docs/third-party', { recursive: true });
 const lines = [
   '# Third-party notices',
   '',
-  'Inventory of installed locked dependencies, including development tools and SDK support files. This inventory does not select a license for Ribbit. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). Publication requires distribution compliance review; see the release checklist.',
+  'Inventory of installed locked dependencies, including development tools and SDK support files. Ribbit is MIT licensed; these dependencies retain their own licenses. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). See the release checklist for distribution details.',
   '',
   '| Package | Version | Declared license | License text |',
   '| --- | --- | --- | --- |',

@@ -52,7 +52,7 @@ for (const command of all) {
   const semantic = fixtures.some((c) => c.semantic) || command === 'pick';
 
   matrix.push(
-    `| ${command} | ${fixtures.map((c) => c.id).join(', ') || 'exact, semantic ranking, cancellation'} | PASS | ${score(strong, command)} | ${score(small, command)} | ${semantic ? 'Contract accepted; semantic use experimental and profile-specific' : 'Deterministic behavior accepted on tested Linux candidate'} |`,
+    `| ${command} | ${fixtures.map((c) => c.id).join(', ') || 'exact, semantic ranking, cancellation'} | PASS | ${score(strong, command)} | ${score(small, command)} | ${semantic ? 'Contract accepted; semantic use experimental and profile-specific' : 'Deterministic behavior covered by native release CI'} |`,
   );
 }
 matrix.push(
@@ -84,7 +84,7 @@ for (const [surface, behavior] of [
   matrix.push(`| ${surface} | ${behavior} | PASS in packaged tests |`);
 matrix.push(
   '',
-  'These are bounded acceptance cases, not exhaustive subcommand fuzzing. Real remote-provider conformance, independent user onboarding, and additional native platforms remain separate release decisions/checks.',
+  'These are bounded acceptance cases, not exhaustive subcommand fuzzing. Real remote-provider conformance, independent user onboarding, and Windows interactive console behavior remain separate checks.',
 );
 await writeFile('docs/release-acceptance.md', matrix.join('\n') + '\n');
 const models = [
@@ -104,7 +104,7 @@ for (const command of all.filter((name) => cases().some((c) => c.command === nam
   models.push(`| ${command} | ${score(strong, command)} | ${score(small, command)} |`);
 models.push(
   '',
-  'The stronger model previously exhausted a 512-token allowance on explain, reduce, and compare. Those failed runs remain recorded; the 2048-token experiment is a different explicit resource configuration. Template-specific thinking controls are not universally honored. A small visible answer can still require substantial internal generation.',
+  'These scores use the stated 2048-token output allowance. Template-specific thinking controls are not universally honored. A small visible answer can still require substantial internal generation.',
   '',
   'The 0.5B model is unsuitable as an automatic filter on this evidence: it repeatedly retained the wrong record. Its grouping, adversarial instruction handling, and chunked reduction also failed cases. Passing simple extraction or summarization fixtures does not establish suitability for arbitrary inputs. Prefer preserved originals and annotations when a downstream reviewer must catch mistakes.',
   '',
@@ -135,7 +135,7 @@ models.push(
   '',
   '## Limits and reproduction',
   '',
-  'These are public, authored regression cases. They are not held out, were not independently reviewed, and use deterministic fact checks as a floor. Older synthetic datasets and their reviews are retained as historical evidence, not current cross-domain validation. Model suitability remains experimental until diverse held-out tasks and independent review support broader claims.',
+  'These are public, authored regression cases. They are not held out, were not independently reviewed, and use deterministic fact checks as a floor. Model suitability remains experimental until diverse held-out tasks and independent review support broader claims.',
   '',
   'Run `npm run eval:release -- --help` for per-command selection. `--mode smoke` runs every selected case once; `--mode full` repeats them three times. The [evaluation guide](../evals/README.md) documents local-only opt-in, raw attempt retention, recipe comparisons, and harness checks.',
 );

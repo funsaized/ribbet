@@ -12,7 +12,7 @@ Native targets: Linux glibc x64/ARM64, macOS Intel/Apple Silicon, and Windows x6
 
 ## Evidence and limits
 
-The pre-release Linux baseline passed 165 tests. Recorded local-model regressions passed 57/57 with the stronger profile and 39/57 with the 0.5B model. All 27 recipe comparisons passed their deterministic fact checks, and a real local Codex handoff succeeded. These historical model runs identify their exact binaries; the final native CI separately validates the release build.
+The native CI gate checks the applicable deterministic tests on each platform. Recorded local-model regressions passed 57/57 with the stronger profile and 39/57 with the 0.5B model. All 27 recipe comparisons passed their deterministic fact checks, and a real local Codex handoff succeeded. These model runs identify their exact binaries; the final native CI separately validates the release build.
 
 This is an alpha, not a broad semantic reliability or API stability promise. Small models can return valid but wrong answers. Chaining did not automatically improve speed or reduce context in these fixtures. Preserve original evidence when downstream review matters. Independent quality review and new-user pilots remain follow-up work.
 

@@ -1,4 +1,5 @@
 import { spawn } from 'bun';
+
 const commands = [
   ['ci', '--ignore-scripts', '--no-audit', '--no-fund'],
   ...[

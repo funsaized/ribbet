@@ -36,4 +36,4 @@ Ship shell pipes, named definitions, linear typed flows, two provider protocols,
 
 Every built-in and management surface needs its own contract/CLI verdict. Every semantic command and optional mode needs live regression evidence, clearly separated from mocked inference and broader quality review. Recipes must agree across supported composition surfaces. Clean installation must succeed without maintainer config. Public-facing examples must run against the packaged binary. License, notices, native platform evidence, and publication decisions must be resolved before distributing a public candidate.
 
-[Release checklist](release-checklist.md) is the current readiness authority. The original PRD and dated delivery records retain historical context; their ACCEPTED labels do not establish current release acceptance.
+[Release checklist](release-checklist.md) is the current readiness authority. [Individual acceptance](release-acceptance.md) records command coverage and model-specific limits.

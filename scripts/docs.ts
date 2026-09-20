@@ -17,6 +17,7 @@ for (const path of [
   'SECURITY.md',
   'CHANGELOG.md',
   'THIRD_PARTY_NOTICES.md',
+  'evals/README.md',
   ...(await walk('docs')),
 ]) {
   if (!path.endsWith('.md')) continue;

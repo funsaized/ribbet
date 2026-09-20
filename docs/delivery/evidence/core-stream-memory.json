@@ -1,9 +1,0 @@
-{
-  "count": 100000,
-  "baselinePeakRssKiB": 44600,
-  "finalPeakRssKiB": 85508,
-  "incrementalPeakRssKiB": 40908,
-  "limitKiB": 131072,
-  "date": "2026-09-14",
-  "command": "bun run scripts/stream-memory.ts"
-}

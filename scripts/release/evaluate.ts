@@ -178,7 +178,13 @@ try {
       if (c.command === 'pick') {
         const started = performance.now();
         const p = Bun.spawn(
-          ['python3', resolve('scripts/release/picker.py'), JSON.stringify([env.binary, ...args]), 'select'],
+          [
+            'python3',
+            resolve('scripts/release/picker.py'),
+            JSON.stringify([env.binary, ...args]),
+            'select',
+            'Checkout fails',
+          ],
           { cwd: env.dir, env: env.env, stdout: 'pipe', stderr: 'pipe' },
         );
         const raw = await new Response(p.stdout).text();

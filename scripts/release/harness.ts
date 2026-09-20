@@ -53,7 +53,21 @@ export async function sandbox(config: unknown = {}) {
       }
     },
     // Windows can briefly retain executable/directory handles after process exit.
-    close: () => rm(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }),
+    async close() {
+      for (let attempt = 0; ; attempt++) {
+        try {
+          await rm(dir, { recursive: true, force: true });
+
+          return;
+        } catch (error) {
+          const code = (error as NodeJS.ErrnoException).code;
+
+          if (process.platform !== 'win32' || !['EBUSY', 'EPERM', 'ENOTEMPTY'].includes(code ?? '') || attempt === 5)
+            throw error;
+          await Bun.sleep(100 * (attempt + 1));
+        }
+      }
+    },
   };
 }
 

@@ -1,7 +1,7 @@
 import { binaryName } from './platform.ts';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { cpus, totalmem } from 'node:os';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 
 const binary = resolve('dist', binaryName);
 const runs = 30;
@@ -49,6 +49,9 @@ const report = {
   ],
 };
 
-await writeFile(process.env.RIBBIT_BENCH_OUTPUT || 'benchmarks/latest.json', JSON.stringify(report, null, 2) + '\n');
+const output = process.env.RIBBIT_BENCH_OUTPUT || 'benchmarks/latest.json';
+
+await mkdir(dirname(output), { recursive: true });
+await writeFile(output, JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));
 if (!report.checks.startup) process.exitCode = 1;

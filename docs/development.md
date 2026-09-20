@@ -1,38 +1,32 @@
 # Development
 
-Install pinned dependencies with `npm ci --ignore-scripts`. Build with Bun 1.4.0
-using `npm run build`; run `dist/ribbit --help`. Development tooling uses TypeScript
-5.9.3. Production builds must use the same Bun version on both targets.
+Install pinned dependencies with `npm ci --ignore-scripts`. Build with Bun 1.4.0 using `npm run build`; run `dist/ribbit --help` (`dist/ribbit.exe` on Windows). All six native targets use the same Bun version. The verification gate also requires Python 3 and fzf >=0.74.3.
 
-Package boundaries: src/sdk (public contract), src/engine (records and execution),
-src/cli (parsing and shell I/O), src/providers (managed HTTP), src/builtins (commands).
-The CI workflow runs deterministic checks without model credentials and uploads verified platform archives as CI artifacts; GitHub Release publication is a separate authorized action. Run `npm run verify` locally; it also requires Python 3 and fzf >=0.74.3.
+Package boundaries: `src/sdk` is the public contract, `src/engine` handles records and execution, `src/cli` handles parsing and shell I/O, `src/providers` manages HTTP, and `src/builtins` implements commands.
 
 | Script | Purpose |
 | --- | --- |
+| verify | Install locked dependencies and run the complete deterministic gate |
 | check | Strict TypeScript check |
-| lint | Oxlint with the repository config (`.oxlintrc.json`) |
-| lint:fix | Apply safe oxlint fixes |
-| format | Format with oxfmt (`.oxfmtrc.json`) |
-| format:check | List files that are not yet formatted |
+| lint / lint:fix | Check or fix lint issues with Oxlint |
+| format / format:check | Format or check formatting with Oxfmt |
 | test:unit | Unit and deterministic integration checks |
 | test:consumer | Public SDK consumer checks |
-| test:cli | Subprocess shell checks |
-| test:conformance | Loopback HTTP cancellation checks |
-| test:docs | Links and packaged deterministic examples |
-| build | Compile native development CLI |
-| bench | Warm-process timing; remaining gates tracked separately |
-| eval:semantic | Three-repetition local semantic evaluation; explicit opt-in |
-| eval:rubrics | Five-family rubric run through the local profile; explicit opt-in |
-| eval:gate | Combine a rubric run and reviewer verdicts into the gate report |
-| eval:agent | AGENT-03 runner; repository placeholder that exits nonzero |
+| test:cli | CLI subprocess checks |
+| test:conformance | Adversarial paths and real loopback HTTP cancellation |
+| test:release | Individual commands, management lifecycle, and composed recipes against the built executable |
+| test:docs | Documentation links and packaged examples |
+| build | Compile the native CLI and extension support files |
+| bench | Local startup timing; writes ignored benchmark output |
+| eval:release | Opt-in local per-command model regressions |
+| eval:workflows | Opt-in local-only, stronger-only, and mixed-model comparisons |
+| eval:handoff | Opt-in real local harness handoff |
 | package:smoke | Isolated installed CLI and extension-authoring smoke |
+| package:release | Create the native archive, metadata, and checksum |
+| package:verify | Verify checksum and test the extracted installation |
 
-The consumer suite checks the public SDK; the conformance suite currently checks real loopback HTTP cancellation and needs local socket permission. Neither represents full release conformance. The current binary exposes all 22 commands. See the backlog for acceptance status; implementation is not a release-quality claim.
+The [CI workflow](../.github/workflows/ci.yml) runs without model credentials on Linux, macOS, and Windows, each on x64 and ARM64. It uploads archives only after native tests and isolated installation checks pass. Windows skips the POSIX permissions and PTY-specific tests; interactive Windows console behavior is not certified by those checks.
 
-Formatting and linting use the Oxc toolchain: `oxlint` and `oxfmt`, configured by `.oxlintrc.json` and `.oxfmtrc.json`. Both honor `.gitignore`; the configs additionally exclude generated and recorded data (`dist`, `src/generated`, `evals/datasets`, `evals/results`, `evals/agent`, `evals/review`, `benchmarks`, `fixtures`, `spikes`). `npm run lint` passes with no errors (warnings are advisory). Run `npm run format:check` before review; format only changed files when possible.
+Lint and formatting use `.oxlintrc.json` and `.oxfmtrc.json`. Generated output and evaluation recordings are excluded. Run `npm run verify` before review and `npm run package:release && npm run package:verify` when changing distribution behavior.
 
-Live provider harness: `scripts/live-provider.ts`; configuration and bounded invocation
-are documented in [evaluation guide](../evals/README.md).
-
-Release acceptance tests: `npm run test:release` (build first). Live per-command regression: `npm run eval:release -- --help`. Review artifact: `npm run package:release`. See [release checklist](release-checklist.md) for current evidence.
+See the [evaluation guide](../evals/README.md) for live opt-in runs, [individual acceptance](release-acceptance.md) for coverage, and the [release checklist](release-checklist.md) for the current release decision.

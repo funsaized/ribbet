@@ -99,6 +99,7 @@ try {
     },
   };
 
+  await mkdir('benchmarks', { recursive: true });
   await writeFile('benchmarks/invocation-' + process.platform + '.json', JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify(report, null, 2));
   if (!Object.values(report.checks).every(Boolean)) process.exitCode = 1;

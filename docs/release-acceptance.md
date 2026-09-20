@@ -14,20 +14,20 @@ Run `npm run build && npm run test:release`. The [case catalog](../scripts/relea
 | filter | filter-recall | PASS | 3/3 | 0/3 | Contract accepted; semantic use experimental and profile-specific |
 | find | find-exact, find-semantic | PASS | 3/3 | 1/3 | Contract accepted; semantic use experimental and profile-specific |
 | group | group-partition | PASS | 3/3 | 0/3 | Contract accepted; semantic use experimental and profile-specific |
-| ls | ls-metadata | PASS | n/a | n/a | Deterministic behavior accepted on tested Linux candidate |
+| ls | ls-metadata | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
 | map | map-lineage, map-schema | PASS | 6/6 | 6/6 | Contract accepted; semantic use experimental and profile-specific |
 | pick | exact, semantic ranking, cancellation | PASS | 3/3 | 3/3 | Contract accepted; semantic use experimental and profile-specific |
 | rank | rank-permutation | PASS | 3/3 | 3/3 | Contract accepted; semantic use experimental and profile-specific |
-| read | read-boundaries | PASS | n/a | n/a | Deterministic behavior accepted on tested Linux candidate |
+| read | read-boundaries | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
 | reduce | reduce-evidence, reduce-chunked | PASS | 6/6 | 3/6 | Contract accepted; semantic use experimental and profile-specific |
-| render | render-values | PASS | n/a | n/a | Deterministic behavior accepted on tested Linux candidate |
+| render | render-values | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
 | rewrite | rewrite-facts | PASS | 3/3 | 3/3 | Contract accepted; semantic use experimental and profile-specific |
-| select | select-fields | PASS | n/a | n/a | Deterministic behavior accepted on tested Linux candidate |
-| sort | sort-numeric | PASS | n/a | n/a | Deterministic behavior accepted on tested Linux candidate |
+| select | select-fields | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
+| sort | sort-numeric | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
 | summarize | summarize-facts | PASS | 3/3 | 3/3 | Contract accepted; semantic use experimental and profile-specific |
-| take | take-prefix | PASS | n/a | n/a | Deterministic behavior accepted on tested Linux candidate |
+| take | take-prefix | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
 | tree | tree-exact, tree-about, tree-describe | PASS | 6/6 | 4/6 | Contract accepted; semantic use experimental and profile-specific |
-| unique | unique-key | PASS | n/a | n/a | Deterministic behavior accepted on tested Linux candidate |
+| unique | unique-key | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
 
 Stronger model evidence: [raw report](../evals/results/release/2026-09-20T14-51-55-840Z-google_gemma-4-e4b/report.json). Small model evidence: [raw report](../evals/results/release/2026-09-20T14-55-34-078Z-ribbit-release-small/report.json). Scores aggregate modes only for display; raw case verdicts remain authoritative. A failed mode is never waived by other passing cases.
 
@@ -51,4 +51,4 @@ Evidence: [packaged lifecycle tests](../tests/release/management.test.ts), [reci
 | init | Idempotent project/guidance initialization preserves owner text | PASS in packaged tests |
 | completions | bash/zsh/fish include named definitions | PASS in packaged tests |
 
-These are bounded acceptance cases, not exhaustive subcommand fuzzing. Real remote-provider conformance, independent user onboarding, and additional native platforms remain separate release decisions/checks.
+These are bounded acceptance cases, not exhaustive subcommand fuzzing. Real remote-provider conformance, independent user onboarding, and Windows interactive console behavior remain separate checks.
