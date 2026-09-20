@@ -52,7 +52,8 @@ export async function sandbox(config: unknown = {}) {
         clearTimeout(timeout);
       }
     },
-    close: () => rm(dir, { recursive: true, force: true }),
+    // Windows can briefly retain executable/directory handles after process exit.
+    close: () => rm(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 }),
   };
 }
 
