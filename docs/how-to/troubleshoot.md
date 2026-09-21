@@ -42,4 +42,4 @@ ribbit ask 'List the decisions supported by this text.' \
 
 These are invocation limits. A provider's context window may be smaller, and missing token usage cannot be enforced as if it were reported. Use [limit and error reference](../reference/runtime.md) for the exact defaults and categories.
 
-For a reproducible bug report, include a sanitized fixture, exact command, version, OS/architecture, exit code, and separate stdout/stderr. For a semantic failure, include the provider/model and whether the problem is formatting or factual content. Use [private reporting](https://github.com/funsaized/ribbet/security/policy) for vulnerabilities.
+For a reproducible bug report, include a sanitized fixture, exact command, version, OS/architecture, exit code, and separate stdout/stderr. For a semantic failure, include the provider/model and whether the problem is formatting or factual content. Use [private reporting](https://github.com/funsaized/ribbit/security/policy) for vulnerabilities.

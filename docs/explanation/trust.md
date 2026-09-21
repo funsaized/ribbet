@@ -22,4 +22,4 @@ An installed extension is trusted TypeScript code with filesystem, network, and 
 
 An external harness has its own configuration, tools, and permissions. Ribbit's file/stdin handoff does not impose a sandbox on the receiver. The supplied local Codex example explicitly selects a read-only sandbox and asks for source interpretation; other harness invocations may do more.
 
-Use [private vulnerability reporting](https://github.com/funsaized/ribbet/security/policy) for security defects. Use a sanitized fixture and model details when reporting an ordinary semantic error.
+Use [private vulnerability reporting](https://github.com/funsaized/ribbit/security/policy) for security defects. Use a sanitized fixture and model details when reporting an ordinary semantic error.

@@ -17,7 +17,7 @@ Ribbit gives you small commands for working with text, records, and source files
 - [Prepare repository context for a harness](how-to/handoff-context.md): retain source text and attach relevance labels.
 - [Save a useful transformation](tutorials/reusable-command.md): turn a command into a named definition and a flow.
 
-Install from [npm](https://www.npmjs.com/package/@funsaized/ribbit) or a [native GitHub archive](https://github.com/funsaized/ribbet/releases). See [installation](installation.md) for prerequisites and platform support.
+Install from [npm](https://www.npmjs.com/package/@funsaized/ribbit) or a [native GitHub archive](https://github.com/funsaized/ribbit/releases). See [installation](installation.md) for prerequisites and platform support.
 
 Ribbit is an MIT-licensed alpha. Semantic results depend on the model; the [current evaluations](models.md) show both passing and failing cases. Linux, macOS, and Windows have native x64/ARM64 builds. Interactive Windows picking remains separately unverified.
 

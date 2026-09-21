@@ -5,7 +5,7 @@ Use the supplied flow when a local model should annotate feedback and a stronger
 You need installed Ribbit, configured `local-small` and `stronger` profiles, and the example files. If you installed through npm, get them with Git:
 
 ```sh
-git clone https://github.com/funsaized/ribbet.git ribbit-examples
+git clone https://github.com/funsaized/ribbit.git ribbit-examples
 cd ribbit-examples
 ```
 

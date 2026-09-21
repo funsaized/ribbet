@@ -1,8 +1,8 @@
 site_name: Ribbit
 site_description: Composable shell commands for local models, stronger models, and coding harnesses.
-site_url: https://funsaized.github.io/ribbet/
-repo_url: https://github.com/funsaized/ribbet
-repo_name: funsaized/ribbet
+site_url: https://funsaized.github.io/ribbit/
+repo_url: https://github.com/funsaized/ribbit
+repo_name: funsaized/ribbit
 edit_uri: edit/main/docs/
 strict: true
 hooks:
@@ -93,4 +93,4 @@ nav:
       - Execution and trust: explanation/trust.md
       - Model evidence: models.md
       - Product direction: product-direction.md
-copyright: Copyright © 2026 Sai Nimmagadda. Ribbit is MIT licensed. <a href="https://github.com/funsaized/ribbet/blob/main/THIRD_PARTY_NOTICES.md">Dependency notices</a>.
+copyright: Copyright © 2026 Sai Nimmagadda. Ribbit is MIT licensed. <a href="https://github.com/funsaized/ribbit/blob/main/THIRD_PARTY_NOTICES.md">Dependency notices</a>.

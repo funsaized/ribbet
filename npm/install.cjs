@@ -10,7 +10,7 @@ async function install(root = __dirname, options = {}) {
   const manifest = JSON.parse(await fs.readFile(path.join(root, 'platforms.json'), 'utf8'));
   const asset = manifest.targets[target];
 
-  if (!asset) throw new Error(`Unsupported platform ${target}; see https://github.com/funsaized/ribbet/releases`);
+  if (!asset) throw new Error(`Unsupported platform ${target}; see https://github.com/funsaized/ribbit/releases`);
   const executable = platform === 'windows' ? 'ribbit.exe' : 'ribbit';
   const installed = path.join(root, 'native');
   const binary = path.join(installed, executable);
@@ -26,7 +26,7 @@ async function install(root = __dirname, options = {}) {
     if (error.code !== 'ENOENT') throw error;
   }
   const name = `ribbit-${manifest.version}-${target}`;
-  const url = `https://github.com/funsaized/ribbet/releases/download/v${manifest.version}/${name}.tar.gz`;
+  const url = `https://github.com/funsaized/ribbit/releases/download/v${manifest.version}/${name}.tar.gz`;
   const temporary = await fs.mkdtemp(path.join(root, '.ribbit-install-'));
 
   try {

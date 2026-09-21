@@ -3,15 +3,15 @@
   "version": "0.1.0-alpha.1",
   "private": true,
   "description": "Composable semantic shell commands with typed records and explicit model routing",
-  "homepage": "https://github.com/funsaized/ribbet#readme",
+  "homepage": "https://github.com/funsaized/ribbit#readme",
   "bugs": {
-    "url": "https://github.com/funsaized/ribbet/issues"
+    "url": "https://github.com/funsaized/ribbit/issues"
   },
   "license": "MIT",
   "author": "Sai Nimmagadda",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/funsaized/ribbet.git"
+    "url": "git+https://github.com/funsaized/ribbit.git"
   },
   "type": "module",
   "scripts": {

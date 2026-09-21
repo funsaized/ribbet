@@ -4,7 +4,7 @@
 
 Put models in your shell pipelines. Let a small local model label or reshape the input, keep the evidence, then hand it to a stronger model or coding harness.
 
-[Documentation](https://funsaized.github.io/ribbet/) · [First tutorial](docs/tutorials/first-pipeline.md) · [npm](https://www.npmjs.com/package/@funsaized/ribbit) · [Native downloads](https://github.com/funsaized/ribbet/releases)
+[Documentation](https://funsaized.github.io/ribbit/) · [First tutorial](docs/tutorials/first-pipeline.md) · [npm](https://www.npmjs.com/package/@funsaized/ribbit) · [Native downloads](https://github.com/funsaized/ribbit/releases)
 
 ```text
 files / text / JSONL
@@ -23,7 +23,7 @@ npm install -g @funsaized/ribbit@alpha
 ribbit --help
 ```
 
-Linux, macOS, and Windows, on x64 and ARM64. npm needs Node.js >=20 and tar; it installs the matching checksum-verified GitHub asset. [Native archives](https://github.com/funsaized/ribbet/releases) run without a separate JavaScript runtime. See [installation](docs/installation.md) for platform details.
+Linux, macOS, and Windows, on x64 and ARM64. npm needs Node.js >=20 and tar; it installs the matching checksum-verified GitHub asset. [Native archives](https://github.com/funsaized/ribbit/releases) run without a separate JavaScript runtime. See [installation](docs/installation.md) for platform details.
 
 ## Get a result before configuring a model
 
@@ -75,4 +75,4 @@ Extensions are trusted code. Remote routes receive the evidence you send. Intera
 
 Read the [product requirements](Ribbit-PRD.md), [contributor guide](CONTRIBUTING.md), and [development guide](docs/development.md). The [documentation hub](docs/index.md) separates tutorials, how-to guides, reference, and explanation.
 
-MIT licensed. The repository is `ribbet`; the product and command are **Ribbit / `ribbit`**. Report vulnerabilities through the [security policy](SECURITY.md).
+MIT licensed. The repository is `ribbit`; the product and command are **Ribbit / `ribbit`**. Report vulnerabilities through the [security policy](SECURITY.md).

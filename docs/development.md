@@ -49,6 +49,6 @@ python3 -m venv .venv-docs
 .venv-docs/bin/mkdocs serve
 ```
 
-On Windows, use `.venv-docs\Scripts\python -m pip` and `.venv-docs\Scripts\python -m mkdocs`. Build with `mkdocs build --strict` in the environment. The documentation workflow checks the site and deploys the main branch to [GitHub Pages](https://funsaized.github.io/ribbet/).
+On Windows, use `.venv-docs\Scripts\python -m pip` and `.venv-docs\Scripts\python -m mkdocs`. Build with `mkdocs build --strict` in the environment. The documentation workflow checks the site and deploys the main branch to [GitHub Pages](https://funsaized.github.io/ribbit/).
 
 `npm run test:docs` checks repository links, packaged examples, and the actual shell blocks in the three tutorials and README. Semantic tutorial runs use a controlled local mock; they validate instructions and data boundaries, not model quality. Keep live-output checkpoints separate from exact expected output. External repository links are rewritten for the site by `scripts/docs-hooks.py`; the original Markdown links still work in GitHub and the release archive.

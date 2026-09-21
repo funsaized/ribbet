@@ -70,7 +70,7 @@ try {
 
   await writeFile(
     preload,
-    `globalThis.fetch=async(url)=>{if(url!==${JSON.stringify(`https://github.com/funsaized/ribbet/releases/download/v${version}/ribbit-${version}-${hostTarget}.tar.gz`)})throw Error('Unexpected download URL');return new Response(require('node:fs').readFileSync(${JSON.stringify(archive)}));};\n`,
+    `globalThis.fetch=async(url)=>{if(url!==${JSON.stringify(`https://github.com/funsaized/ribbit/releases/download/v${version}/ribbit-${version}-${hostTarget}.tar.gz`)})throw Error('Unexpected download URL');return new Response(require('node:fs').readFileSync(${JSON.stringify(archive)}));};\n`,
   );
   // Exercise first-run installation when npm lifecycle scripts were disabled.
   assert.match(

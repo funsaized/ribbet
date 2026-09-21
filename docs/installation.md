@@ -1,6 +1,6 @@
 # Installation and local setup
 
-Download the archive for your machine from [GitHub Releases](https://github.com/funsaized/ribbet/releases). Extract it and keep the executable beside `lib/`. The archives include source, public documentation, MIT and dependency notices, build metadata, and a SHA-256 sidecar.
+Download the archive for your machine from [GitHub Releases](https://github.com/funsaized/ribbit/releases). Extract it and keep the executable beside `lib/`. The archives include source, public documentation, MIT and dependency notices, build metadata, and a SHA-256 sidecar.
 
 ## Install with npm
 
@@ -21,7 +21,7 @@ Use `npm uninstall -g @funsaized/ribbit` to remove the npm installation. User co
 | macOS | Intel x64, Apple Silicon ARM64 | `ribbit` | fzf >=0.74.3, real PTY tested |
 | Windows | x64, ARM64 | `ribbit.exe` | fzf >=0.74.3 and attached console; interactive validation is separate from CI |
 
-Each release artifact is built and tested natively in the [CI matrix](https://github.com/funsaized/ribbet/actions). Linux musl/Alpine, FreeBSD, Android, and 32-bit systems are not included in this preview. macOS binaries are ad-hoc signed, not notarized; Windows binaries are unsigned. OS download protection may require explicit approval for this preview. There is no Apple/Microsoft publisher identity claim.
+Each release artifact is built and tested natively in the [CI matrix](https://github.com/funsaized/ribbit/actions). Linux musl/Alpine, FreeBSD, Android, and 32-bit systems are not included in this preview. macOS binaries are ad-hoc signed, not notarized; Windows binaries are unsigned. OS download protection may require explicit approval for this preview. There is no Apple/Microsoft publisher identity claim.
 
 On Windows, extract with `tar -xzf ARCHIVE.tar.gz`, then run `.\ribbit.exe --version` in PowerShell. Use saved flows with `--file` to avoid shell-specific pipeline encoding. The Bash examples also work in Git Bash; native flows avoid shell-specific data encoding. Use `Get-FileHash ARCHIVE.tar.gz -Algorithm SHA256` to compare the checksum. Add the extracted directory to your user PATH if desired.
 

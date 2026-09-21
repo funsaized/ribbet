@@ -12,7 +12,7 @@ A developer can give a bounded task to a small or local model, preserve its outp
 
 A small model is not necessarily local, and a stronger model need not be remote. The product must support these choices without assuming that chaining improves quality, latency, cost, or context size. Users should be able to compare a chain with a direct stronger-model request and understand what each stage contributes.
 
-The product and executable are **Ribbit / `ribbit`**. The GitHub repository is `funsaized/ribbet`. Public identifiers include `@ribbit/sdk`, `.ribbit.yaml`, `ribbit/v1`, and the `$ribbit` wire marker. GitHub distributes the source and native archives. The public npm package `@funsaized/ribbit` installs the matching GitHub asset after verifying a checksum pinned in the package; the command remains `ribbit`.
+The product and executable are **Ribbit / `ribbit`**. The GitHub repository is `funsaized/ribbit`. Public identifiers include `@ribbit/sdk`, `.ribbit.yaml`, `ribbit/v1`, and the `$ribbit` wire marker. GitHub distributes the source and native archives. The public npm package `@funsaized/ribbit` installs the matching GitHub asset after verifying a checksum pinned in the package; the command remains `ribbit`.
 
 ## Users and problems
 

@@ -21,6 +21,6 @@ def on_page_markdown(markdown, page, config, files):
             raise ValueError(f'Invalid source link in {source}: {target}')
         relative = quote(destination.relative_to(repo).as_posix(), safe='/')
         suffix = '#' + parsed.fragment if parsed.fragment else ''
-        return f'[{label}](https://github.com/funsaized/ribbet/blob/main/{relative}{suffix})'
+        return f'[{label}](https://github.com/funsaized/ribbit/blob/main/{relative}{suffix})'
 
     return re.sub(r'\[([^\]]+)\]\(([^)]+)\)', convert, markdown)

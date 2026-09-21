@@ -23,7 +23,7 @@ Ribbit composes typed shell commands, local-model tasks, stronger-model steps, a
 | npm distribution | `npm run package:npm:verify` | Packed installation, checksum rejection, command mapping, and extension authoring checked on each native target |
 | Release archive | `npm run package:release` | Binary/lib, curated public docs, source/fixtures, notices, BUILD metadata, checksum; uploaded only after successful native CI |
 
-Run `npm run verify` for the deterministic gate, then `npm run package:release && npm run package:verify` for distribution checks. Live model evaluations are separately opt-in. The [native Actions run](https://github.com/funsaized/ribbet/actions) for the release revision is the build and test authority; archives record that revision in `BUILD.json`.
+Run `npm run verify` for the deterministic gate, then `npm run package:release && npm run package:verify` for distribution checks. Live model evaluations are separately opt-in. The [native Actions run](https://github.com/funsaized/ribbit/actions) for the release revision is the build and test authority; archives record that revision in `BUILD.json`.
 
 ## What the evidence supports
 
@@ -34,7 +34,7 @@ The 22-command scope is retained. Exact modes can be presented with their tested
 ## Resolved release decisions and follow-up work
 
 - MIT license, attributed to Sai Nimmagadda using the existing repository author identity.
-- Public experimental preview authorized; publish on the configured `funsaized/ribbet` GitHub remote.
+- Public experimental preview authorized; publish on the configured `funsaized/ribbit` GitHub remote.
 - Keep Ribbit as the product/executable name. The source checkout stays `private: true` to prevent accidental publication of the repository package. A separate staged public npm package, `@funsaized/ribbit`, installs the native GitHub assets with pinned checksums. Both GitHub and npm publication are authorized.
 - Independent held-out semantic review and a fresh-user pilot remain follow-up work. No broad quality or onboarding claim is made from synthetic tests.
 - Native CI builds and tests all six desktop targets. macOS binaries are ad-hoc signed, not Apple Developer ID signed/notarized. Windows binaries are not Authenticode signed. Interactive picker validation uses real PTYs on Linux/macOS; Windows console interaction remains separately documented.
@@ -45,4 +45,4 @@ Trusted extensions have no sandbox. Semantic prompt injection is not solved. Inp
 
 ## Publication evidence
 
-Native CI is the publication gate: each advertised archive must build, run its applicable tests, and pass isolated archive installation on its own OS/architecture. The public [Actions runs](https://github.com/funsaized/ribbet/actions) and [release assets](https://github.com/funsaized/ribbet/releases/tag/v0.1.0-alpha.1) identify the published revision and checksums. The current local evaluations retain their actual binary hashes; they do not claim a live model run on every release platform.
+Native CI is the publication gate: each advertised archive must build, run its applicable tests, and pass isolated archive installation on its own OS/architecture. The public [Actions runs](https://github.com/funsaized/ribbit/actions) and [release assets](https://github.com/funsaized/ribbit/releases/tag/v0.1.0-alpha.1) identify the published revision and checksums. The current local evaluations retain their actual binary hashes; they do not claim a live model run on every release platform.
