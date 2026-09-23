@@ -80,7 +80,7 @@ export async function prepareNpm(name: string, artifacts: string, stage: string,
 if (import.meta.main) {
   const [name, artifacts = 'dist/releases'] = process.argv.slice(2);
 
-  if (!name) throw new Error('Usage: npm run package:npm -- @ACCOUNT/ribbit PATH_TO_NATIVE_ARTIFACTS');
+  if (!name) throw new Error('Usage: bun run package:npm -- @ACCOUNT/ribbit PATH_TO_NATIVE_ARTIFACTS');
   await prepareNpm(name, resolve(artifacts), resolve('dist/npm'));
   const child = Bun.spawn(['npm', 'pack', '--ignore-scripts', '--pack-destination', resolve('dist/releases')], {
     cwd: resolve('dist/npm'),

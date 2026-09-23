@@ -72,7 +72,7 @@ await writeFile(
       runtime: Bun.version,
       sourceSha256: await sourceDigest('src'),
       lockSha256: createHash('sha256')
-        .update(await readFile('package-lock.json'))
+        .update(await readFile('bun.lock'))
         .digest('hex'),
       binarySha256: createHash('sha256')
         .update(await readFile(`dist/${executable}`))

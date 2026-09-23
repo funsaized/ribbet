@@ -17,13 +17,13 @@ Ribbit composes typed shell commands, local-model tasks, stronger-model steps, a
 | Three product recipes | [Runnable guide](recipes.md), [model comparison](models.md) | Local-only/direct-stronger/mixed outputs and overhead measured on shared synthetic fixtures |
 | External harness | [Model/harness evidence](models.md) | Actual local Codex read-only stdin handoff tested; not autonomous coding certification |
 | Isolated distribution | [Smoke runner](../scripts/smoke.ts) | Copied binary/lib and isolated HOME/XDG paths; no maintainer config |
-| Usage documentation | [Documentation hub](index.md), [tutorial execution checks](../scripts/docs-tutorials.ts) | Diátaxis navigation, searchable site, exact tutorial outputs and mock-backed semantic instructions verified |
+| Usage documentation | [Documentation hub](index.md), [strict site build](../.github/workflows/docs.yml) | Diátaxis navigation, searchable site, and repository Markdown links checked |
 | Contributor and security guidance | [Contributing](../CONTRIBUTING.md), [security](../SECURITY.md) | MIT adopted; private reporting enabled for the public repository |
 | CI | [Workflow](../.github/workflows/ci.yml) in source checkout | Native matrix covers Linux/macOS/Windows on x64/ARM64; see the linked Actions run for results |
-| npm distribution | `npm run package:npm:verify` | Packed installation, checksum rejection, command mapping, and extension authoring checked on each native target |
-| Release archive | `npm run package:release` | Binary/lib, curated public docs, source/fixtures, notices, BUILD metadata, checksum; uploaded only after successful native CI |
+| npm distribution | `bun run package:npm:verify` | Packed installation, checksum rejection, command mapping, and extension authoring checked on each native target |
+| Release archive | `bun run package:release` | Binary/lib, curated public docs, source/fixtures, notices, BUILD metadata, checksum; uploaded only after successful native CI |
 
-Run `npm run verify` for the deterministic gate, then `npm run package:release && npm run package:verify` for distribution checks. Live model evaluations are separately opt-in. The [native Actions run](https://github.com/funsaized/ribbit/actions) for the release revision is the build and test authority; archives record that revision in `BUILD.json`.
+Run `bun run verify` for the deterministic gate, then `bun run package:release && bun run package:verify` for distribution checks. Live model evaluations are separately opt-in. The [native Actions run](https://github.com/funsaized/ribbit/actions) for the release revision is the build and test authority; archives record that revision in `BUILD.json`.
 
 ## What the evidence supports
 

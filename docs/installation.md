@@ -27,13 +27,13 @@ On Windows, extract with `tar -xzf ARCHIVE.tar.gz`, then run `.\ribbit.exe --ver
 
 ## Build and install
 
-Install Bun 1.4.0 and npm, then run from the checkout:
+Install Bun 1.4.0, then run from the checkout:
 
 ```sh
-npm ci --ignore-scripts
-npm run build
-npm run package:smoke
-npm run package:release
+bun install --frozen-lockfile --ignore-scripts
+bun run build
+bun run package:smoke
+bun run package:release
 ```
 
 `dist/ribbit` (`dist/ribbit.exe` on Windows) and the adjacent `dist/lib/` form the distribution. Keep them together; `lib/` provides extension authoring dependencies. Ordinary built-in invocations require no additional runtime. Extension authoring smoke tests exercise the bundled SDK/compiler support. Interactive `pick` additionally requires fzf >=0.74.3 and a controlling terminal.

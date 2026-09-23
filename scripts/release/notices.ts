@@ -1,20 +1,45 @@
 import { readFile, readdir, mkdir, copyFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const lock = JSON.parse(await readFile('package-lock.json', 'utf8'));
+async function* packages(directory: string): AsyncGenerator<string> {
+  let entries;
+
+  try {
+    entries = (await readdir(directory, { withFileTypes: true })).toSorted((a, b) => a.name.localeCompare(b.name));
+  } catch {
+    return;
+  }
+  for (const entry of entries) {
+    if (entry.name === '.bin') continue;
+    const path = join(directory, entry.name);
+
+    if (entry.name.startsWith('@') && entry.isDirectory()) {
+      for (const child of (await readdir(path, { withFileTypes: true })).toSorted((a, b) =>
+        a.name.localeCompare(b.name),
+      ))
+        if (child.isDirectory() || child.isSymbolicLink()) yield join(path, child.name);
+    } else if (entry.isDirectory() || entry.isSymbolicLink()) yield path;
+  }
+}
+
+async function* installedPackages(directory = 'node_modules'): AsyncGenerator<string> {
+  for await (const path of packages(directory)) {
+    yield path;
+    yield* installedPackages(join(path, 'node_modules'));
+  }
+}
 
 await mkdir('docs/third-party', { recursive: true });
 const lines = [
   '# Third-party notices',
   '',
-  'Inventory of installed npm dependencies from the lockfile, including development tools and SDK support files. Ribbit is MIT licensed; these dependencies retain their own licenses. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). The documentation site uses [MkDocs](docs/third-party/mkdocs-1.6.1.txt) and [Material for MkDocs](docs/third-party/mkdocs-material-9.7.7.txt); documentation tooling is pinned separately in requirements-docs.txt. See the release checklist for distribution details.',
+  'Inventory of installed JavaScript dependencies, including development tools and SDK support files. Ribbit is MIT licensed; these dependencies retain their own licenses. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). The documentation site uses [MkDocs](docs/third-party/mkdocs-1.6.1.txt) and [Material for MkDocs](docs/third-party/mkdocs-material-9.7.7.txt); documentation tooling is pinned separately in requirements-docs.txt. See the release checklist for distribution details.',
   '',
   '| Package | Version | Declared license | License text |',
   '| --- | --- | --- | --- |',
 ];
 
-for (const [path, metadata] of Object.entries(lock.packages) as [string, any][]) {
-  if (!path || !path.startsWith('node_modules/')) continue;
+for await (const path of installedPackages()) {
   let pkg, files;
 
   try {
@@ -33,7 +58,7 @@ for (const [path, metadata] of Object.entries(lock.packages) as [string, any][])
     link = `[text](docs/third-party/${name})`;
   }
   lines.push(
-    `| ${pkg.name} | ${pkg.version} | ${typeof pkg.license === 'string' ? pkg.license : (metadata.license ?? 'Unspecified')} | ${link} |`,
+    `| ${pkg.name} | ${pkg.version} | ${typeof pkg.license === 'string' ? pkg.license : 'Unspecified'} | ${link} |`,
   );
 }
 await writeFile('THIRD_PARTY_NOTICES.md', lines.join('\n') + '\n');

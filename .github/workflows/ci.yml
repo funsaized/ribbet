@@ -53,13 +53,13 @@ jobs:
           go install github.com/junegunn/fzf@v0.74.3
           "$(go env GOPATH)\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Verify native candidate
-        run: npm run verify
+        run: bun run verify
       - name: Package and verify installed archive
         run: |
-          npm run package:release
-          npm run package:verify
+          bun run package:release
+          bun run package:verify
       - name: Verify npm installation
-        run: npm run package:npm:verify
+        run: bun run package:npm:verify
       - name: Preserve verified candidate
         uses: actions/upload-artifact@v4
         with:

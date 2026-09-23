@@ -1,7 +1,7 @@
 import { spawn } from 'bun';
 
 const commands = [
-  ['ci', '--ignore-scripts', '--no-audit', '--no-fund'],
+  ['install', '--frozen-lockfile', '--ignore-scripts'],
   ...[
     'check',
     'lint',
@@ -18,7 +18,7 @@ const commands = [
 ];
 
 for (const args of commands) {
-  const child = spawn(['npm', ...args], { stdout: 'inherit', stderr: 'inherit', stdin: 'inherit' });
+  const child = spawn(['bun', ...args], { stdout: 'inherit', stderr: 'inherit', stdin: 'inherit' });
   const code = await child.exited;
 
   if (code !== 0) process.exit(code);

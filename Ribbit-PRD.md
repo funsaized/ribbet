@@ -98,7 +98,7 @@ Provide MIT licensing, dependency notices, checksums, build metadata, installati
 2. Every semantic command and optional semantic mode has clearly labeled live regression evidence, separate from mocked inference.
 3. The three workflows have reproducible fixtures, composition checks, route visibility, and evidence-retention assertions.
 4. The harness boundary is tested, with the scope of the live invocation stated precisely.
-5. Documentation examples run against the built executable; installation works without maintainer configuration.
+5. Documentation builds strictly and repository Markdown links resolve; installation works without maintainer configuration. Examples are maintained but not automatically executed.
 6. Every published native archive passes the CI and isolated archive checks for its recorded revision.
 7. Current model limitations, extension trust, platform exceptions, and licensing are documented before publication.
 

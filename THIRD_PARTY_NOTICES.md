@@ -1,19 +1,19 @@
 # Third-party notices
 
-Inventory of installed npm dependencies from the lockfile, including development tools and SDK support files. Ribbit is MIT licensed; these dependencies retain their own licenses. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). The documentation site uses [MkDocs](docs/third-party/mkdocs-1.6.1.txt) and [Material for MkDocs](docs/third-party/mkdocs-material-9.7.7.txt); documentation tooling is pinned separately in requirements-docs.txt. See the release checklist for distribution details.
+Inventory of installed JavaScript dependencies, including development tools and SDK support files. Ribbit is MIT licensed; these dependencies retain their own licenses. Model weights and fzf are not bundled. The installed Bun runtime notice is preserved in [bun-1.4.0.txt](docs/third-party/bun-1.4.0.txt), including linked-library notices. TypeScript additional notices are preserved in [typescript-third-party.txt](docs/third-party/typescript-third-party.txt). The documentation site uses [MkDocs](docs/third-party/mkdocs-1.6.1.txt) and [Material for MkDocs](docs/third-party/mkdocs-material-9.7.7.txt); documentation tooling is pinned separately in requirements-docs.txt. See the release checklist for distribution details.
 
 | Package | Version | Declared license | License text |
 | --- | --- | --- | --- |
 | @cacheable/memory | 2.2.0 | MIT | [text](docs/third-party/_cacheable_memory-2.2.0.txt) |
 | @cacheable/utils | 2.5.0 | MIT | [text](docs/third-party/_cacheable_utils-2.5.0.txt) |
-| @eslint-community/eslint-utils | 4.10.1 | MIT | [text](docs/third-party/_eslint-community_eslint-utils-4.10.1.txt) |
-| eslint-visitor-keys | 3.4.3 | Apache-2.0 | [text](docs/third-party/eslint-visitor-keys-3.4.3.txt) |
-| @eslint-community/regexpp | 4.12.2 | MIT | [text](docs/third-party/_eslint-community_regexpp-4.12.2.txt) |
 | @eslint/config-array | 0.23.5 | Apache-2.0 | [text](docs/third-party/_eslint_config-array-0.23.5.txt) |
 | @eslint/config-helpers | 0.7.0 | Apache-2.0 | [text](docs/third-party/_eslint_config-helpers-0.7.0.txt) |
 | @eslint/core | 1.2.1 | Apache-2.0 | [text](docs/third-party/_eslint_core-1.2.1.txt) |
 | @eslint/object-schema | 3.0.5 | Apache-2.0 | [text](docs/third-party/_eslint_object-schema-3.0.5.txt) |
 | @eslint/plugin-kit | 0.7.3 | Apache-2.0 | [text](docs/third-party/_eslint_plugin-kit-0.7.3.txt) |
+| @eslint-community/eslint-utils | 4.10.1 | MIT | [text](docs/third-party/_eslint-community_eslint-utils-4.10.1.txt) |
+| eslint-visitor-keys | 3.4.3 | Apache-2.0 | [text](docs/third-party/eslint-visitor-keys-3.4.3.txt) |
+| @eslint-community/regexpp | 4.12.2 | MIT | [text](docs/third-party/_eslint-community_regexpp-4.12.2.txt) |
 | @humanfs/core | 0.19.2 | Apache-2.0 | [text](docs/third-party/_humanfs_core-0.19.2.txt) |
 | @humanfs/node | 0.16.8 | Apache-2.0 | [text](docs/third-party/_humanfs_node-0.16.8.txt) |
 | @humanfs/types | 0.15.0 | Apache-2.0 | No top-level license text found |
@@ -22,7 +22,9 @@ Inventory of installed npm dependencies from the lockfile, including development
 | @keyv/bigmap | 1.3.1 | MIT | [text](docs/third-party/_keyv_bigmap-1.3.1.txt) |
 | @keyv/serialize | 1.1.1 | MIT | [text](docs/third-party/_keyv_serialize-1.1.1.txt) |
 | @oxfmt/binding-linux-x64-gnu | 0.65.0 | MIT | No top-level license text found |
+| @oxfmt/binding-linux-x64-musl | 0.65.0 | MIT | No top-level license text found |
 | @oxlint/binding-linux-x64-gnu | 1.83.0 | MIT | No top-level license text found |
+| @oxlint/binding-linux-x64-musl | 1.83.0 | MIT | No top-level license text found |
 | @stylistic/eslint-plugin | 5.10.0 | MIT | [text](docs/third-party/_stylistic_eslint-plugin-5.10.0.txt) |
 | @types/bun | 1.3.3 | MIT | [text](docs/third-party/_types_bun-1.3.3.txt) |
 | @types/esrecurse | 4.3.1 | MIT | [text](docs/third-party/_types_esrecurse-4.3.1.txt) |
@@ -42,13 +44,13 @@ Inventory of installed npm dependencies from the lockfile, including development
 | deep-is | 0.1.4 | MIT | [text](docs/third-party/deep-is-0.1.4.txt) |
 | escape-string-regexp | 4.0.0 | MIT | [text](docs/third-party/escape-string-regexp-4.0.0.txt) |
 | eslint | 10.10.0 | MIT | [text](docs/third-party/eslint-10.10.0.txt) |
-| eslint-scope | 9.1.2 | BSD-2-Clause | [text](docs/third-party/eslint-scope-9.1.2.txt) |
-| eslint-visitor-keys | 4.2.1 | Apache-2.0 | [text](docs/third-party/eslint-visitor-keys-4.2.1.txt) |
 | ajv | 6.15.0 | MIT | [text](docs/third-party/ajv-6.15.0.txt) |
+| json-schema-traverse | 0.4.1 | MIT | [text](docs/third-party/json-schema-traverse-0.4.1.txt) |
 | eslint-visitor-keys | 5.0.1 | Apache-2.0 | [text](docs/third-party/eslint-visitor-keys-5.0.1.txt) |
 | espree | 11.2.0 | BSD-2-Clause | [text](docs/third-party/espree-11.2.0.txt) |
 | ignore | 5.3.2 | MIT | [text](docs/third-party/ignore-5.3.2.txt) |
-| json-schema-traverse | 0.4.1 | MIT | [text](docs/third-party/json-schema-traverse-0.4.1.txt) |
+| eslint-scope | 9.1.2 | BSD-2-Clause | [text](docs/third-party/eslint-scope-9.1.2.txt) |
+| eslint-visitor-keys | 4.2.1 | Apache-2.0 | [text](docs/third-party/eslint-visitor-keys-4.2.1.txt) |
 | espree | 10.4.0 | BSD-2-Clause | [text](docs/third-party/espree-10.4.0.txt) |
 | esquery | 1.7.0 | BSD-3-Clause | [text](docs/third-party/esquery-1.7.0.txt) |
 | esrecurse | 4.3.0 | BSD-2-Clause | No top-level license text found |

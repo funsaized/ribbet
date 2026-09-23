@@ -54,4 +54,4 @@ Live Codex handoff: [raw report](../evals/results/handoff/2026-09-20T14-58-06-86
 
 These are public, authored regression cases. They are not held out, were not independently reviewed, and use deterministic fact checks as a floor. Model suitability remains experimental until diverse held-out tasks and independent review support broader claims.
 
-Run `npm run eval:release -- --help` for per-command selection. `--mode smoke` runs every selected case once; `--mode full` repeats them three times. The [evaluation guide](../evals/README.md) documents local-only opt-in, raw attempt retention, recipe comparisons, and harness checks.
+Run `bun run eval:release -- --help` for per-command selection. `--mode smoke` runs every selected case once; `--mode full` repeats them three times. The [evaluation guide](../evals/README.md) documents local-only opt-in, raw attempt retention, recipe comparisons, and harness checks.

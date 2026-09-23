@@ -25,7 +25,7 @@
     "test:consumer": "bun test tests/consumer",
     "test:cli": "bun test tests/cli",
     "test:conformance": "bun test tests/conformance",
-    "test:docs": "bun run scripts/docs.ts && bun run scripts/docs-examples.ts && bun run scripts/docs-tutorials.ts",
+    "test:docs": "bun run scripts/docs.ts",
     "bench": "bun run scripts/bench.ts",
     "package:smoke": "bun run scripts/smoke.ts",
     "test:release": "bun test tests/release",

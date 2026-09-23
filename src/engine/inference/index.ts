@@ -32,12 +32,7 @@ export class ManagedInference {
     )
       throw new RibbitError(6, 'Conservative context bound exceeded; reduce evidence or configure model limits');
   }
-  private async attempt(
-    instruction: string,
-    evidence: string,
-    schema?: Record<string, unknown>,
-    emit?: (text: string) => Promise<void>,
-  ): Promise<string> {
+  private async attempt(instruction: string, evidence: string, schema?: Record<string, unknown>): Promise<string> {
     this.preflight(instruction, evidence, !!schema, schema);
     let text = '';
 
@@ -62,7 +57,6 @@ export class ManagedInference {
                 if (Buffer.byteLength(text) + Buffer.byteLength(event.text) > this.budget.limits.maxBytes)
                   throw new RibbitError(6, 'Inference output byte limit exceeded');
                 text += event.text;
-                if (emit) await emit(event.text);
               } else {
                 done = true;
                 if (event.inputTokens === undefined || event.outputTokens === undefined)
@@ -128,59 +122,5 @@ export class ManagedInference {
       }
     }
     throw new RibbitError(4, 'Structured inference failed validation after one repair');
-  }
-  async *stream(instruction: string, evidence: string): AsyncGenerator<string> {
-    this.preflight(instruction, evidence);
-    if (!this.route.endpoint.capabilities.includes('stream'))
-      throw new RibbitError(3, 'Streaming capability unavailable');
-    // One-slot handoff applies backpressure without buffering an entire response.
-    let slot: { text: string; acknowledge: () => void } | undefined;
-    let finished = false,
-      failure: unknown;
-    let wake: (() => void) | undefined;
-    let pendingAck: (() => void) | undefined;
-    const worker = this.attempt(
-      instruction,
-      evidence,
-      undefined,
-      (text) =>
-        new Promise<void>((resolve) => {
-          slot = { text, acknowledge: resolve };
-          wake?.();
-        }),
-    )
-      .catch((error) => {
-        failure = error;
-      })
-      .finally(() => {
-        finished = true;
-        wake?.();
-      });
-
-    try {
-      // eslint-disable-next-line no-unmodified-loop-condition -- `finished` is set asynchronously by the worker
-      while (!finished || slot) {
-        if (!slot)
-          await new Promise<void>((resolve) => {
-            wake = resolve;
-            if (finished || slot) resolve();
-          });
-        if (slot) {
-          const item = slot;
-
-          slot = undefined;
-          pendingAck = item.acknowledge;
-          yield item.text;
-          item.acknowledge();
-          pendingAck = undefined;
-        }
-      }
-      if (failure) throw failure;
-    } finally {
-      if (!finished) this.budget.controller.abort(new RibbitError(130, 'Inference consumer closed'));
-      pendingAck?.();
-      slot?.acknowledge();
-      await worker;
-    }
   }
 }

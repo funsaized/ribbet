@@ -37,7 +37,8 @@ try {
       'tests',
       'evals',
       'package.json',
-      'package-lock.json',
+      'bunfig.toml',
+      'bun.lock',
       'tsconfig.json',
       '.oxlintrc.json',
       '.oxfmtrc.json',
@@ -68,11 +69,6 @@ try {
         revision: (
           await new Response(Bun.spawn(['git', 'rev-parse', 'HEAD'], { stdout: 'pipe' }).stdout).text()
         ).trim(),
-        binarySha256: createHash('sha256')
-          .update(await readFile(`dist/${executable}`))
-          .digest('hex'),
-        licenseDecisionPending: !licensed,
-        publicationAuthorized: true,
       },
       null,
       2,

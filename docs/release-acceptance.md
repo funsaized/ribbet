@@ -2,7 +2,7 @@
 
 Contract and packaged-CLI checks are separate from live semantic correctness. All command rows below have packaged happy-path coverage plus relevant failure/invariant coverage. Live scores are small public regression samples, not broad quality certification or independent review. The current [release checklist](release-checklist.md) determines release readiness.
 
-Run `npm run build && npm run test:release`. The [case catalog](../scripts/release/cases.ts) supplies exact args, inputs, mock replies, and assertions; [command examples](command-examples.md) render them for readers. `pick` additionally uses the real fzf backend on a controlling PTY. The [failure suite](../tests/release/commands.test.ts) and the existing filesystem/record/budget suites cover relevant edge behavior.
+Run `bun run build && bun run test:release`. The [case catalog](../scripts/release/cases.ts) supplies exact args, inputs, mock replies, and assertions; [command examples](command-examples.md) render them for readers. `pick` additionally uses the real fzf backend on a controlling PTY. The [failure suite](../tests/release/commands.test.ts) and the existing filesystem/record/budget suites cover relevant edge behavior.
 
 | Command | Case IDs / modes | Contract + packaged CLI | Stronger live floor | 0.5B live floor | Verdict |
 | --- | --- | --- | --- | --- | --- |
