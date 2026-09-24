@@ -10,7 +10,7 @@ Ribbit composes typed shell commands, local-model tasks, stronger-model steps, a
 
 | Area | Evidence | Status |
 | --- | --- | --- |
-| All 22 built-ins | [Individual matrix](release-acceptance.md), [packaged tests](../tests/release/commands.test.ts) | Individual contract and CLI coverage; semantic suitability remains profile-specific |
+| 22 original built-ins + `where` | [Individual matrix](release-acceptance.md), [packaged cases](../tests/release/commands.test.ts), [`where` flow](../tests/release/squirrels.test.ts) | Original per-command cases and additional exact selector tested separately; semantic suitability remains profile-specific |
 | Management surfaces | [Lifecycle tests](../tests/release/management.test.ts) | Packaged configuration/discovery/extension/definition lifecycle |
 | Composition | [Recipe tests](../tests/release/recipes.test.ts) | Real shell pipes, inline and saved flows agree; routes, originals, metadata, and budgets asserted |
 | Local model evidence | [Per-command results](models.md) | Every semantic command and optional semantic mode exercised; failed attempts retained |
@@ -29,7 +29,7 @@ Run `bun run verify` for the deterministic gate, then `bun run package:release &
 
 The stronger installed local model passes the current public regression floor with a sufficient output-token allowance. The 0.5B candidate fails important semantic cases even when its JSON is valid. The supplied annotation recipes preserve evidence and allow downstream review, but do not establish speed, cost, or general quality improvement over direct stronger-model calls. Documentation explicitly describes this tradeoff.
 
-The 22-command scope is retained. Exact modes can be presented with their tested deterministic contracts. Semantic commands should remain experimental and tied to measured profiles. Version `0.1.0-alpha.1` is an experimental preview; no 1.0 promise is introduced.
+The original 22-command scope is retained; `where` adds a 23rd exact selector with separate packaged flow coverage. Exact modes can be presented with their tested deterministic contracts. Semantic commands should remain experimental and tied to measured profiles. Version `0.1.0-alpha.1` is an experimental preview; no 1.0 promise is introduced.
 
 ## Resolved release decisions and follow-up work
 

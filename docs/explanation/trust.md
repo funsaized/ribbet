@@ -16,6 +16,8 @@ Local processing sends evidence to the local endpoint you configured. A remote p
 
 Filesystem exclusions reduce accidental admission of common sensitive names. They do not inspect every secret format or guarantee that source content is safe to share. Review the admitted material before a remote handoff.
 
+`find`/`tree` with content discovery or semantic selection exclude common sensitive-looking names even when hidden files or ignore rules are enabled, unless `--include-sensitive` is explicitly given. Names-only nonsemantic discovery and explicit-path `read`/`compare` remain intentional access paths. These exclusions are not secret scanning.
+
 ## Extensions and harnesses
 
 An installed extension is trusted TypeScript code with filesystem, network, and process access. Its manifest describes effects; it does not enforce a sandbox. Checking, testing, and installing an extension can execute its source. Discovery and help inspect declarations without importing it.

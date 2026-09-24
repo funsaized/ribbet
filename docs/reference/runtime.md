@@ -17,6 +17,8 @@ Finite overrides are `--max-bytes`, `--max-records`, `--max-requests`, `--max-to
 
 A flow shares invocation budgets and accounts for outputs cumulatively. Separate shell processes own separate budgets. Structured output allows at most one repair; repairs and retries share the invocation budget. Missing provider token usage is reported as unknown, not zero. Per-request output-token allowances belong in the route/profile's `maxOutputTokens` setting.
 
+Exact selections (`where`, `select`, `take`, `unique`, `sort`) can return empty records; `rank` and `group` also return empty without inference. Text/model operations that require evidence, such as `summarize` and `reduce`, reject empty evidence. Candidate caps of 200 for rank/group apply independently of input admission; 10,000 admitted records do not imply a 10,000-record model request. For shell pipelines, enable `set -o pipefail` where supported and check the exit status before using captured stdout. Keep stderr separate.
+
 ## Exit codes
 
 | Code | Meaning |

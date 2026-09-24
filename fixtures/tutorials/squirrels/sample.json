@@ -1,0 +1,6 @@
+[
+  {"unique_squirrel_id":"same","other_activities":"Foraging near a tree","running":true},
+  {"unique_squirrel_id":"same","other_interactions":"Approached a person","approaches":true},
+  {"unique_squirrel_id":"third","age":null,"foraging":true},
+  {"unique_squirrel_id":"fourth","other_activities":"Climbing a trunk","climbing":true}
+]

@@ -1,0 +1,7 @@
+{
+  "action": "normalize",
+  "input": "{\"version\":1,\"repository\":\"sample/project\",\"number\":7,\"pull\":{\"id\":18,\"number\":7,\"html_url\":\"https://github.com/sample/project/pull/7\",\"title\":\"Fix tests\",\"body\":null,\"user\":{\"login\":\"dev\"},\"head\":{\"sha\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}},\"issueComments\":[],\"reviews\":[],\"reviewComments\":[],\"files\":[],\"checkRuns\":[],\"statuses\":[],\"truncated\":[]}",
+  "expected": [
+    { "id": "pull:18", "value": { "kind": "pull", "repository": "sample/project", "pr": 7, "id": 18, "number": 7, "html_url": "https://github.com/sample/project/pull/7", "title": "Fix tests", "body": null, "user": { "login": "dev" }, "head": { "sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" } }, "source": { "path": "https://github.com/sample/project/pull/7" }, "annotations": { "acquisition": { "truncated": [] } } }
+  ]
+}

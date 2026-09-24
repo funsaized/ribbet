@@ -1,0 +1,3 @@
+# Squirrel Census sample
+
+This four-row **controlled test fixture** is not a captured API response and is not a population sample. The IDs duplicate intentionally. For real analysis retrieve the [2018 Central Park Squirrel Census](https://data.cityofnewyork.us/resource/vfnx-vebw.json) attributed to [The Squirrel Census](https://www.thesquirrelcensus.com/) using the bounded acquisition script, record retrieval date and SHA-256, and freeze the raw response. NYC portal metadata declares no license; consult the [NYC terms](https://www.nyc.gov/main/terms-of-use) before redistributing a captured snapshot. `:id` is the unique ordering field; `unique_squirrel_id` is not unique. Pagination is not a transactional snapshot.

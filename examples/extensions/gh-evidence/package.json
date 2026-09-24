@@ -1,0 +1,7 @@
+{
+  "name": "@examples/gh-evidence",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@ribbit/sdk": "0.1.0", "zod": "4.1.13" }
+}

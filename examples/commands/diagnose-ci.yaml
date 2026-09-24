@@ -1,0 +1,17 @@
+apiVersion: ribbit/v1
+kind: Command
+name: diagnose-ci
+type: '@ribbit/extract'
+typeVersion: '1.0.0'
+action: run
+config: {}
+defaults:
+  instruction: >-
+    Diagnose the failing CI from the supplied log, diff, and source evidence. Return exactly these separate
+    fields: failureSignature, the failing test or assertion line quoted from the log; observations, the facts
+    stated by the evidence; hypotheses, unverified explanations for the failure; sources, path and line
+    references that appear in the supplied evidence; likelyChange, the file and line most likely to need the
+    fix with a short reason; and nextChecks, exact commands that would verify or narrow the diagnosis. Cite
+    only paths and line numbers present in the evidence. Keep observations and hypotheses distinct. Do not
+    claim to have run commands, edited files, or fixed the failure.
+  schema: diagnose.schema.json

@@ -1,0 +1,18 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: date-fns-context
+steps:
+  - id: evidence
+    command: read
+    args:
+      paths:
+        - AGENTS.md
+        - CONTRIBUTING.md
+        - pkgs/core/package.json
+        - pkgs/core/src/constants/index.ts
+        - pkgs/core/src/parseISO/index.ts
+        - pkgs/core/src/parseISO/test.ts
+  - id: brief
+    command: contribution-brief
+    inference:
+      profile: local-small

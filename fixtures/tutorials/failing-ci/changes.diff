@@ -1,0 +1,7 @@
+diff --git a/src/builtins/exact.ts b/src/builtins/exact.ts
+--- a/src/builtins/exact.ts
++++ b/src/builtins/exact.ts
+@@ -113,2 +113,2 @@ export const exactCommands = {
+-        yield { ...r, value };
++        yield { id: r.id, value };
+       }

@@ -1,0 +1,1 @@
+{ "action": "run", "input": null, "args": { "repository": "sample/project; rm -rf /", "number": 7 }, "error": 2 }

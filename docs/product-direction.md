@@ -1,14 +1,14 @@
-# Product direction: composable model work
+# Product direction: an extensible framework for model work
 
-Ribbit turns messy input into useful, traceable context through composable commands, using an explicitly chosen model at each step.
+Ribbit is an extensible framework for composing model tasks into reusable commands, with typed contracts and inspectable evidence. It turns messy input into useful, traceable context through composable commands, using an explicitly chosen model at each step.
 
 The first audience is developers working in a shell or through a coding harness. They need to classify noisy feedback, extract structured facts, prepare repository evidence, and reuse transformations without rebuilding input handling, validation, or provider routing every time. A small local model can handle a bounded intermediate task; a stronger model or harness can inspect its output together with the original evidence.
 
 ## What makes this useful
 
-The unit of reuse is a command with an inspectable contract. Built-ins and trusted extensions share TypeScript/Zod definitions. A successful invocation can become a named YAML command, then a linear flow. Records carry stable in-run IDs, source references when known, and annotations. Every semantic stage has an explicit route and finite budgets. Exact commands make no inference requests.
+The unit of reuse is a command with an inspectable contract. Built-ins and trusted extensions share TypeScript/Zod definitions. A successful invocation can become a named YAML command, then a linear flow. Records carry stable in-run IDs, source references when known, and annotations. Every semantic stage has an explicit route and finite budgets. Exact commands make no inference requests. Contracts validate structure and selected invariants, not truth, and a record keeps evidence traceable without preventing prompt injection.
 
-The initial release retains all 22 commands. Exact modes have deterministic contracts. Semantic behavior is experimental and model-dependent; individual evaluation results belong in the release checklist, not in a universal “recommended model” claim. The first public alpha is `0.1.0-alpha.1`, with no 1.0 compatibility promise. The owner accepted experimental semantics and authorized publication.
+The initial release shipped 22 commands; the current catalog has 23 with the exact `where` selector. Exact modes have deterministic contracts. Semantic behavior is experimental and model-dependent; individual evaluation results belong in the release checklist, not in a universal “recommended model” claim. The first public alpha is `0.1.0-alpha.1`, with no 1.0 compatibility promise. The owner accepted experimental semantics and authorized publication.
 
 ## Three jobs to demonstrate
 

@@ -8,7 +8,17 @@ import {
   type Action,
   type RecordValue,
 } from '../sdk/index.ts';
-import { field, evidence, requireEvidence, collect, prompt, externalSchema, textFile } from './primitives.ts';
+import {
+  recordField,
+  recordPathParts,
+  annotationName,
+  evidence,
+  requireEvidence,
+  collect,
+  prompt,
+  externalSchema,
+  textFile,
+} from './primitives.ts';
 
 const config = z.strictObject({});
 const rule = z.array(z.string()).default([]);
@@ -131,9 +141,13 @@ export const semanticCommands = {
       label: z.array(z.string()).optional(),
       field: z.string().optional(),
       unknownLabel: z.string().optional(),
+      annotationKey: z.string().default('classify'),
     }),
     async function* ({ args, input }, ctx) {
       const a = args as any;
+
+      annotationName(a.annotationKey, 'classify');
+      if (a.field !== undefined) recordPathParts(a.field);
       const specs = [...(a.labels?.split(',') ?? []), ...(a.label ?? [])];
       const parsed = specs.map((s: string) => {
         const i = s.indexOf('=');
@@ -160,11 +174,11 @@ export const semanticCommands = {
           prompt(
             `Classify the evidence into exactly one of these labels:${legend}\nEvaluate the evidence against every allowed label before deciding. Do not default to a label without support.${a.unknownLabel ? ` Use ${JSON.stringify(a.unknownLabel)} only when the evidence does not support another label.` : ''} Return a short "reason" first, then the chosen "label".`,
           ),
-          evidence(a.field ? field(r.value, a.field) : r.value),
+          evidence(a.field !== undefined ? recordField(r, a.field) : r.value),
           schema,
         );
 
-        yield { ...r, annotations: { ...r.annotations, classify: { label: result.label } } };
+        yield { ...r, annotations: { ...r.annotations, [a.annotationKey]: { label: result.label } } };
       }
     },
     {
@@ -184,10 +198,12 @@ export const semanticCommands = {
     async function* ({ args, input }, ctx) {
       const a = args as any;
 
+      if (a.field !== undefined) recordPathParts(a.field);
+
       for await (const r of input as AsyncIterable<RecordValue>) {
         const result = await ctx.llm.object(
           prompt(`Decide whether this record matches: ${a.instruction}`),
-          evidence(a.field ? field(r.value, a.field) : r.value),
+          evidence(a.field !== undefined ? recordField(r, a.field) : r.value),
           z.strictObject({ match: z.boolean() }),
         );
 
@@ -208,18 +224,28 @@ export const semanticCommands = {
   map: command(
     'map',
     'Transform each record once with origin lineage',
-    z.strictObject({ instruction, field: z.string().optional(), schema: z.string().optional() }),
+    z.strictObject({
+      instruction,
+      field: z.string().optional(),
+      schema: z.string().optional(),
+      annotate: z.string().optional(),
+    }),
     async function* ({ args, input }, ctx) {
       const a = args as any;
+
+      if (a.annotate !== undefined) annotationName(a.annotate, 'map');
+      if (a.field !== undefined) recordPathParts(a.field);
       const schema = a.schema ? await externalSchema(a.schema) : null;
 
       for await (const r of input as AsyncIterable<RecordValue>) {
-        const data = evidence(a.field ? field(r.value, a.field) : r.value);
+        const data = evidence(a.field !== undefined ? recordField(r, a.field) : r.value);
         const value = schema
           ? await ctx.llm.object(prompt(a.instruction), data, schema)
           : await ctx.llm.text(prompt(a.instruction), data);
 
-        yield { ...r, value, annotations: { ...r.annotations, map: { originId: r.id } } };
+        yield a.annotate !== undefined
+          ? { ...r, annotations: { ...r.annotations, [a.annotate]: value } }
+          : { ...r, value, annotations: { ...r.annotations, map: { originId: r.id } } };
       }
     },
     {
@@ -239,12 +265,16 @@ export const semanticCommands = {
     z.strictObject({ instruction, field: z.string().optional(), top: z.number().int().positive().optional() }),
     async function* ({ args, input }, ctx) {
       const a = args as any;
+
+      if (a.field !== undefined) recordPathParts(a.field);
       const rows = await collect(input as AsyncIterable<unknown>, 200);
 
       if (!rows.length) return;
       const result = await ctx.llm.object(
         prompt(`Rank all supplied IDs by: ${a.instruction}. Return each ID exactly once.`),
-        JSON.stringify(rows.map((r) => ({ id: r.id, value: a.field ? field(r.value, a.field) : r.value }))),
+        JSON.stringify(
+          rows.map((r) => ({ id: r.id, value: a.field !== undefined ? recordField(r, a.field) : r.value })),
+        ),
         z.strictObject({ ids: z.array(z.string()) }),
       );
 
@@ -272,13 +302,17 @@ export const semanticCommands = {
     'Partition originals into labeled groups exactly once',
     z.strictObject({ instruction, field: z.string().optional() }),
     async function* ({ args, input }, ctx) {
-      const a = args as any,
-        rows = await collect(input as AsyncIterable<unknown>, 200);
+      const a = args as any;
+
+      if (a.field !== undefined) recordPathParts(a.field);
+      const rows = await collect(input as AsyncIterable<unknown>, 200);
 
       if (!rows.length) return;
       const result = await ctx.llm.object(
         prompt(`Partition records by: ${a.instruction}. Every supplied ID must belong to exactly one nonempty group.`),
-        JSON.stringify(rows.map((r) => ({ id: r.id, value: a.field ? field(r.value, a.field) : r.value }))),
+        JSON.stringify(
+          rows.map((r) => ({ id: r.id, value: a.field !== undefined ? recordField(r, a.field) : r.value })),
+        ),
         z.strictObject({
           groups: z.array(z.strictObject({ label: z.string().min(1), ids: z.array(z.string()).min(1) })),
         }),

@@ -1,0 +1,17 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: squirrel-report
+steps:
+  - id: noted
+    command: where
+    args: { field: has_note, equals: true }
+  - id: sample
+    command: take
+    args: { count: 8 }
+  - id: observations
+    command: map
+    args:
+      instruction: Extract one observation from the note. Quote only verbatim text from the input; do not infer a population-wide result.
+      annotate: observation
+      schema: examples/squirrel-report/observations.schema.json
+    inference: { profile: local-small }

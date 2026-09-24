@@ -1,0 +1,14 @@
+$ bun test tests/release/projection.test.ts
+bun test v1.4.0 (34cbb9a40)
+
+tests/release/projection.test.ts:
+error: Invalid output: record annotations are required
+(fail) projection keeps annotations after classify [1.20ms]
+  at tests/release/projection.test.ts:24:24
+
+ 0 pass
+ 1 fail
+ 1 expect() call
+Ran 1 test across 1 file. [412.00ms]
+
+error: script "test:release" exited with code 1

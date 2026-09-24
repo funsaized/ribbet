@@ -28,6 +28,7 @@ Run `bun run build && bun run test:release`. The [case catalog](../scripts/relea
 | take | take-prefix | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
 | tree | tree-exact, tree-about, tree-describe | PASS | 6/6 | 4/6 | Contract accepted; semantic use experimental and profile-specific |
 | unique | unique-key | PASS | n/a | n/a | Deterministic behavior covered by native release CI |
+| where | squirrel-report flow | PASS | n/a | n/a | Typed equality and preservation covered by [packaged flow](../tests/release/squirrels.test.ts) and [unit contracts](../tests/builtins/commands.test.ts); not a legacy case-catalog evaluation |
 
 Stronger model evidence: [raw report](../evals/results/release/2026-09-20T14-51-55-840Z-google_gemma-4-e4b/report.json). Small model evidence: [raw report](../evals/results/release/2026-09-20T14-55-34-078Z-ribbit-release-small/report.json). Scores aggregate modes only for display; raw case verdicts remain authoritative. A failed mode is never waived by other passing cases.
 

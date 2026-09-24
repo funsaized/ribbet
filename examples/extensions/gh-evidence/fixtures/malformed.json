@@ -1,0 +1,1 @@
+{ "action": "normalize", "input": "{not json", "error": 5 }

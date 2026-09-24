@@ -1,6 +1,6 @@
 # Command reference
 
-Reference for the 22 built-in commands. Confirm the live surface with `ribbit commands list --json` and per-command flags with `ribbit <command> --help`.
+Reference for the 23 built-in commands. Confirm the live surface with `ribbit commands list --json` and per-command flags with `ribbit <command> --help`.
 
 For working invocations and individual assertions, see [command examples](command-examples.md). For model-specific results, see [acceptance](release-acceptance.md).
 
@@ -19,6 +19,7 @@ Annotate each original record with one allowed label. Input: records; output: re
 - `--label`: string (repeatable)
 - `--field`: string
 - `--unknown-label`: string
+- `--annotation-key`: string (default `classify`)
 
 ## compare
 
@@ -94,6 +95,7 @@ Transform each record once with origin lineage. Input: records; output: records.
 - `--instruction`: string (also positional)
 - `--field`: string
 - `--schema`: string
+- `--annotate`: string (retain originals, write named annotation)
 
 ## pick
 
@@ -142,7 +144,7 @@ Rewrite text while preserving supplied facts. Input: text; output: text.
 
 ## select
 
-Project selected value fields, preserving IDs. Input: records; output: records.
+Project selected fields, preserving envelope metadata. Input: records; output: records.
 
 - `--fields`: string (also positional)
 - `--missing`: string
@@ -191,3 +193,10 @@ Render filesystem topology with optional semantic annotations. Input: none; outp
 Keep the first record for each canonical JSON value. Input: records; output: records.
 
 - `--by`: string
+
+## where
+
+Keep records with a strictly equal scalar field value. Input: records; output: records.
+
+- `--field`: string (also positional; supports quoted envelope paths)
+- `equals`: string, number, boolean, or null (pass via `--args-json '{"equals":true}'`, or typed flow args)

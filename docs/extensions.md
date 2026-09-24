@@ -1,6 +1,6 @@
 # Extension SDK reference
 
-For the lifecycle procedure, use [build an extension](how-to/build-extension.md). Extensions are trusted executable code; discovery and planning read their manifests without importing them.
+For the lifecycle procedure, use [build an extension](how-to/build-extension.md). Extensions are trusted executable code; discovery and planning read their manifests without importing them. A complete read-only example is the [GitHub PR evidence extension](../examples/extensions/gh-evidence/README.md).
 
 The adjacent distribution `lib/` is a private `@ribbit/sdk` package. It exports `defineCommand`, `defineAction`, `z`, `recordSchema`, `jsonValueSchema`, `Budget`, `RibbitError` and types. Use strict Zod input, args, config and output schemas. The supported export subset includes primitives, arrays, strict objects, scalar literals/enums, unions, optional/default values and built-in scalar constraints. Transforms, custom refinements, recursive/lazy schemas and arbitrary unknown values are rejected. `jsonValueSchema` explicitly accepts finite JSON.
 

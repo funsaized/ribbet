@@ -31,6 +31,33 @@ export function field(value: unknown, path: string, missing: 'error' | 'null' = 
   return result;
 }
 
+export function recordPathParts(path: string): (string | number)[] {
+  if (path === '$') return [];
+  if (path.startsWith('$.')) return pathParts(path.slice(2));
+
+  return pathParts(path);
+}
+
+export function recordField(record: RecordValue, path: string, missing: 'error' | 'null' = 'error'): Json {
+  recordPathParts(path);
+  if (path === '$') return record as Json;
+
+  return path.startsWith('$.') ? field(record, path.slice(2), missing) : field(record.value, path, missing);
+}
+
+export function annotationName(name: string, owner: 'classify' | 'map'): string {
+  const parts = pathParts(name);
+
+  if (
+    parts.length !== 1 ||
+    typeof parts[0] !== 'string' ||
+    (['classify', 'map', 'group', 'tree'].includes(name) && (name !== owner || owner === 'map'))
+  )
+    throw new RibbitError(2, `Invalid annotation name: ${name}`);
+
+  return name;
+}
+
 export async function textFile(path: string, maxBytes = 8 * 1024 * 1024): Promise<string> {
   let handle;
 
