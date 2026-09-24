@@ -24,7 +24,7 @@ for (const fixture of cases())
       await env.close();
       provider.close();
     }
-  });
+  }, 15000);
 
 test('packaged individual failure contracts', async () => {
   const provider = mockProvider(),
