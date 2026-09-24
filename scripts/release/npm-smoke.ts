@@ -49,6 +49,19 @@ try {
     'package.json',
     'platforms.json',
   ]);
+  const github = join(dir, 'github');
+
+  await prepareNpm(name, resolve('dist/releases'), github, [hostTarget], 'https://npm.pkg.github.com');
+  const githubPublish = JSON.parse(await readFile(join(github, 'package.json'), 'utf8')).publishConfig;
+  const npmPublish = JSON.parse(await readFile(join(stage, 'package.json'), 'utf8')).publishConfig;
+
+  assert.equal(githubPublish.registry, 'https://npm.pkg.github.com');
+  assert.equal(githubPublish.access, undefined);
+  assert.equal(npmPublish.access, 'public');
+  assert.deepEqual(
+    JSON.parse(await readFile(join(github, 'platforms.json'), 'utf8')),
+    JSON.parse(await readFile(join(stage, 'platforms.json'), 'utf8')),
+  );
   await mkdir(consumer);
   await run(['npm', 'install', '--ignore-scripts', '--no-audit', '--no-fund', join(dir, packed.filename)], consumer);
   const root = join(consumer, 'node_modules', '@ribbit-install-test', 'ribbit');

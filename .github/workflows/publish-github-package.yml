@@ -1,0 +1,87 @@
+name: mirror alpha to GitHub Packages
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing prerelease tag with all six native assets
+        required: true
+        type: string
+      verify_run:
+        description: Successful six-target verify run for this tag
+        required: true
+        type: string
+permissions:
+  actions: read
+  contents: read
+  packages: write
+jobs:
+  mirror:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag }}
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.verify_run }}
+          github-token: ${{ github.token }}
+          pattern: ribbit-*
+          merge-multiple: true
+          path: dist/releases
+      - name: Verify tag, CI and published release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+          VERIFY_RUN: ${{ inputs.verify_run }}
+        run: |
+          set -euo pipefail
+          [[ "$VERIFY_RUN" =~ ^[0-9]+$ ]]
+          version=$(node -p "require('./package.json').version")
+          test "$TAG" = "v$version"
+          test "$(npm view "@funsaized/ribbit@$version" version --registry=https://registry.npmjs.org/)" = "$version"
+          test "$(npm view @funsaized/ribbit dist-tags.alpha --registry=https://registry.npmjs.org/)" = "$version"
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFY_RUN" --jq .conclusion)" = success
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFY_RUN" --jq .head_branch)" = main
+          test "$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFY_RUN" --jq .head_sha)" = "$(git rev-parse HEAD)"
+          test "$(gh release view "$TAG" --json isPrerelease --jq .isPrerelease)" = true
+          test "$(gh release view "$TAG" --json isDraft --jq .isDraft)" = false
+          curl --fail --silent --show-error --location --range 0-0 --output /dev/null \
+            "https://github.com/$GITHUB_REPOSITORY/releases/download/$TAG/ribbit-$version-linux-x64.tar.gz"
+          mkdir -p dist/github
+          gh release download "$TAG" --pattern "ribbit-$version-*.tar.gz*" --dir dist/github
+          for archive in dist/releases/ribbit-"$version"-*.tar.gz; do
+            test -f "$archive"
+            cmp "$archive" "dist/github/${archive##*/}"
+            cmp "$archive.sha256" "dist/github/${archive##*/}.sha256"
+          done
+      - run: bun run package:npm -- @funsaized/ribbit dist/releases https://npm.pkg.github.com
+      - name: Compare mirror to npmjs package
+        run: |
+          set -euo pipefail
+          version=$(node -p "require('./package.json').version")
+          mkdir -p "$RUNNER_TEMP/npmjs" "$RUNNER_TEMP/npmjs-unpacked"
+          npm pack "@funsaized/ribbit@$version" --registry=https://registry.npmjs.org/ --pack-destination "$RUNNER_TEMP/npmjs"
+          tar -xzf "$RUNNER_TEMP/npmjs/funsaized-ribbit-$version.tgz" -C "$RUNNER_TEMP/npmjs-unpacked"
+          for file in platforms.json bin.cjs install.cjs LICENSE README.md; do
+            cmp "$RUNNER_TEMP/npmjs-unpacked/package/$file" "dist/npm/$file"
+          done
+          node -e 'const a=require(process.argv[1]), b=require(process.argv[2]); const assert=require("node:assert/strict"); assert.equal(a.publishConfig.registry,"https://registry.npmjs.org/"); assert.equal(b.publishConfig.registry,"https://npm.pkg.github.com"); assert.equal(b.publishConfig.access,undefined); delete a.publishConfig; delete b.publishConfig; assert.deepEqual(a,b)' \
+            "$RUNNER_TEMP/npmjs-unpacked/package/package.json" "$(pwd)/dist/npm/package.json"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: https://npm.pkg.github.com
+          scope: '@funsaized'
+      - name: Publish mirror with repository token
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+        run: npm publish "dist/releases/funsaized-ribbit-$(node -p "require('./package.json').version").tgz" --tag alpha --registry=https://npm.pkg.github.com

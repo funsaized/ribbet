@@ -1,6 +1,6 @@
 {
   "name": "ribbit",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "private": true,
   "description": "An extensible framework for composing model tasks into reusable commands with typed contracts and inspectable evidence",
   "homepage": "https://github.com/funsaized/ribbit#readme",

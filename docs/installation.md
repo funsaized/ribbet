@@ -13,6 +13,17 @@ Requires Node.js >=20 and tar. The [npm package](https://www.npmjs.com/package/@
 
 Use `npm uninstall -g @funsaized/ribbit` to remove the npm installation. User configuration and installed extensions are preserved. For offline use or a machine without Node.js, use the native archive. A failed download or checksum check stops installation; `npm rebuild -g @funsaized/ribbit` retries it.
 
+### GitHub Packages mirror
+
+The same version can also be published to [GitHub Packages](https://github.com/funsaized?tab=packages&repo_name=ribbit). This is a separate npm registry; **the default `npm install` command above uses npmjs.org**. GitHub's npm registry requires a personal access token (classic) with `read:packages` even for public packages. Authenticate interactively; never put a token in a repository file:
+
+```sh
+npm login --scope=@funsaized --auth-type=legacy --registry=https://npm.pkg.github.com
+npm install -g @funsaized/ribbit@alpha --registry=https://npm.pkg.github.com
+```
+
+The mirror installs the same version of the native GitHub Release assets, with the same pinned checksums. GitHub Packages starts new packages as private; the package owner must [make the package public](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility) before other users can read it. Do not add a repository-wide `.npmrc` that routes `@funsaized` to GitHub Packages: that would silently change the default install path.
+
 ## Platform support
 
 | OS | Architectures | Executable | Interactive picker |

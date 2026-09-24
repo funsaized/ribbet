@@ -88,6 +88,7 @@ nav:
       - Individual acceptance: release-acceptance.md
       - Release checklist: release-checklist.md
       - Release notes: release-notes-0.1.0-alpha.1.md
+      - Current alpha notes: release-notes-0.1.0-alpha.2.md
   - Explanation:
       - explanation/index.md
       - When to chain models: explanation/model-chaining.md

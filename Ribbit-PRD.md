@@ -1,6 +1,6 @@
 # Ribbit — Product requirements
 
-Current scope: **0.1.0-alpha.1**, MIT-licensed open-source preview.
+Current scope: **0.1.0-alpha.2**, MIT-licensed open-source preview.
 
 This document expands the [product direction](docs/product-direction.md) into requirements for the initial release. The [release checklist](docs/release-checklist.md) records readiness; [individual acceptance](docs/release-acceptance.md) and [model evidence](docs/models.md) record what has been tested. Requirements describe intended behavior; evaluation results establish the limits of the current implementation.
 

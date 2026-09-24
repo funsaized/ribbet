@@ -15,4 +15,4 @@ Look up a contract or setting without following a lesson.
 | [Limits, errors, and statistics](runtime.md) | Defaults, override flags, diagnostic categories |
 | [Management commands](management.md) | Setup, discovery, configuration, and lifecycle operations |
 
-For release status, see [individual acceptance](../release-acceptance.md), [release checklist](../release-checklist.md), and [release notes](../release-notes-0.1.0-alpha.1.md). For development commands and documentation maintenance, see [development](../development.md).
+For release status, see [individual acceptance](../release-acceptance.md), [release checklist](../release-checklist.md), and [current alpha notes](../release-notes-0.1.0-alpha.2.md). For development commands and documentation maintenance, see [development](../development.md).

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.2 — 2026-09-24
+
+- Added envelope field addressing, explicit projection aliases, typed `where`, and evidence-preserving named annotations without changing record wire format v1.
+- Excluded sensitive-looking names during content discovery; retained explicit-path access and opt-in.
+- Added a read-only GitHub PR evidence extension with offline replay, plus pinned failing-CI, date-fns, and Squirrel Census examples.
+- Updated the framework introduction and record/runtime/trust documentation. Both registry installers use checksum-pinned native GitHub release assets; GitHub Packages is a separate mirror.
+
+Model outputs remain variable; typed contracts validate structure, not factual correctness. See the [verified native CI matrix](https://github.com/funsaized/ribbit/actions) for the release commit, not earlier previews.
+
 ## 0.1.0-alpha.1 — 2026-09-20
 
 - Clarified the product around composable commands, original evidence, explicit model routes, and harness handoffs.

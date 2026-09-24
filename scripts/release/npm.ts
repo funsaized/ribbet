@@ -4,7 +4,13 @@ import { createHash } from 'node:crypto';
 
 export const targets = ['linux-x64', 'linux-arm64', 'darwin-x64', 'darwin-arm64', 'windows-x64', 'windows-arm64'];
 
-export async function prepareNpm(name: string, artifacts: string, stage: string, selected = targets) {
+export async function prepareNpm(
+  name: string,
+  artifacts: string,
+  stage: string,
+  selected = targets,
+  registry: 'https://registry.npmjs.org/' | 'https://npm.pkg.github.com' = 'https://registry.npmjs.org/',
+) {
   if (!/^@[a-z0-9_.-]+\/ribbit$/.test(name)) throw new Error('Use the authorized npm account scope: @ACCOUNT/ribbit');
   const pkg = JSON.parse(await readFile('package.json', 'utf8'));
   const files = await readdir(artifacts, { recursive: true });
@@ -63,7 +69,11 @@ export async function prepareNpm(name: string, artifacts: string, stage: string,
         bin: { ribbit: 'bin.cjs' },
         files: ['bin.cjs', 'install.cjs', 'platforms.json', 'LICENSE', 'README.md'],
         scripts: { postinstall: 'node install.cjs' },
-        publishConfig: { access: 'public', tag: 'alpha', registry: 'https://registry.npmjs.org/' },
+        publishConfig: {
+          ...(registry === 'https://registry.npmjs.org/' ? { access: 'public' } : {}),
+          tag: 'alpha',
+          registry,
+        },
       },
       null,
       2,
@@ -71,17 +81,24 @@ export async function prepareNpm(name: string, artifacts: string, stage: string,
   );
   await writeFile(
     join(stage, 'README.md'),
-    `# Ribbit\n\nComposable semantic shell commands for local models, stronger models, and agent harnesses.\n\n\`npm install -g ${name}@alpha\`\n\nRun \`ribbit --help\`. Requires Node.js >=20 and tar. Installation downloads the matching native archive from [GitHub Releases](https://github.com/funsaized/ribbit/releases/tag/v${pkg.version}), verifies the SHA-256 pinned in this package, and keeps the executable beside its extension support files. No model weights are downloaded. With lifecycle scripts disabled, the first invocation performs installation.\n\nNative targets: Linux glibc, macOS, and Windows on x64/ARM64. Interactive picking additionally requires fzf >=0.74.3; Windows console interaction remains unverified.\n\nThis is an experimental alpha. See the [documentation](https://github.com/funsaized/ribbit#readme), [model evidence](https://github.com/funsaized/ribbit/blob/main/docs/models.md), and [security policy](https://github.com/funsaized/ribbit/security/policy). Uninstall with \`npm uninstall -g ${name}\`; user configuration and installed extensions are preserved.\n`,
+    `# Ribbit\n\nModel tasks that work like commands.\n\n\`npm install -g ${name}@alpha\`\n\nRun \`ribbit --help\`. Requires Node.js >=20 and tar. Installation downloads the matching native archive from [GitHub Releases](https://github.com/funsaized/ribbit/releases/tag/v${pkg.version}), verifies the SHA-256 pinned in this package, and keeps the executable beside its extension support files. No model weights are downloaded. With lifecycle scripts disabled, the first invocation performs installation.\n\nNative targets: Linux glibc, macOS, and Windows on x64/ARM64. Interactive picking additionally requires fzf >=0.74.3; Windows console interaction remains unverified.\n\nThis is an experimental alpha. See the [documentation](https://github.com/funsaized/ribbit#readme), [model evidence](https://github.com/funsaized/ribbit/blob/main/docs/models.md), and [security policy](https://github.com/funsaized/ribbit/security/policy). Uninstall with \`npm uninstall -g ${name}\`; user configuration and installed extensions are preserved.\n`,
   );
 
   return manifest;
 }
 
 if (import.meta.main) {
-  const [name, artifacts = 'dist/releases'] = process.argv.slice(2);
+  const [name, artifacts = 'dist/releases', registry = 'https://registry.npmjs.org/'] = process.argv.slice(2);
 
-  if (!name) throw new Error('Usage: bun run package:npm -- @ACCOUNT/ribbit PATH_TO_NATIVE_ARTIFACTS');
-  await prepareNpm(name, resolve(artifacts), resolve('dist/npm'));
+  if (!name || !['https://registry.npmjs.org/', 'https://npm.pkg.github.com'].includes(registry))
+    throw new Error('Usage: bun run package:npm -- @ACCOUNT/ribbit PATH_TO_NATIVE_ARTIFACTS [REGISTRY]');
+  await prepareNpm(
+    name,
+    resolve(artifacts),
+    resolve('dist/npm'),
+    targets,
+    registry as 'https://registry.npmjs.org/' | 'https://npm.pkg.github.com',
+  );
   const child = Bun.spawn(['npm', 'pack', '--ignore-scripts', '--pack-destination', resolve('dist/releases')], {
     cwd: resolve('dist/npm'),
     stdout: 'inherit',
