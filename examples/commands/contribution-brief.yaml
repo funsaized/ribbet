@@ -1,0 +1,16 @@
+apiVersion: ribbit/v1
+kind: Command
+name: contribution-brief
+type: '@ribbit/reduce'
+typeVersion: '1.0.0'
+action: run
+config: {}
+defaults:
+  instruction: >-
+    Produce a contribution brief for date-fns parseISO from the supplied pinned-checkout evidence.
+    Use these headed fields in order: Public behavior and options; Existing coverage; Proposed
+    coverage or documentation change, citing source paths and line references from the evidence;
+    Open questions for maintainers; Verification commands quoted from the checkout. Also list
+    observations, hypotheses, and next checks separately. Cite the source path and line reference
+    for every claim. Do not assert an upstream bug, gap, or missing case without direct evidence
+    from the supplied files

@@ -18,12 +18,12 @@ test('packaged management lifecycle and discovery', async () => {
   };
 
   try {
-    expect((await invoke(['commands', 'list'])).commands.length).toBe(22);
+    expect((await invoke(['commands', 'list'])).commands.length).toBe(23);
     for (const name of (await invoke(['commands', 'list'])).commands) {
       expect((await invoke(['commands', 'describe', name])).valid).toBe(true);
       expect((await env.run([name, '--help'])).out).toContain('Input:');
     }
-    expect((await invoke(['types', 'list'])).types.length).toBe(22);
+    expect((await invoke(['types', 'list'])).types.length).toBe(23);
     expect((await invoke(['types', 'describe', '@ribbit/filter'])).type.type).toBe('@ribbit/filter');
     expect((await invoke(['route', 'inspect', 'ask', '--profile', 'stronger'])).model).toBe('strong');
     expect((await invoke(['route', 'inspect', 'take'])).inference).toBe(false);

@@ -189,7 +189,7 @@ export async function walk(
             else if (result.unignored) ignored = false;
           }
         if (ignored) continue;
-        if (options.semantic && !options.includeSensitive && sensitive(rel)) {
+        if ((options.semantic || options.read === 'content') && !options.includeSensitive && sensitive(rel)) {
           omitted++;
           log(`Excluded sensitive-name candidate: ${rel}`);
           continue;

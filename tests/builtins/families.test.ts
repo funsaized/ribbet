@@ -104,6 +104,33 @@ test('schema extraction, explicit file comparison and safe templates', async () 
     expect((await invoke('render', { title: 'Data' }, { template })).value).toBe('Title: Data $(touch NEVER)');
     await writeFile(template, '{{constructor}}');
     await expect(invoke('render', { title: 'Data' }, { template })).rejects.toMatchObject({ code: 2 });
+    await writeFile(template, '{{$.id}}: {{title}} ({{$.source.path}})');
+    const record = { id: 'r1', value: { title: 'Data' }, source: { path: 'evidence.txt' }, annotations: {} };
+    const budget = new Budget();
+
+    try {
+      const context: Context = {
+        budget,
+        signal: budget.signal,
+        inputKind: 'records',
+        log() {},
+        llm: {
+          async text() {
+            throw new Error('No model');
+          },
+          async object() {
+            throw new Error('No model');
+          },
+        },
+      };
+
+      expect(await executeAction(builtins.render.actions.run, [record], { template }, {}, context)).toBe(
+        'r1: Data (evidence.txt)',
+      );
+    } finally {
+      budget.close();
+    }
+    await expect(invoke('render', { title: 'Data' }, { template })).rejects.toMatchObject({ code: 2 });
   } finally {
     await rm(dir, { recursive: true, force: true });
   }

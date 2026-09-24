@@ -4,7 +4,7 @@ Look up a contract or setting without following a lesson.
 
 | Topic | Contents |
 | --- | --- |
-| [Command catalog](../commands.md) | All 22 built-ins and command-specific options |
+| [Command catalog](../commands.md) | All 23 built-ins and command-specific options |
 | [Command examples](../command-examples.md) | Acceptance cases, inputs, and checked outputs |
 | [CLI overview](../usage.md) | Invocation forms and shared flags |
 | [Records and formats](records.md) | Wire header, record fields, import/export rules |

@@ -33,6 +33,15 @@ test('nested ignores, hidden/sensitive files and bounded content discovery', asy
     expect(names).not.toContain('ignored.txt');
     expect(names).not.toContain('sub/hidden.txt');
     expect(names).not.toContain('binary.bin');
+    const discovered = async (options: Parameters<typeof walk>[1]) =>
+      (await walk(root, { recursive: true, hidden: true, noIgnore: true, ...options })).map(
+        (r) => (r.value as any).relativePath,
+      );
+
+    expect(await discovered({ read: 'names' })).toContain('.env');
+    expect(await discovered({ read: 'content' })).not.toContain('.env');
+    expect(await discovered({ read: 'names', semantic: true })).not.toContain('.env');
+    expect(await discovered({ read: 'content', includeSensitive: true })).toContain('.env');
     expect(messages.some((m) => m.includes('cycle'))).toBe(true);
     await expect(walk(root, { maxFiles: 1 })).rejects.toMatchObject({ code: 6 });
     await expect(textFile(join(root, 'binary.bin'))).rejects.toMatchObject({ code: 2 });

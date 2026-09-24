@@ -1,0 +1,18 @@
+apiVersion: ribbit/v1
+kind: Flow
+name: diagnose-ci
+steps:
+  - id: evidence
+    command: read
+    args:
+      paths:
+        - ci.log
+        - changes.diff
+        - src/builtins/exact.ts
+        - tests/release/projection-baseline.test.fixture
+  - id: diagnosis
+    command: diagnose-ci
+    inference:
+      profile: stronger
+output:
+  $ref: steps.diagnosis.output

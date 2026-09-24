@@ -1,0 +1,22 @@
+{
+  "name": "date-fns",
+  "version": "4.4.0",
+  "description": "Modern JavaScript date utility library",
+  "license": "MIT",
+  "contributors": [
+    "Sasha Koss <koss@nocorp.me>",
+    "Lesha Koss <regiusprod@gmail.com>"
+  ],
+  "repository": "https://github.com/date-fns/date-fns",
+  "type": "module",
+  "sideEffects": false,
+  "main": "index.cjs",
+  "module": "index.js",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "oxlint --type-aware",
+    "types": "tsc --build --pretty",
+    "locale-snapshots": "env TZ=utc tsx --tsconfig scripts/tsconfig.json -- ./scripts/build/localeSnapshots/index.ts",
+    "stats": "cloc . --exclude-dir=node_modules,lib,examples,tmp,.git --exclude-ext=yaml,yml,json,svg,xml"
+  }
+}

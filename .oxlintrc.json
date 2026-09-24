@@ -36,5 +36,13 @@
       }
     }
   ],
-  "ignorePatterns": ["node_modules", "dist", ".cache", "src/generated", "evals/results", "benchmarks"]
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    ".cache",
+    "src/generated",
+    "evals/results",
+    "benchmarks",
+    "fixtures/tutorials"
+  ]
 }

@@ -1,31 +1,21 @@
 # 🐸 Ribbit
 
-**Small commands. Big hops.**
+**Model tasks that work like commands.**
 
-Put models in your shell pipelines. Let a small local model label or reshape the input, keep the evidence, then hand it to a stronger model or coding harness.
+Ribbit is an extensible framework for composing model tasks into reusable commands, with typed contracts and inspectable evidence. It reads UTF-8 text, JSON values, JSONL, files, and tool output; it does not claim to handle arbitrary binary input.
 
 [Documentation](https://funsaized.github.io/ribbit/) · [First tutorial](docs/tutorials/first-pipeline.md) · [npm](https://www.npmjs.com/package/@funsaized/ribbit) · [Native downloads](https://github.com/funsaized/ribbit/releases)
 
-```text
-files / text / JSONL
-        │
-   exact commands
-        │
-  small-model step ── originals + annotations ── stronger model / harness
-```
+## Why I built this
 
-Ribbit gives each step an inspectable contract, an explicit model route, and a record format that carries IDs, source references, and annotations. A useful invocation can become a named YAML command, then a reusable flow.
+I kept asking frontier models to do work my shell already did well: read a failure, gather the surrounding context, and sort the reports. Most of that work was exact — parsing, selecting, validating known procedures — and only the interpretation needed a model. I wanted code for the exact parts, models for the interpretation, and something useful on the machine I actually have: a **12 GB RTX 3080 Ti**. Ribbit started as the invocations I kept reusing, then turned them into named commands and reusable flows. That is the motivation, not a measured savings claim.
 
-## Install
+## Install and run
 
 ```sh
 npm install -g @funsaized/ribbit@alpha
 ribbit --help
 ```
-
-Linux, macOS, and Windows, on x64 and ARM64. npm needs Node.js >=20 and tar; it installs the matching checksum-verified GitHub asset. [Native archives](https://github.com/funsaized/ribbit/releases) run without a separate JavaScript runtime. See [installation](docs/installation.md) for platform details.
-
-## Get a result before configuring a model
 
 ```sh
 printf '{"name":"Ada","score":2}\n{"name":"Lin","score":1}\n' |
@@ -33,43 +23,56 @@ printf '{"name":"Ada","score":2}\n{"name":"Lin","score":1}\n' |
   ribbit select name --output jsonl
 ```
 
+**Expected output:**
+
 ```json
 {"name":"Lin"}
 {"name":"Ada"}
 ```
 
-The exact commands work offline. Follow [your first pipeline](docs/tutorials/first-pipeline.md) to turn a pipe into a flow.
+The exact commands work offline. npm needs Node.js >=20 and tar; it installs the matching checksum-verified GitHub asset. Linux, macOS, and Windows, on x64 and ARM64. See [installation](docs/installation.md) for platform details.
 
-## Give each model a clear job
+## Three guided examples
 
-After [configuring](docs/how-to/configure-models.md) `local-small` and `stronger`, annotate feedback locally and pass every original ticket to the stronger model:
+- **Investigate a failing CI check** — [guide](docs/how-to/investigate-failing-ci.md). A deliberately broken [demo branch](https://github.com/funsaized/ribbit/commit/736583fd7a27dd9090ea3ebef358d864dcc3b256) has a [failed check](https://github.com/funsaized/ribbit/actions/runs/36018875927). Read its saved log, diff, and source excerpt into bounded evidence, then route a model to a schema-constrained diagnosis.
+- **Prepare a date-fns contribution brief** — [guide](docs/how-to/handoff-date-fns.md). Select pinned repository files from a bounded offline fixture exactly, then annotate a brief with a local model while keeping the source excerpts.
+- **Analyze an open dataset** — [guide](docs/how-to/analyze-open-data.md). Normalize the Central Park Squirrel Census, select nonempty notes exactly, and annotate a small deterministic sample. The offline sample is synthetic; live acquisition is a separate, non-transactional step.
 
-```sh
-ribbit classify --field body \
-  --label 'blocking=Prevents purchases' --label 'other=Other feedback' \
-  --file feedback.jsonl --input jsonl --profile local-small |
-  ribbit reduce 'Prioritize every ticket and cite its ID. Verify labels against the original bodies.' \
-    --profile stronger
-```
+## Composition
 
-The stronger model can challenge a bad label because it still has the ticket body. The [guided local-model tutorial](docs/tutorials/local-model.md) supplies the input and checks; the [saved triage flow](examples/flows/triage.yaml) makes the workflow reusable.
+Ribbit gives each step an inspectable contract, an explicit model route, and a record format that carries IDs, source references, and annotations. Text and JSONL flow through ordinary pipes; a useful invocation can become a named YAML command, then a reusable flow. Exact commands such as `select`, `sort`, `where`, and `take` run without inference, and semantic commands use the profile you choose. There are 23 built-ins; [browse the command reference](docs/commands.md).
 
-## Build on the examples
+## Model arrangements
 
-| Job | Starting point |
+- **Exact preprocessing → local quantized instruct model.** Filter and project with exact commands, then let a small local model label or classify.
+- **Exact context selection → hosted coding or reasoning model.** Gather real source with `find` and `read`, then hand the records to a stronger hosted model.
+- **Local annotations → frontier review.** Annotate locally but keep every original, so a stronger model can challenge a bad label.
+- **One capable model behind a reusable command.** Skip chaining entirely when one model with good defaults is enough.
+
+Chaining is optional and is not automatically cheaper, faster, or better; a direct stronger-model request is a fair comparison. Native Ollama and tested OpenAI-compatible endpoints are supported, routes stay explicit, and there is no automatic cloud fallback.
+
+## Extend it in TypeScript
+
+Extensions share the same typed contracts as built-ins. A cloned directory installs with `ribbit extensions add PATH`, so one typed implementation can be reused from commands and flows. Follow [add a typed extension](docs/how-to/build-extension.md), or read the worked, read-only [GitHub PR evidence extension](examples/extensions/gh-evidence/README.md).
+
+## What else could you build?
+
+| Input | Output |
 | --- | --- |
-| Prioritize feedback without losing tickets | [Triage flow](docs/how-to/triage-feedback.md) |
-| Give a coding harness source text and relevance annotations | [Context handoff](docs/how-to/handoff-context.md) |
-| Save a prompt, defaults, and a repeatable transformation | [Reusable brief tutorial](docs/tutorials/reusable-command.md) |
-| Add behavior in TypeScript with Zod contracts | [Extension guide](docs/how-to/build-extension.md) |
+| Incident logs | A timeline and operations handoff |
+| Merged changes | Linked release notes |
+| Dependency changes | An upgrade brief |
+| Support reports | Classifications that retain the originals |
+| Meeting notes | Decisions and unresolved owners |
+| Experiment results | A written summary |
+| Research documents | Structured extraction |
+| Local repository evidence | An agent handoff |
 
-There are 22 built-ins: text operations, record interpretation, filesystem discovery, and exact record tools. [Browse the command reference](docs/commands.md). Native Ollama and OpenAI-compatible endpoints are supported; routes stay explicit and there is no automatic cloud fallback.
+## Trust and initial evaluations
 
-## Know what the alpha promises
+Contracts validate structure and selected invariants, not truth. Models vary, so keep originals where the documentation says they are retained. Extensions are trusted code: their declared effects are not permissions, and checking or installing one can execute it. Records do not prevent prompt injection, remote profiles receive the evidence you send, and there is no automatic cloud fallback. Read [execution and trust](docs/explanation/trust.md) and [platform support](docs/installation.md#platform-support).
 
-The native CI matrix tests commands, recipes, installed archives, and npm installation on all six targets. Semantic usefulness remains model-dependent. The [current evaluations](docs/models.md) show both successes and failures; chaining did not automatically make these fixtures faster or cheaper. Keep originals when downstream review matters.
-
-Extensions are trusted code. Remote routes receive the evidence you send. Interactive picking requires fzf, and Windows console interaction is not covered by the Unix PTY tests. See [execution and trust](docs/explanation/trust.md) and [platform support](docs/installation.md#platform-support).
+The native CI matrix tests commands, recipes, installed archives, and npm installation on all six targets. The [initial evaluations](docs/models.md) report both successes and failures; chaining did not automatically make those fixtures faster or cheaper.
 
 ## Contribute
 

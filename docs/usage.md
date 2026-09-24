@@ -7,7 +7,7 @@ ribbit flow validate|plan|run FILE [runtime flags]
 ribbit flow validate|plan|run [runtime flags] -- COMMAND [args] :: COMMAND [args]
 ```
 
-`ribbit COMMAND --help` describes the selected command's bindings. Scalar arguments become flags, repeated scalar values repeat the flag, and complex argument values use `--args-json`. Duplicate or conflicting assignments are errors.
+`ribbit COMMAND --help` describes the selected command's bindings. Scalar arguments become flags, repeated scalar values repeat the flag, and complex/union argument values use `--args-json`. For example, `ribbit where '$.annotations.classify.label' --args-json '{"equals":"actionable"}'` selects typed equality without coercion. Shell-quote `$` expressions; flow `$ref` bindings are a different syntax. Duplicate or conflicting assignments are errors.
 
 | Shared flag | Purpose |
 | --- | --- |
@@ -26,6 +26,6 @@ ribbit flow validate|plan|run [runtime flags] -- COMMAND [args] :: COMMAND [args
 
 Command-specific arguments are in the [command catalog](commands.md). Shared contracts are in [records](reference/records.md), [configuration](reference/configuration.md), [flows](reference/flows.md), and [runtime limits](reference/runtime.md). Setup and administration are listed in [management reference](reference/management.md).
 
-Filesystem traversal respects nested `.gitignore` and `.ribbitignore`, excludes hidden names by default, and requires `--follow` to follow symlink directories. Traversal beyond the requested root requires `--outside-root`. Semantic discovery excludes common sensitive names unless explicitly admitted; this is not a secret detector. `--read content` admits text contents. Binary discovery files are skipped with diagnostics, while explicit binary reads fail.
+Filesystem traversal respects nested `.gitignore` and `.ribbitignore`, excludes hidden names by default, and requires `--follow` to follow symlink directories. Traversal beyond the requested root requires `--outside-root`. Semantic or content discovery excludes common sensitive names unless explicitly admitted with `--include-sensitive`; this is not a secret detector. `--read content` admits text contents. Binary discovery files are skipped with diagnostics, while explicit binary reads fail.
 
 `pick` requires fzf >=0.74.3 and a controlling terminal. Its UI stays on the terminal; stdout contains selected original records. Escape returns 130. Use `rank --top` for noninteractive selection.

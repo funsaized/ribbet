@@ -11,7 +11,7 @@ import {
   type RecordValue,
 } from '../sdk/index.ts';
 import { walk } from '../filesystem/index.ts';
-import { collect, textFile, field, prompt } from './primitives.ts';
+import { collect, textFile, recordField, recordPathParts, prompt } from './primitives.ts';
 import { semanticCommands } from './semantic.ts';
 import { executeAction } from '../sdk/index.ts';
 
@@ -256,6 +256,8 @@ export const filesystemCommands = {
     }),
     async function* ({ args, input }, ctx) {
       const a = args as any;
+
+      if (a.label !== undefined) recordPathParts(a.label);
       let tty;
 
       try {
@@ -294,7 +296,7 @@ export const filesystemCommands = {
         // eslint-disable-next-line no-control-regex -- intentional: escapes control characters for fzf
         const labels = rows
           .map((r, i) => {
-            const value = a.label ? field(r.value, a.label) : r.value;
+            const value = a.label !== undefined ? recordField(r, a.label) : r.value;
             const display = typeof value === 'string' ? value : JSON.stringify(value);
 
             return `${i}\t${display.replace(/[\u0000-\u001f\u007f]/g, (c: string) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`)}\0`;

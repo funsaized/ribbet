@@ -61,6 +61,86 @@ test('exact projection, stable sorting and canonical uniqueness', async () => {
     run(exactCommands.sort, rows([{ n: 1 }, { n: '2' }]), { by: 'n', type: 'number' }),
   ).rejects.toMatchObject({ code: 2 });
 });
+test('record addressing, aliases and exact typed selection preserve evidence', async () => {
+  const original = {
+    id: 'one',
+    value: { body: 'log', count: 1 },
+    source: { path: 'log.txt' },
+    annotations: { category: { label: 'actionable' } },
+  };
+  const input = () =>
+    (async function* () {
+      yield original;
+    })();
+  const projection = (await run(exactCommands.select, input(), {
+    fields: 'body,label=$.annotations.category.label,snapshot=$',
+  })) as any[];
+
+  expect(projection).toEqual([{ ...original, value: { body: 'log', label: 'actionable', snapshot: original } }]);
+  expect(
+    ((await run(exactCommands.select, input(), { fields: 'id=$.id,path=$.source.path,data=$.value' })) as any[])[0]
+      .value,
+  ).toEqual({ id: 'one', path: 'log.txt', data: original.value });
+  expect(
+    (await run(exactCommands.where, input(), { field: '$.annotations.category.label', equals: 'actionable' })) as any[],
+  ).toEqual([original]);
+  expect(await run(exactCommands.where, input(), { field: 'count', equals: '1' })).toEqual([]);
+  expect(await run(exactCommands.where, rows([{ n: null }]), { field: 'n', equals: null })).toHaveLength(1);
+  expect(await run(exactCommands.where, rows([]), { field: '$.id', equals: 'one' })).toEqual([]);
+  await expect(run(exactCommands.where, input(), { field: 'absent', equals: null })).rejects.toMatchObject({ code: 2 });
+  await expect(run(exactCommands.where, input(), { field: 'count', equals: {} })).rejects.toMatchObject({ code: 2 });
+  await expect(run(exactCommands.where, rows([]), { field: '', equals: null })).rejects.toMatchObject({ code: 2 });
+  await expect(run(exactCommands.unique, rows([]), { by: '' })).rejects.toMatchObject({ code: 2 });
+  await expect(run(semanticCommands.group, rows([]), { instruction: 'groups', field: '' })).rejects.toMatchObject({
+    code: 2,
+  });
+  for (const fields of [
+    '$.id',
+    'x=body,x=$.id',
+    'a=body,a.b=count',
+    'a.b=body,a[0]=count',
+    'x=body=oops',
+    'x=$.constructor',
+  ])
+    await expect(run(exactCommands.select, rows([]), { fields })).rejects.toMatchObject({ code: 2 });
+  expect(((await run(exactCommands.select, rows([['a']]), { fields: 'item=$.value' })) as any[])[0].value).toEqual({
+    item: ['a'],
+  });
+});
+
+test('named annotations retain originals, reject namespace collisions before inference', async () => {
+  const original = {
+    id: 'one',
+    value: 'evidence',
+    annotations: { first: { label: 'old' }, map: { originId: 'prior' } },
+  };
+  const input = () =>
+    (async function* () {
+      yield original;
+    })();
+  const classified = (await run(
+    semanticCommands.classify,
+    input(),
+    { labels: 'yes', annotationKey: 'first' },
+    ctx({ reason: 'ok', label: 'yes' }),
+  )) as any[];
+
+  expect(classified[0]).toEqual({ ...original, annotations: { ...original.annotations, first: { label: 'yes' } } });
+  const annotated = (await run(semanticCommands.map, input(), {
+    instruction: 'note',
+    annotate: 'observation',
+  })) as any[];
+
+  expect(annotated[0]).toEqual({ ...original, annotations: { ...original.annotations, observation: 'short answer' } });
+  for (const name of ['', 'map', 'group', 'constructor', 'a.b']) {
+    await expect(
+      run(semanticCommands.classify, rows([]), { labels: 'yes', annotationKey: name }),
+    ).rejects.toMatchObject({ code: 2 });
+    await expect(run(semanticCommands.map, rows([]), { instruction: 'note', annotate: name })).rejects.toMatchObject({
+      code: 2,
+    });
+  }
+});
 test('rank rejects fabricated/duplicate IDs before top slicing', async () => {
   await expect(
     run(semanticCommands.rank, rows(['a', 'b']), { instruction: 'best', top: 1 }, ctx({ ids: ['1', '1'] })),

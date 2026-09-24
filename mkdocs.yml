@@ -1,5 +1,5 @@
 site_name: Ribbit
-site_description: Composable shell commands for local models, stronger models, and coding harnesses.
+site_description: An extensible framework for composing model tasks into reusable commands with typed contracts and inspectable evidence.
 site_url: https://funsaized.github.io/ribbit/
 repo_url: https://github.com/funsaized/ribbit
 repo_name: funsaized/ribbit
@@ -65,6 +65,9 @@ nav:
       - Route a workflow: how-to/route-workflows.md
       - Triage feedback: how-to/triage-feedback.md
       - Prepare a harness handoff: how-to/handoff-context.md
+      - Investigate a failing CI check: how-to/investigate-failing-ci.md
+      - Prepare a date-fns contribution brief: how-to/handoff-date-fns.md
+      - Analyze an open dataset: how-to/analyze-open-data.md
       - Reuse commands: how-to/reuse-commands.md
       - Build an extension: how-to/build-extension.md
       - Troubleshoot a pipeline: how-to/troubleshoot.md

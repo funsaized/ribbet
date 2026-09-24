@@ -1,6 +1,6 @@
-# Put models to work in your shell
+# Model tasks that work like commands
 
-Ribbit gives you small commands for working with text, records, and source files. Choose a model for each semantic step, keep the evidence, and pass the result to another command or a coding harness.
+Ribbit is an extensible framework for composing model tasks into reusable commands, with typed contracts and inspectable evidence. It reads UTF-8 text, JSON values, JSONL, files, and tool output. Keep the evidence, choose a route for each semantic step, and pass the result to another command or a coding harness.
 
 **New to Ribbit? Start with [your first pipeline](tutorials/first-pipeline.md).** It needs no model, account, or provider configuration.
 
@@ -15,6 +15,9 @@ Ribbit gives you small commands for working with text, records, and source files
 
 - [Prioritize customer feedback](how-to/triage-feedback.md): classify locally, then synthesize with a stronger model.
 - [Prepare repository context for a harness](how-to/handoff-context.md): retain source text and attach relevance labels.
+- [Investigate a failing CI check](how-to/investigate-failing-ci.md): interpret a controlled offline failure from saved evidence.
+- [Prepare a date-fns contribution brief](how-to/handoff-date-fns.md): pin repository sources, then annotate a brief locally.
+- [Analyze an open dataset](how-to/analyze-open-data.md): normalize, select, and annotate a small deterministic sample.
 - [Save a useful transformation](tutorials/reusable-command.md): turn a command into a named definition and a flow.
 
 Install from [npm](https://www.npmjs.com/package/@funsaized/ribbit) or a [native GitHub archive](https://github.com/funsaized/ribbit/releases). See [installation](installation.md) for prerequisites and platform support.

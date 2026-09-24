@@ -36,6 +36,13 @@ Semantic examples require `--profile YOUR_PROFILE` or a configured default. Cann
 | pick (TTY) | `ribbit pick --file feedback.jsonl --input jsonl --label body --query checkout` | fixture file | Real fzf, original selection, cancellation 130 |
 | pick semantic (TTY) | `ribbit pick --file feedback.jsonl --input jsonl --label body --about "Most severe customer impact first"` | fixture file | Rank originals first; live acceptance selects R1 |
 
+Additional composition examples (covered by [packaged flow](../tests/release/squirrels.test.ts) and [unit contracts](../tests/builtins/commands.test.ts), not the legacy case catalog):
+
+| Invocation | Input | Required property |
+| --- | --- | --- |
+| `ribbit select 'label=$.annotations.classify.label'` | classified records | Annotation copied into value; original metadata retained |
+| `ribbit where '$.annotations.classify.label' --args-json '{"equals":"actionable"}'` | classified records | Typed equality, no inference; unchanged retained envelopes |
+
 The packaged [failure tests](../tests/release/commands.test.ts) cover invalid/missing input, absent fields and files, malformed JSON, invalid labels, fabricated rank/group IDs, and error channels. [Contract regressions](../tests/builtins/audit-regressions.test.ts) additionally cover shared compare budgets, safe display, picker payload integrity, and bounded field access. Filesystem, record, budget, and flow suites supply the broader invariants.
 
-Useful record input can be produced with `ribbit read`, `ribbit find`, or `--input jsonl`. Field selectors address `record.value`; they do not expose annotations. To process classification metadata externally, keep wire records and explicitly read each record's `annotations.classify.label`. No undocumented metadata field selector is implied.
+Useful record input can be produced with `ribbit read`, `ribbit find`, or `--input jsonl`. Plain field selectors address `record.value`; quoted `$.` expressions address the record envelope. Keep wire records until metadata is no longer needed: `--output jsonl` strips IDs, source, and annotations. For exact equality, use typed `--args-json` as above, not a guessed `--equals` string flag. See the [record reference](reference/records.md).

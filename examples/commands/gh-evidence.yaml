@@ -1,0 +1,7 @@
+apiVersion: ribbit/v1
+kind: Command
+name: gh-evidence
+type: '@examples/gh-evidence'
+typeVersion: '1.0.0'
+action: run
+config: {}

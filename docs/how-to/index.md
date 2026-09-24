@@ -9,6 +9,9 @@ Choose the result you need. These guides assume you know the basic commands; sta
 | Give different steps different models | [Route a mixed-model workflow](route-workflows.md) |
 | Prioritize feedback without losing tickets | [Triage feedback](triage-feedback.md) |
 | Give a harness inspectable source context | [Prepare a context handoff](handoff-context.md) |
+| Diagnose a persistently failing check | [Investigate failing CI](investigate-failing-ci.md) |
+| Plan a date-fns contribution from pinned evidence | [Prepare a contribution brief](handoff-date-fns.md) |
+| Analyze a bounded Squirrel Census sample | [Analyze open data](analyze-open-data.md) |
 | Save a prompt and defaults for a project | [Reuse commands](reuse-commands.md) |
 | Add executable behavior | [Build an extension](build-extension.md) |
 | Bound a job and diagnose failure | [Troubleshoot a pipeline](troubleshoot.md) |

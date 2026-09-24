@@ -2,7 +2,7 @@
   "name": "ribbit",
   "version": "0.1.0-alpha.1",
   "private": true,
-  "description": "Composable semantic shell commands with typed records and explicit model routing",
+  "description": "An extensible framework for composing model tasks into reusable commands with typed contracts and inspectable evidence",
   "homepage": "https://github.com/funsaized/ribbit#readme",
   "bugs": {
     "url": "https://github.com/funsaized/ribbit/issues"

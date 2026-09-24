@@ -6,7 +6,7 @@ This document expands the [product direction](docs/product-direction.md) into re
 
 ## Product promise
 
-Ribbit turns messy input into useful, traceable context through composable shell commands, with an explicitly chosen model at each semantic step. **Small commands. Big hops.**
+Ribbit is an extensible framework for composing model tasks into reusable commands, with typed contracts and inspectable evidence. It turns messy input into useful, traceable context through composable shell commands, with an explicitly chosen model at each semantic step.
 
 A developer can give a bounded task to a small or local model, preserve its output alongside the original evidence, and pass both to a stronger model or coding harness. Ribbit supplies input handling, typed records, validation, routing, and reusable command definitions so each workflow does not have to rebuild them.
 
@@ -39,7 +39,7 @@ The [recipes](docs/recipes.md) provide executable fixtures and commands. Determi
 
 ## Initial release scope
 
-All 22 built-ins remain in the alpha. Command names and supported flags come from the [command reference](docs/commands.md); examples and individual verdicts live in [command examples](docs/command-examples.md) and [acceptance](docs/release-acceptance.md).
+All 23 built-ins remain in the alpha. Command names and supported flags come from the [command reference](docs/commands.md); examples and individual verdicts live in [command examples](docs/command-examples.md) and [acceptance](docs/release-acceptance.md).
 
 | Commands | Product requirement |
 | --- | --- |

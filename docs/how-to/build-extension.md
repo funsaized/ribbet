@@ -45,4 +45,8 @@ The scaffold should return `Hello Ada!`. Inspect the actual scaffold if you have
 
 After a source change, repeat check, test, and add explicitly. Discovery and help read declarations; they do not rebuild your source automatically. Removing the installed extension preserves its source directory.
 
+## Start from a worked example
+
+[GitHub PR evidence](../../examples/extensions/gh-evidence/README.md) is a complete read-only extension that gathers bounded pull-request, discussion, changed-file, and check evidence through a fixed allowlist of `gh` calls, and replays saved JSON bundles offline. Review its source, then follow the same check → test → add → name sequence.
+
 For schemas, modes, bindings, and managed inference APIs, use the [extension reference](../extensions.md). For the trust boundary, read [execution and trust](../explanation/trust.md).

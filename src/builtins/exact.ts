@@ -10,7 +10,7 @@ import {
 } from '../sdk/index.ts';
 import { canonical, type Json } from '../engine/records/index.ts';
 import { take as takeStream } from '../engine/execution/index.ts';
-import { field, pathParts, collect, textFile } from './primitives.ts';
+import { field, pathParts, recordField, recordPathParts, collect, textFile } from './primitives.ts';
 
 const config = z.strictObject({});
 
@@ -71,14 +71,42 @@ export const exactCommands = {
     z.strictObject({ fields: z.string().min(1), missing: z.enum(['error', 'null']).default('error') }),
     async function* ({ args, input }, ctx) {
       const a = args as any,
-        paths = a.fields.split(',');
+        paths = a.fields.split(',').map((token: string) => {
+          const sides = token
+            .trim()
+            .split('=')
+            .map((side) => side.trim());
 
-      for (const p of paths) pathParts(p);
+          if (sides.length > 2 || sides.some((side) => !side)) throw new RibbitError(2, 'Invalid projection');
+          const [destination, source] = sides.length === 2 ? sides : [sides[0], sides[0]];
+          const parts = pathParts(destination);
+
+          recordPathParts(source);
+          if (sides.length === 1 && source.startsWith('$')) throw new RibbitError(2, 'Envelope source needs an alias');
+
+          return { destination, source, parts };
+        });
+
+      for (const [i, p] of paths.entries())
+        for (const other of paths.slice(0, i)) {
+          const common =
+            p.parts.every((part: string | number, j: number) => other.parts[j] === part) ||
+            other.parts.every((part: string | number, j: number) => p.parts[j] === part);
+          const containerConflict = p.parts.some(
+            (part: string | number, j: number) =>
+              j > 0 &&
+              other.parts.length > j &&
+              p.parts.slice(0, j).every((prefix: string | number, k: number) => other.parts[k] === prefix) &&
+              typeof part !== typeof other.parts[j],
+          );
+
+          if (common || containerConflict) throw new RibbitError(2, 'Conflicting projection destinations');
+        }
       for await (const r of input as AsyncIterable<RecordValue>) {
         const value = {};
 
-        for (const path of paths) {
-          assign(value, path, field(r.value, path, a.missing));
+        for (const { destination, source } of paths) {
+          assign(value, destination, recordField(r, source, a.missing));
           if (Buffer.byteLength(JSON.stringify(value)) > ctx.budget.limits.maxBytes)
             throw new RibbitError(6, 'Projection exceeds byte limit');
         }
@@ -98,10 +126,10 @@ export const exactCommands = {
     async function* ({ args, input }, ctx) {
       const a = args as any;
 
-      pathParts(a.by);
+      recordPathParts(a.by);
       const rows = await collect(input as AsyncIterable<unknown>, ctx.budget.limits.maxRecords);
       const keyed = rows.map((r, index) => {
-        const key = field(r.value, a.by);
+        const key = recordField(r, a.by);
 
         if (typeof key !== a.type) throw new RibbitError(2, `Sort field must be ${a.type}`);
 
@@ -124,12 +152,12 @@ export const exactCommands = {
     async function* ({ args, input }, ctx) {
       const a = args as any;
 
-      if (a.by) pathParts(a.by);
+      if (a.by !== undefined) recordPathParts(a.by);
       const keys = new Set<string>();
       let stored = 0;
 
       for await (const r of input as AsyncIterable<RecordValue>) {
-        const key = canonical(a.by ? field(r.value, a.by) : r.value);
+        const key = canonical(a.by !== undefined ? recordField(r, a.by) : r.value);
 
         if (!keys.has(key)) {
           stored += Buffer.byteLength(key);
@@ -148,6 +176,25 @@ export const exactCommands = {
       yield* takeStream(input as AsyncIterable<RecordValue>, (args as any).count);
     },
     { cli: { positionals: ['count'] } },
+  ),
+  where: recordCommand(
+    'where',
+    'Keep records whose field strictly equals a scalar',
+    z.strictObject({
+      field: z.string().min(1),
+      equals: z.union([z.string(), z.number().finite(), z.boolean(), z.null()]),
+    }),
+    async function* ({ args, input }) {
+      const a = args as { field: string; equals: string | number | boolean | null };
+
+      recordPathParts(a.field);
+      for await (const r of input as AsyncIterable<RecordValue>) {
+        const value = recordField(r, a.field);
+
+        if (value === a.equals) yield r;
+      }
+    },
+    { cli: { positionals: ['field'] } },
   ),
   render: defineCommand({
     type: '@ribbit/render',
@@ -184,21 +231,23 @@ export const exactCommands = {
               (c: string) => `\\u${c.charCodeAt(0).toString(16).padStart(4, '0')}`,
             );
           const value = input as any,
-            rows =
-              ctx.inputKind === 'records' && Array.isArray(value)
-                ? value.map((r) => r.value)
-                : Array.isArray(value)
-                  ? value
-                  : [value];
+            recordInput = ctx.inputKind === 'records' && Array.isArray(value),
+            rows = recordInput ? value.map((r) => r.value) : Array.isArray(value) ? value : [value];
 
           if (args.template) {
             const template = await textFile(args.template, ctx.budget.limits.maxBytes);
+            const expressions = [...template.matchAll(/\{\{([^{}]+)\}\}/g)].map((match) => match[1].trim());
+
+            for (const path of expressions) {
+              if (recordInput) recordPathParts(path);
+              else pathParts(path);
+            }
 
             return finish(
               rows
-                .map((row) =>
+                .map((row, index) =>
                   template.replace(/\{\{([^{}]+)\}\}/g, (_, path) => {
-                    const v = field(row, path.trim());
+                    const v = recordInput ? recordField(value[index], path.trim()) : field(row, path.trim());
 
                     return safe(typeof v === 'string' ? v : JSON.stringify(v));
                   }),
