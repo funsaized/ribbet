@@ -2,13 +2,13 @@
 
 **Model tasks that work like commands.**
 
-Ribbit is an extensible framework for composing model tasks into reusable commands, with typed contracts and inspectable evidence. It reads UTF-8 text, JSON values, JSONL, files, and tool output; it does not claim to handle arbitrary binary input.
+Ribbit is an extensible framework for composing model tasks into reusable commands, with typed contracts and inspectable evidence. It reads UTF-8 text, JSON values, JSONL, files, and tool output; basically anything you can put in stdin.
 
 [Documentation](https://funsaized.github.io/ribbit/) · [First tutorial](docs/tutorials/first-pipeline.md) · [npm](https://www.npmjs.com/package/@funsaized/ribbit) · [Native downloads](https://github.com/funsaized/ribbit/releases)
 
 ## Why I built this
 
-I kept asking frontier models to do work my shell already did well: read a failure, gather the surrounding context, and sort the reports. Most of that work was exact — parsing, selecting, validating known procedures — and only the interpretation needed a model. I wanted code for the exact parts, models for the interpretation, and something useful on the machine I actually have: a **12 GB RTX 3080 Ti**. Ribbit started as the invocations I kept reusing, then turned them into named commands and reusable flows. That is the motivation, not a measured savings claim.
+I kept asking frontier models to do work my shell already does well: read a failure, gather the surrounding context, and sort the reports. Most of that work was exact: parsing, selecting, validating known procedures... only the interpretation needed a model. I wanted code for the exact parts, models for the interpretation, and something useful on the machine I actually have: a **12 GB RTX 3080 Ti**. I knew it had to be extensible and give agents a way to both run framework commands as well as build new features into Ribbit's core itself. Ribbit started as the invocations I kept reusing, then turned them into named commands and reusable flows. That is the motivation. Engineer everything. Assume nothing.
 
 ## Install and run
 
@@ -18,19 +18,34 @@ ribbit --help
 ```
 
 ```sh
-printf '{"name":"Ada","score":2}\n{"name":"Lin","score":1}\n' |
-  ribbit sort --by score --type number --input jsonl |
-  ribbit select name --output jsonl
+ollama pull qwen2.5:3b
+ribbit providers add local --type ollama --base-url http://127.0.0.1:11434 \
+  --default-model qwen2.5:3b --capabilities object
+
+printf '%s\n' \
+  '{"ticket":"R1","body":"SAVE10 causes a payment error; retrying without the code works."}' \
+  '{"ticket":"R2","body":"URGENT: Help page screenshot says Payment failed, but live payments work."}' \
+  '{"ticket":"R3","body":"Screen reader users cannot focus the Pay button; mouse checkout works."}' \
+  '{"ticket":"R4","body":"Card is charged and order completes, but confirmation emails arrive 20 minutes late."}' \
+  '{"ticket":"R5","body":"Receipts say Shippng; support marked this high priority."}' |
+  ribbit classify --input jsonl --field body \
+    --label 'blocking=Prevents some customers from completing a purchase' \
+    --label 'follow-up=Purchase completes, but another function is broken' \
+    --label 'cosmetic=Wording or appearance only' --provider local |
+  ribbit select 'ticket,label=$.annotations.classify.label' --output jsonl
 ```
 
-**Expected output:**
+**Example output** (labels are model judgments; check them against the original tickets):
 
 ```json
-{"name":"Lin"}
-{"name":"Ada"}
+{"ticket":"R1","label":"blocking"}
+{"ticket":"R2","label":"cosmetic"}
+{"ticket":"R3","label":"blocking"}
+{"ticket":"R4","label":"follow-up"}
+{"ticket":"R5","label":"cosmetic"}
 ```
 
-The exact commands work offline. npm needs Node.js >=20 and tar; it installs the matching checksum-verified GitHub asset. Linux, macOS, and Windows, on x64 and ARM64. See [installation](docs/installation.md) for platform details.
+Install and start [Ollama](https://ollama.com/download) first (`ollama serve` if it is not already running). Ribbit sends each ticket to your local model, keeps the originals in its record stream, and projects the labels only at the end. For other models or endpoints, see [model setup](docs/how-to/configure-models.md). npm needs Node.js >=20 and tar; it installs the matching checksum-verified GitHub asset. Linux, macOS, and Windows, on x64 and ARM64. See [installation](docs/installation.md) for platform details.
 
 ## Three guided examples
 
