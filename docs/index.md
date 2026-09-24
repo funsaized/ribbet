@@ -7,9 +7,9 @@ Ribbit is an extensible framework for composing model tasks into reusable comman
 | What you need | Where to go |
 | --- | --- |
 | Learn by building something small | [Tutorials](tutorials/index.md) |
-| Finish a particular task | [How-to guides](how-to/index.md) |
+| How do I do...? | [How-to guides](how-to/index.md) |
 | Look up syntax, formats, or limits | [Reference](reference/index.md) |
-| Understand the choices behind a workflow | [Explanation](explanation/index.md) |
+| Understand Ribbit's core | [Explanation](explanation/index.md) |
 
 ## Try a workflow
 
