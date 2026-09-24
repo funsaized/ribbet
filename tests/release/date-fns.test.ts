@@ -65,7 +65,7 @@ test('date-fns contribution flow sends pinned source paths and returns a control
 
     const evidence = provider.requests[0].messages[1].content;
 
-    for (const source of SOURCES) expect(evidence).toContain(source);
+    for (const source of SOURCES) expect(evidence.replaceAll(/\\+/g, '/')).toContain(source);
     for (const line of RELEVANT_LINES) expect(evidence).toContain(line);
     expect(provider.requests[0].messages[0].content).toContain('Do not assert an upstream bug');
   } finally {
@@ -84,7 +84,9 @@ test('read evidence keeps source metadata and a pipeline reproduces the flow out
     expect(read.code, read.err).toBe(0);
     const records = rows(read.out);
 
-    expect(records.map((r: any, i: number) => r.value.path.endsWith(SOURCES[i]))).toEqual(SOURCES.map(() => true));
+    expect(records.map((r: any, i: number) => r.value.path.replaceAll('\\', '/').endsWith(SOURCES[i]))).toEqual(
+      SOURCES.map(() => true),
+    );
     expect(records.map((r: any) => r.id)).toEqual(['1', '2', '3', '4', '5', '6']);
     expect(records.every((r: any) => r.source.path === r.value.path && r.value.content.length > 0)).toBe(true);
     const exported = await env.run(['render', '--as', 'jsonl'], read.out);
