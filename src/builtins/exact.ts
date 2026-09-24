@@ -110,7 +110,7 @@ export const exactCommands = {
           if (Buffer.byteLength(JSON.stringify(value)) > ctx.budget.limits.maxBytes)
             throw new RibbitError(6, 'Projection exceeds byte limit');
         }
-        yield { ...r, value };
+        yield { id: r.id, value };
       }
     },
     { cli: { positionals: ['fields'] } },

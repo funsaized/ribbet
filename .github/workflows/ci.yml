@@ -1,6 +1,7 @@
 name: verify
 on:
   push:
+    branches-ignore: [demo/failing-ci-projection]
   pull_request:
   workflow_dispatch:
 permissions:

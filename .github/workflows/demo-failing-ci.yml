@@ -1,0 +1,19 @@
+name: demo failing CI projection
+on:
+  push:
+    branches: [demo/failing-ci-projection]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  projection-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - run: bun install --frozen-lockfile
+      - name: Reproduce known annotation-loss regression
+        run: bun test tests/release/projection-baseline.test.ts
