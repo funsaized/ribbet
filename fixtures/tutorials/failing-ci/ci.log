@@ -1,14 +1,21 @@
-$ bun test tests/release/projection.test.ts
+$ bun test tests/release/projection-baseline.test.ts
 bun test v1.4.0 (34cbb9a40)
 
-tests/release/projection.test.ts:
-error: Invalid output: record annotations are required
-(fail) projection keeps annotations after classify [1.20ms]
-  at tests/release/projection.test.ts:24:24
+tests/release/projection-baseline.test.ts:
+RibbitError: [
+  {
+    "expected": "record",
+    "code": "invalid_type",
+    "path": [
+      "annotations"
+    ],
+    "message": "Invalid input: expected record, received undefined"
+  }
+]
+     code: 5,
+ location: "output",
+(fail) projection keeps annotations after classify [4.09ms]
 
  0 pass
  1 fail
- 1 expect() call
-Ran 1 test across 1 file. [412.00ms]
-
-error: script "test:release" exited with code 1
+Ran 1 test across 1 file. [32.00ms]

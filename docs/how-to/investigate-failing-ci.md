@@ -1,8 +1,16 @@
 # Investigate a failing CI check
 
-This is a **controlled offline regression**, not a published failing branch. The [provenance](../../fixtures/tutorials/failing-ci/PROVENANCE.md) identifies the constructed diff, log, source excerpt, and exact expected failure signature. No commit or workflow URL exists yet. The installed, healthy `ribbit` investigates the broken source excerpt; it does not execute or patch that source.
+The [healthy parent](https://github.com/funsaized/ribbit/commit/4824aac91a3b2a3bd42ffd7e84850ff709960eaf) passes the regression test. The one-line [broken demo commit](https://github.com/funsaized/ribbit/commit/736583fd7a27dd9090ea3ebef358d864dcc3b256) fails in a [dedicated workflow run](https://github.com/funsaized/ribbit/actions/runs/36018875927). See [evidence provenance](../../fixtures/tutorials/failing-ci/PROVENANCE.md) for excerpt boundaries. The installed, healthy `ribbit` investigates the broken source; it does not execute or patch that source.
 
-Install `ribbit` and configure a `stronger` object-capable profile using [model setup](configure-models.md). npm installation supplies the executable, **not** this repository's example files. Clone `https://github.com/funsaized/ribbit`, pin a reviewed revision, and from that checkout run:
+Install `ribbit` and configure a `stronger` object-capable profile using [model setup](configure-models.md). npm installation supplies the executable, **not** this repository's example files. Obtain the saved assets from the demo branch and record the checkout SHA for reproducibility. The broken branch is **only an evidence source**; all `ribbit` commands below resolve the installed executable on PATH:
+
+```sh
+git clone --branch demo/failing-ci-projection https://github.com/funsaized/ribbit.git ribbit-evidence
+cd ribbit-evidence
+git rev-parse HEAD
+```
+
+From that checkout run:
 
 ```sh
 mkdir -p ci-investigation/commands
@@ -10,10 +18,10 @@ cp -R fixtures/tutorials/failing-ci/. ci-investigation/
 cp examples/commands/diagnose-ci.yaml ci-investigation/commands/
 cp examples/flows/diagnose-ci.yaml ci-investigation/diagnose-ci.yaml
 cd ci-investigation
-ribbit read ci.log changes.diff src/builtins/exact.ts tests/release/projection.test.fixture --output records > evidence.records
+ribbit read ci.log changes.diff src/builtins/exact.ts tests/release/projection-baseline.test.fixture --output records > evidence.records
 ```
 
-**Expected output:** `evidence.records` starts with the v1 record header and contains four records with source paths. Check the exit status before accepting the file; a valid prefix can precede failure. Inspect `ci.log` for `(fail) projection keeps annotations after classify`, and compare the diff's `yield { id: r.id, value }` with the parent `yield { ...r, value }`.
+**Expected output:** `evidence.records` starts with the v1 record header and contains four records with source paths. Check the exit status before accepting the file; a valid prefix can precede failure. Inspect the captured `ci.log` for `(fail) projection keeps annotations after classify` and the missing `annotations` path; compare the diff's `yield { id: r.id, value }` with the parent's `yield { ...r, value }`. The source excerpt labels original line 113.
 
 The command definition refers to `diagnose.schema.json`, already copied into the working directory. Interpret the **saved** evidence first:
 
@@ -30,4 +38,4 @@ ribbit flow plan diagnose-ci.yaml
 ribbit flow run diagnose-ci.yaml --output json > flow-diagnosis.json
 ```
 
-**Expected output:** the plan shows one exact `read` and one model `diagnose-ci` stage on `stronger`. **Required properties:** successful exit, same six JSON fields, source-backed references. The flow shares a request budget; separate shell processes do not. stdout is data, stderr is diagnostics. Keep `evidence.records`, the fixture's diff/log, and the output for review. The `.fixture` suffix prevents the constructed reproduction from running in routine CI; a future broken checkout would install it as `tests/release/projection.test.ts` and run `bun test tests/release/projection.test.ts` after explicit branch authorization. Do not confuse that checkout with the healthy installed investigator. No branch or workflow is published yet.
+**Expected output:** the plan shows one exact `read` and one model `diagnose-ci` stage on `stronger`. **Required properties:** successful exit, same six JSON fields, source-backed references. The flow shares a request budget; separate shell processes do not. stdout is data, stderr is diagnostics. Keep `evidence.records`, the captured diff/log, and the output for review. To reproduce the failure in the deliberately broken checkout, use its development test command `bun test tests/release/projection-baseline.test.ts`. All investigation commands use the installed healthy `ribbit` from PATH. The `.fixture` suffix only prevents the offline evidence copy of the test from running in routine tests; no patch is applied automatically.

@@ -4,10 +4,9 @@ import { join } from 'node:path';
 import { sandbox, mockProvider } from '../../scripts/release/harness.ts';
 import { rows } from '../../scripts/release/cases.ts';
 
-// Controlled fixture; see fixtures/tutorials/failing-ci/PROVENANCE.md. No live
-// run, branch, or commit is claimed.
+// Captured CI excerpt plus controlled inference; see fixture provenance.
 const FIXTURE = 'fixtures/tutorials/failing-ci';
-const SOURCES = ['ci.log', 'changes.diff', 'src/builtins/exact.ts', 'tests/release/projection.test.fixture'];
+const SOURCES = ['ci.log', 'changes.diff', 'src/builtins/exact.ts', 'tests/release/projection-baseline.test.fixture'];
 const SIGNATURE_PATH = join(FIXTURE, 'failure-signature.txt');
 
 async function prepare() {
@@ -34,22 +33,22 @@ const diagnosis = (signature: string) => ({
   observations: [
     'ci.log reports output validation failing in the projection keeps annotations after classify test.',
     'changes.diff replaces yield { ...r, value } with yield { id: r.id, value } in src/builtins/exact.ts.',
-    'src/builtins/exact.ts line 101 now yields only id and value after select.',
+    'src/builtins/exact.ts excerpt line 9 identifies the branch source line 113 yielding only id and value.',
   ],
   hypotheses: ['select drops the record source and annotations, so classify labels never reach the projected records.'],
   sources: [
-    { path: 'ci.log', line: 6 },
+    { path: 'ci.log', line: 17 },
     { path: 'changes.diff', line: 6 },
-    { path: 'src/builtins/exact.ts', line: 101 },
-    { path: 'tests/release/projection.test.fixture', line: 25 },
+    { path: 'src/builtins/exact.ts', line: 9 },
+    { path: 'tests/release/projection-baseline.test.fixture', line: 39 },
   ],
   likelyChange: {
     path: 'src/builtins/exact.ts',
-    line: 101,
+    line: 9,
     reason: 'select returns a new object with only id and value, discarding source and annotations.',
   },
   nextChecks: [
-    'bun test tests/release/projection.test.ts',
+    'bun test tests/release/projection-baseline.test.ts',
     'ribbit flow run examples/flows/diagnose-ci.yaml --output json',
   ],
 });
@@ -114,10 +113,10 @@ test('diagnose-ci flow sends bounded evidence and returns a referenced structure
       expect(source.line).toBeLessThanOrEqual(lines.length);
       expect(lines[source.line - 1].trim().length).toBeGreaterThan(0);
     }
-    expect((await readFile(join(env.dir, output.likelyChange.path), 'utf8')).split('\n')[100]).toBe(
-      '        yield { id: r.id, value };',
+    expect((await readFile(join(env.dir, output.likelyChange.path), 'utf8')).split('\n')[8]).toBe(
+      '113 |         yield { id: r.id, value };',
     );
-    expect((await readFile(join(env.dir, 'tests/release/projection.test.fixture'), 'utf8')).split('\n')[24]).toContain(
+    expect((await readFile(join(env.dir, 'tests/release/projection-baseline.test.fixture'), 'utf8')).split('\n')[38]).toContain(
       'r.annotations.classify',
     );
   } finally {

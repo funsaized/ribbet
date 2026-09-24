@@ -34,7 +34,7 @@ The exact commands work offline. npm needs Node.js >=20 and tar; it installs the
 
 ## Three guided examples
 
-- **Investigate a failing CI check** — [guide](docs/how-to/investigate-failing-ci.md). Read a saved log, diff, and source excerpt into a bounded evidence file, then route a stronger model to a schema-constrained diagnosis. This is a controlled offline regression, not a published failing branch.
+- **Investigate a failing CI check** — [guide](docs/how-to/investigate-failing-ci.md). A deliberately broken [demo branch](https://github.com/funsaized/ribbit/commit/736583fd7a27dd9090ea3ebef358d864dcc3b256) has a [failed check](https://github.com/funsaized/ribbit/actions/runs/36018875927). Read its saved log, diff, and source excerpt into bounded evidence, then route a model to a schema-constrained diagnosis.
 - **Prepare a date-fns contribution brief** — [guide](docs/how-to/handoff-date-fns.md). Select pinned repository files from a bounded offline fixture exactly, then annotate a brief with a local model while keeping the source excerpts.
 - **Analyze an open dataset** — [guide](docs/how-to/analyze-open-data.md). Normalize the Central Park Squirrel Census, select nonempty notes exactly, and annotate a small deterministic sample. The offline sample is synthetic; live acquisition is a separate, non-transactional step.
 

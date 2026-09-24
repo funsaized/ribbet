@@ -9,7 +9,7 @@ steps:
         - ci.log
         - changes.diff
         - src/builtins/exact.ts
-        - tests/release/projection.test.fixture
+        - tests/release/projection-baseline.test.fixture
   - id: diagnosis
     command: diagnose-ci
     inference:
